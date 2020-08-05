@@ -1,213 +1,318 @@
-<!-- START: Main Menu-->
-        <div class="sidebar">
-            <div class="site-width">
-                <!-- START: Menu-->
-                <ul id="side-menu" class="sidebar-menu">
-                    <li class="dropdown active"><a href="#"><i class="icon-home mr-1"></i> Dashboard</a>                  
-                        <ul>
-                            <li><a href="index.html"><i class="icon-rocket"></i> Dashboard</a></li>
-                            <li><a href="index-account.html"><i class="icon-layers"></i> Account</a></li>
-                            <li><a href="index-analytic.html"><i class="icon-grid"></i> Analytic</a></li>
-                            <li><a href="index-covid.html"><i class="icon-earphones"></i> COVID</a></li>
-                            <li><a href="index-crypto.html"><i class="icon-support"></i> Crypto</a></li>
-                            <li class="active"><a href="index-ecommerce.html"><i class="icon-briefcase"></i> Ecommerce</a></li>
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a href="#"><i class="icon-organization mr-1"></i> Layout</a>
-                        <ul>
-                            <li class="dropdown"><a href="#"><i class="icon-options"></i>Horizontal</a>
-                                <ul class="sub-menu">
-                                    <li><a href="layout-horizontal.html"><i class="icon-energy"></i> Light</a></li>
-                                    <li><a href="layout-horizontal-semidark.html"><i class="icon-disc"></i> Semi Dark</a></li>
-                                    <li><a href="layout-horizontal-dark.html"><i class="icon-frame"></i> Dark</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown"><a href="#"><i class="icon-options-vertical"></i>Vertical</a>
-                                <ul class="sub-menu">
-                                    <li><a href="layout-vertical.html"><i class="icon-energy"></i> Light</a></li>
-                                    <li><a href="layout-vertical-semidark.html"><i class="icon-disc"></i> Semi Dark</a></li>
-                                    <li><a href="layout-vertical-dark.html"><i class="icon-frame"></i> Dark</a></li>
-                                </ul>
-                            </li>
-                            <li class="dropdown"><a href="#"><i class="icon-grid"></i>Compact Menu</a>
-                                <ul class="sub-menu">
-                                    <li><a href="layout-compact.html"><i class="icon-energy"></i> Light</a></li>
-                                    <li><a href="layout-compact-semidark.html"><i class="icon-disc"></i> Semi Dark</a></li>
-                                    <li><a href="layout-compact-dark.html"><i class="icon-frame"></i> Dark</a></li>
-                                </ul>
-                            </li>
-                           
-                        </ul>
-                    </li>
-                    <li class="dropdown"><a href="#"><i class="icon-layers mr-1"></i> Web Apps</a>                  
-                        <ul>
-                            <li><a href="app-calendar.html"><i class="icon-calendar"></i> Calendar</a></li>
-                            <li><a href="app-chat.html"><i class="icon-speech"></i> Chats</a></li>
-                            <li><a href="app-to-do.html"><i class="icon-support"></i> Todo</a></li> 
-                            <li><a href="app-mail.html"><i class="icon-envelope"></i>Mailapp</a></li>
-                            <li><a href="app-filemanager.html"><i class="icon-folder"></i> File Manager</a></li>
-                            <li><a href="app-contactlist.html"><i class="icon-people"></i> Contact List</a></li>
-                            <li><a href="app-taskboard.html"><i class="icon-event"></i> Task Board</a></li>
-                            <li><a href="app-notes.html"><i class="icon-tag"></i> Notes</a></li> 
-                            <li><a href="app-invoicelist.html"><i class="icon-book-open"></i> Invoices</a></li>
-                        </ul>                   
-                    </li>
-
-                    <li class="dropdown"><a href="#"><i class="icon-cursor mr-1"></i> Elements</a>                 
-                        <ul>
-                            <li class="dropdown"><a href="#"><i class="icon-chart"></i>Charts</a>                                
-                                <ul class="sub-menu">
-                                    <li><a href="chart-morris.html"><i class="icon-energy"></i> Morris Chart</a></li>
-                                    <li><a href="chart-chartist.html"><i class="icon-disc"></i> Chartist js</a></li>
-                                    <li><a href="chart-echart.html"><i class="icon-frame"></i> eCharts</a></li>
-                                    <li><a href="chart-flot.html"><i class="icon-fire"></i> Flot Chart</a></li>
-                                    <li><a href="chart-knob.html"><i class="icon-shuffle"></i> Knob Chart</a></li>
-                                    <li class="dropdown"><a href="#" class="d-flex align-items-center"><i class="icon-control-pause"></i> Charts js</a>                                          
-                                        <ul class="sub-menu">
-                                            <li><a href="chartjs-bar.html"><i class="icon-energy"></i> Bar charts</a></li>
-                                            <li><a href="chartjs-line.html"><i class="icon-disc"></i> Line charts</a></li>
-                                            <li><a href="chartjs-area.html"><i class="icon-frame"></i> Area charts</a></li>
-                                            <li><a href="chartjs-other.html"><i class="icon-fire"></i> Doughnut, Pie, Polar charts</a></li>
-                                            <li><a href="chartjs-linear.html"><i class="icon-shuffle"></i> Linear scale</a></li>                                                                        
-                                        </ul>                                           
-                                    </li>
-                                    <li><a href="chart-sparkline.html"><i class="icon-graph"></i> Sparkline Chart</a></li>                            
-                                    <li><a href="chart-peity.html"><i class="icon-pie-chart"></i> Peity Chart</a></li>   
-                                    <li><a href="chart-google.html"><i class="icon-drawer"></i> Google Charts</a></li>
-                                    <li><a href="chart-apex.html"><i class="icon-magnet"></i> Apex Charts</a></li>
-                                    <li><a href="chart-c3.html"><i class="icon-hourglass"></i> C3 Charts</a></li>
-                                </ul>                               
-                            </li> 
-                            <li class="dropdown"><a href="#"><i class="icon-film"></i>Form</a>                              
-                                <ul class="sub-menu">
-                                    <li><a href="form-basic.html"><i class="icon-disc"></i> Basic Form</a></li>
-                                    <li><a href="form-layout.html"><i class="icon-cursor-move"></i> Form Layout</a></li>
-                                    <li><a href="form-validation.html"><i class="icon-star"></i> Form Validation</a></li>
-                                    <li class="dropdown"><a href="#" class="d-flex align-items-center"><i class="icon-film"></i> Form Elements</a>                                          
-                                        <ul class="sub-menu">
-                                            <li><a href="form-elements-switch.html"><i class="icon-energy"></i> Switch</a></li>
-                                            <li><a href="form-elements-checkbox.html"><i class="icon-disc"></i> Checkbox</a></li>
-                                            <li><a href="form-elements-radiobutton.html"><i class="icon-frame"></i> Radio</a></li>
-                                            <li><a href="form-elements-input.html"><i class="icon-fire"></i> Input</a></li>                                       
-                                        </ul>                                           
-                                    </li>
-                                    <li><a href="form-float-input.html"><i class="icon-symbol-male"></i> Float Input</a></li>
-                                    <li><a href="form-wizard.html"><i class="icon-loop"></i> Form Wizards</a></li>
-                                    <li><a href="form-upload.html"><i class="icon-pin"></i> Form Uploads</a></li>
-                                    <li><a href="form-mask.html"><i class="icon-check"></i> Form Mask</a></li>                            
-                                    <li><a href="form-dropzone.html"><i class="icon-present"></i> Form Dropzone</a></li>
-                                    <li><a href="form-icheck.html"><i class="icon-briefcase"></i> Icheck Controls</a></li>
-                                    <li><a href="form-cropper.html"><i class="icon-hourglass"></i> Image Cropper</a></li>
-                                    <li><a href="form-htmleditor.html"><i class="icon-graduation"></i> HTML5 Editor</a></li>
-                                    <li><a href="form-typehead.html"><i class="icon-puzzle"></i> Form Typehead</a></li>                            
-                                    <li><a href="form-xeditable.html"><i class="icon-cloud-upload"></i> Xeditable</a></li>
-                                    <li><a href="form-summernote.html"><i class="icon-ghost"></i> Summernote</a></li>
-                                </ul>  
-                            </li>
-                            <li class="dropdown"><a href="#"><i class="icon-menu"></i>Tables</a>                               
-                                <ul class="sub-menu">
-                                    <li><a href="table-basic.html"><i class="icon-grid"></i> Table Basic</a></li>
-                                    <li><a href="table-layout.html"><i class="icon-layers"></i> Table Layout</a></li>
-                                    <li><a href="table-datatable.html"><i class="icon-docs"></i> Datatable</a></li>
-                                    <li><a href="table-footable.html"><i class="icon-wallet"></i> Footable</a></li>
-                                    <li><a href="table-jsgrid.html"><i class="icon-folder"></i> Jsgrid</a></li>
-                                    <li><a href="table-responsive.html"><i class="icon-control-pause"></i> Table Responsive</a></li>                            
-                                    <li><a href="table-editable.html"><i class="icon-pencil"></i> Editable Table</a></li>
-                                </ul>   
-                            </li>
-                        </ul>                   
-                    </li>
-                    <li class="dropdown"><a href="#"><i class="icon-magnet mr-1"></i> UI Component</a>                  
-                        <ul>
-                            <li class="dropdown"><a href="#"><i class="icon-screen-desktop"></i>UI Elements</a>                              
-                                <ul class="sub-menu">
-                                    <li><a href="ui-alert.html"><i class="icon-bell"></i> Alerts</a></li>
-                                    <li><a href="ui-badges.html"><i class="icon-badge"></i> Badges</a></li>
-                                    <li><a href="ui-buttons.html"><i class="icon-control-play"></i> Buttons</a></li>
-                                    <li><a href="ui-cards.html"><i class="icon-layers"></i> Cards</a></li>
-                                    <li><a href="ui-carousel.html"><i class="icon-picture"></i> Carousel</a></li>                           
-                                    <li><a href="ui-collapse.html"><i class="icon-arrow-up"></i> Collapse</a></li>
-                                    <li><a href="ui-dropdowns.html"><i class="icon-arrow-down"></i> Dropdowns</a></li>                          
-                                    <li><a href="ui-jumbotron.html"><i class="icon-screen-desktop"></i> Jumbotron</a></li>
-                                    <li><a href="ui-modals.html"><i class="icon-frame"></i> Modal</a></li> 
-                                    <li><a href="ui-pagination.html"><i class="icon-docs"></i> Pagination</a></li>  
-                                    <li><a href="ui-popoverandtooltip.html"><i class="icon-pin"></i> Popover &amp; Tooltip</a></li>
-                                    <li><a href="ui-progress.html"><i class="icon-graph"></i> Progress</a></li>
-                                    <li><a href="ui-scrollspy.html"><i class="icon-shuffle"></i> Scrollspy</a></li>
-                                    <li><a href="ui-select2.html"><i class="icon-wallet"></i> Select2</a></li>
-                                    <li><a href="ui-sweetalert.html"><i class="icon-fire"></i> Sweet Alert</a></li>
-                                    <li><a href="ui-timeline.html"><i class="icon-graduation"></i> Timeline</a></li>
-                                    <li><a href="ui-toastr.html"><i class="icon-layers"></i> Toastr</a></li>
-                                </ul>                              
-                            </li>
-                            <li class="dropdown"><a href="#"><i class="icon-badge"></i>Icons</a>                            
-                                <ul class="sub-menu">
-                                    <li><a href="icon-materialdesign.html"><i class="icon-star"></i> Material Icon</a></li>
-                                    <li><a href="icon-font-awesome.html"><i class="icon-screen-tablet"></i> Font-awesome</a></li>
-                                    <li><a href="icon-themify.html"><i class="icon-plane"></i> Themify Icon</a></li>
-                                    <li><a href="icon-weather.html"><i class="icon-drawer"></i> Weather Icon</a></li>
-                                    <li><a href="icon-simple-line.html"><i class="icon-map"></i> Simple Line Icon</a></li>
-                                    <li><a href="icon-flag.html"><i class="icon-flag"></i> Flag Icon</a></li>
-                                    <li><a href="icon-ionicons.html"><i class="icon-rocket"></i> Ionicons Icon</a></li>
-                                    <li><a href="icon-icofont.html"><i class="icon-fire"></i> Icofont Icon</a></li>    
-                                    <li><a href="icon-linearicons.html"><i class="icon-list"></i> Linear</a></li>
-                                    <li><a href="icon-crypto.html"><i class="icon-diamond"></i> Crypto</a></li>
-                                </ul>                                 
-                            </li>
-                        </ul>                 
-                    </li>
-                    <li class="dropdown"><a href="#"><i class="icon-doc mr-1"></i> Pages</a>                  
-                        <ul>
-                            <li class="dropdown"><a href="#"><i class="icon-book-open"></i>Other Pages</a>                               
-                                <ul class="sub-menu">
-                                    <li><a href="page-lockscreen.html"><i class="icon-lock"></i> Lockscreen</a></li>
-                                    <li><a href="page-login.html"><i class="icon-login"></i> login</a></li>
-                                    <li><a href="page-register.html"><i class="icon-direction"></i> Register</a></li>
-                                    <li><a href="page-404.html"><i class="icon-crop"></i> 404 Page</a></li>
-                                    <li><a href="page-404-menu.html"><i class="icon-layers"></i> 404 Page With Menu</a></li>
-                                    <li><a href="page-blank.html"><i class="icon-frame"></i> Blank Page</a></li>
-                                    <li><a href="page-gallery.html"><i class="icon-layers"></i> Gallery</a></li>
-                                    <li><a href="page-pricing.html"><i class="icon-wallet"></i> Pricing</a></li>
-                                    <li><a href="page-contact-us.html"><i class="icon-wrench"></i> Contact us</a></li>
-                                </ul>                               
-                            </li>
-                            <li><a href="user-profile.html"><i class="icon-user"></i>Profile Pages</a></li>
-                        </ul>                   
-                    </li>
-                    <li class="dropdown"><a href="#"><i class="icon-support mr-1"></i> Extras</a>                   
-                        <ul>
-                            <li class="dropdown"><a href="#"><i class="icon-map"></i>Map</a>                               
-                                <ul class="sub-menu">
-                                    <li><a href="map-google.html"><i class="icon-map"></i> Google Map</a></li>
-                                    <li><a href="map-vector.html"><i class="icon-vector"></i> Vector Map</a></li>
-
-                                </ul>                               
-                            </li>
-                            <li class="dropdown"><a href="#"><i class="icon-pencil"></i>Blog</a>                               
-                                <ul class="sub-menu">
-                                    <li><a href="blog-list.html"><i class="icon-plus"></i> Blog List</a></li>
-                                    <li><a href="blog-single.html"><i class="icon-tag"></i> Blog Post</a></li>                            
-                                </ul>                               
-                            </li>  
-                            <li class="dropdown"><a href="#"><i class="icon-bag"></i>Ecommerce</a>                                 
-                                <ul class="sub-menu">
-                                    <li><a href="ecommerce-product-list.html"><i class="icon-grid"></i> Products List</a></li>
-                                    <li><a href="ecommerce-product-detail.html"><i class="icon-plus"></i> Product Detail</a></li>
-                                    <li><a href="ecommerce-cart.html"><i class="icon-badge"></i> Cart</a></li>
-                                    <li><a href="ecommerce-checkout.html"><i class="icon-plus"></i> Checkout</a></li>
-                                    <li><a href="ecommerce-orders.html"><i class="icon-basket"></i> Orders</a></li>
-                                    <li><a href="ecommerce-order-view.html"><i class="icon-equalizer"></i> Order View</a></li>                           
-
-                                </ul>                               
-                            </li>
-                        </ul>                    
-                    </li>
-                </ul>
-                <!-- END: Menu-->
-                <ol class="breadcrumb bg-transparent align-self-center m-0 p-0 ml-auto">
-                    <li class="breadcrumb-item"><a href="#">Application</a></li>
-                    <li class="breadcrumb-item active">Dashboard</li>
-                </ol>
-            </div>
+<div class="main-menu menu-fixed menu-light menu-accordion menu-shadow" data-scroll-to-active="true">
+        <div class="navbar-header">
+            <ul class="nav navbar-nav flex-row">
+                <li class="nav-item mr-auto"><a class="navbar-brand" href="../../../html/ltr/vertical-menu-template/index.html">
+                        <div class="brand-logo"></div>
+                        <h2 class="brand-text mb-0">Vuexy</h2>
+                    </a></li>
+                <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pr-0" data-toggle="collapse"><i class="feather icon-x d-block d-xl-none font-medium-4 primary toggle-icon"></i><i class="toggle-icon feather icon-disc font-medium-4 d-none d-xl-block collapse-toggle-icon primary" data-ticon="icon-disc"></i></a></li>
+            </ul>
         </div>
-        <!-- END: Main Menu-->
+        <div class="shadow-bottom"></div>
+        <div class="main-menu-content">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+                <li class=" nav-item"><a href="index.html"><i class="feather icon-home"></i><span class="menu-title" data-i18n="Dashboard">Dashboard</span><span class="badge badge badge-warning badge-pill float-right mr-2">2</span></a>
+                    <ul class="menu-content">
+                        <li class="active"><a href="dashboard-analytics.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Analytics</span></a>
+                        </li>
+                        <li><a href="dashboard-ecommerce.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="eCommerce">eCommerce</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" navigation-header"><span>Apps</span>
+                </li>
+                <li class=" nav-item"><a href="app-email.html"><i class="feather icon-mail"></i><span class="menu-title" data-i18n="Email">Email</span></a>
+                </li>
+                <li class=" nav-item"><a href="app-chat.html"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Chat">Chat</span></a>
+                </li>
+                <li class=" nav-item"><a href="app-todo.html"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Todo">Todo</span></a>
+                </li>
+                <li class=" nav-item"><a href="app-calender.html"><i class="feather icon-calendar"></i><span class="menu-title" data-i18n="Calender">Calender</span></a>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-shopping-cart"></i><span class="menu-title" data-i18n="Ecommerce">Ecommerce</span></a>
+                    <ul class="menu-content">
+                        <li><a href="app-ecommerce-shop.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Shop">Shop</span></a>
+                        </li>
+                        <li><a href="app-ecommerce-details.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Details">Details</span></a>
+                        </li>
+                        <li><a href="app-ecommerce-wishlist.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Wish List">Wish List</span></a>
+                        </li>
+                        <li><a href="app-ecommerce-checkout.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Checkout">Checkout</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-user"></i><span class="menu-title" data-i18n="User">User</span></a>
+                    <ul class="menu-content">
+                        <li><a href="app-user-list.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List">List</span></a>
+                        </li>
+                        <li><a href="app-user-view.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="View">View</span></a>
+                        </li>
+                        <li><a href="app-user-edit.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Edit">Edit</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" navigation-header"><span>UI Elements</span>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Data List">Data List</span><span class="badge badge badge-primary badge-pill float-right mr-2">New</span></a>
+                    <ul class="menu-content">
+                        <li><a href="data-list-view.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List View">List View</span></a>
+                        </li>
+                        <li><a href="data-thumb-view.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Thumb View">Thumb View</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-layout"></i><span class="menu-title" data-i18n="Content">Content</span></a>
+                    <ul class="menu-content">
+                        <li><a href="content-grid.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Grid">Grid</span></a>
+                        </li>
+                        <li><a href="content-typography.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Typography">Typography</span></a>
+                        </li>
+                        <li><a href="content-text-utilities.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Text Utilities">Text Utilities</span></a>
+                        </li>
+                        <li><a href="content-syntax-highlighter.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Syntax Highlighter">Syntax Highlighter</span></a>
+                        </li>
+                        <li><a href="content-helper-classes.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Helper Classes">Helper Classes</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="colors.html"><i class="feather icon-droplet"></i><span class="menu-title" data-i18n="Colors">Colors</span></a>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-eye"></i><span class="menu-title" data-i18n="Icons">Icons</span></a>
+                    <ul class="menu-content">
+                        <li><a href="icons-feather.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Feather">Feather</span></a>
+                        </li>
+                        <li><a href="icons-font-awesome.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Font Awesome">Font Awesome</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-credit-card"></i><span class="menu-title" data-i18n="Card">Card</span></a>
+                    <ul class="menu-content">
+                        <li><a href="card-basic.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Basic">Basic</span></a>
+                        </li>
+                        <li><a href="card-advance.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Advance">Advance</span></a>
+                        </li>
+                        <li><a href="card-statistics.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Statistics">Statistics</span></a>
+                        </li>
+                        <li><a href="card-analytics.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Analytics">Analytics</span></a>
+                        </li>
+                        <li><a href="card-actions.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Card Actions">Card Actions</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-briefcase"></i><span class="menu-title" data-i18n="Components">Components</span></a>
+                    <ul class="menu-content">
+                        <li><a href="component-alerts.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Alerts">Alerts</span></a>
+                        </li>
+                        <li><a href="component-buttons-basic.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Buttons">Buttons</span></a>
+                        </li>
+                        <li><a href="component-breadcrumbs.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Breadcrumbs">Breadcrumbs</span></a>
+                        </li>
+                        <li><a href="component-carousel.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Carousel">Carousel</span></a>
+                        </li>
+                        <li><a href="component-collapse.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Collapse">Collapse</span></a>
+                        </li>
+                        <li><a href="component-dropdowns.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Dropdowns">Dropdowns</span></a>
+                        </li>
+                        <li><a href="component-list-group.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="List Group">List Group</span></a>
+                        </li>
+                        <li><a href="component-modals.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Modals">Modals</span></a>
+                        </li>
+                        <li><a href="component-pagination.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Pagination">Pagination</span></a>
+                        </li>
+                        <li><a href="component-navs-component.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Navs Component">Navs Component</span></a>
+                        </li>
+                        <li><a href="component-navbar.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Navbar">Navbar</span></a>
+                        </li>
+                        <li><a href="component-tabs-component.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Tabs Component">Tabs Component</span></a>
+                        </li>
+                        <li><a href="component-pills-component.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Pills Component">Pills Component</span></a>
+                        </li>
+                        <li><a href="component-tooltips.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Tooltips">Tooltips</span></a>
+                        </li>
+                        <li><a href="component-popovers.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Popovers">Popovers</span></a>
+                        </li>
+                        <li><a href="component-badges.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Badges">Badges</span></a>
+                        </li>
+                        <li><a href="component-pill-badges.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Pill Badges">Pill Badges</span></a>
+                        </li>
+                        <li><a href="component-progress.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Progress">Progress</span></a>
+                        </li>
+                        <li><a href="component-media-objects.html"><i class="feather icon-circle"></i><span class="menu-item">Media Objects</span></a>
+                        </li>
+                        <li><a href="component-spinner.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Spinner">Spinner</span></a>
+                        </li>
+                        <li><a href="component-bs-toast.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Toasts">Toasts</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-box"></i><span class="menu-title" data-i18n="Extra Components">Extra Components</span></a>
+                    <ul class="menu-content">
+                        <li><a href="ex-component-avatar.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Avatar">Avatar</span></a>
+                        </li>
+                        <li><a href="ex-component-chips.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Chips">Chips</span></a>
+                        </li>
+                        <li><a href="ex-component-divider.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Divider">Divider</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" navigation-header"><span>Forms &amp; Tables</span>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-copy"></i><span class="menu-title" data-i18n="Form Elements">Form Elements</span></a>
+                    <ul class="menu-content">
+                        <li><a href="form-select.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Select">Select</span></a>
+                        </li>
+                        <li><a href="form-switch.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Switch">Switch</span></a>
+                        </li>
+                        <li><a href="form-checkbox.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Checkbox">Checkbox</span></a>
+                        </li>
+                        <li><a href="form-radio.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Radio">Radio</span></a>
+                        </li>
+                        <li><a href="form-inputs.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Input">Input</span></a>
+                        </li>
+                        <li><a href="form-input-groups.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Input Groups">Input Groups</span></a>
+                        </li>
+                        <li><a href="form-number-input.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Number Input">Number Input</span></a>
+                        </li>
+                        <li><a href="form-textarea.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Textarea">Textarea</span></a>
+                        </li>
+                        <li><a href="form-date-time-picker.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Date &amp; Time Picker">Date &amp; Time Picker</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="form-layout.html"><i class="feather icon-box"></i><span class="menu-title" data-i18n="Form Layout">Form Layout</span></a>
+                </li>
+                <li class=" nav-item"><a href="form-wizard.html"><i class="feather icon-package"></i><span class="menu-title" data-i18n="Form Wizard">Form Wizard</span></a>
+                </li>
+                <li class=" nav-item"><a href="form-validation.html"><i class="feather icon-check-circle"></i><span class="menu-title" data-i18n="Form Validation">Form Validation</span></a>
+                </li>
+                <li class=" nav-item"><a href="table.html"><i class="feather icon-server"></i><span class="menu-title" data-i18n="Table">Table</span></a>
+                </li>
+                <li class=" nav-item"><a href="table-datatable.html"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="Datatable">Datatable</span></a>
+                </li>
+                <li class=" nav-item"><a href="table-ag-grid.html"><i class="feather icon-grid"></i><span class="menu-title" data-i18n="ag-grid">agGrid Table</span><span class="badge badge badge-primary badge-pill float-right mr-2">New</span></a>
+                </li>
+                <li class=" navigation-header"><span>pages</span>
+                </li>
+                <li class=" nav-item"><a href="page-user-profile.html"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Profile">Profile</span></a>
+                </li>
+                <li class=" nav-item"><a href="page-account-settings.html"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Account Settings">Account Settings</span></a>
+                </li>
+                <li class=" nav-item"><a href="page-faq.html"><i class="feather icon-help-circle"></i><span class="menu-title" data-i18n="FAQ">FAQ</span></a>
+                </li>
+                <li class=" nav-item"><a href="page-knowledge-base.html"><i class="feather icon-info"></i><span class="menu-title" data-i18n="Knowledge Base">Knowledge Base</span></a>
+                </li>
+                <li class=" nav-item"><a href="page-search.html"><i class="feather icon-search"></i><span class="menu-title" data-i18n="Search">Search</span></a>
+                </li>
+                <li class=" nav-item"><a href="page-invoice.html"><i class="feather icon-file"></i><span class="menu-title" data-i18n="Invoice">Invoice</span></a>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-zap"></i><span class="menu-title" data-i18n="Starter kit">Starter kit</span></a>
+                    <ul class="menu-content">
+                        <li><a href="../../../starter-kit/ltr/vertical-menu-template/sk-layout-2-columns.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="2 columns">2 columns</span></a>
+                        </li>
+                        <li><a href="../../../starter-kit/ltr/vertical-menu-template/sk-layout-fixed-navbar.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Fixed navbar">Fixed navbar</span></a>
+                        </li>
+                        <li><a href="../../../starter-kit/ltr/vertical-menu-template/sk-layout-floating-navbar.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Floating navbar">Floating navbar</span></a>
+                        </li>
+                        <li><a href="../../../starter-kit/ltr/vertical-menu-template/sk-layout-fixed.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Fixed layout">Fixed layout</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-unlock"></i><span class="menu-title" data-i18n="Authentication">Authentication</span></a>
+                    <ul class="menu-content">
+                        <li><a href="auth-login.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Login">Login</span></a>
+                        </li>
+                        <li><a href="auth-register.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Register">Register</span></a>
+                        </li>
+                        <li><a href="auth-forgot-password.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Forgot Password">Forgot Password</span></a>
+                        </li>
+                        <li><a href="auth-reset-password.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Reset Password">Reset Password</span></a>
+                        </li>
+                        <li><a href="auth-lock-screen.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Lock Screen">Lock Screen</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-file-text"></i><span class="menu-title" data-i18n="Miscellaneous">Miscellaneous</span></a>
+                    <ul class="menu-content">
+                        <li><a href="page-coming-soon.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Coming Soon">Coming Soon</span></a>
+                        </li>
+                        <li><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Error">Error</span></a>
+                            <ul class="menu-content">
+                                <li><a href="error-404.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="404">404</span></a>
+                                </li>
+                                <li><a href="error-500.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="500">500</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li><a href="page-not-authorized.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Not Authorized">Not Authorized</span></a>
+                        </li>
+                        <li><a href="page-maintenance.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Maintenance">Maintenance</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" navigation-header"><span>Charts &amp; Maps</span>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-pie-chart"></i><span class="menu-title" data-i18n="Charts">Charts</span><span class="badge badge badge-pill badge-success float-right mr-2">3</span></a>
+                    <ul class="menu-content">
+                        <li><a href="chart-apex.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Apex">Apex</span></a>
+                        </li>
+                        <li><a href="chart-chartjs.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Chartjs">Chartjs</span></a>
+                        </li>
+                        <li><a href="chart-echarts.html"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Echarts">Echarts</span></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class=" nav-item"><a href="maps-google.html"><i class="feather icon-map"></i><span class="menu-title" data-i18n="Google Maps">Google Maps</span></a>
+                </li>
+                <li class=" navigation-header"><span>Extensions</span>
+                </li>
+                <li class=" nav-item"><a href="ext-component-sweet-alerts.html"><i class="feather icon-alert-circle"></i><span class="menu-title" data-i18n="Sweet Alert">Sweet Alert</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-toastr.html"><i class="feather icon-zap"></i><span class="menu-title" data-i18n="Toastr">Toastr</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-noui-slider.html"><i class="feather icon-sliders"></i><span class="menu-title" data-i18n="NoUi Slider">NoUi Slider</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-file-uploader.html"><i class="feather icon-upload-cloud"></i><span class="menu-title" data-i18n="File Uploader">File Uploader</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-quill-editor.html"><i class="feather icon-edit"></i><span class="menu-title" data-i18n="Quill Editor">Quill Editor</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-drag-drop.html"><i class="feather icon-droplet"></i><span class="menu-title" data-i18n="Drag &amp; Drop">Drag &amp; Drop</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-tour.html"><i class="feather icon-info"></i><span class="menu-title" data-i18n="Tour">Tour</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-clipboard.html"><i class="feather icon-copy"></i><span class="menu-title" data-i18n="Clipboard">Clipboard</span></a>
+                </li>
+                <li class=" nav-item"><a href=" ext-component-plyr.html"><i class="feather icon-film"></i><span class="menu-title" data-i18n="Media player">Media player</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-context-menu.html"><i class="feather icon-more-horizontal"></i><span class="menu-title" data-i18n="Context Menu">Context Menu</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-swiper.html"><i class="feather icon-smartphone"></i><span class="menu-title" data-i18n="swiper">swiper</span></a>
+                </li>
+                <li class=" nav-item"><a href="ext-component-i18n.html"><i class="feather icon-globe"></i><span class="menu-title" data-i18n="l18n">l18n</span></a>
+                </li>
+                <li class=" navigation-header"><span>Others</span>
+                </li>
+                <li class=" nav-item"><a href="#"><i class="feather icon-menu"></i><span class="menu-title" data-i18n="Menu Levels">Menu Levels</span></a>
+                    <ul class="menu-content">
+                        <li><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Second Level">Second Level</span></a>
+                        </li>
+                        <li><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Second Level">Second Level</span></a>
+                            <ul class="menu-content">
+                                <li><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Third Level">Third Level</span></a>
+                                </li>
+                                <li><a href="#"><i class="feather icon-circle"></i><span class="menu-item" data-i18n="Third Level">Third Level</span></a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="disabled nav-item"><a href="#"><i class="feather icon-eye-off"></i><span class="menu-title" data-i18n="Disabled Menu">Disabled Menu</span></a>
+                </li>
+                <li class=" navigation-header"><span>Support</span>
+                </li>
+                <li class=" nav-item"><a href="https://pixinvent.com/demo/vuexy-html-bootstrap-admin-template/documentation"><i class="feather icon-folder"></i><span class="menu-title" data-i18n="Documentation">Documentation</span></a>
+                </li>
+                <li class=" nav-item"><a href="https://pixinvent.ticksy.com/"><i class="feather icon-life-buoy"></i><span class="menu-title" data-i18n="Raise Support">Raise Support</span></a>
+                </li>
+            </ul>
+        </div>
+    </div>
