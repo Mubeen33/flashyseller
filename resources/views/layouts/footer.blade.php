@@ -1,4 +1,4 @@
-    <div class="sidenav-overlay"></div>
+<div class="sidenav-overlay"></div>
     <div class="drag-target"></div>
 
     <!-- BEGIN: Footer-->
@@ -16,6 +16,10 @@
 
     <!-- BEGIN: Page Vendor JS-->
     <script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
+    
+<script src="{{ asset('app-assets/js/scripts/pages/account-setting.js')}}"></script>  
+<script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
+    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.date.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/extensions/tether.min.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/extensions/shepherd.min.js')}}"></script>
     <!-- END: Page Vendor JS-->
@@ -29,6 +33,41 @@
     <!-- BEGIN: Page JS-->
     <script src="{{ asset('app-assets/js/scripts/pages/dashboard-analytics.js')}}"></script>
     <!-- END: Page JS-->
+
+    <!-- Logout script -->
+
+    <script type="text/javascript">
+    function logout(){
+      
+     
+      
+      $.ajax({
+        url:'{{ url("/vendor/logout") }}',
+        type:'POST',
+        data:{
+          'id':1,
+          '_token':'{{csrf_token()}}'},
+        success:function(resp){
+         
+          if(resp == 1){
+          
+               window.location.reload();
+         
+            
+            
+            // window.location.reload();
+          }else{
+            
+          }
+
+        },
+        error:function(resp){
+         $('.triger2').click();
+        }
+      })
+    }
+  </script>
+    <!-- End Logout -->
 
 </body>
 <!-- END: Body-->

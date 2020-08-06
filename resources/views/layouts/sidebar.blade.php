@@ -195,11 +195,11 @@
                 </li>
                 <li class=" nav-item"><a href="page-user-profile.html"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Profile">Profile</span></a>
                 </li>
-                <li class=" nav-item"><a href="page-account-settings.html"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Account Settings">Account Settings</span></a>
+                <li class=" nav-item"><a href="/vendor/profile"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Account Settings">Account Settings</span></a>
                 </li>
-                <li class=" nav-item"><a href="page-faq.html"><i class="feather icon-help-circle"></i><span class="menu-title" data-i18n="FAQ">FAQ</span></a>
+                <li class=" nav-item"><a href="/vendor/create-category"><i class="feather icon-help-circle"></i><span class="menu-title" data-i18n="FAQ">Create Category</span></a>
                 </li>
-                <li class=" nav-item"><a href="page-knowledge-base.html"><i class="feather icon-info"></i><span class="menu-title" data-i18n="Knowledge Base">Knowledge Base</span></a>
+                <li class=" nav-item"><a href="/vendor/create-slider"><i class="feather icon-info"></i><span class="menu-title" data-i18n="Knowledge Base">Slider</span></a>
                 </li>
                 <li class=" nav-item"><a href="page-search.html"><i class="feather icon-search"></i><span class="menu-title" data-i18n="Search">Search</span></a>
                 </li>
