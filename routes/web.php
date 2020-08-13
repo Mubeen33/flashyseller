@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','VendorController@index');
 
-Auth::routes();
+// Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('vendor')->group(function (){
