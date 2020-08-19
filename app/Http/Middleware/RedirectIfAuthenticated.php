@@ -18,10 +18,33 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next, $guard = null)
     {
+        //custom
+        switch ($guard) {
+            case 'vendor':
+                if (Auth::guard($guard)->check()) {
+                    return redirect()->route('vendor.dashboard.get');
+                }
+                break;
+            
+            default:
+                // if (Auth::guard($guard)->check()) {
+                //     return redirect('/home');
+                // }
+                //not authenticate
+                return redirect('/');
+                break;
+        }
+
+        return $next($request);
+
+
+
+        /* default
         if (Auth::guard($guard)->check()) {
             return redirect(RouteServiceProvider::HOME);
         }
 
         return $next($request);
+        */
     }
 }

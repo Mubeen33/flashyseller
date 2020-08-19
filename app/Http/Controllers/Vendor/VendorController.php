@@ -1,57 +1,46 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Vendor;
 
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Vendor;
-use App\VendorDetail;
-use App\BankDetail;
-use App\Home_Page;
-use App\Inquiry;
-use DB;
-use Hash;
-use Session;
+use Auth;
 
 class VendorController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    // public function __construct()
-    // {
-    //     $this->middleware('auth');
-    // }
 
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
-
-    // Vendor Dashboard Starts
-    public function index(Request $request)
-    {   
-        if($request->session()->has('active'))
-        {
-            return view('index');
-        }else{
-             return redirect('/login');
-        }
-      
+    public function __construct()
+    {
+        $this->middleware('auth:vendor');
     }
 
-    // Vendor Dashboard Closed
+    
+    // Vendor Dashboard
+    public function dashboard(Request $request)
+    {   
+        //return dashabord view
+        return view('index');
+    }
 
+    
+
+
+
+
+
+
+
+
+    /*Old Codes
 
     // Vendor Login Function Starts
     public function vendor_login(Request $request)
     {   
         $password =$request->password;
         $email =   $request->email;
-        $user = DB::table('vendor')
-                    ->select('id','is_active','password','email')
+        $user = DB::table('vendors')
+                    ->select('id','active','password','email')
                     ->where('email',$email)
                     ->where('password',$password)
                     ->get();
@@ -64,6 +53,12 @@ class VendorController extends Controller
        
     }
      // Vendor Login Function Closed
+
+
+    //vendor login form
+    public function vendor_login_form(){
+        return view('auth.login');
+    }
 
      // Vendor Loging Out Function Starts
     public function Logout(Request $request){
@@ -101,7 +96,7 @@ class VendorController extends Controller
 
          public function profile_setup(Request $request)
             {   
-                $data = DB::table('vendor')
+                $data = DB::table('vendors')
                     ->join('vendor_details','vendor_details.vendor_id','=','vendor.id')
                     ->select('*')
                     ->where('vendor.id',$request->session()->get('active'))
@@ -221,6 +216,6 @@ class VendorController extends Controller
               }
           }
 
-    
+    */
     
 }

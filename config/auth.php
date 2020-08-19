@@ -46,6 +46,16 @@ return [
             'provider' => 'users',
             'hash' => false,
         ],
+        'vendor' => [
+            'driver' => 'session',
+            'provider' => 'vendors',
+        ],
+
+        'vendor-api' => [
+            'driver' => 'token',
+            'provider' => 'vendors',
+            'hash' => false,
+        ],
     ],
 
     /*
@@ -70,6 +80,12 @@ return [
             'driver' => 'eloquent',
             'model' => App\User::class,
         ],
+
+        'vendors' => [
+            'driver' => 'eloquent',
+            'model' => App\Vendor::class,
+        ],
+
 
         // 'users' => [
         //     'driver' => 'database',
@@ -98,6 +114,11 @@ return [
             'table' => 'password_resets',
             'expire' => 60,
             'throttle' => 60,
+        ],
+        'vendors' => [
+            'provider' => 'vendors',
+            'table' => 'password_resets',
+            'expire' => 60,
         ],
     ],
 

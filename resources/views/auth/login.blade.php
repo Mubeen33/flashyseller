@@ -70,14 +70,15 @@
                                             </div>
                                         </div>
                                         <p class="px-2">Welcome back, please login to your account.</p>
+                                        @include('msg.msg')
                                         <div class="card-content">
                                             <div class="card-body pt-1">
-                                                <form method="POST" enctype="multipart/form-data" action="/vendor/login">
+                                                <form method="POST" action="{{ route('vendor.login.post') }}">
                                                     @csrf
                                                     <fieldset class="form-label-group form-group position-relative has-icon-left">
-                                                    <input id="email" type="text" placeholder="Email" class="form-control @error('name') is-invalid @enderror" name="email" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                                    <input id="email" type="text" placeholder="Email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
 
-                                                        @error('name')
+                                                        @error('email')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
@@ -86,13 +87,13 @@
                                                         <div class="form-control-position">
                                                             <i class="feather icon-user"></i>
                                                         </div>
-                                                        <label for="user-name">Username</label>
+                                                        <label for="user-name">Email</label>
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                                    <input id="password" type="password" placeholder="Password" class="form-control @error('name') is-invalid @enderror" name="password" value="{{ old('name') }}" required autocomplete="name" autofocus>
+                                                    <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autofocus>
 
-                                                        @error('name')
+                                                        @error('passowrd')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
                                                             </span>
