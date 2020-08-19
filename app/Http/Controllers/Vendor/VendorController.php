@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Vendor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Vendor;
+use App\VendorBankDetailsTempData;
 use Carbon\Carbon;
 use Auth;
 use Hash;
@@ -200,18 +201,19 @@ class VendorController extends Controller
     }
 
     private function updateBankDetails($request){
-        //if validation pass
-        $updated = Vendor::where('id', Auth::guard('vendor')->user()->id)->update([
+        //if validation pass, data inserted to seperate tbl for approval
+        $inserted = VendorBankDetailsTempData::insert([
+           'vendor_id'=> Auth::guard('vendor')->user()->id,
            'account_holder'=> $request->account_holder,
            'bank_name'=> $request->bank_name,
            'bank_account'=> $request->bank_account,
            'branch_name'=> $request->branch_name,
            'branch_code'=> $request->branch_code,
-           'updated_at'=> Carbon::now()
+           'created_at'=> Carbon::now()
         ]);
         
-        if($updated == true){
-            return redirect()->back()->with('success', 'Bank Details Updated');
+        if($inserted == true){
+            return redirect()->back()->with('success', 'Bank Details data stored successfully. Please wait for admin approval.');
         }
         return redirect()->back()->with('error', 'SORRY - Something wrong, please try again later.');
     }

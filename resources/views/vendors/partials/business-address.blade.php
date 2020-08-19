@@ -10,8 +10,8 @@
             <div class="col-md-3 text-right">
                 <div class="d-flex justify-content-end">
                     @if($data->active == 0)
-                    <h3 title="Approved" style="margin-right: 15px">
-                        <i class="feather text-primary icon-close"></i>
+                    <h3 title="Pending" style="margin-right: 15px">
+                        <i class="feather text-danger icon-x"></i>
                     </h3>
                     @else
                     <h3 title="Approved" style="margin-right: 15px">

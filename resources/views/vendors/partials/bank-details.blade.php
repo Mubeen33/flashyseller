@@ -10,8 +10,8 @@
             <div class="col-md-3 text-right">
                 <div class="d-flex justify-content-end">
                     @if($data->active == 0)
-                    <h3 title="Approved" style="margin-right: 15px">
-                        <i class="feather text-primary icon-close"></i>
+                    <h3 title="Pending" style="margin-right: 15px">
+                        <i class="feather text-danger icon-x"></i>
                     </h3>
                     @else
                     <h3 title="Approved" style="margin-right: 15px">
@@ -19,9 +19,17 @@
                     </h3>
                     @endif
                     
+
+                    @php
+                        //if vendor has requested for updated bank details then hide the edit icon
+                        $BankDetailsTempData = (\App\VendorBankDetailsTempData::where(['vendor_id'=>Auth::guard('vendor')->user()->id, 'status'=>0])->first());
+                    @endphp
+
+                    @if(!$BankDetailsTempData)
                     <h3 style="cursor: pointer;" title="Edit Profile" id="btn-edit-bank-details">
                         <i class="feather text-primar icon-edit"></i>
                     </h3>
+                    @endif
                 </div>
             </div>
         </div>
@@ -38,12 +46,25 @@
                         <div class="col-12">
                             <div class="row">
                                 <div class="col-md-12">
+
+                                    @if($BankDetailsTempData) 
+                                    <h4>
+                                        <small class="form-control text-danger">
+                                            <span>Requested to Update Bank details at {{ $BankDetailsTempData->created_at->format('d/m/Y') }}</span> <span class="badge badge-danger">Pending</span>
+                                        </small>
+                                    </h4>
+                                    @endif
+
                                     <div class="row pt-0">
                                         <div class="col-md-3 col-3 ">
                                             <strong>Account Holder</strong>
                                         </div>
                                         <div class="col-md-9 col-9 p-0">
-                                            {{$data->account_holder}}
+                                            @if($BankDetailsTempData)
+                                                {{ $BankDetailsTempData->account_holder }}
+                                            @else
+                                                {{$data->account_holder}}
+                                            @endif
                                         </div>
                                     </div>
 
@@ -52,7 +73,11 @@
                                             <strong>Bank</strong>
                                         </div>
                                         <div class="col-md-9 col-9 p-0">
-                                            {{$data->bank_name}}
+                                            @if($BankDetailsTempData)
+                                                {{ $BankDetailsTempData->bank_name }}
+                                            @else
+                                                {{$data->bank_name}}
+                                            @endif
                                         </div>
                                     </div>
 
@@ -61,7 +86,11 @@
                                             <strong>Bank Account</strong>
                                         </div>
                                         <div class="col-md-9 col-9 p-0">
-                                            {{$data->bank_account}}
+                                            @if($BankDetailsTempData)
+                                                {{ $BankDetailsTempData->bank_account }}
+                                            @else
+                                                {{$data->bank_account}}
+                                            @endif
                                         </div>
                                     </div>
                                     
@@ -70,7 +99,11 @@
                                             <strong>Branch Name</strong>
                                         </div>
                                         <div class="col-md-9 col-9 p-0">
-                                            {{$data->branch_name}}
+                                            @if($BankDetailsTempData)
+                                                {{ $BankDetailsTempData->branch_name }}
+                                            @else
+                                                {{$data->branch_name}}
+                                            @endif
                                         </div>
                                     </div>
 
@@ -79,7 +112,11 @@
                                             <strong>Branch Code</strong>
                                         </div>
                                         <div class="col-md-9 col-9 p-0">
-                                            {{$data->branch_code}}
+                                            @if($BankDetailsTempData)
+                                                {{ $BankDetailsTempData->branch_code }}
+                                            @else
+                                                {{$data->branch_code}}
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
