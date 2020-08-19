@@ -32,8 +32,12 @@ authenticate routes for vendors with vendor Middleware
 All authenticate routes will go here
 */
 Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']], function(){
-	//dashboard
+	//vendor controller
+	Route::resource('vendors', 'Vendor\VendorController');
 	Route::get('dashboard', 'Vendor\VendorController@dashboard')->name('dashboard.get');
+	Route::get('profile', 'Vendor\VendorController@profile')->name('profile.get');
+	Route::post('vendor-password','Vendor\VendorController@update_vendor_pass')->name("passUpdate.post");
+
 
 });
 

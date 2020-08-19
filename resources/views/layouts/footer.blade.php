@@ -34,40 +34,7 @@
     <script src="{{ asset('app-assets/js/scripts/pages/dashboard-analytics.js')}}"></script>
     <!-- END: Page JS-->
 
-    <!-- Logout script -->
-
-    <script type="text/javascript">
-    function logout(){
-      
-     
-      
-      $.ajax({
-        url:'{{ url("/vendor/logout") }}',
-        type:'POST',
-        data:{
-          'id':1,
-          '_token':'{{csrf_token()}}'},
-        success:function(resp){
-         
-          if(resp == 1){
-          
-               window.location.reload();
-         
-            
-            
-            // window.location.reload();
-          }else{
-            
-          }
-
-        },
-        error:function(resp){
-         $('.triger2').click();
-        }
-      })
-    }
-  </script>
-    <!-- End Logout -->
+    @stack('scritps')
 
 </body>
 <!-- END: Body-->
