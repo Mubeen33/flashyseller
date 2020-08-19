@@ -12,16 +12,17 @@ Route::get('/', function(){
 
 //login routes
 Route::get('/login', 'Auth\VendorLogin@login_form')->name('login');
-Route::get('vendor/login', function(){
-	return redirect()->route('login');
-});
+Route::get('vendor/login', function(){ return redirect()->route('login'); });
 Route::post('vendor/login', 'Auth\VendorLogin@login')->name('vendor.login.post');
 
 //logout routes
-Route::get('logout', function(){
-	return abort(404);
-});
+Route::get('logout', function(){ return abort(404); });
 Route::post('logout', 'Auth\VendorLogout@logout')->name('logout');
+
+//reset password
+Route::get('reset/passoword/{token?}/{email?}', 'Auth\ForgotPassword@pass_reset_form')->name('resetPassForm.get');
+Route::post('send/pass-reset/link', 'Auth\ForgotPassword@send_reset_link')->name('sendPassResetLink.post');
+Route::post('reset/passoword', 'Auth\ForgotPassword@password_reset_post')->name('passwordReset.post');
 
 
 
