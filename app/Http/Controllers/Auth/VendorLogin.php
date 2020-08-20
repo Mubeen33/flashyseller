@@ -56,7 +56,7 @@ class VendorLogin extends Controller
         }else{
             $browser = "Unknown";
         }
-        $data = json_encode(['IP'=>$ip, 'Client Browser'=>$browser, 'LoggedIn at'=>Carbon::now()]);
+        $data = json_encode(['IP'=>$ip, 'Client Browser'=>$browser, 'LoggedIn at'=>date('d/m/Y H:i', strtotime(Carbon::now()))]);
 
         //insert record
         VendorActivity::insert([
