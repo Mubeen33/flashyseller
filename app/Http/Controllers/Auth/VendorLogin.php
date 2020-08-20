@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+use App\VendorActivity;
+use Carbon\Carbon;
 
 class VendorLogin extends Controller
 {
@@ -27,12 +29,41 @@ class VendorLogin extends Controller
 
     	//attempt to log user in
     	if (Auth::guard('vendor')->attempt(['email'=>$request->email, 'password'=>$request->password], $request->remember)) {
-    		//if success to login then redirect
-    		return redirect()->intended(route('vendor.dashboard.get'));
+            //record activity
+            $this->loggedInActivity();
+            return redirect()->intended(route('vendor.dashboard.get'));
     	}
 
     	//if unsuccess to login then redirect
     	return redirect()->back()->withInput($request->only('email', 'remember'));
     	
+    }
+
+
+    //activity tract
+    private function loggedInActivity(){
+        $ip = \Request::ip();
+        $browser = "";
+
+        $agent = $_SERVER["HTTP_USER_AGENT"];
+        // Check to see if it contains the keyword `Chrome` followed by a version number
+        if (preg_match('/Chrome[\/\s](\d+\.\d+)/', $agent) ) {
+          $browser = "Chrome";
+        }elseif (preg_match('/Firefox[\/\s](\d+\.\d+)/', $agent)) {
+            $browser = "Firefox";
+        }elseif (preg_match('/Safary[\/\s](\d+\.\d+)/', $agent)) {
+            $browser = "Safary";
+        }else{
+            $browser = "Unknown";
+        }
+        $data = json_encode(['IP'=>$ip, 'Client Browser'=>$browser, 'LoggedIn at'=>Carbon::now()]);
+
+        //insert record
+        VendorActivity::insert([
+            'vendor_id'=>Auth::guard('vendor')->user()->id,
+            'activityName'=>'Login',
+            'activity'=>$data,
+            'created_at'=>Carbon::now()
+        ]);
     }
 }

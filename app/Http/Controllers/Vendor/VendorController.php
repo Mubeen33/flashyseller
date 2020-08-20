@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Vendor;
 use App\VendorBankDetailsTempData;
+use App\VendorActivity;
 use Carbon\Carbon;
 use Auth;
 use Hash;
@@ -21,7 +22,7 @@ class VendorController extends Controller
     
     // Vendor Dashboard
     public function dashboard(Request $request)
-    {   
+    {           
         //return dashabord view
         return view('index');
     }
@@ -181,6 +182,14 @@ class VendorController extends Controller
         ]);
         
         if($updated == true){
+            //record activity
+            VendorActivity::insert([
+                'vendor_id'=>Auth::guard('vendor')->user()->id,
+                'activityName'=>'Profile Update',
+                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'created_at'=>Carbon::now()
+            ]);
+
             return redirect()->back()->with('success', 'Profile Details Updated');
         }
         return redirect()->back()->with('error', 'SORRY - Something wrong, please try again later.');
@@ -195,6 +204,13 @@ class VendorController extends Controller
         ]);
         
         if($updated == true){
+            //record activity
+            VendorActivity::insert([
+                'vendor_id'=>Auth::guard('vendor')->user()->id,
+                'activityName'=>'Contact Details Update',
+                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'created_at'=>Carbon::now()
+            ]);
             return redirect()->back()->with('success', 'Contact Details Updated');
         }
         return redirect()->back()->with('error', 'SORRY - Something wrong, please try again later.');
@@ -213,6 +229,13 @@ class VendorController extends Controller
         ]);
         
         if($inserted == true){
+            //record activity
+            VendorActivity::insert([
+                'vendor_id'=>Auth::guard('vendor')->user()->id,
+                'activityName'=>'Bank Details Update',
+                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'created_at'=>Carbon::now()
+            ]);
             return redirect()->back()->with('success', 'Bank Details data stored successfully. Please wait for admin approval.');
         }
         return redirect()->back()->with('error', 'SORRY - Something wrong, please try again later.');
@@ -233,6 +256,13 @@ class VendorController extends Controller
         ]);
         
         if($updated == true){
+            //record activity
+            VendorActivity::insert([
+                'vendor_id'=>Auth::guard('vendor')->user()->id,
+                'activityName'=>'Director Details Update',
+                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'created_at'=>Carbon::now()
+            ]);
             return redirect()->back()->with('success', 'Director Details Updated');
         }
         return redirect()->back()->with('error', 'SORRY - Something wrong, please try again later.');
@@ -252,6 +282,13 @@ class VendorController extends Controller
         ]);
         
         if($updated == true){
+            //record activity
+            VendorActivity::insert([
+                'vendor_id'=>Auth::guard('vendor')->user()->id,
+                'activityName'=>'Business Address Update',
+                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'created_at'=>Carbon::now()
+            ]);
             return redirect()->back()->with('success', 'Business Address Details Updated');
         }
         return redirect()->back()->with('error', 'SORRY - Something wrong, please try again later.');
@@ -271,6 +308,13 @@ class VendorController extends Controller
         ]);
         
         if($updated == true){
+            //record activity
+            VendorActivity::insert([
+                'vendor_id'=>Auth::guard('vendor')->user()->id,
+                'activityName'=>'WireHouse Update',
+                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'created_at'=>Carbon::now()
+            ]);
             return redirect()->back()->with('success', 'WireHouse Address Details Updated');
         }
         return redirect()->back()->with('error', 'SORRY - Something wrong, please try again later.');
