@@ -62,7 +62,7 @@ class VendorLogin extends Controller
         VendorActivity::insert([
             'vendor_id'=>Auth::guard('vendor')->user()->id,
             'activityName'=>'Login',
-            'activity'=>$data,
+            'activities'=>$data,
             'created_at'=>Carbon::now()
         ]);
     }

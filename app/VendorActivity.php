@@ -8,4 +8,8 @@ class VendorActivity extends Model
 {
     //
     protected $fillable = ['vendor_id', 'activityName', 'activity'];
+
+    protected $casts = [
+        'activity' => 'array'
+    ];
 }

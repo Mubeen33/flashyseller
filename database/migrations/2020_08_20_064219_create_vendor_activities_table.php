@@ -17,7 +17,7 @@ class CreateVendorActivitiesTable extends Migration
             $table->id();
             $table->unsignedBigInteger('vendor_id');
             $table->string('activityName');
-            $table->text('activity');
+            $table->json('activity');
             $table->timestamps();
         });
     }

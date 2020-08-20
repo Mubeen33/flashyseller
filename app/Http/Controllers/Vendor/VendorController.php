@@ -22,7 +22,7 @@ class VendorController extends Controller
     
     // Vendor Dashboard
     public function dashboard(Request $request)
-    {           
+    {
         //return dashabord view
         return view('index');
     }
@@ -186,7 +186,7 @@ class VendorController extends Controller
             VendorActivity::insert([
                 'vendor_id'=>Auth::guard('vendor')->user()->id,
                 'activityName'=>'Profile Update',
-                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'activities'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
                 'created_at'=>Carbon::now()
             ]);
 
@@ -208,7 +208,7 @@ class VendorController extends Controller
             VendorActivity::insert([
                 'vendor_id'=>Auth::guard('vendor')->user()->id,
                 'activityName'=>'Contact Details Update',
-                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'activities'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
                 'created_at'=>Carbon::now()
             ]);
             return redirect()->back()->with('success', 'Contact Details Updated');
@@ -233,7 +233,7 @@ class VendorController extends Controller
             VendorActivity::insert([
                 'vendor_id'=>Auth::guard('vendor')->user()->id,
                 'activityName'=>'Bank Details Update',
-                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'activities'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
                 'created_at'=>Carbon::now()
             ]);
             return redirect()->back()->with('success', 'Bank Details data stored successfully. Please wait for admin approval.');
@@ -260,7 +260,7 @@ class VendorController extends Controller
             VendorActivity::insert([
                 'vendor_id'=>Auth::guard('vendor')->user()->id,
                 'activityName'=>'Director Details Update',
-                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'activities'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
                 'created_at'=>Carbon::now()
             ]);
             return redirect()->back()->with('success', 'Director Details Updated');
@@ -286,7 +286,7 @@ class VendorController extends Controller
             VendorActivity::insert([
                 'vendor_id'=>Auth::guard('vendor')->user()->id,
                 'activityName'=>'Business Address Update',
-                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'activities'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
                 'created_at'=>Carbon::now()
             ]);
             return redirect()->back()->with('success', 'Business Address Details Updated');
@@ -312,7 +312,7 @@ class VendorController extends Controller
             VendorActivity::insert([
                 'vendor_id'=>Auth::guard('vendor')->user()->id,
                 'activityName'=>'WireHouse Update',
-                'activity'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
+                'activities'=>json_encode($request->except(['_token', '_method', 'type', 'update'])),
                 'created_at'=>Carbon::now()
             ]);
             return redirect()->back()->with('success', 'WireHouse Address Details Updated');
