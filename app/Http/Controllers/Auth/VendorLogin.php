@@ -56,13 +56,27 @@ class VendorLogin extends Controller
         }else{
             $browser = "Unknown";
         }
-        $data = json_encode(['IP'=>$ip, 'Client Browser'=>$browser, 'LoggedIn at'=>date('d/m/Y H:i', strtotime(Carbon::now()))]);
+
+        //IP to address
+        $getIP_location = \Location::get(($ip == "127.0.0.1" ? "66.102.0.0" : $ip));
+        $location = "Unknown";
+        if ($getIP_location != NULL) {
+            $location = $getIP_location->countryName.', '.$getIP_location->regionName.', '.$getIP_location->cityName;
+        }
+
+        $data = json_encode([
+                    'Time'=>date('d/m/Y H:i', strtotime(Carbon::now())), 
+                    'Access Via'=>$browser, 
+                    'IP'=>$ip,
+                    'Location'=>$location,
+                ]);
 
         //insert record
         VendorActivity::insert([
             'vendor_id'=>Auth::guard('vendor')->user()->id,
             'activityName'=>'Login',
             'activities'=>$data,
+            'is_loogedIn'=>'Active',
             'created_at'=>Carbon::now()
         ]);
     }
