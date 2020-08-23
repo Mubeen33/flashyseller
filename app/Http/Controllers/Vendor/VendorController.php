@@ -103,7 +103,7 @@ class VendorController extends Controller
             $this->validate($request, [
                 'first_name' => ['required', 'string', 'max:50'],
                 'last_name' => ['required', 'string', 'max:50'],
-                'email' => ['required', 'string', 'email', 'max:255', 'unique:vendors,email,'.$id],
+                'email' => ['required', 'string', 'email', 'max:100', 'unique:vendors,email,'.$id],
                 'mobile' => ['required', 'string', 'max:16']
             ]);
             return $this->updateSellerDetails($request);
