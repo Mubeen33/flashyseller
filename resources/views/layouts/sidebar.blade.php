@@ -193,8 +193,15 @@
                 </li>
                 <li class=" navigation-header"><span>pages</span>
                 </li>
-                <li class=" nav-item"><a href="page-user-profile.html"><i class="feather icon-user"></i><span class="menu-title" data-i18n="Profile">Profile</span></a>
+
+                <li class="nav-item">
+                    <a href="{{ route('vendor.profile.get') }}"><i class="feather icon-user"></i>
+                        <span class="menu-title" data-i18n="Profile">
+                            Profile
+                        </span>
+                    </a>
                 </li>
+
                 <li class=" nav-item"><a href="/vendor/profile"><i class="feather icon-settings"></i><span class="menu-title" data-i18n="Account Settings">Account Settings</span></a>
                 </li>
                 <li class=" nav-item"><a href="/vendor/create-category"><i class="feather icon-help-circle"></i><span class="menu-title" data-i18n="FAQ">Create Category</span></a>
