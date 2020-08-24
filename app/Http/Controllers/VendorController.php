@@ -37,7 +37,7 @@ class VendorController extends Controller
         {
             return view('index');
         }else{
-             return redirect('/login');
+             return redirect('vendor.login');
         }
       
     }
