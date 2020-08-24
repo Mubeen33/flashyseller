@@ -12,7 +12,7 @@ Route::get('/', function(){
 
 //login routes
 Route::get('/login', 'Auth\VendorLogin@login_form')->name('login');
-Route::get('vendor/login', function(){ return redirect()->route('login'); });
+// Route::get('vendor/login', function(){ return redirect()->route('login'); });
 Route::post('vendor/login', 'Auth\VendorLogin@login')->name('vendor.login.post');
 
 //logout routes
