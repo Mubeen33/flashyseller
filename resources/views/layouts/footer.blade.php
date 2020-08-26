@@ -34,6 +34,66 @@
     <script src="{{ asset('app-assets/js/scripts/pages/dashboard-analytics.js')}}"></script>
     <!-- END: Page JS-->
 
+    <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
+    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+     <style>
+       .ui-helper-hidden-accessible {
+          display:none !important;
+         }
+    </style>
+    <script>
+         $(function() {
+            var projects = [
+               {
+                  value: "Phone Cs in phone Cases",
+                  desc: "Home & living ▸ Home Decor ▸ wall decor",
+               },
+               {
+                  value: "Iphone Mobile",
+                  desc: "Electornics ▸ Mobile phone ▸ Iphone",
+               },
+               {
+                  value: "wall decorators",
+                  desc: "Home & living ▸ Home Decor ▸ wall decor",
+               },
+               {
+                  value: "1 flat",
+                  desc: "Property ▸ Home ▸ flat",
+               },
+               {
+                  value: "Phone Cs in phone Cases",
+                  desc: "Home & living ▸ Home Decor ▸ wall decor",
+               },
+               {
+                  value: "Phone Cs in phone Cases",
+                  desc: "Home & living ▸ Home Decor ▸ wall decor",
+               },
+            ];
+            $( "#project" ).autocomplete({
+               minLength: 0,
+               source: projects,
+               focus: function( event, ui ) {
+                  $( "#project" ).val( ui.item.label );
+                     return false;
+               },
+               select: function( event, ui ) {
+                  $( "#project" ).val( ui.item.label );
+                  $( "#project-id" ).val( ui.item.value );
+                  $( "#project-description" ).html( ui.item.desc );
+                  return false;
+               }
+            })
+        
+            .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+               return $( "<li class='list-group-item list-group-item-action'>" )
+               .append( "<a style='text-decoration:none;'>" + item.label + "<br>" + item.desc + "</a>" )
+               .appendTo( ul );
+            };
+            $("#ui-id-1").addClass("list-group");
+            (".ui-helper-hidden-accessible").remove();
+         });
+    </script>
     @stack('scritps')
 
 </body>

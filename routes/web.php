@@ -12,7 +12,7 @@ Route::get('/', function(){
 
 //login routes
 Route::get('/login', 'Auth\VendorLogin@login_form')->name('login');
-// Route::get('vendor/login', function(){ return redirect()->route('login'); });
+//Route::get('vendor/login', function(){ return redirect()->route('login'); });
 Route::post('vendor/login', 'Auth\VendorLogin@login')->name('vendor.login.post');
 
 //logout routes
@@ -37,18 +37,17 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get('dashboard', 'Vendor\VendorController@dashboard')->name('dashboard.get');
 	Route::get('profile', 'Vendor\VendorController@profile')->name('profile.get');
 	Route::post('vendor-password','Vendor\VendorController@update_vendor_pass')->name("passUpdate.post");
-
+	// add product ..
 
 });
 
+Route::get('add-product',function(){
+	return view("vendors.product.addproduct");
+});
 
-
-
-
-
-
-
-
+Route::get("/eventory",function(){
+	return view("vendors.enventory");
+});
 
 
 

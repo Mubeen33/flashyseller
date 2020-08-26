@@ -10,7 +10,8 @@ use Carbon\Carbon;
 
 class VendorLogin extends Controller
 {
-	public function __construct(){
+	
+    public function __construct(){
 		$this->middleware('guest:vendor');
 	}
 
@@ -26,7 +27,7 @@ class VendorLogin extends Controller
     		'email' => 'required|string|email|max:100',
     		'password' => 'required|min:8',
     	]);
-
+        
     	//attempt to log user in
     	if (Auth::guard('vendor')->attempt(['email'=>$request->email, 'password'=>$request->password], $request->remember)) {
             //record activity
