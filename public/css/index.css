@@ -453,6 +453,9 @@ ul.scroll::-webkit-scrollbar-thumb:hover {
     height: 32px !important;
     width: 32px !important;
  }
+ .ui-helper-hidden-accessible {
+          display:none !important;
+ }
  
  #project-description {
     margin: 0 !important;
@@ -460,5 +463,17 @@ ul.scroll::-webkit-scrollbar-thumb:hover {
  }
  .list-group-item {
   border-radius:0px !important;
+  border:0px !important;
+  
+ }
+ .auto-list {
+ 	width:70% !important;
+ }
+
+ .upld-image{
+ 	border:1px solid #D9D9D9 !important; 
+ 	margin-top: 5px; 
+ 	border-top:none !important;
+ 	cursor:pointer;
  }
  

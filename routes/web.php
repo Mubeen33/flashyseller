@@ -45,7 +45,7 @@ Route::get('add-product',function(){
 	return view("vendors.product.addproduct");
 });
 
-Route::get("/eventory",function(){
+Route::get("/enventory",function(){
 	return view("vendors.enventory");
 });
 
