@@ -392,10 +392,10 @@
                                           		<select class="form-control" name="variation">
                                           			<option>Choose Variation Type</option>
                                           			<optgroup label="Variation Type">
-                                          				<option>Primary colour</option>
-                                          				<option>Secondary colour</option>
-                                          				<option>Card slot</option>
-                                          				<option>Built-in stand</option>
+                                          				<option value="pcolor">Primary colour</option>
+                                          				<option value="scolor">Secondary colour</option>
+                                          				<option value="cardslot">Card slot</option>
+                                          				<option value="">Built-in stand</option>
                                           				<option>Built-in grip</option>
                                           				<option>Diameter</option>
                                           			</optgroup>
