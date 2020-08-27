@@ -230,7 +230,7 @@
                 </li>
                 <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-file"></i><span data-i18n="Pages">Pages</span></a>
                     <ul class="dropdown-menu">
-                        <li data-menu=""><a class="dropdown-item" href="page-user-profile.html" data-toggle="dropdown" data-i18n="Profile"><i class="feather icon-user"></i>Profile</a>
+                        <li data-menu=""><a class="dropdown-item" href="{{ route('vendor.profile.get') }}" data-toggle="dropdown" data-i18n="Profile"><i class="feather icon-user"></i>Profile</a>
                         </li>
                         <li data-menu=""><a class="dropdown-item" href="page-account-settings.html" data-toggle="dropdown" data-i18n="Account Settings"><i class="feather icon-settings"></i>Account Settings</a>
                         </li>
