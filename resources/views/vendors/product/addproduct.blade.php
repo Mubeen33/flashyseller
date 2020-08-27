@@ -372,7 +372,7 @@
       				</div>
       			<div class="row">
       					<div class="col-lg-12">
-      						<button data-toggle="modal" data-target="#primary" class="btn btn-light mr-1 mb-1 waves-effect waves-light">
+      						<button data-toggle="modal" data-target="#primary" type="button" class="btn btn-light mr-1 mb-1 waves-effect waves-light">
       							Add Variations
       						</button>
                            <div class="modal fade text-left" id="primary" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160" aria-hidden="true">
