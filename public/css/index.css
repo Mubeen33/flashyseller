@@ -9,7 +9,9 @@
 .order-title , .title-order {
 	font-family:Arial !important;
 }
-
+.delvari{
+	cursor: pointer !important;
+}
 .list-ch {
 	font-size:10px;
 }

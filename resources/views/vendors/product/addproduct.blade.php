@@ -385,19 +385,57 @@
                                           </button>
                                       </div>
                                       <div class="modal-body">
-                                          List all the options you offer. Buyers will see them in the order they are here.
+                                          <div id="variationsbox"></div>
                                           <div class="row">
-                                          	<div class="col-lg-4">
-                                          		<label class="mb-xs-2">Add a variation</label> <br/>
-                                          		<select class="form-control" name="variation">
+                                          	<div class="col-lg-6">
+                                          		<select id="variationopt" class="form-control" name="variation">
                                           			<option>Choose Variation Type</option>
                                           			<optgroup label="Variation Type">
-                                          				<option value="pcolor">Primary colour</option>
-                                          				<option value="scolor">Secondary colour</option>
-                                          				<option value="cardslot">Card slot</option>
-                                          				<option value="">Built-in stand</option>
-                                          				<option>Built-in grip</option>
-                                          				<option>Diameter</option>
+                                          		          <option value="pc" nam="Primary Colour">
+                                                            Primary colour
+                                                        </option>
+                                                        <option value="sc" nam="Secondary Colour">
+                                                            Secondary colour
+                                                        </option>
+                                                        <option value="diameter" nam="Diameters">
+                                                            Diameters
+                                                        </option>
+                                                        <option nam="Fabric" value="fabric">
+                                                          Fabric
+                                                        </option>
+                                                        <option value="flavour" nam="Flavour">
+                                                            Flavour
+                                                        </option>
+                                                        <option value="height" nam="Height">
+                                                            Height
+                                                        </option>
+                                                        <option nam="Length" value="length">
+                                                          Length
+                                                        </option>
+                                                        <option nam="Material" value="material">
+                                                          Material
+                                                        </option>
+                                                        <option nam="Pattren" value="pattren">
+                                                          Pattren
+                                                        </option>
+                                                        <option nam="Scent" value="scent">
+                                                            Scent
+                                                        </option>
+                                                        <option value="size" nam="Size">
+                                                            Size
+                                                        </option>
+                                                        <option nam="Style" value="style">
+                                                            Style
+                                                        </option>
+                                                        <option nam="Weight" value="weight">
+                                                            Weight
+                                                        </option>
+                                                        <option nam="Width" value="width">
+                                                            Width
+                                                        </option>
+                                                        <option nam="Device" value="device">
+                                                            Device
+                                                        </option>
                                           			</optgroup>
                                           		</select>
                                           	</div>
@@ -419,80 +457,63 @@
 </div>
 @endsection
 @section('script')
-    <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
-    {{-- <script type="text/javascript" src="{{ asset('js/index.js') }}"></script> --}}
-    <script type="text/javascript">
-$(document).ready(function(){
-    $("[product='img']").click(function(){
-        var n = $(this).attr('n');
-        var src = $(this).attr('src');
-        $("#pimg"+n).click();
-        $("#pimg"+n).change(function(event) {    
-          var formData = new FormData();
-          var file = document.getElementById("pimg"+n).files[0];
-          formData.append("Filedata", file);
-          var t = file.type.split('/').pop().toLowerCase();
-          const fsize = file.size;
-          var tmppath = URL.createObjectURL(event.target.files[0]);
-            //$("img").fadeIn("fast").attr('src',tmppath);
-          $("#img"+n).attr('src',src.replace(src,tmppath)); 
-        });
-    });
-});
-$(document).ready(function(){
-    $("#ui-id-1").addClass("list-group");
-              $(function() {
-        var projects = [
-           {
-              value: "Phone Cs in phone Cases",
-              desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
-           },
-           {
-              value: "Iphone Mobile",
-              desc: "<p class='p-graph'> Electornics ▸ Mobile phone ▸ Iphone</p>",
-           },
-           {
-              value: "wall decorators",
-              desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
-           },
-           {
-              value: "1 flat",
-              desc: "<p class='p-graph'>▸ Property ▸ Home ▸ flat </p>",
-           },
-           {
-              value: "Phone Cs in phone Cases",
-              desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
-           },
-           {
-              value: "Phone Cs in phone Cases",
-              desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
-           },
-        ];
-        $( "#project" ).autocomplete({
-           minLength: 0,
-           source: projects,
-           focus: function( event, ui ) {
-              $( "#project" ).val( ui.item.label );
-                 return false;
-           },
-           select: function( event, ui ) {
-              $( "#project" ).val( ui.item.label );
-              $( "#project-id" ).val( ui.item.value );
-              $( "#project-description" ).html( ui.item.desc );
-              return false;
-           }
-        })
-    
-        .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-           return $( "<li class='list-group-item auto-list list-group-item-action'>" )
-           .append( "<a style='text-decoration:none;'>" + item.label + "<br>" + item.desc + "</a>" )
-           .appendTo( ul );
-        };
-        $("#ui-id-1").addClass("list-group");
-        (".ui-helper-hidden-accessible").remove();
-     });
-});
-    </script>
+  <script src = "https://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src = "https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+  <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
+  <script type="text/javascript">
+      $(document).ready(function(){
+          $("#ui-id-1").addClass("list-group");
+            $(function() {
+              var projects = [
+                 {
+                    value: "Phone Cs in phone Cases",
+                    desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
+                 },
+                 {
+                    value: "Iphone Mobile",
+                    desc: "<p class='p-graph'> Electornics ▸ Mobile phone ▸ Iphone</p>",
+                 },
+                 {
+                    value: "wall decorators",
+                    desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
+                 },
+                 {
+                    value: "1 flat",
+                    desc: "<p class='p-graph'>▸ Property ▸ Home ▸ flat </p>",
+                 },
+                 {
+                    value: "Phone Cs in phone Cases",
+                    desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
+                 },
+                 {
+                    value: "Phone Cs in phone Cases",
+                    desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
+                 },
+              ];
+              $( "#project" ).autocomplete({
+                 minLength: 0,
+                 source: projects,
+                 focus: function( event, ui ) {
+                    $( "#project" ).val( ui.item.label );
+                       return false;
+                 },
+                 select: function( event, ui ) {
+                    $( "#project" ).val( ui.item.label );
+                    $( "#project-id" ).val( ui.item.value );
+                    $( "#project-description" ).html( ui.item.desc );
+                    return false;
+                 }
+              })
+          
+              .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+                 return $( "<li class='list-group-item auto-list list-group-item-action'>" )
+                 .append( "<a style='text-decoration:none;'>" + item.label + "<br>" + item.desc + "</a>" )
+                 .appendTo( ul );
+              };
+              $("#ui-id-1").addClass("list-group");
+              (".ui-helper-hidden-accessible").remove();
+           });
+      });
+  </script>
 @endsection
     

@@ -41,6 +41,7 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 
 });
 
+
 Route::get('add-product',function(){
 	return view("vendors.product.addproduct");
 });
