@@ -1,4 +1,11 @@
 @extends('layouts.master')
+@section('page-title','Add Product')
+        
+
+@section('breadcrumbs')                            
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item active">Add Product</li>
+@endsection
 @section('content')
 <style type="text/css">
   .p-graph {
@@ -22,10 +29,10 @@
             				<div class="row">
             					<div  class="col-lg-2">
             						<ul class="text-smaller text-gray-lighter">
-            							<li> Use natural light and no flash. </li>
-            							<li> Include a common object for scale. </li>
-            							<li> Show the item being held, worn, or used. </li>
-            							<li> Shoot against a clean, simple background. </li>
+            							<li>Use natural light and no flash. </li>
+            							<li>Include a common object for scale. </li>
+            							<li>Show the item being held, worn, or used. </li>
+            							<li>Shoot against a clean, simple background. </li>
             						</ul>
             					</div>
             					<div class="col-lg-2 ">
@@ -112,11 +119,11 @@
              					<div class="col-lg-3">
              						<br />
              						<select class="form-control">
-             							<option>Who made it?</option>
+             							<option selected >Who made it?</option>
              							<optgroup label="Select a maker">
       						      <option value="I did">I did</option>
       						      <option value="A member of my shop">A member of my shop</option>
-      						      <option value="Another company or person" selected>Another company or person</option>
+      						      <option value="Another company or person" >Another company or person</option>
       						    </optgroup>
              						</select>
              					</div>
