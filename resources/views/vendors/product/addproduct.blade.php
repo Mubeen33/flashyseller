@@ -8,7 +8,8 @@
 </style>
 <div class="content-body">
 	<div class="container-fluid">
-      <form class="">
+      <form class="" method="post">
+
       		<!-- Photos -->
       		<div class="card form-group">
              	<div class="card-body">
@@ -386,6 +387,7 @@
                                       </div>
                                       <div class="modal-body">
                                           <div id="variationsbox"></div>
+                                          <br />
                                           <div class="row">
                                           	<div class="col-lg-6">
                                           		<select id="variationopt" class="form-control" name="variation">

@@ -6,6 +6,10 @@
 #basic-tabs-components {
 	margin-top:-30px !important;
 }
+.rmv{
+	cursor: pointer;
+}
+
 .order-title , .title-order {
 	font-family:Arial !important;
 }

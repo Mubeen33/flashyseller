@@ -53,9 +53,6 @@ Route::get("/enventory",function(){
 
 
 
-
-
-
 /*
 Route::prefix('vendor')->group(function (){
 
