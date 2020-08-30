@@ -37,7 +37,12 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get('dashboard', 'Vendor\VendorController@dashboard')->name('dashboard.get');
 	Route::get('profile', 'Vendor\VendorController@profile')->name('profile.get');
 	Route::post('vendor-password','Vendor\VendorController@update_vendor_pass')->name("passUpdate.post");
-	// add product ..
+	
+	// deals
+	Route::resource('deals','Deal\DealController');
+	Route::get('ajax-get-deals-product/fetch','Deal\DealController@get_products');
+	Route::get('delete-deal/{id}','Deal\DealController@delete_deal')->name('deals.deleteDeal');
+
 
 });
 

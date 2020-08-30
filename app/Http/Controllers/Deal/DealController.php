@@ -199,4 +199,22 @@ class DealController extends Controller
         }
         return abort(404);
     }
+
+
+    //delete deal
+    public function delete_deal($id){
+        $id = \Crypt::decrypt($id);
+        $data = Deal::where([
+            'id'=>$id,
+        ])->first();
+        if (!$data) {
+            return redirect()->back()->with('error','Deal Not Found');
+        }
+
+        if ($data->status != 0) {
+            return redirect()->back()->with('error',"SORRY -  You can't this deal.");
+        }
+        $data->delete();
+        return redirect()->back()->with('success',"SUCCESS -  Deal Deleted");
+    }
 }
