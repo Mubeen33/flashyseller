@@ -1,4 +1,11 @@
 @extends('layouts.master')
+@section('page-title','Add Product')
+        
+
+@section('breadcrumbs')                            
+    <li class="breadcrumb-item"><a href="#">Home</a></li>
+    <li class="breadcrumb-item active">Add Product</li>
+@endsection
 @section('content')
 <style type="text/css">
   .p-graph {
@@ -8,8 +15,11 @@
 </style>
 <div class="content-body">
 	<div class="container-fluid">
+<<<<<<< HEAD:resources/views/vendors/product/addproduct.blade.php
       <form class="" method="post">
 
+=======
+>>>>>>> ee2285711efb48f4a1d05f770272334563ef27a4:resources/views/product/addproduct.blade.php
       		<!-- Photos -->
       		<div class="card form-group">
              	<div class="card-body">
@@ -23,32 +33,42 @@
             				<div class="row">
             					<div  class="col-lg-2">
             						<ul class="text-smaller text-gray-lighter">
-            							<li> Use natural light and no flash. </li>
-            							<li> Include a common object for scale. </li>
-            							<li> Show the item being held, worn, or used. </li>
-            							<li> Shoot against a clean, simple background. </li>
+            							<li>Use natural light and no flash. </li>
+            							<li>Include a common object for scale. </li>
+            							<li>Show the item being held, worn, or used. </li>
+            							<li>Shoot against a clean, simple background. </li>
             						</ul>
             					</div>
+                    <form>  
             					<div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img1" product="img" n="1" height="185px" width="100%" class="upld-image" />
+                        <img src="{{ asset('images/upld.png') }}" id="img1" product="img" n="1" height="185px" onchange="" width="100%" class="upld-image" />
                         <input type="file" name="img1" id="pimg1" style="display:none;" />
                       </div>
+                    </form> 
+                    <form> 
                        <div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img2" product="img" n="2" height="185px" width="100%" class="upld-image"  />
+                        <img src="{{ asset('images/upld.png') }}" id="img2" product="img" n="2" height="185px" onchange="" width="100%" class="upld-image"  />
                         <input type="file" name="img2" id="pimg2" style="display:none;" />
                       </div>
+                    </form>
+                    <form>  
                        <div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img3" product="img" n="3" height="185px" width="100%" class="upld-image"  />
+                        <img src="{{ asset('images/upld.png') }}" id="img3" product="img" n="3" height="185px" onchange="" width="100%" class="upld-image"  />
                         <input type="file" name="img3" id="pimg3" style="display:none;" />
                       </div>
+                    </form> 
+                    <form> 
                        <div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img4" product="img" n="4" height="185px" width="100%" class="upld-image"  />
+                        <img src="{{ asset('images/upld.png') }}" id="img4" product="img" n="4" height="185px" onchange="" width="100%" class="upld-image"  />
                         <input type="file" name="img4" id="pimg4" style="display:none;" />
                       </div>
+                    </form>
+                    <form>   
                        <div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img5" product="img" n="5" height="185px" width="100%" class="upld-image"  />
+                        <img src="{{ asset('images/upld.png') }}" id="img5" product="img" n="5" height="185px" onchange="" width="100%" class="upld-image"  />
                         <input type="file" name="img5" id="pimg5" style="display:none;" />
                       </div>
+                    </form>  
             				</div>  
                     <br />      
             				<div class="row">
@@ -62,6 +82,8 @@
             				</div>     			
       			  </div>
       		</div>
+      
+      <form class="">    
       		<!-- end Photos -->
       		<!-- Card video -->
       		<div class="card">
@@ -113,11 +135,11 @@
              					<div class="col-lg-3">
              						<br />
              						<select class="form-control">
-             							<option>Who made it?</option>
+             							<option selected >Who made it?</option>
              							<optgroup label="Select a maker">
       						      <option value="I did">I did</option>
       						      <option value="A member of my shop">A member of my shop</option>
-      						      <option value="Another company or person" selected>Another company or person</option>
+      						      <option value="Another company or person" >Another company or person</option>
       						    </optgroup>
              						</select>
              					</div>

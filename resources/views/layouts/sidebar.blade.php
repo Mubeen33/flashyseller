@@ -272,19 +272,15 @@
                         </li>
                     </ul>
                 </li>
-                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-bar-chart-2"></i><span data-i18n="Charts &amp; Maps">Charts &amp; Maps</span></a>
+                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-bar-chart-2"></i><span data-i18n="Charts &amp; Maps">Deals</span></a>
                     <ul class="dropdown-menu">
-                        <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown" data-i18n="Charts"><i class="feather icon-pie-chart"></i>Charts</a>
+                        <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown" data-i18n="Charts"><i class="feather icon-pie-chart"></i>Deals</a>
                             <ul class="dropdown-menu">
-                                <li data-menu=""><a class="dropdown-item" href="chart-apex.html" data-toggle="dropdown" data-i18n="Apex"><i class="feather icon-circle"></i>Apex</a>
+                                <li data-menu=""><a class="dropdown-item" href="{{ route('vendor.deals.create') }}" data-toggle="dropdown" data-i18n="Apex"><i class="feather icon-circle"></i>New Deals</a>
                                 </li>
-                                <li data-menu=""><a class="dropdown-item" href="chart-chartjs.html" data-toggle="dropdown" data-i18n="Chartjs"><i class="feather icon-circle"></i>Chartjs</a>
-                                </li>
-                                <li data-menu=""><a class="dropdown-item" href="chart-echarts.html" data-toggle="dropdown" data-i18n="Echarts"><i class="feather icon-circle"></i>Echarts</a>
+                                <li data-menu=""><a class="dropdown-item" href="{{ route('vendor.deals.index') }}" data-toggle="dropdown" data-i18n="Chartjs"><i class="feather icon-circle"></i>My Deals</a>
                                 </li>
                             </ul>
-                        </li>
-                        <li data-menu=""><a class="dropdown-item" href="maps-google.html" data-toggle="dropdown" data-i18n="Google Maps"><i class="feather icon-map"></i>Google Maps</a>
                         </li>
                     </ul>
                 </li>
