@@ -27,7 +27,7 @@ $(document).ready(function(){
 
                   });
                      */ 
-                     
+
               } else if(v == "sc") {           
                 $("#variationsbox").append("<div tas='vri"+n+"''><label class='mb-xs-2 strong'>Secondary Colour</label> <span class='delvari' del='vari' no='"+n+"'><font color='red'><i class='fa fa-trash'></i></font></span><div class='row'><div class='col-lg-6 col-sm-6 col-md-6'><input type='checkbox' name='flavourprice'/> Prices vary for each primary colour <br/> <input type='checkbox' name='scqty' /> Quantities vary for each primary colour <br/> <input type='checkbox' name='scsku' /> SKU vary for each primary colour</div><div class='col-lg-6 col-md-6 col-sm-6'></div><br/><hr/></div>");
              
@@ -94,7 +94,7 @@ $(document).ready(function(){
                
                 $("#variationsbox").append("<div tas='vri"+n+"''><label class='mb-xs-2 strong'>Device</label> <span class='delvari' del='vari' no='"+n+"'><font color='red'><i class='fa fa-trash'></i></font></span><div class='row'><div class='col-lg-6 col-sm-6 col-md-6'><input type='checkbox' name='deviceprice'/> Prices vary for each primary colour <br/> <input type='checkbox' name='deviceqty' /> Quantities vary for each primary colour <br/> <input type='checkbox' name='devicesku' /> SKU vary for each primary colour</div><div class='col-lg-6 col-md-6 col-sm-6'></div></div><br/><hr/></div>");
                 
-              }
+              } 
         }
         if (n == 2) {
           $("#variationopt").hide();
