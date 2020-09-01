@@ -1,7 +1,13 @@
 $(document).ready(function(){
+
+	//search products
 	$("#searchProductInput_").on('keyup', function(){
 		//get products
 		let searchKey = $(this).val();
+		if (!$(this).val()) {
+			$("#render__data").html('')
+			return;
+		}
 	    if (searchKey !== "") {
 	    	$.ajax({
 		        url:"/vendor/ajax-get-deals-product/fetch?search_key="+searchKey,
@@ -11,7 +17,9 @@ $(document).ready(function(){
 		            $("#render__data").html(response)
 		        },
 		        error: function (jqXHR, textStatus, errorThrown) {
-		            if (jqXHR.status === 422) {
+		            if (jqXHR.status === 404) {
+		                $("#render__data").html(jqXHR.responseText)
+		            }else if (jqXHR.status === 422) {
 		                alert('Sorry\n'+ jqXHR.responseText)
 		                //window.location.reload(true)
 		            }else if (jqXHR.status === 401) {
@@ -77,7 +85,11 @@ $(document).ready(function(){
 					$("#dealCreatingForm button[type=submit]").attr('disabled', false)
 					
 					if (jqXHR.status === 422) {
-	                  	alert('Sorry\n'+ jqXHR.responseText)
+	                  	let string_to_obj = JSON.parse(jqXHR.responseText)
+	                  	//console.log(string_to_obj.field)
+	                  	$("input[name="+string_to_obj.field+"]").addClass('border-danger-alert');
+	                  	$("input[name="+string_to_obj.field+"]").siblings('.error-msg').html(string_to_obj.msg);
+	                  	
 	                }else if (jqXHR.status === 500) {
 	                  	alert('Sorry\n'+ jqXHR.responseText)
 	                  	window.location.reload(true)
@@ -94,4 +106,12 @@ $(document).ready(function(){
 	            }
 	        });
 	})
+
 })
+
+
+
+function removeErrorLevels(input){
+	input.removeClass('border-danger-alert')
+	input.siblings('.error-msg').html('')
+}

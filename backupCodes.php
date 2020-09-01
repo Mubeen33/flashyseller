@@ -1,202 +1,118 @@
-<?php
+@extends('layouts.master')
+@section('page-title','Dashboard')
 
-namespace App\Http\Controllers\Deal;
+@push('styles')
+<style type="text/css">
+   .auto-complete-wrapper ul{
+      padding: 0;
+      margin: 0;
+      outline: 0;
+      list-style: none;
+      margin-top: 5px
+   }
+   .auto-complete-wrapper ul li{
+      padding: 2px 10px;
+      border:1px solid #ddd;
+      margin-bottom: 2px;
+      cursor: pointer;
+   }
+   .auto-complete-wrapper ul li p{
+      margin-top: 2px
+   }
+   .auto-complete-wrapper ul li:hover{
+      border:1px solid #7367F0;
+   }
+   .border-danger-alert{
+      border:1px solid red;
+   }
+</style>
+@endpush
 
-use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Product;
-use App\Deal;
-use Carbon\Carbon;
-use Auth;
-use Illuminate\Support\Facades\Validator;
+@section('breadcrumbs')                            
+<li class="breadcrumb-item"><a href="#">Home</a></li>
+<li class="breadcrumb-item active">Deal Create</li>
+@endsection
 
-class DealController extends Controller
-{
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function __construct()
-    {
-        $this->middleware('auth:vendor');
-    }
+@section('content')
+<div class="content-body">
+   @include('msg.msg')
+   <div class="row" id="basic-table">
+      <div class="col-12">
+         <div class="card">
+            <div class="card-header">
+               <h4 class="card-title">Add New Deal</h4>
+            </div>
+            <div class="card-content">
+               <div class="card-body">
+                  <div class="row">
+                     <div class="col-12">
+                        <form id="dealCreatingForm" action="{{ route('vendor.deals.store') }}" method="post">
+                           @csrf
+                           <div class="card">
+                              <div class="card-body pr-0 pl-0">
+                                 <div class="row">
+                                    <div class="col-12">
+                                       <div class="form-group">
+                                          <label>Product</label>
+                                          <input id="searchProductInput_" type="text" name="product" class="form-control" placeholder="Search product" value="{{old('product')}}">
+                                          <input id="set__productID" type="hidden" name="product_id" class="form-control">
+                                          <div id="render__data">
+                                             @include('Deals.partials.auto-complete')
+                                          </div>
+                                          <small class="error-msg"></small>
+                                       </div>
 
-
-    public function index()
-    {
-        $data = Deal::where('vendor_id', Auth::guard('vendor')->user()->id)
-            ->orderBy('status', 'ASC')
-            ->with('get_product')
-            ->paginate(5);
-        return view('Deals.index', compact('data'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        return view('Deals.create');
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $validation = Validator::make($request->all(), [
-            'product'=>'required|string',
-            'product_id'=>'required|numeric',
-            'start_date'=>'required|date',
-            'end_date'=>'required|date',
-            'price'=>'required|numeric',
-            'quantity'=>'required|numeric'
-        ]);
-
-        if ($validation->fails()) {
-            foreach ($validation->messages()->get('*') as $key => $value) {
-                $value = json_encode($value);
-                $text = str_replace('["', "", $value);
-                $text = str_replace('"]', "", $text);
-                return response()->json($text, 422);
-            }
-        }
-
-        //insert now
-        $inserted = Deal::insert([
-            'vendor_id'=>Auth::guard('vendor')->user()->id,
-            'product_id'=>$request->product_id,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
-            'price'=>$request->price,
-            'quantity'=>$request->quantity,
-            'created_at'=>Carbon::now()
-        ]);
-
-        if ($inserted == true) {
-            return response()->json([
-                'success'=>true,
-                'msg'=>"Deal Created Successfully"
-            ], 200);
-        }else{
-            return response()->json("Something went wrong, please try again.", 500);
-        }
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $id = \Crypt::decrypt($id);
-        $data = Deal::findOrFail($id);
-        return view('Deals.edit', compact('data'));
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        $validation = Validator::make($request->all(), [
-            'product'=>'required|string',
-            'product_id'=>'required|numeric',
-            'start_date'=>'required|date',
-            'end_date'=>'required|date',
-            'price'=>'required|numeric',
-            'quantity'=>'required|numeric'
-        ]);
-
-        if ($validation->fails()) {
-            foreach ($validation->messages()->get('*') as $key => $value) {
-                $value = json_encode($value);
-                $text = str_replace('["', "", $value);
-                $text = str_replace('"]', "", $text);
-                return response()->json($text, 422);
-            }
-        }
-
-        $oldData = Deal::where([
-            'id'=>$id,
-            'vendor_id'=>Auth::guard('vendor')->user()->id,
-            'status'=>0
-        ])->first();
-
-        if (!$oldData) {
-            return response()->json('Deal Not Found', 404);
-        }
+                                       <div class="row">
+                                             <div class="col-lg-6">
+                                                <div class="form-group">
+                                                   <label>Start Time</label>
+                                                   <input type="date" name="start_time" class="form-control" value="{{old('start_time')}}">
+                                                </div>
+                                             </div>
+                                             <div class="col-lg-6">
+                                                <div class="form-group">
+                                                   <label>End Time</label>
+                                                   <input type="date" name="end_time" class="form-control" value="{{old('end_time')}}">
+                                                </div>
+                                             </div>
+                                       </div>
 
 
-        //insert now
-        $update = $oldData->update([
-            'product_id'=>$request->product_id,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
-            'price'=>$request->price,
-            'quantity'=>$request->quantity,
-            'updated_at'=>Carbon::now()
-        ]);
+                                       <div>
+                                          <div class="row">
+                                                <div class="col-lg-6">
+                                                   <div class="form-group">
+                                                      <label>Price</label>
+                                                      <input type="text" name="price" class="form-control" value="{{old('price')}}" placeholder="Deal Price">
+                                                   </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                   <div class="form-group">
+                                                      <label>Quantity</label>
+                                                      <input type="text" name="quantity" class="form-control" value="{{old('quantity')}}" placeholder="Deal Quantity">
+                                                   </div>
+                                                </div>
+                                          </div>
+                                       </div>
+                                       
+                                       
+                                       <button class="btn btn-primary" type="submit" name="update">Add</button>
+                                    </div>
+                                 </div>
+                              </div>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <!-- card-body end here -->
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+@endsection
 
-        if ($update == true) {
-            return response()->json([
-                'success'=>true,
-                'msg'=>"Deal Updated Successfully"
-            ], 200);
-        }else{
-            return response()->json("Something went wrong, please try again.", 500);
-        }
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-
-    //custom
-    public function get_products(Request $request){
-        if ($request->ajax()) {
-            $searchKey = $request->search_key;
-
-            $getProducts = Product::where("title", "LIKE", "%$searchKey%")
-                        ->orWhere("description", "LIKE", "%$searchKey%")
-                        ->with("get_category")
-                        ->orderBy('title', 'ASC')
-                        ->paginate(10);
-            
-
-            return view('Deals.partials.auto-complete', compact('getProducts'))->render();
-        }
-        return abort(404);
-    }
-}
+@push('scritps')  
+   <script type="text/javascript" src="{{ asset('assets/js/deals.js') }}"></script>
+@endpush

@@ -53,8 +53,8 @@ class DealController extends Controller
         $validation = Validator::make($request->all(), [
             'product'=>'required|string',
             'product_id'=>'required|numeric',
-            'start_date'=>'required|date',
-            'end_date'=>'required|date',
+            'start_time'=>'required|date',
+            'end_time'=>'required|date',
             'price'=>'required|numeric',
             'quantity'=>'required|numeric'
         ]);
@@ -64,16 +64,35 @@ class DealController extends Controller
                 $value = json_encode($value);
                 $text = str_replace('["', "", $value);
                 $text = str_replace('"]', "", $text);
-                return response()->json($text, 422);
+                return response()->json([
+                    'field'=>$key,
+                    'msg'=>$text
+                ], 422);
             }
+        }
+
+        $current = Carbon::now();
+        $today = $current->format('Y-m-d');
+        if ($today > (date('Y-m-d', strtotime($request->start_time)))) {
+            return response()->json([
+                'field'=>"start_time",
+                'msg'=>"Start Time can not be backdate"
+            ], 422);
+        }
+
+        if (date('Y-m-d', strtotime($request->start_time)) >= date('Y-m-d', strtotime($request->end_time))) {
+            return response()->json([
+                'field'=>"end_time",
+                'msg'=>"End Time can not be equal or less of Start Time"
+            ], 422);
         }
 
         //insert now
         $inserted = Deal::insert([
             'vendor_id'=>Auth::guard('vendor')->user()->id,
             'product_id'=>$request->product_id,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
+            'start_time'=>$request->start_time,
+            'end_time'=>$request->end_time,
             'price'=>$request->price,
             'quantity'=>$request->quantity,
             'created_at'=>Carbon::now()
@@ -125,11 +144,12 @@ class DealController extends Controller
         $validation = Validator::make($request->all(), [
             'product'=>'required|string',
             'product_id'=>'required|numeric',
-            'start_date'=>'required|date',
-            'end_date'=>'required|date',
+            'start_time'=>'required|date',
+            'end_time'=>'required|date',
             'price'=>'required|numeric',
             'quantity'=>'required|numeric'
         ]);
+
 
         if ($validation->fails()) {
             foreach ($validation->messages()->get('*') as $key => $value) {
@@ -139,6 +159,18 @@ class DealController extends Controller
                 return response()->json($text, 422);
             }
         }
+
+        $current = Carbon::now();
+        $today = $current->format('Y-m-d');
+        if ($today > (date('Y-m-d', strtotime($request->start_time)))) {
+            return response()->json("Start Time can not be backdate", 422);
+        }
+
+        if (date('Y-m-d', strtotime($request->start_time)) >= date('Y-m-d', strtotime($request->end_time))) {
+            return response()->json("End Time can not be equal or less of Start Time", 422);
+        }
+
+
 
         $oldData = Deal::where([
             'id'=>$id,
@@ -154,8 +186,8 @@ class DealController extends Controller
         //insert now
         $update = $oldData->update([
             'product_id'=>$request->product_id,
-            'start_date'=>$request->start_date,
-            'end_date'=>$request->end_date,
+            'start_time'=>$request->start_time,
+            'end_time'=>$request->end_time,
             'price'=>$request->price,
             'quantity'=>$request->quantity,
             'updated_at'=>Carbon::now()
@@ -193,7 +225,9 @@ class DealController extends Controller
                         ->with("get_category")
                         ->orderBy('title', 'ASC')
                         ->paginate(10);
-            
+            if ($getProducts->isEmpty()) {
+                return response()->json('No Data Found', 404);
+            }
 
             return view('Deals.partials.auto-complete', compact('getProducts'))->render();
         }

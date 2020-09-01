@@ -22,6 +22,9 @@
    .auto-complete-wrapper ul li:hover{
       border:1px solid #7367F0;
    }
+   .border-danger-alert{
+      border:1px solid red;
+   }
 </style>
 @endpush
 
@@ -51,24 +54,27 @@
                                     <div class="col-12">
                                        <div class="form-group">
                                           <label>Product</label>
-                                          <input id="searchProductInput_" type="text" name="product" class="form-control" placeholder="Search product" value="{{old('product')}}">
+                                          <input onclick="removeErrorLevels($(this))" id="searchProductInput_" type="text" name="product" class="form-control" placeholder="Search product" value="{{old('product')}}">
                                           <input id="set__productID" type="hidden" name="product_id" class="form-control">
                                           <div id="render__data">
                                              @include('Deals.partials.auto-complete')
                                           </div>
+                                          <small class="error-msg"></small>
                                        </div>
 
                                        <div class="row">
                                              <div class="col-lg-6">
                                                 <div class="form-group">
-                                                   <label>Start Date</label>
-                                                   <input type="date" name="start_date" class="form-control" value="{{old('start_date')}}">
+                                                   <label>Start Time</label>
+                                                   <input onclick="removeErrorLevels($(this))" type="date" name="start_time" class="form-control" value="{{old('start_time')}}">
+                                                   <small class="error-msg"></small>
                                                 </div>
                                              </div>
                                              <div class="col-lg-6">
                                                 <div class="form-group">
-                                                   <label>End Date</label>
-                                                   <input type="date" name="end_date" class="form-control" value="{{old('end_date')}}">
+                                                   <label>End Time</label>
+                                                   <input onclick="removeErrorLevels($(this))" type="date" name="end_time" class="form-control" value="{{old('end_time')}}">
+                                                   <small class="error-msg"></small>
                                                 </div>
                                              </div>
                                        </div>
@@ -79,13 +85,15 @@
                                                 <div class="col-lg-6">
                                                    <div class="form-group">
                                                       <label>Price</label>
-                                                      <input type="text" name="price" class="form-control" value="{{old('price')}}" placeholder="Deal Price">
+                                                      <input onclick="removeErrorLevels($(this))" type="text" name="price" class="form-control" value="{{old('price')}}" placeholder="Deal Price">
+                                                      <small class="error-msg"></small>
                                                    </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                    <div class="form-group">
                                                       <label>Quantity</label>
-                                                      <input type="text" name="quantity" class="form-control" value="{{old('quantity')}}" placeholder="Deal Quantity">
+                                                      <input onclick="removeErrorLevels($(this))" type="text" name="quantity" class="form-control" value="{{old('quantity')}}" placeholder="Deal Quantity">
+                                                      <small class="error-msg"></small>
                                                    </div>
                                                 </div>
                                           </div>
