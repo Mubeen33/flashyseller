@@ -15,7 +15,8 @@
 </style>
 <div class="content-body">
 	<div class="container-fluid">
-      <form class="" method="post">
+          <form class="" method="post">
+
       		<!-- Photos -->
       		<div class="card form-group">
              	<div class="card-body">
@@ -35,28 +36,36 @@
             							<li>Shoot against a clean, simple background. </li>
             						</ul>
             					</div>
-                    <form>  
-            		<div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img1" product="img" n="1" height="185px" onchange="" width="100%" class="upld-image" />
-                        <input type="file" name="img1" id="pimg1" style="display:none;" />
+                	<div class="col-lg-2 ">
+                            <form>  
+                                <img src="{{ asset('images/upld.png') }}" id="img1" product="img" n="1" height="185px" onchange="" width="100%" class="upld-image" />
+                                <input type="file" name="img1" id="pimg1" style="display:none;" />
+                            </form>
+                    </div>
+                    <div class="col-lg-2 ">
+                            <form>
+                                <img src="{{ asset('images/upld.png') }}" id="img2" product="img" n="2" height="185px" onchange="" width="100%" class="upld-image"  />
+                                <input type="file" name="img2" id="pimg2" style="display:none;" />
+                            </form>
+                    </div>
+                    <div class="col-lg-2 ">
+                        <form>
+                            <img src="{{ asset('images/upld.png') }}" id="img3" product="img" n="3" height="185px" onchange="" width="100%" class="upld-image"  />
+                            <input type="file" name="img3" id="pimg3" style="display:none;" />
+                        </form>
+                    </div>  
+                    <div class="col-lg-2 ">
+                        <form>
+                            <img src="{{ asset('images/upld.png') }}" id="img4" product="img" n="4" height="185px" onchange="" width="100%" class="upld-image"  />
+                            <input type="file" name="img4" id="pimg4" style="display:none;" />
+                        </form>
+                    </div>  
+                    <div class="col-lg-2 ">
+                        <form>  
+                            <img src="{{ asset('images/upld.png') }}" id="img5" product="img" n="5" height="185px" onchange="" width="100%" class="upld-image"  />
+                            <input type="file" name="img5" id="pimg5" style="display:none;" />
+                        </form>  
                       </div>
-                       <div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img2" product="img" n="2" height="185px" onchange="" width="100%" class="upld-image"  />
-                        <input type="file" name="img2" id="pimg2" style="display:none;" />
-                      </div>
-                       <div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img3" product="img" n="3" height="185px" onchange="" width="100%" class="upld-image"  />
-                        <input type="file" name="img3" id="pimg3" style="display:none;" />
-                      </div>
-                       <div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img4" product="img" n="4" height="185px" onchange="" width="100%" class="upld-image"  />
-                        <input type="file" name="img4" id="pimg4" style="display:none;" />
-                      </div> 
-                       <div class="col-lg-2 ">
-                        <img src="{{ asset('images/upld.png') }}" id="img5" product="img" n="5" height="185px" onchange="" width="100%" class="upld-image"  />
-                        <input type="file" name="img5" id="pimg5" style="display:none;" />
-                      </div>
-                    </form>  
             		</div>  
                     <br />      
             				<div class="row">
