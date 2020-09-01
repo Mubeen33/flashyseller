@@ -47,9 +47,7 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 });
 
 
-Route::get('add-product',function(){
-	return view("product.addproduct");
-});
+Route::get('add-product','product\ProductController@index');
 
 Route::get("/enventory",function(){
 	return view("product.enventory");

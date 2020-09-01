@@ -158,56 +158,56 @@ $(document).ready(function(){
     */
 
 });
-$(document).ready(function(){
-    $("#ui-id-1").addClass("list-group");
-              $(function() {
-        var projects = [
-           {
-              value: "Phone Cs in phone Cases",
-              desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
-           },
-           {
-              value: "Iphone Mobile",
-              desc: "<p class='p-graph'> Electornics ▸ Mobile phone ▸ Iphone</p>",
-           },
-           {
-              value: "wall decorators",
-              desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
-           },
-           {
-              value: "1 flat",
-              desc: "<p class='p-graph'>▸ Property ▸ Home ▸ flat </p>",
-           },
-           {
-              value: "Phone Cs in phone Cases",
-              desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
-           },
-           {
-              value: "Phone Cs in phone Cases",
-              desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
-           },
-        ];
-        $( "#project" ).autocomplete({
-           minLength: 0,
-           source: projects,
-           focus: function( event, ui ) {
-              $( "#project" ).val( ui.item.label );
-                 return false;
-           },
-           select: function( event, ui ) {
-              $( "#project" ).val( ui.item.label );
-              $( "#project-id" ).val( ui.item.value );
-              $( "#project-description" ).html( ui.item.desc );
-              return false;
-           }
-        })
+// $(document).ready(function(){
+//     $("#ui-id-1").addClass("list-group");
+//               $(function() {
+//         var projects = [
+//            {
+//               value: "Phone Cs in phone Cases",
+//               desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
+//            },
+//            {
+//               value: "Iphone Mobile",
+//               desc: "<p class='p-graph'> Electornics ▸ Mobile phone ▸ Iphone</p>",
+//            },
+//            {
+//               value: "wall decorators",
+//               desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
+//            },
+//            {
+//               value: "1 flat",
+//               desc: "<p class='p-graph'>▸ Property ▸ Home ▸ flat </p>",
+//            },
+//            {
+//               value: "Phone Cs in phone Cases",
+//               desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
+//            },
+//            {
+//               value: "Phone Cs in phone Cases",
+//               desc: "<p class='p-graph'> Home & living ▸ Home Decor ▸ wall decor </p>",
+//            },
+//         ];
+//         $( "#project" ).autocomplete({
+//            minLength: 0,
+//            source: projects,
+//            focus: function( event, ui ) {
+//               $( "#project" ).val( ui.item.label );
+//                  return false;
+//            },
+//            select: function( event, ui ) {
+//               $( "#project" ).val( ui.item.label );
+//               $( "#project-id" ).val( ui.item.value );
+//               $( "#project-description" ).html( ui.item.desc );
+//               return false;
+//            }
+//         })
     
-        .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
-           return $( "<li class='list-group-item auto-list list-group-item-action'>" )
-           .append( "<a style='text-decoration:none;'>" + item.label + "<br>" + item.desc + "</a>" )
-           .appendTo( ul );
-        };
-        $("#ui-id-1").addClass("list-group");
-        (".ui-helper-hidden-accessible").remove();
-     });
-  });
+//         .data( "ui-autocomplete" )._renderItem = function( ul, item ) {
+//            return $( "<li class='list-group-item auto-list list-group-item-action'>" )
+//            .append( "<a style='text-decoration:none;'>" + item.label + "<br>" + item.desc + "</a>" )
+//            .appendTo( ul );
+//         };
+//         $("#ui-id-1").addClass("list-group");
+//         (".ui-helper-hidden-accessible").remove();
+//      });
+//   });
