@@ -54,27 +54,27 @@
                                     <div class="col-12">
                                        <div class="form-group">
                                           <label>Product</label>
-                                          <input onclick="removeErrorLevels($(this))" id="searchProductInput_" type="text" name="product" class="form-control" placeholder="Search product" value="{{old('product')}}">
+                                          <input onclick="removeErrorLevels($(this), 'input')" id="searchProductInput_" type="text" name="product" class="form-control" placeholder="Search product" value="{{old('product')}}">
                                           <input id="set__productID" type="hidden" name="product_id" class="form-control">
                                           <div id="render__data">
                                              @include('Deals.partials.auto-complete')
                                           </div>
-                                          <small class="error-msg"></small>
+                                          <small class="place-error--msg"></small>
                                        </div>
 
                                        <div class="row">
                                              <div class="col-lg-6">
                                                 <div class="form-group">
                                                    <label>Start Time</label>
-                                                   <input onclick="removeErrorLevels($(this))" type="date" name="start_time" class="form-control" value="{{old('start_time')}}">
-                                                   <small class="error-msg"></small>
+                                                   <input onclick="removeErrorLevels($(this), 'input')" type="date" name="start_time" class="form-control" value="{{old('start_time')}}">
+                                                   <small class="place-error--msg"></small>
                                                 </div>
                                              </div>
                                              <div class="col-lg-6">
                                                 <div class="form-group">
                                                    <label>End Time</label>
-                                                   <input onclick="removeErrorLevels($(this))" type="date" name="end_time" class="form-control" value="{{old('end_time')}}">
-                                                   <small class="error-msg"></small>
+                                                   <input onclick="removeErrorLevels($(this), 'input')" type="date" name="end_time" class="form-control" value="{{old('end_time')}}">
+                                                   <small class="place-error--msg"></small>
                                                 </div>
                                              </div>
                                        </div>
@@ -85,15 +85,15 @@
                                                 <div class="col-lg-6">
                                                    <div class="form-group">
                                                       <label>Price</label>
-                                                      <input onclick="removeErrorLevels($(this))" type="text" name="price" class="form-control" value="{{old('price')}}" placeholder="Deal Price">
-                                                      <small class="error-msg"></small>
+                                                      <input onclick="removeErrorLevels($(this), 'input')" type="text" name="price" class="form-control" value="{{old('price')}}" placeholder="Deal Price">
+                                                      <small class="place-error--msg"></small>
                                                    </div>
                                                 </div>
                                                 <div class="col-lg-6">
                                                    <div class="form-group">
                                                       <label>Quantity</label>
-                                                      <input onclick="removeErrorLevels($(this))" type="text" name="quantity" class="form-control" value="{{old('quantity')}}" placeholder="Deal Quantity">
-                                                      <small class="error-msg"></small>
+                                                      <input onclick="removeErrorLevels($(this), 'input')" type="text" name="quantity" class="form-control" value="{{old('quantity')}}" placeholder="Deal Quantity">
+                                                      <small class="place-error--msg"></small>
                                                    </div>
                                                 </div>
                                           </div>
@@ -118,5 +118,18 @@
 @endsection
 
 @push('scritps')  
-   <script type="text/javascript" src="{{ asset('assets/js/deals.js') }}"></script>
+   <script type="text/javascript">
+    $(document).ready(function(){
+        $("#dealCreatingForm").on('submit', function(e){
+            e.preventDefault()
+            let formID = "dealCreatingForm";
+            let form = $(this);
+            let url = form.attr('action');
+            let type = form.attr('method');
+            let form_data = form.serialize();
+            formSubmitWithFile(formID, url, type, form_data);
+        })
+    })
+</script>
+<script type="text/javascript" src="{{ asset('assets/js/general-form-submit.js') }}"></script>
 @endpush
