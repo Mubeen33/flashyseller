@@ -134,7 +134,7 @@ class ProductController extends Controller
 	        $i = 0;
 
 	        foreach (json_decode(CustomField::where('category_id', $request->category_id)->first()->options) as $key => $element) {
-	        	echo $element->label;
+	        	
 	            $item = array();
 	            if ($element->type == 'text') {
 	                $item['type'] = 'text';
