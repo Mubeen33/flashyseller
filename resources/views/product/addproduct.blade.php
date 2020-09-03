@@ -439,7 +439,7 @@
                 method:'GET',
                 cache:false,
                 success:function(response){
-                    $("#render__customfields__data").preappend(response);
+                    $("#render__customfields__data").html(response);
                     // console.log(response);
                 },
             });
