@@ -66,7 +66,9 @@ class DealController extends Controller
                 $text = str_replace('"]', "", $text);
                 return response()->json([
                     'field'=>$key,
-                    'msg'=>$text
+                    'targetHighlightIs'=>"",
+                    'msg'=>$text,
+                    'need_scroll'=>"yes"
                 ], 422);
             }
         }
@@ -75,16 +77,20 @@ class DealController extends Controller
         $today = $current->format('Y-m-d');
         if ($today > (date('Y-m-d', strtotime($request->start_time)))) {
             return response()->json([
-                'field'=>"start_time",
-                'msg'=>"Start Time can not be backdate"
-            ], 422);
+                    'field'=>"start_time",
+                    'targetHighlightIs'=>"",
+                    'msg'=>"Start Time can not be backdate",
+                    'need_scroll'=>"no"
+                ], 422);
         }
 
         if (date('Y-m-d', strtotime($request->start_time)) >= date('Y-m-d', strtotime($request->end_time))) {
             return response()->json([
-                'field'=>"end_time",
-                'msg'=>"End Time can not be equal or less of Start Time"
-            ], 422);
+                    'field'=>"end_time",
+                    'targetHighlightIs'=>"",
+                    'msg'=>"End Time can not be equal or less of Start Time",
+                    'need_scroll'=>"no"
+                ], 422);
         }
 
         //insert now
@@ -156,21 +162,14 @@ class DealController extends Controller
                 $value = json_encode($value);
                 $text = str_replace('["', "", $value);
                 $text = str_replace('"]', "", $text);
-                return response()->json($text, 422);
+                return response()->json([
+                    'field'=>$key,
+                    'targetHighlightIs'=>"",
+                    'msg'=>$text,
+                    'need_scroll'=>"yes"
+                ], 422);
             }
         }
-
-        $current = Carbon::now();
-        $today = $current->format('Y-m-d');
-        if ($today > (date('Y-m-d', strtotime($request->start_time)))) {
-            return response()->json("Start Time can not be backdate", 422);
-        }
-
-        if (date('Y-m-d', strtotime($request->start_time)) >= date('Y-m-d', strtotime($request->end_time))) {
-            return response()->json("End Time can not be equal or less of Start Time", 422);
-        }
-
-
 
         $oldData = Deal::where([
             'id'=>$id,
@@ -181,6 +180,35 @@ class DealController extends Controller
         if (!$oldData) {
             return response()->json('Deal Not Found', 404);
         }
+
+        $current = Carbon::now();
+        $today = $current->format('Y-m-d');
+        if ($request->start_time != $oldData->start_time) {
+            if ($today > (date('Y-m-d', strtotime($request->start_time)))) {
+                return response()->json([
+                    'field'=>"start_time",
+                    'targetHighlightIs'=>"",
+                    'msg'=>"Start Time can not be backdate",
+                    'need_scroll'=>"no"
+                ], 422);
+            }
+        }
+        
+
+        if ($request->start_time != $oldData->end_time) {
+            if (date('Y-m-d', strtotime($request->start_time)) >= date('Y-m-d', strtotime($request->end_time))) {
+                return response()->json([
+                    'field'=>"end_time",
+                    'targetHighlightIs'=>"",
+                    'msg'=>"End Time can not be equal or less of Start Time",
+                    'need_scroll'=>"no"
+                ], 422);
+            }
+        }
+
+
+
+        
 
 
         //insert now

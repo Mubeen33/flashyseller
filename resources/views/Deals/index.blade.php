@@ -35,8 +35,8 @@
                                                     <th>Product</th>
                                                     <th>Price</th>
                                                     <th>Quantity</th>
-                                                    <th>Start Date</th>
-                                                    <th>End Date</th>
+                                                    <th>Start Time</th>
+                                                    <th>End Time</th>
                                                     <th>Created at</th>
                                                     <th>Status</th>
                                                     <th>Actions</th>
@@ -50,8 +50,8 @@
                                                     <td>{{ $content->get_product->title }}</td>
                                                     <td>{{ $content->price }}</td>
                                                     <td>{{ $content->quantity }}</td>
-                                                    <td>{{ $content->start_date }}</td>
-                                                    <td>{{ $content->end_date }}</td>
+                                                    <td>{{ $content->start_time }}</td>
+                                                    <td>{{ $content->end_time }}</td>
                                                     <td>{{ $content->created_at->format('d/m/Y') }}</td>
                                                     <td>
                                                         @if($content->status == 0)
@@ -61,7 +61,7 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <div class="btn-group mb-1">
+                                                        <div class="btn-group">
                                                             <div class="dropdown">
                                                                 <button class="btn btn-dark btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenuButton7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                                                     Actions
