@@ -350,7 +350,7 @@
                             
           			</div>
           		</div>
-                <div class="card" id="variant-card" style="display: ;">
+                <div class="card" id="variant-card" style="display: none;">
                     <div class="card-body">
                         <h5 class="modal-title">Add variations</h5><br>
                     <div class="row" id="render__variations__data">
