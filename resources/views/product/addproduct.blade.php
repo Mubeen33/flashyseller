@@ -69,28 +69,28 @@
                             </form>
                     </div>
                     <div class="col-lg-2 ">
-                            <form>
-                                <img src="{{ asset('images/upld.png') }}" id="img2" product="img" n="2" height="185px" onchange="" width="100%" class="upld-image"  />
-                                <input type="file" name="img2" id="pimg2" style="display:none;" />
+                            <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" method="POST"  enctype="multipart/form-data" class="dropzone dropzone-area" id="dpz-single-file dpz-remove-thumb" >  
+                                
+                                {{ csrf_field() }}
                             </form>
                     </div>
                     <div class="col-lg-2 ">
-                        <form>
-                            <img src="{{ asset('images/upld.png') }}" id="img3" product="img" n="3" height="185px" onchange="" width="100%" class="upld-image"  />
-                            <input type="file" name="img3" id="pimg3" style="display:none;" />
-                        </form>
+                        <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" method="POST"  enctype="multipart/form-data" class="dropzone dropzone-area" id="dpz-single-file dpz-remove-thumb" >  
+                                
+                                {{ csrf_field() }}
+                          </form>
                     </div>  
                     <div class="col-lg-2 ">
-                        <form>
-                            <img src="{{ asset('images/upld.png') }}" id="img4" product="img" n="4" height="185px" onchange="" width="100%" class="upld-image"  />
-                            <input type="file" name="img4" id="pimg4" style="display:none;" />
-                        </form>
+                        <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" method="POST"  enctype="multipart/form-data" class="dropzone dropzone-area" id="dpz-single-file dpz-remove-thumb" >  
+                                
+                                {{ csrf_field() }}
+                          </form>
                     </div>  
                     <div class="col-lg-2 ">
-                        <form>  
-                            <img src="{{ asset('images/upld.png') }}" id="img5" product="img" n="5" height="185px" onchange="" width="100%" class="upld-image"  />
-                            <input type="file" name="img5" id="pimg5" style="display:none;" />
-                        </form>  
+                        <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" method="POST"  enctype="multipart/form-data" class="dropzone dropzone-area" id="dpz-single-file dpz-remove-thumb" >  
+                                
+                                {{ csrf_field() }}
+                          </form> 
                       </div>
             		</div>  
                     <br />      
