@@ -9,6 +9,9 @@
     </footer>
     <!-- END: Footer-->
 
+    @include('layouts.partials.popup')
+
+
 
     <!-- BEGIN: Vendor JS-->
     <script src="{{ asset('app-assets/vendors/js/vendors.min.js')}}"></script>
@@ -17,8 +20,8 @@
     <!-- BEGIN: Page Vendor JS-->
     <script src="{{ asset('app-assets/vendors/js/charts/apexcharts.min.js')}}"></script>
     
-<script src="{{ asset('app-assets/js/scripts/pages/account-setting.js')}}"></script>  
-<script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
+    <script src="{{ asset('app-assets/js/scripts/pages/account-setting.js')}}"></script>  
+    <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.date.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/extensions/tether.min.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/extensions/shepherd.min.js')}}"></script>

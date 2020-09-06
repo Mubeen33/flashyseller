@@ -23,6 +23,9 @@ Route::post('logout', 'Auth\VendorLogout@logout')->name('logout');
 Route::get('reset/passoword/{token?}/{email?}', 'Auth\ForgotPassword@pass_reset_form')->name('resetPassForm.get');
 Route::post('send/pass-reset/link', 'Auth\ForgotPassword@send_reset_link')->name('sendPassResetLink.post');
 Route::post('reset/passoword', 'Auth\ForgotPassword@password_reset_post')->name('passwordReset.post');
+//control
+Route::get('popup-dont-show', function(){return abort(404);});
+Route::post('popup-dont-show', 'Popup\PopupController@dont_show')->name('popUpDontShow.post');
 
 
 
