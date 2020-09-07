@@ -38,7 +38,7 @@
     <!-- END: Page JS-->
     @yield('script')
 
-    @stack('scritps')
+    @stack('scripts')
 
 </body>
 <!-- END: Body-->

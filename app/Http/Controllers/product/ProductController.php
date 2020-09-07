@@ -173,4 +173,73 @@ class ProductController extends Controller
     	return redirect()->back()->with('msg','<div class="alert alert-success" id="msg">Product added Successfully!</div>');
 
     }
+
+
+
+    //get pending products
+    public function get_pending(){
+        $data = Product::where([
+            'vendor_id'=>Auth::guard('vendor')->user()->id,
+            'approved'=>0,
+            'disable'=>0
+        ])
+        ->with(['get_category', 'get_images'])
+        ->paginate(5);
+
+        return view('product.pending', compact('data'));
+    }
+
+    public function product_details($id){
+        $data = Product::where([
+            'id'=>decrypt($id),
+            'vendor_id'=>Auth::guard('vendor')->user()->id,
+        ])
+        ->with(['get_category', 'get_images'])
+        ->first();
+        if (!$data) {
+            return abort(404);
+        }
+        return view('product.show', compact('data'));
+    }
+
+
+    public function fetch_data(Request $request){
+        if ($request->ajax()) {
+            $searchKey = $request->search_key;
+            $sort_by = $request->sort_by;
+            $sorting_order = $request->sorting_order;
+            $status = $request->status;
+            $row_per_page = $request->row_per_page;
+
+            if ($sort_by == "") {
+                $sort_by = "id";
+            }
+            if ($sorting_order == "") {
+                $sorting_order = "DESC";
+            }
+
+            if ($request->search_key != "") {
+                $data = Product::where([
+                    'vendor_id'=>Auth::guard('vendor')->user()->id,
+                    'approved'=>$status,
+                    'disable'=>0,//not disable
+                ])
+                ->where("title", "LIKE", "%$searchKey%")
+                ->orWhere("created_at", "LIKE", "%$searchKey%")
+                ->orderBy($sort_by, $sorting_order )
+                ->paginate($row_per_page );
+                return view('product.partials.pending-product-list', compact('data'))->render();
+            }
+            $data = Product::where([
+                        'vendor_id'=>Auth::guard('vendor')->user()->id,
+                        'approved'=>$status,
+                        'disable'=>0,//not disable
+                    ])
+                    ->orderBy($sort_by, $sorting_order)
+                    ->paginate($row_per_page );
+            return view('product.partials.pending-product-list', compact('data'))->render();
+        }
+        return abort(404);
+    
+    }
 }

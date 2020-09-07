@@ -54,14 +54,16 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get('ajax-get-variant-options/fetch','product\ProductController@getVariationsOptions');
 	Route::get('ajax-get-secondvariant-options/fetch','product\ProductController@getSecondVariationsOptions');
 	Route::post('add-product','product\ProductController@addProduct');
+	
+	//pending routes
+	Route::get('products/pending','product\ProductController@get_pending')->name('pendingProducts.get');
+	Route::get('product/detail/{id}','product\ProductController@product_details')->name('productDetails.get');
+	Route::get('ajax-get-products/fetch','product\ProductController@fetch_data')->name('products.ajaxPgination');
 });
 
 
 Route::get('add-new-product','product\ProductController@index');
-
-Route::get("/enventory",function(){
-	return view("product.enventory");
-});
+Route::get("/enventory",function(){ return view("product.enventory"); });
 
 
 

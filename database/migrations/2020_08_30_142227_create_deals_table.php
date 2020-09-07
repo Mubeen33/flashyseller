@@ -15,6 +15,7 @@ class CreateDealsTable extends Migration
     {
         Schema::create('deals', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('vendor_id');
             $table->unsignedBigInteger('product_id');
             $table->date('start_time');
             $table->date('end_time');
