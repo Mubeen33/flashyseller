@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVendorActivitiesTable extends Migration
+class CreateCouponsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateVendorActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_activities', function (Blueprint $table) {
+        Schema::create('coupons', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('vendor_id');
-            $table->string('activityName');
-            $table->json('activities');
-            $table->string('is_loogedIn')->nullable();
+            $table->string('image');
+            $table->tinyInteger('status')->default(0);//inactive or active
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateVendorActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_activities');
+        Schema::dropIfExists('coupons');
     }
 }
