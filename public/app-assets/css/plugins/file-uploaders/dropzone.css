@@ -12,7 +12,7 @@
   top : 50%;
   left : 0;
   width : 100%;
-  height : 300px;
+  height : 180px;
   margin-top : -30px;
   color : #7367F0;
   text-align : center;
@@ -36,11 +36,13 @@
   -webkit-font-smoothing : antialiased;
 }
 .dropzone .dz-preview {
-  background : transparent;
+  background : white;
+  position: absolute;
+  z-index: 9;
 }
-.dropzone .dz-preview .dz-error-mark, .dropzone .dz-preview .dz-success-mark {
-  background-image : url('../../../images/dropzone/spritemap.png');
-}
+/* .dropzone .dz-preview .dz-error-mark, .dropzone .dz-preview .dz-success-mark {
+  background-image : url('/app-assets/images/dropzone/spritemap.png');
+} */
 .dropzone .dz-preview .dz-error-message {
   min-width : 113px;
   top : 0;
@@ -70,4 +72,46 @@
   .dropzone .dz-message:before {
     top : 7.14rem;
   }
+}
+
+
+.dz-set-default {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 20;
+  width: 22px;
+  height: 22px;
+  background-color: red;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 14px;
+  text-align: center;
+  display: block;
+  cursor: pointer;
+}
+
+a.dz-set-default:hover {
+  background-color: red;
+  color: white;
+}
+.dz-set-default.active {
+  background-color: red;
+}
+
+.dz-set-default:focus {
+  background-color: red;
+  color: white;
+}
+
+.dz-set-default:hover {
+  cursor: pointer;
+}
+
+.filenameofdropzone {
+  display: none;
+}
+
+.col-lg-22 {
+  width: 180px;
 }

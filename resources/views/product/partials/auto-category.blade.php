@@ -3,8 +3,8 @@
 		@if(isset($categories))
 			@foreach($categories as $key=>$content)
 			<li getCategoryId="{{$content->id}}" gettitle="{{$content->name}}">
-				{{$content->name}}<br>
-				{{ $content->getParentsNames() }}
+				<span><b>{{$content->name}}</b></span><br>
+				<span>{{ $content->getParentsNames() }}</span>
 			</li>
 			@endforeach
 		@endif

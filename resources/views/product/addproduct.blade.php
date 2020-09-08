@@ -11,30 +11,56 @@
   .p-graph {
     font-size:10px !important;
   }
-  .dropzone{
+.dropzone{
+	min-height : 190px !important;
+	max-width: 180px;
+    display: flex;
+    min-width: 178px;
+    border: 1px solid grey !important;
+    color: #373738 !important;
+    justify-content: center;
+    margin: 0 auto;
+}
 
-            min-height : 190px !important;
-            border     : 1px solid grey !important;
-             color     : #373738 !important;
-  }
+@media only screen and (max-width: 768px) {
+	.dropzone {
+		margin-bottom: 15px;
+	}
+}
+
+@media only screen and (min-width: 769px) and (max-width: 991px) {
+	.col22 {
+		flex: 0 0 100%!important;
+        max-width: 100%!important;
+	}
+
+	.dropzone {
+		margin-bottom: 15px;
+	}
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+	.col22 {
+		flex: 0 0 25%!important;
+        max-width: 25%!important;
+	}
+}
   .dropzone .dz-message:before{
-
-            top        : 18px!important;
-            font-size  : 46px !important;
-            color      : #373738 !important;
+	top        : 18px!important;
+	font-size  : 46px !important;
+	color      : #373738 !important;
   }
   .dropzone .dz-message{
-
-            font-size  : 1rem !important;
-            color      : #373738 !important;
+	font-size  : 1rem !important;
+	color      : #373738 !important;
+	position: absolute;
+	z-index: 9;
   }
   .dz-filename{
-
-            display: none !important;
+    display: none !important;
   }
   .dz-size{
-
-            display: none !important;
+    display: none !important;
   }
 <?php $prod_img_id = mt_rand(111111111,999999999);  ?>
 </style>
@@ -46,54 +72,80 @@
       		<!-- Photos -->
       		<div class="card form-group">
              	<div class="card-body">
-             				<div class="row">
-             					<div class="col-lg-12">
-             						<label class="mb-xs-1 strong">Photos</label> <br/>
-                 					<p class="text-gray-lighter">Add as many as you can so buyers can see every detail<small>(Use up to ten photos to show your item's most important qualities).</small> </p>	
-      					         	<label class="text-smaller text-gray-lighte"> Tips: </label>
-             					</div>
-             				</div>
-            				<div class="row">
-            					<div  class="col-lg-2">
-            						<ul class="text-smaller text-gray-lighter">
-            							<li>Use natural light and no flash. </li>
-            							<li>Include a common object for scale. </li>
-            							<li>Show the item being held, worn, or used. </li>
-            							<li>Shoot against a clean, simple background. </li>
-            						</ul>
-            					</div>
-                	<div class="col-lg-2 ">
-                            <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" method="POST"  enctype="multipart/form-data" class="dropzone dropzone-area" id="dpz-single-file dpz-remove-thumb" >  
-                                
-                                {{ csrf_field() }}
-                            </form>
-                    </div>
-                    <div class="col-lg-2 ">
-                            <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" method="POST"  enctype="multipart/form-data" class="dropzone dropzone-area" id="dpz-single-file dpz-remove-thumb" >  
-                                
-                                {{ csrf_field() }}
-                            </form>
-                    </div>
-                    <div class="col-lg-2 ">
-                        <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" method="POST"  enctype="multipart/form-data" class="dropzone dropzone-area" id="dpz-single-file dpz-remove-thumb" >  
-                                
-                                {{ csrf_field() }}
-                          </form>
-                    </div>  
-                    <div class="col-lg-2 ">
-                        <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" method="POST"  enctype="multipart/form-data" class="dropzone dropzone-area" id="dpz-single-file dpz-remove-thumb" >  
-                                
-                                {{ csrf_field() }}
-                          </form>
-                    </div>  
-                    <div class="col-lg-2 ">
-                        <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" method="POST"  enctype="multipart/form-data" class="dropzone dropzone-area" id="dpz-single-file dpz-remove-thumb" >  
-                                
-                                {{ csrf_field() }}
-                          </form> 
-                      </div>
-            		</div>  
-                    <br />      
+					<div class="row">
+						<div class="col-lg-12">
+							<label class="mb-xs-1 strong">Photos</label> <br/>
+							<p class="text-gray-lighter">Add as many as you can so buyers can see every detail<small>(Use up to ten photos to show your item's most important qualities).</small> </p>	
+							<label class="text-smaller text-gray-lighte"> Tips: </label>
+						</div>
+					</div>
+					<div class="row">
+						<div  class="col-lg-2 col-md-3">
+							<ul class="text-smaller text-gray-lighter">
+								<li>Use natural light and no flash. </li>
+								<li>Include a common object for scale. </li>
+								<li>Show the item being held, worn, or used. </li>
+								<li>Shoot against a clean, simple background. </li>
+							</ul>
+						</div>
+
+						<div class="col-lg-2 col-md-3 col22">
+							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+								method="POST"  
+								enctype="multipart/form-data" 
+								class="dropzone dropzone-area"
+								id="dpz-single-file-p1"
+							>
+							@csrf
+								<input type="hidden" name="fileDropzone" />
+							</form>
+						</div>
+						<div class="col-lg-2 col-md-3 col22">
+							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+								method="POST"  
+								enctype="multipart/form-data" 
+								class="dropzone dropzone-area" 
+								id="dpz-single-file-p2"
+							>  
+							@csrf
+								<input type="hidden" name="fileDropzone" />
+							</form>
+						</div>
+						<div class="col-lg-2 col-md-3 col22">
+							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+								method="POST"  
+								enctype="multipart/form-data" 
+								class="dropzone dropzone-area" 
+								id="dpz-single-file-p3"
+							>  
+							@csrf
+								<input type="hidden" name="fileDropzone" />
+							</form>
+						</div>  
+						<div class="col-lg-2 col-md-3 col22">
+							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+								method="POST"  
+								enctype="multipart/form-data" 
+								class="dropzone dropzone-area" 
+								id="dpz-single-file-p4" 
+							>  
+							@csrf
+								<input type="hidden" name="fileDropzone" />
+							</form>
+						</div>  
+						<div class="col-lg-2 col-md-3 col22">
+							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+								method="POST"  
+								enctype="multipart/form-data" 
+								class="dropzone dropzone-area" 
+								id="dpz-single-file-p5"
+							>  
+							@csrf
+								<input type="hidden" name="fileDropzone" />
+							</form> 
+						</div>
+						</div>  
+						<br />      
             				<div class="row">
             					<div class="col-lg-2"></div>
             					<div class="col-lg-8">
@@ -214,7 +266,8 @@
                  					</div>
                  					<div class="col-lg-9"> <br />
                  						<input type="text" id="category_search" class="form-control" name="" />
-                                        <input type="hidden" name="category_id" id='category_id' value="">
+										<input type="hidden" name="category_id" id='category_id' value="">
+										<i id="filtersubmit" class="fa fa-search"></i>
                                         <div id="render__data">
                                             @include('product.partials.auto-category')
                                         </div>
@@ -294,7 +347,7 @@
           			<div class="card-body">
           				<div class="mb-xs-1 strong"> Inventory and pricing
           			</div> <br />
-          			{{-- <div class="row">
+          			<div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> Price <span class="text-gray-lightest">*</span> </div>
           					<p class="text-smaller text-gray-lighter">
@@ -317,7 +370,7 @@
           					<br />
           					<input type="text" class="form-control" name="price" />
           				</div>
-          			</div> --}}
+          			</div>
           			<div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest">Optional</span> </div>
@@ -384,13 +437,29 @@
 @endsection
 @section('script')
   <script src="{{ asset('app-assets/vendors/js/extensions/dropzone.min.js')}}"></script>
-  <script src="{{ asset('app-assets/js/scripts/extensions/dropzone.js')}}"></script>
+  <script src="{{ asset('app-assets/js/scripts/extensions/custom-dropzone.js')}}"></script>
   <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
   <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
   <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 
-
   <script type="text/javascript">
+
+
+  $(function() {
+     $("div.dz-preview").parent().children('div.dz-message').css('display', 'none');
+  });
+</script>
+
+<script type="text/javascript">
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+</script>
+  <script type="text/javascript">
+
+  $("#render__data").hide();
 
         //search category
     $("#category_search").on('keyup', function(){
@@ -407,8 +476,17 @@
                 method:'GET',
                 cache:false,
                 success:function(response){
-                    $("#render__data").html(response);
-                    // console.log(response);
+					if(response) {
+						let res = response.search('<li');
+						if(res == -1) {
+							$("#render__data .auto-complete-wrapper ul").html("<p class='pt-1 px-2'>No Result Found!</p>");
+						}
+						else {
+							$("#render__data").show();
+							$("#render__data").html(response);
+						}
+					}
+					//console.log(response);
                 },
             });
         

@@ -7,16 +7,16 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-Dropzone.options.dpzSingleFile = {
-  paramName: "file", // The name that will be used to transfer the file
-  maxFiles: 1,
-  init: function () {
-    this.on("maxfilesexceeded", function (file) {
-      this.removeAllFiles();
-      this.addFile(file);
-    });
-  }
-};
+// Dropzone.options.dpzSingleFile = {
+//   paramName: "file", // The name that will be used to transfer the file
+//   maxFiles: 1,
+//   init: function () {
+//     this.on("maxfilesexceeded", function (file) {
+//       this.removeAllFiles();
+//       this.addFile(file);
+//     });
+//   }
+// };
 
 /********************************************
 *               Multiple Files              *

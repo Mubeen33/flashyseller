@@ -7,7 +7,7 @@
     Author URL: http://www.themeforest.net/user/pixinvent
 ==========================================================================================*/
 
-Dropzone.options.dpzSingleFile = {
+Dropzone.options.dpzSingleFileP1 = {
   paramName: "file", // The name that will be used to transfer the file
   maxFiles: 1,
   init: function () {
@@ -17,6 +17,7 @@ Dropzone.options.dpzSingleFile = {
     });
   }
 };
+
 
 /********************************************
 *               Multiple Files              *
@@ -89,3 +90,8 @@ Dropzone.options.dpzRemoveAllThumb = {
     });
   }
 }
+
+
+$("#dpz-single-file-p1").on('submit', function(){
+  console.log("Form");
+});

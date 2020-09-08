@@ -124,7 +124,7 @@
 
 .horizontal-menu .header-navbar {
   background : #FFFFFF;
-  z-index : 999 !important;
+  z-index : 9999999!important;
   line-height : 1;
   min-height : auto;
 }

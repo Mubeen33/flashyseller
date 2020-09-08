@@ -9,3 +9,46 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+
+#render__data .auto-complete-wrapper {
+	margin-bottom: 2.2rem!important;
+    border: none!important;
+    border-radius: 0.25rem!important;
+    box-shadow: 0 4px 25px 0 rgba(0, 0, 0, 0.1)!important;
+    -webkit-transition: all 0.3s ease-in-out!important;
+	transition: all 0.3s ease-in-out!important;
+	margin-top: -1rem;
+	position: absolute;
+    background-color: white;
+    z-index: 50;
+    width: 97%;
+}
+
+#render__data .auto-complete-wrapper ul {
+	padding-inline-start: 0!important;
+}
+
+
+#render__data .auto-complete-wrapper ul li {
+	list-style-type: none!important;
+	padding: 15px!important;
+}
+
+
+#render__data .auto-complete-wrapper ul li:hover {
+	background-color: #f2f2f2;
+}
+
+#category_search {
+	padding-left: 25px;
+}
+
+#filtersubmit {
+	position: relative;
+	z-index: 1;
+	left: 7px;
+    top: -29px;
+	color: #7B7B7B;
+	cursor: pointer;
+	width: 0;
+  }

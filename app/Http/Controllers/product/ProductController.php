@@ -32,21 +32,34 @@ class ProductController extends Controller
     	return view('product.addproduct',compact('variationList'));
     }
     // product Images
-    public function addProductImages(Request $request,$product_image_id){
-	      // $image = $request->file('file');
-	      $image = $request->file('file');
-	   	  $file_name=$product_image_id.'_'.$image->getClientOriginalName();
-	   	  $is_present=ProductMedia::where(['image'=>$file_name,'image_id'=>$product_image_id])->get();
-	   	  if(count($is_present) > 0){
-	   	  	return;
-	   	  }
-	      if($image->move(public_path()."\product_images",$file_name)){
-	      	$product_image = new ProductMedia;
-	      	$product_image->image_id = $product_image_id;
-	      	$product_image->image = $file_name;
-	      	$product_image->save();
-	      }
-     }
+	public function addProductImages(Request $request,$product_image_id) 
+	{
+		$image = $request->file('fileDropzone');
+		
+		$file_name=$product_image_id.'_'.$image->getClientOriginalName();
+		$is_present=ProductMedia::where(['image'=>$file_name,'image_id'=>$product_image_id])->get();
+		if(count($is_present) > 0){
+			return;
+		}
+		if($image->move(public_path()."\product_images",$file_name)){
+			$product_image = new ProductMedia;
+			$product_image->image_id = $product_image_id;
+			$product_image->image = $file_name;
+			$product_image->save();
+
+			$success_message = array( 'success' => 200,
+				'filename' => $file_name,
+			);
+			return json_encode($success_message);
+		}
+	 }
+	 
+	 public function removeProductImage(Request $request) {
+		ProductMedia::where('image', $request->name)->delete();
+		$image_path = public_path()."\product_images/".$request->name;
+		@unlink($image_path);
+		return "Image deleted successfully";
+	 }
 
      // 
 
