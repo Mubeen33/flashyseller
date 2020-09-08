@@ -36,7 +36,7 @@
                 </optgroup>
             </select>
 			</div>
-			<div class="col-lg-4" id="firstDataRow">
+			<div class="col-lg-3" id="firstDataRow">
 				<input type="text" class="form-control" id="{{$variationName}}" class="options">
 			</div>
 			<div class="col-lg-2">

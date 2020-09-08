@@ -420,7 +420,13 @@
                             </select>
                         </div>
                         @include('product.partials.auto-variantOptions')
+                        
                     </div>
+                    <table class="table table-bordered">
+                      <thead id="first_variant">
+                        <tr></tr>
+                      </thead>
+                    </table>
                     </div>
                     
                 </div>
@@ -561,8 +567,8 @@ $.ajaxSetup({
       var Id = $('.first_variation').val();
       var val = $("#"+Id).val();
 
-      $("#firstDataRow").append('<br><input type="text" class="form-control" name="first_variation_value[]" value="'+val+'" class="options">');
-      $("#"+Id).val(null)
+      $("#first_variant").append('<tr><td><input type="text"  class="form-control" value="'+val+'" readonly></td><td><input type="text" class="form-control" name="sku"></td><td></td></tr>');
+      $("#"+Id).val(null);
   } 
 
 // 
