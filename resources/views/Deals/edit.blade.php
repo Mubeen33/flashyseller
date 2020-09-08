@@ -118,7 +118,7 @@
 </div>
 @endsection
 
-@push('scritps')  
+@push('scripts')  
    <script type="text/javascript">
     $(document).ready(function(){
         $("#dealCreatingForm").on('submit', function(e){

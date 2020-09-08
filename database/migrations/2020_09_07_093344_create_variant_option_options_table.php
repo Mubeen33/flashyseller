@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVendorActivitiesTable extends Migration
+class CreateVariantOptionOptionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,8 @@ class CreateVendorActivitiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_activities', function (Blueprint $table) {
+        Schema::create('variant_option_options', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('vendor_id');
-            $table->string('activityName');
-            $table->json('activities');
-            $table->string('is_loogedIn')->nullable();
             $table->timestamps();
         });
     }
@@ -30,6 +26,6 @@ class CreateVendorActivitiesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_activities');
+        Schema::dropIfExists('variant_option_options');
     }
 }

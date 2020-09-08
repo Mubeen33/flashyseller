@@ -9,7 +9,11 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
+<<<<<<< HEAD
     <meta name="csrf-token" content="{{ csrf_token() }}" />
+=======
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+>>>>>>> 96b7c9594661969bc840e3e64e3211cd3a5d11a4
     <title>Seller | FlashyBuy</title>
     <link rel="apple-touch-icon" href="{{ asset('app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('app-assets/images/ico/favicon.ico')}}">

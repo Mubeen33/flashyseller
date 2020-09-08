@@ -23,6 +23,9 @@ Route::post('logout', 'Auth\VendorLogout@logout')->name('logout');
 Route::get('reset/passoword/{token?}/{email?}', 'Auth\ForgotPassword@pass_reset_form')->name('resetPassForm.get');
 Route::post('send/pass-reset/link', 'Auth\ForgotPassword@send_reset_link')->name('sendPassResetLink.post');
 Route::post('reset/passoword', 'Auth\ForgotPassword@password_reset_post')->name('passwordReset.post');
+//control
+Route::get('popup-dont-show', function(){return abort(404);});
+Route::post('popup-dont-show', 'Popup\PopupController@dont_show')->name('popUpDontShow.post');
 
 
 
@@ -51,15 +54,20 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get('ajax-get-variant-options/fetch','product\ProductController@getVariationsOptions');
 	Route::get('ajax-get-secondvariant-options/fetch','product\ProductController@getSecondVariationsOptions');
 	Route::post('add-product','product\ProductController@addProduct');
+<<<<<<< HEAD
 	Route::post('delete-product-image','product\ProductController@removeProductImage');
+=======
+	
+	//pending routes
+	Route::get('products/pending','product\ProductController@get_pending')->name('pendingProducts.get');
+	Route::get('product/detail/{id}','product\ProductController@product_details')->name('productDetails.get');
+	Route::get('ajax-get-products/fetch','product\ProductController@fetch_data')->name('products.ajaxPgination');
+>>>>>>> 96b7c9594661969bc840e3e64e3211cd3a5d11a4
 });
 
 
 Route::get('add-new-product','product\ProductController@index');
-
-Route::get("/enventory",function(){
-	return view("product.enventory");
-});
+Route::get("/enventory",function(){ return view("product.enventory"); });
 
 
 

@@ -1,8 +1,9 @@
 @php
-    $get__sessionID = \Session::get('dont_show_popup');
+    $get_popup_dont_show_session = \Session::get('dont_show_popup');
 @endphp
 
 
+@if(!$get_popup_dont_show_session)
 
     @php
         $current_ = \Carbon\Carbon::now();
@@ -107,3 +108,6 @@
             @endif
         @endforeach
     @endif
+
+
+@endif

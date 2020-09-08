@@ -72,6 +72,6 @@
       
 @endsection
 
-@push('scritps')  
+@push('scripts')  
 <script type="text/javascript" src="{{ asset('assets/js/seller.js') }}"></script>
 @endpush

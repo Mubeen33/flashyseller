@@ -20,6 +20,8 @@
                         </li>
                         <li data-menu=""><a class="dropdown-item" href="{{url('enventory')}}" data-toggle="dropdown" data-i18n="eCommerce"><i class="feather icon-shopping-cart"></i>Inventory</a>
                         </li>
+                        <li data-menu=""><a class="dropdown-item" href="{{route('vendor.pendingProducts.get')}}" data-toggle="dropdown" data-i18n="eCommerce"><i class="feather icon-x"></i>Pending</a>
+                        </li>
                     </ul>
                 </li>
                 <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-bar-chart-2"></i><span data-i18n="Charts &amp; Maps">Deals</span></a>
@@ -34,6 +36,7 @@
                         </li>
                     </ul>
                 </li>
+
                 {{-- <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-package"></i><span data-i18n="Apps">Apps</span></a>
                     <ul class="dropdown-menu">
                         <li data-menu=""><a class="dropdown-item" href="app-email.html" data-toggle="dropdown" data-i18n="Email"><i class="feather icon-mail"></i>Email</a>
