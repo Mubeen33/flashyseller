@@ -1,68 +1,201 @@
-@foreach($data as $key=>$content)
-<tr>
-  <td align="center" width="100px">
-    @if($content->active == 0)
-      <div class="chip chip-danger">
-          <div class="chip-body">
-              <div class="chip-text">on hold</div>
-          </div>
-      </div>
-      @else
-      <div class="chip chip-success">
-          <div class="chip-body">
-              <div class="chip-text">Active</div>
-          </div>
-      </div>
-    @endif
+@extends('layouts.master')
+@push('styles')
+<style type="text/css">
+  .searchKey__{
+    outline: none;
+  }
+  input,
+  select{
+    outline: none;
+    border:1px solid #ddd;
+  }
+</style>
+@endpush
 
-  </td>
-  <td width="300px" align="left">
-    @php
-      $getProductImage = (\App\ProductMedia::where('image_id', $content->get_product->image_id)->first());
-    @endphp
-    @if($getProductImage)
-    <img src="{{$getProductImage->image}}" width="40"  height="40" /><font size="2">  {{\Str::words($content->get_product->title, 4)}} </font>
-    @endif
-  </td>
-  <td width="100px" align="center">
-      <input type="text" class="input-one inp-c" name="sku" value="{{$content->get_product->sku}}">
-  </td>
-  <td align="center" width="80px">
-     <input type="number" class="input-two inp-c" id="floating-label1"  value="{{$content->quantity}}" name="quantity">
-  </td>
-  <td width="150px" class="list-size" align="center">
-     {{$content->get_product->id}}
-  </td>
-  <td width="100px" class="list-size" align="center" width="100px">
-      0
-  </td>
-  <td width="150px">
-      <input type="number" class="input-three inp-c" name="price" value="{{$content->price}}" />
-  </td>
-  <td width="100px" align="center">
-      <input type="text" class="input-one inp-c" name="mk_price" value="{{$content->mk_price}}">
-  </td>
-  <td width="150px">
-    @php
-      $dispatchDays = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
-    @endphp
-      <select name="dispatchdays">
-          <option>None</option>
-          @foreach($dispatchDays as $day)
-            <option value="{{$day}}" @if($day == $content->dispatched_days) selected @endif>{{$day}}</option>
-          @endforeach
-      </select>
-  </td>
-  <td width="100px">
-      <div class="dropdown">
-          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Action
-          </button>
-          <div class="dropdown-menu">
-              <a class="dropdown-item" href="#">Report</a>
-              <a class="dropdown-item" href="#">Update</a>
+@section('content')
+ <!-- Basic tabs start -->
+  <section id="basic-tabs-components">
+      <ul class="list-group list-group-horizontal-sm list-tab"  role="tablist" style="text-decoration:none; list-style:none; border-radius:5px;">
+          <li>
+              <a class="list-group-item order-pill active" id="home-tab" data-toggle="tab" href="#orders" aria-controls="home" role="tab" aria-selected="true">
+                  Manage My Offers
+              </a>
+          </li>
+          <li>
+              <a class="list-group-item order-pill" id="profile-tab" data-toggle="tab" href="#drafts" aria-controls="profile" role="tab" aria-selected="false">
+                  View Bulk Results
+              </a>
+          </li>
+          <li>
+              <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#confrim" aria-controls="about" role="tab" aria-selected="false">Request Product Edit</a>
+          </li>
+      </ul>
+      <div class="tab-content">
+          <div class="tab-pane active" id="orders" aria-labelledby="home-tab" role="tabpanel">
+              <br />
+              <button class="btn mb-1 btn-primary btn-sm waves-effect waves-light">
+                  Export My Offers
+              </button>
+              <button class="btn mb-1 btn-primary btn-sm  waves-effect waves-light">
+                  Download Blank Template
+              </button>
+              <button class="btn mb-1 btn-primary btn-sm  waves-effect waves-light">
+                  Bulk Uplo   ads
+              </button>
+              <button class="btn mb-1 btn-primary btn-sm  waves-effect waves-light">
+                  Create Removal Order
+              </button>
+              <br />
+              <div class="table-responsive">
+                  <table class="table table-striped mb-0 table-bg">
+                      <thead>
+                          <tr class="table-head">
+                              <td width="100px" class="sortAble" sorting-column='active' sorting-order='DESC'><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/> <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/> </svg>
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> Status
+                              </td>
+                              <td width="300px">
+                                  Product Title
+                              </td>
+                              <td width="100px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> SKU
+                              </td>
+                              <td width="80px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> QTY
+                              </td>
+                              <td width="150px">
+                                  <i class="fa fa-info-circle" aria-hid den="true"></i> Product ID
+                              </td>
+                              <td width="200px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i>Sales 30 days
+                              </td>
+                              <td width="150px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> 
+                                  Selling Price
+                              </td>
+                              <td width="100px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> RRP
+                              </td>
+                              <td width="150px">
+                                  Dispatch Days
+                              </td>
+                              <td width="100px">
+                                  Action
+                              </td>
+                          </tr>
+                      </thead>
+                      <tbody class="table-body">
+                              <!-- Search -->
+                              <tr>
+                                  <td width="100px">
+                                      <select id="hidden__status" class="input-four">
+                                          <option value="3">All</option> <!-- view all -->
+                                          <option value="1">Active</option>
+                                          <option value="0">On Hold</option>
+                                      </select>
+                                  </td>
+                                  <td width="300px">
+                                     <input type="text" class="input-one searchKey__" search-in="title" placeholder="Search title" value="">
+                                  </td>
+                                  <td width="100px">
+                                      <input type="text" class="input-two searchKey__" search-in="sku" placeholder="Search SKU" value="">
+                                  </td>
+                                  <td width="80px"></td>
+                                  <td width="150px">
+                                      <input type="text" class="input-three searchKey__" search-in="id" placeholder="Search ID" value="">
+                                  </td>
+                                  <td width="100px"></td>
+                                  <td width="150px"></td>
+                                  <td width="100px"></td>
+                                  <td width="150px">
+                                      <select name="all">
+                                          <option>All</option>
+                                          <option>1</option>
+                                          <option>2</option>
+                                          <option>3</option>
+                                          <option>4</option>
+                                      </select>
+                                  </td>
+                                  <td width="100px">
+                                    <select id="selected_row_per_page" title="Display row per page">
+                                        <option value="5" selected="1">Show 5</option>
+                                        <option value="10">Show 10</option>
+                                        <option value="15">Show 15</option>
+                                        <option value="20">Show 20</option>
+                                        <option value="25">Show 25</option>
+                                        <option value="30">Show 30</option>
+                                    </select>
+                                  </td>
+                              </tr>
+                              <!-- end search -->
+                      </tbody>
+
+                      <tbody id="render__data">
+                        <!-- start list -->
+                        @include('product.partials.inventory-list')
+                        <!-- end list -->
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="tab-pane" id="drafts" aria-labelledby="profile-tab" role="tabpanel">       <h2>View Bulk Result</h2>
+          </div>
+          <div class="tab-pane" id="confrim" aria-labelledby="about-tab" role="tabpanel">
+              <h2>Request Product Edit</h2>
           </div>
       </div>
-  </td>
-</tr>
-@endforeach
+  </section>
+
+  <input type="hidden" id="hidden__action_url" value="{{ route('vendor.inventory.ajaxPgination') }}">
+  <input type="hidden" id="hidden__page_number" value="1">
+  <input type="hidden" id="hidden__sort_by" value="id">
+  <input type="hidden" id="hidden__sorting_order" value="DESC">
+  <input type="hidden" id="hidden__id" value="">
+
+  <!-- Basic Tag Input end -->
+@endsection
+
+
+
+
+@push("scripts")
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".updateByOnChange").on("change", function(){
+      let fieldName = $(this).attr('name')
+      let rowID = $(this).attr('row-id')
+      let value = $(this).val()
+      let token = $('meta[name="csrf-token"]').attr('content')
+
+      if (value != "") {
+        $.ajax({
+          url:"{{ route('vendor.updateInventoryData.post') }}",
+          method:"POST",
+          data:{_token:token, fieldName:fieldName, id:rowID, value:value},
+          dataType:'JSON',
+          cache:false,
+          success:function(response){
+            
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 422) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                //window.location.reload(true)
+            }else if (jqXHR.status === 401) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                //window.location.reload(true)
+            }else{
+                alert('Sorry\n Something unknown problem')
+                //window.location.reload(true)
+            }
+
+        }
+        })
+      }
+
+    })
+  })
+</script>
+
+
+<script type="text/javascript" src="{{ asset('js/ajax-pagination-type-2.js') }}"></script>
+@endpush

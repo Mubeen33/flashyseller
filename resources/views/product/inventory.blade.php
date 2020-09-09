@@ -4,12 +4,28 @@
   .searchKey__{
     outline: none;
   }
+  input,
+  select{
+    outline: none;
+    border:1px solid #ddd;
+  }
 </style>
 @endpush
 
 @section('content')
  <!-- Basic tabs start -->
   <section id="basic-tabs-components">
+    <div id="display--actions-msg">
+
+      <div class="error--msg"></div>
+
+      <div class="success--msg"></div>
+
+    </div>
+
+
+
+
       <ul class="list-group list-group-horizontal-sm list-tab"  role="tablist" style="text-decoration:none; list-style:none; border-radius:5px;">
           <li>
               <a class="list-group-item order-pill active" id="home-tab" data-toggle="tab" href="#orders" aria-controls="home" role="tab" aria-selected="true">
@@ -153,5 +169,52 @@
 
 
 @push("scripts")
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#render__data").on("change", ".updateByOnChange", function(){
+      let fieldName = $(this).attr('name')
+      let rowID = $(this).attr('row-id')
+      let value = $(this).val()
+      let token = $('meta[name="csrf-token"]').attr('content')
+
+      if (value != "") {
+        $.ajax({
+          url:"{{ route('vendor.updateInventoryData.post') }}",
+          method:"POST",
+          data:{_token:token, fieldName:fieldName, id:rowID, value:value},
+          dataType:'JSON',
+          cache:false,
+          success:function(response){
+            $("#display--actions-msg .success--msg").html("<div class='alert alert-success alert-dismissible fade show' role='alert'> <span>"+response+"</span> <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
+            $('html, body').animate({
+                  scrollTop: $("#display--actions-msg").offset().top
+              }, 1000);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 422) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                //window.location.reload(true)
+            }if (jqXHR.status === 404) {
+               $("#display--actions-msg .error--msg").html("<div class='alert alert-success alert-dismissible fade show' role='alert'> <span>"+jqXHR.responseText+"</span> <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
+               $('html, body').animate({
+                  scrollTop: $("#display--actions-msg").offset().top
+              }, 1000);
+            }else if (jqXHR.status === 500) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                window.location.reload(true)
+            }else{
+                alert('Sorry\n Something unknown problem')
+                //window.location.reload(true)
+            }
+
+        }
+        })
+      }
+
+    })
+  })
+</script>
+
+
 <script type="text/javascript" src="{{ asset('js/ajax-pagination-type-2.js') }}"></script>
 @endpush

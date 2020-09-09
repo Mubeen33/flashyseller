@@ -28,7 +28,7 @@
       <input type="text" class="input-one inp-c" name="sku" value="{{$content->get_product->sku}}">
   </td>
   <td align="center" width="80px">
-     <input type="number" class="input-two inp-c" id="floating-label1"  value="{{$content->quantity}}" name="quantity">
+     <input type="number" class="input-two inp-c updateByOnChange" id="floating-label1"  value="{{$content->quantity}}" name="quantity" row-id="{{encrypt($content->id)}}">
   </td>
   <td width="150px" class="list-size" align="center">
      {{$content->get_product->id}}
@@ -37,16 +37,16 @@
       0
   </td>
   <td width="150px">
-      <input type="number" class="input-three inp-c" name="price" value="{{$content->price}}" />
+      <input type="number" class="input-three inp-c updateByOnChange" name="price" value="{{$content->price}}" row-id="{{encrypt($content->id)}}" />
   </td>
   <td width="100px" align="center">
-      <input type="text" class="input-one inp-c" name="mk_price" value="{{$content->mk_price}}">
+      <input type="text" class="input-one inp-c updateByOnChange" name="mk_price" value="{{$content->mk_price}}" row-id="{{encrypt($content->id)}}">
   </td>
   <td width="150px">
     @php
       $dispatchDays = [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15];
     @endphp
-      <select name="dispatchdays">
+      <select class="updateByOnChange" name="dispatched_days" row-id="{{encrypt($content->id)}}">
           <option>None</option>
           @foreach($dispatchDays as $day)
             <option value="{{$day}}" @if($day == $content->dispatched_days) selected @endif>{{$day}}</option>

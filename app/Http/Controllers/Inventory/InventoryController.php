@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Inventory;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\VendorProduct;
+use Carbon\Carbon;
 use Auth;
 
 class InventoryController extends Controller
@@ -24,6 +25,29 @@ class InventoryController extends Controller
     }
 
 
+    public function update_inventory_data(Request $request){
+    	if ($request->ajax()) {
+    		$data = VendorProduct::where([
+    			'id'=>decrypt($request->id),
+    			'ven_id'=>Auth::guard('vendor')->user()->id
+    		])->first();
+    		if (!$data) {
+    			return response()->json("Data Not Found", 404);
+    		}
+    		$updated = $data->update([
+    			$request->fieldName => $request->value,
+    			'updated_at'=>Carbon::now()
+    		]);
+
+    		if ($updated == true) {
+    			$field = $request->fieldName === "mk_price" ? "RRP" : $request->fieldName;
+    			return response()->json($field.' - updated successfully.', 200);
+    		}else{
+    			return response()->json('SORRY - Something went wrong.', 500);
+    		}
+    	}
+    	return abort(404);
+    }
 
     //ajax pagination
     public function ajax_fetch_data(Request $request){

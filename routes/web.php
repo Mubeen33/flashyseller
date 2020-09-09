@@ -64,6 +64,7 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 
 	Route::get('add-new-product','product\ProductController@index');
 	Route::get("/inventory", "Inventory\InventoryController@inventory_page")->name('inventory.page.get');
+	Route::post("/inventory/update", "Inventory\InventoryController@update_inventory_data")->name('updateInventoryData.post');
 	Route::get("/inventory-ajax-paginate/fetch", "Inventory\InventoryController@ajax_fetch_data")->name('inventory.ajaxPgination');
 });
 
