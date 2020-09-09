@@ -66,3 +66,7 @@
   </td>
 </tr>
 @endforeach
+
+<tr>
+  <td colspan="10">{!! $data->links() !!}</td>
+</tr>
