@@ -1,4 +1,4 @@
-//search in multiple fields in one search box
+//search in specific field in each specific search box
 
 $(document).ready(function(){
     //pagination only
@@ -6,26 +6,36 @@ $(document).ready(function(){
         e.preventDefault()
         let action_url = $("#hidden__action_url").val()
         let pageNumber = $(this).attr('href').split('page=')[1]
-        let searchKey = $("#searchKey__").val()
+        
+        let searchKey;
+        let searchIn;
+        $(".searchKey__").each(function(){
+            if ($(".searchKey__").val() != null) {
+                searchKey = $(".searchKey__").val()
+                searchIn = $(".searchKey__").attr('search-in')
+            }
+        });
+
         $("#hidden__page_number").val(pageNumber)
         let sort_by = $("#hidden__sort_by").val()
         let sorting_order = $("#hidden__sorting_order").val()
         let hidden__status = $("#hidden__status").val()
         let row_per_page = $("#selected_row_per_page").val()
         let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data(action_url, pageNumber, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
+        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
     })
     //live search with pagination
-    $(document).on("keyup", "#searchKey__", function(){
+    $(document).on("keyup", ".searchKey__", function(){
         let action_url = $("#hidden__action_url").val()
         let searchKey = $(this).val()
+        let searchIn = $(this).attr('search-in')
         let pageNumber = 1;
         let sort_by = $("#hidden__sort_by").val()
         let sorting_order = $("#hidden__sorting_order").val()
         let hidden__status = $("#hidden__status").val()
         let row_per_page = $("#selected_row_per_page").val()
         let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data(action_url, pageNumber, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
+        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
     })
 
     //dynamic sorting management is ajax
@@ -54,34 +64,69 @@ $(document).ready(function(){
         $(this).attr('sorting-order', setSortingOrder)
         $(this).prepend(sortICON)
 
-        let searchKey = $("#searchKey__").val()
+        let searchKey;
+        let searchIn;
+        $(".searchKey__").each(function(){
+            if ($(".searchKey__").val() != null) {
+                searchKey = $(".searchKey__").val()
+                searchIn = $(".searchKey__").attr('search-in')
+            }
+        });
+
         let pageNumber = $("#hidden__page_number").val()
         let hidden__status = $("#hidden__status").val()
         let row_per_page = $("#selected_row_per_page").val()
         let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data(action_url, pageNumber, searchKey, sortingColumn, setSortingOrder, hidden__status, row_per_page, hidden__id)
+        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sortingColumn, setSortingOrder, hidden__status, row_per_page, hidden__id)
     })
 
     //if change option of row per page
     $("#selected_row_per_page").on('change', function(){
         let action_url = $("#hidden__action_url").val()
-        let searchKey = $("#searchKey__").val()
+        let searchKey;
+        let searchIn;
+        $(".searchKey__").each(function(){
+            if ($(".searchKey__").val() != null) {
+                searchKey = $(".searchKey__").val()
+                searchIn =$(".searchKey__").attr('search-in')
+            }
+        });
         let pageNumber = 1;
         let sort_by = $("#hidden__sort_by").val()
         let sorting_order = $("#hidden__sorting_order").val()
         let hidden__status = $("#hidden__status").val()
         let row_per_page = $(this).val()
         let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data(action_url, pageNumber, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
+        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
+    })
+
+    //if change hidden__status status otpion
+    $("#hidden__status").on('change', function(){
+        let action_url = $("#hidden__action_url").val()
+        let searchKey;
+        let searchIn;
+        $(".searchKey__").each(function(){
+            if ($(".searchKey__").val() != null) {
+                searchKey = $(".searchKey__").val()
+                searchIn = $(".searchKey__").attr('search-in')
+            }
+        });
+        let pageNumber = 1;
+        let sort_by = $("#hidden__sort_by").val()
+        let sorting_order = $("#hidden__sorting_order").val()
+        let hidden__status = $(this).val()
+        let row_per_page = $("#selected_row_per_page").val()
+        let hidden__id = $("#hidden__id").val()
+        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
     })
 })
 
 
 
 //fetch data
-function fetch_paginate_data(action_url, pageNumber, searchKey, sortBy, sortingOrder, hidden__status, rowPerPage, hidden__id){
+function fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sortBy, sortingOrder, hidden__status, rowPerPage, hidden__id){
     $.ajax({
-        url:action_url+"?page="+pageNumber+"&search_key="+searchKey+"&sort_by="+sortBy+"&sorting_order="+sortingOrder+"&status="+hidden__status+"&row_per_page="+rowPerPage+"&id="+hidden__id,
+        url:action_url+"?page="+pageNumber+"&search_in="+searchIn+"&search_key="+searchKey+"&sort_by="+sortBy+"&sorting_order="+sortingOrder+"&status="+hidden__status+"&row_per_page="+rowPerPage+"&id="+hidden__id,
         method:'GET',
         cache:false,
         success:function(response){

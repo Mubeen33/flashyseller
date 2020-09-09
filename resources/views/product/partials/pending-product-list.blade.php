@@ -8,7 +8,9 @@
     <td>
         @if(!$content->get_images->isEmpty())
             @foreach($content->get_images as $key=>$image)
-            <img src="{{ $image }}">
+            @if($key == 0)
+            <img src="{{ $image }}" width="100px" height="80px">
+            @endif
             @endforeach
         @endif
     </td>

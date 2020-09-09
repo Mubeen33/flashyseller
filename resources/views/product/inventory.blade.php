@@ -1,7 +1,31 @@
 @extends('layouts.master')
+@push('styles')
+<style type="text/css">
+  .searchKey__{
+    outline: none;
+  }
+  input,
+  select{
+    outline: none;
+    border:1px solid #ddd;
+  }
+</style>
+@endpush
+
 @section('content')
  <!-- Basic tabs start -->
   <section id="basic-tabs-components">
+    <div id="display--actions-msg">
+
+      <div class="error--msg"></div>
+
+      <div class="success--msg"></div>
+
+    </div>
+
+
+
+
       <ul class="list-group list-group-horizontal-sm list-tab"  role="tablist" style="text-decoration:none; list-style:none; border-radius:5px;">
           <li>
               <a class="list-group-item order-pill active" id="home-tab" data-toggle="tab" href="#orders" aria-controls="home" role="tab" aria-selected="true">
@@ -37,7 +61,7 @@
                   <table class="table table-striped mb-0 table-bg">
                       <thead>
                           <tr class="table-head">
-                              <td width="100px">
+                              <td width="100px" class="sortAble" sorting-column='active' sorting-order='DESC'><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/> <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/> </svg>
                                   <i class="fa fa-info-circle" aria-hidden="true"></i> Status
                               </td>
                               <td width="300px">
@@ -74,21 +98,21 @@
                               <!-- Search -->
                               <tr>
                                   <td width="100px">
-                                      <select class="input-four" name="select">
-                                          <option>All</option>
-                                          <option>Active</option>
-                                          <option>Completed</option>
+                                      <select id="hidden__status" class="input-four">
+                                          <option value="3">All</option> <!-- view all -->
+                                          <option value="1">Active</option>
+                                          <option value="0">On Hold</option>
                                       </select>
                                   </td>
                                   <td width="300px">
-                                     <input type="text" class="input-one" name="">
+                                     <input type="text" class="input-one searchKey__" search-in="title" placeholder="Search title" value="">
                                   </td>
                                   <td width="100px">
-                                      <input type="text" class="input-two" name="">
+                                      <input type="text" class="input-two searchKey__" search-in="sku" placeholder="Search SKU" value="">
                                   </td>
                                   <td width="80px"></td>
                                   <td width="150px">
-                                      <input type="text" class="input-three" name="">
+                                      <input type="text" class="input-three searchKey__" search-in="id" placeholder="Search ID" value="">
                                   </td>
                                   <td width="100px"></td>
                                   <td width="150px"></td>
@@ -102,61 +126,24 @@
                                           <option>4</option>
                                       </select>
                                   </td>
-                                  <td width="100px"></td>
+                                  <td width="100px">
+                                    <select id="selected_row_per_page" title="Display row per page">
+                                        <option value="5" selected="1">Show 5</option>
+                                        <option value="10">Show 10</option>
+                                        <option value="15">Show 15</option>
+                                        <option value="20">Show 20</option>
+                                        <option value="25">Show 25</option>
+                                        <option value="30">Show 30</option>
+                                    </select>
+                                  </td>
                               </tr>
                               <!-- end search -->
-                               <!-- start list -->
-                              <tr>
-                                  <td align="center" width="100px">
-                                      <div class="chip chip-danger">
-                                          <div class="chip-body">
-                                              <div class="chip-text">on hold</div>
-                                          </div>
-                                      </div>
-                                  </td>
-                                  <td width="300px" align="left">
-                                    <img src="app-assets/images/elements/apple-watch.png" width="40"  height="40" /><font size="2">  Apple Watch series 4  </font>
-                                  </td>
-                                  <td width="100px" align="center">
-                                      <input type="text" class="input-one inp-c" name="">
-                                  </td>
-                                  <td align="center" width="80px">
-                                     <input type="number" class="input-two inp-c" id="floating-label1"  value="0" name="">
-                                  </td>
-                                  <td width="150px" class="list-size" align="center">
-                                     2445454
-                                  </td>
-                                  <td width="100px" class="list-size" align="center" width="100px">
-                                      0
-                                  </td>
-                                  <td width="150px">
-                                      <input type="number" class="input-three inp-c" name="" />
-                                  </td>
-                                  <td width="100px" align="center">
-                                      <input type="text" class="input-one inp-c" name="">
-                                  </td>
-                                  <td width="150px">
-                                      <select name="dispatchdays">
-                                          <option>None</option>
-                                          <option>1</option>
-                                          <option>2</option>
-                                          <option>3</option>
-                                          <option>4</option>
-                                      </select>
-                                  </td>
-                                  <td width="100px">
-                                      <div class="dropdown">
-                                          <button type="button" class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                              Action
-                                          </button>
-                                          <div class="dropdown-menu">
-                                              <a class="dropdown-item" href="#">Report</a>
-                                              <a class="dropdown-item" href="#">Update</a>
-                                          </div>
-                                      </div>
-                                  </td>
-                              </tr>
-                              <!-- end list -->
+                      </tbody>
+
+                      <tbody id="render__data">
+                        <!-- start list -->
+                        @include('product.partials.inventory-list')
+                        <!-- end list -->
                       </tbody>
                   </table>
               </div>
@@ -168,5 +155,66 @@
           </div>
       </div>
   </section>
+
+  <input type="hidden" id="hidden__action_url" value="{{ route('vendor.inventory.ajaxPgination') }}">
+  <input type="hidden" id="hidden__page_number" value="1">
+  <input type="hidden" id="hidden__sort_by" value="id">
+  <input type="hidden" id="hidden__sorting_order" value="DESC">
+  <input type="hidden" id="hidden__id" value="">
+
   <!-- Basic Tag Input end -->
 @endsection
+
+
+
+
+@push("scripts")
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#render__data").on("change", ".updateByOnChange", function(){
+      let fieldName = $(this).attr('name')
+      let rowID = $(this).attr('row-id')
+      let value = $(this).val()
+      let token = $('meta[name="csrf-token"]').attr('content')
+
+      if (value != "") {
+        $.ajax({
+          url:"{{ route('vendor.updateInventoryData.post') }}",
+          method:"POST",
+          data:{_token:token, fieldName:fieldName, id:rowID, value:value},
+          dataType:'JSON',
+          cache:false,
+          success:function(response){
+            $("#display--actions-msg .success--msg").html("<div class='alert alert-success alert-dismissible fade show' role='alert'> <span>"+response+"</span> <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
+            $('html, body').animate({
+                  scrollTop: $("#display--actions-msg").offset().top
+              }, 1000);
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 422) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                //window.location.reload(true)
+            }if (jqXHR.status === 404) {
+               $("#display--actions-msg .error--msg").html("<div class='alert alert-success alert-dismissible fade show' role='alert'> <span>"+jqXHR.responseText+"</span> <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
+               $('html, body').animate({
+                  scrollTop: $("#display--actions-msg").offset().top
+              }, 1000);
+            }else if (jqXHR.status === 500) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                window.location.reload(true)
+            }else{
+                alert('Sorry\n Something unknown problem')
+                //window.location.reload(true)
+            }
+
+        }
+        })
+      }
+
+    })
+  })
+</script>
+
+
+<script type="text/javascript" src="{{ asset('js/ajax-pagination-type-2.js') }}"></script>
+@endpush

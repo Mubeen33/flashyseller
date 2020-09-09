@@ -1,109 +1,201 @@
-@php
-    $get__sessionID = \Session::get('dont_show_popup');
-@endphp
+@extends('layouts.master')
+@push('styles')
+<style type="text/css">
+  .searchKey__{
+    outline: none;
+  }
+  input,
+  select{
+    outline: none;
+    border:1px solid #ddd;
+  }
+</style>
+@endpush
+
+@section('content')
+ <!-- Basic tabs start -->
+  <section id="basic-tabs-components">
+      <ul class="list-group list-group-horizontal-sm list-tab"  role="tablist" style="text-decoration:none; list-style:none; border-radius:5px;">
+          <li>
+              <a class="list-group-item order-pill active" id="home-tab" data-toggle="tab" href="#orders" aria-controls="home" role="tab" aria-selected="true">
+                  Manage My Offers
+              </a>
+          </li>
+          <li>
+              <a class="list-group-item order-pill" id="profile-tab" data-toggle="tab" href="#drafts" aria-controls="profile" role="tab" aria-selected="false">
+                  View Bulk Results
+              </a>
+          </li>
+          <li>
+              <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#confrim" aria-controls="about" role="tab" aria-selected="false">Request Product Edit</a>
+          </li>
+      </ul>
+      <div class="tab-content">
+          <div class="tab-pane active" id="orders" aria-labelledby="home-tab" role="tabpanel">
+              <br />
+              <button class="btn mb-1 btn-primary btn-sm waves-effect waves-light">
+                  Export My Offers
+              </button>
+              <button class="btn mb-1 btn-primary btn-sm  waves-effect waves-light">
+                  Download Blank Template
+              </button>
+              <button class="btn mb-1 btn-primary btn-sm  waves-effect waves-light">
+                  Bulk Uplo   ads
+              </button>
+              <button class="btn mb-1 btn-primary btn-sm  waves-effect waves-light">
+                  Create Removal Order
+              </button>
+              <br />
+              <div class="table-responsive">
+                  <table class="table table-striped mb-0 table-bg">
+                      <thead>
+                          <tr class="table-head">
+                              <td width="100px" class="sortAble" sorting-column='active' sorting-order='DESC'><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/> <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/> </svg>
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> Status
+                              </td>
+                              <td width="300px">
+                                  Product Title
+                              </td>
+                              <td width="100px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> SKU
+                              </td>
+                              <td width="80px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> QTY
+                              </td>
+                              <td width="150px">
+                                  <i class="fa fa-info-circle" aria-hid den="true"></i> Product ID
+                              </td>
+                              <td width="200px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i>Sales 30 days
+                              </td>
+                              <td width="150px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> 
+                                  Selling Price
+                              </td>
+                              <td width="100px">
+                                  <i class="fa fa-info-circle" aria-hidden="true"></i> RRP
+                              </td>
+                              <td width="150px">
+                                  Dispatch Days
+                              </td>
+                              <td width="100px">
+                                  Action
+                              </td>
+                          </tr>
+                      </thead>
+                      <tbody class="table-body">
+                              <!-- Search -->
+                              <tr>
+                                  <td width="100px">
+                                      <select id="hidden__status" class="input-four">
+                                          <option value="3">All</option> <!-- view all -->
+                                          <option value="1">Active</option>
+                                          <option value="0">On Hold</option>
+                                      </select>
+                                  </td>
+                                  <td width="300px">
+                                     <input type="text" class="input-one searchKey__" search-in="title" placeholder="Search title" value="">
+                                  </td>
+                                  <td width="100px">
+                                      <input type="text" class="input-two searchKey__" search-in="sku" placeholder="Search SKU" value="">
+                                  </td>
+                                  <td width="80px"></td>
+                                  <td width="150px">
+                                      <input type="text" class="input-three searchKey__" search-in="id" placeholder="Search ID" value="">
+                                  </td>
+                                  <td width="100px"></td>
+                                  <td width="150px"></td>
+                                  <td width="100px"></td>
+                                  <td width="150px">
+                                      <select name="all">
+                                          <option>All</option>
+                                          <option>1</option>
+                                          <option>2</option>
+                                          <option>3</option>
+                                          <option>4</option>
+                                      </select>
+                                  </td>
+                                  <td width="100px">
+                                    <select id="selected_row_per_page" title="Display row per page">
+                                        <option value="5" selected="1">Show 5</option>
+                                        <option value="10">Show 10</option>
+                                        <option value="15">Show 15</option>
+                                        <option value="20">Show 20</option>
+                                        <option value="25">Show 25</option>
+                                        <option value="30">Show 30</option>
+                                    </select>
+                                  </td>
+                              </tr>
+                              <!-- end search -->
+                      </tbody>
+
+                      <tbody id="render__data">
+                        <!-- start list -->
+                        @include('product.partials.inventory-list')
+                        <!-- end list -->
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <div class="tab-pane" id="drafts" aria-labelledby="profile-tab" role="tabpanel">       <h2>View Bulk Result</h2>
+          </div>
+          <div class="tab-pane" id="confrim" aria-labelledby="about-tab" role="tabpanel">
+              <h2>Request Product Edit</h2>
+          </div>
+      </div>
+  </section>
+
+  <input type="hidden" id="hidden__action_url" value="{{ route('vendor.inventory.ajaxPgination') }}">
+  <input type="hidden" id="hidden__page_number" value="1">
+  <input type="hidden" id="hidden__sort_by" value="id">
+  <input type="hidden" id="hidden__sorting_order" value="DESC">
+  <input type="hidden" id="hidden__id" value="">
+
+  <!-- Basic Tag Input end -->
+@endsection
 
 
 
-    @php
-        $current_ = \Carbon\Carbon::now();
-        $today_ =$current_->format('Y-m-d');
 
-        $get_popups_data = (\App\Popup::whereDate('start_time', '<=', $today_)
-                        ->whereDate('end_time', '>=', $today_)
-                        ->get()
-                    );
+@push("scripts")
+<script type="text/javascript">
+  $(document).ready(function(){
+    $(".updateByOnChange").on("change", function(){
+      let fieldName = $(this).attr('name')
+      let rowID = $(this).attr('row-id')
+      let value = $(this).val()
+      let token = $('meta[name="csrf-token"]').attr('content')
 
-        $current_active_url = Request::url();
-        $popupID = NULL;
-        foreach($get_popups_data as $content){
-        $url_array = (array_map('trim',array_filter(explode("##,", $content->url_list))));
-            if(in_array($current_active_url , $url_array)){
-                $popupID = $content->id;
-                break;
+      if (value != "") {
+        $.ajax({
+          url:"{{ route('vendor.updateInventoryData.post') }}",
+          method:"POST",
+          data:{_token:token, fieldName:fieldName, id:rowID, value:value},
+          dataType:'JSON',
+          cache:false,
+          success:function(response){
+            
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 422) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                //window.location.reload(true)
+            }else if (jqXHR.status === 401) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                //window.location.reload(true)
+            }else{
+                alert('Sorry\n Something unknown problem')
+                //window.location.reload(true)
             }
+
         }
-        
-        
-        
-       
-    @endphp
+        })
+      }
+
+    })
+  })
+</script>
 
 
-
-
-    @if($popupID != NULL)
-        @foreach($get_popups_data as $key=>$content)
-            @if($content->id == $popupID)
-            <div style="position: relative;">
-                <div class="modal fade show" id="dynamicPOPUP" tabindex="-1" aria-labelledby="dynamicPOPUPLabel" aria-hidden="true" style="padding-right: 17px; display: block;">
-                  <div class="modal-dialog modal-lg modal-dialog-centered">
-                    <div class="modal-content" style="
-                        background: transparent; 
-                        background-image: url({{ $content->popup_background_image }});
-                        background-size: cover;
-                    " >
-                      <div class="modal-header" style="background: transparent">
-                        <h5 class="modal-title" id="dynamicPOPUPLabel"></h5>
-                        <button onclick="hidePOPUPBox()" type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                      </div>
-                      <div class="modal-body" style="padding: 3rem">
-                        <h4 class="text-white">{{ $content->title }}</h4>
-                        <p class="text-white">{{ $content->description }}</p>
-
-                        @if($content->button_text != NULL)
-                        <div class="form-group">
-                            <a href="@if($content->button_link != NULL){{$content->button_link}} @else # @endif" class="btn" style="background: {{$content->button_background}};color: {{$content->button_text_color}}">{{ $content->button_text }}</a>
-                        </div>
-                        @endif
-
-                        <div class="form-group">
-                            <input type="checkbox" name="" id="dontShowPopUp">
-                            <label class="text-white" for="dontShowPopUp">Don't show this popup again</label>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-            </div>
-
-            @push('scritps')
-            <script type="text/javascript">
-                $('<div class="modal-backdrop"></div>').appendTo(document.body);
-                $(".modal-backdrop").css('background-color', '#212121')
-                $(".modal-backdrop").css('opacity', '.8')
-
-                function hidePOPUPBox(){
-                    $("#dynamicPOPUP").remove()
-                    $('.modal-backdrop').remove();
-                }
-
-
-                $("#dontShowPopUp").on("click", function(){
-                    let token = $('meta[name="csrf-token"]').attr('content')
-                    $.ajax({
-                        url:"{{route('popUpDontShow.post')}}",
-                        method:'POST',
-                        data:{_token:token},
-                        dataType:'JSON',
-                        success:function(response){
-                            if (response.success === true) {
-                                console.log(response.msg)
-                                $("#dynamicPOPUP").remove()
-                                $('.modal-backdrop').remove();
-                            }else{
-                                console.log(response.msg)
-                                alert('SORRY - Someting Went Wrong.')
-                                window.location.reload(true)
-                            }
-                            
-                        }
-                    })
-                })
-            </script>
-            @endpush
-
-            @endif
-        @endforeach
-    @endif
+<script type="text/javascript" src="{{ asset('js/ajax-pagination-type-2.js') }}"></script>
+@endpush

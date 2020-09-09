@@ -18,7 +18,7 @@
                     <ul class="dropdown-menu">
                         <li data-menu=""><a class="dropdown-item" href="{{url('add-new-product')}}" data-toggle="dropdown" data-i18n="Analytics"><i class="feather icon-activity"></i>Add Product</a>
                         </li>
-                        <li data-menu=""><a class="dropdown-item" href="{{url('enventory')}}" data-toggle="dropdown" data-i18n="eCommerce"><i class="feather icon-shopping-cart"></i>Inventory</a>
+                        <li data-menu=""><a class="dropdown-item" href="{{route('vendor.inventory.page.get')}}" data-toggle="dropdown" data-i18n="eCommerce"><i class="feather icon-shopping-cart"></i>Inventory</a>
                         </li>
                         <li data-menu=""><a class="dropdown-item" href="{{route('vendor.pendingProducts.get')}}" data-toggle="dropdown" data-i18n="eCommerce"><i class="feather icon-x"></i>Pending</a>
                         </li>

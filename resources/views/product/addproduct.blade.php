@@ -7,6 +7,7 @@
 @section('content')
     
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/file-uploaders/dropzone.css')}}">
+
 <style type="text/css">
   .p-graph {
     font-size:10px !important;
@@ -62,7 +63,11 @@
   .dz-size{
     display: none !important;
   }
-<?php $prod_img_id = mt_rand(111111111,999999999);  ?>
+<?php $today = date('YmdHi');
+      $startDate = date('YmdHi', strtotime('2012-03-14 09:06:00'));
+      $range = $today - $startDate;
+      $prod_img_id = rand(0, $range);  
+?>
 </style>
 <div class="content-body">
 	<div class="container-fluid">
@@ -159,7 +164,7 @@
       		</div>
     
     
-        <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data">
+        <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data" id="choice_form">
             @csrf
             <input type="hidden" name="image_id" value="{{$prod_img_id}}">      
           		<!-- end Photos -->
@@ -398,7 +403,7 @@
 								  	</button>
                             </div>
                             <div class="col-lg-2">
-                                <button type="submit" class="btn btn-warning">Submit</button>
+                                {{-- <button type="submit" class="btn btn-warning">Submit</button> --}}
                             </div>
           					</div>
                             
@@ -442,6 +447,7 @@
 	    </div>
   </div>
 </div>
+{{-- <input type="hidden"  id="nmbr" name="" value="0"> --}}
 @endsection
 @section('script')
   <script src="{{ asset('app-assets/vendors/js/extensions/dropzone.min.js')}}"></script>
@@ -567,16 +573,45 @@ $(function () {
 
 
 //
-
+  var i=0;
   function addnewDataRow(){
+
 
       var Id = $('.first_variation').val();
       var val = $("#"+Id).val();
+      alert(val+Id);
+      // $('#combine').css('display','');
 
-      $("#firstDataRow").append('<br><input type="text" class="form-control" name="first_variation_value[]" value="'+val+'" class="options">');
-      $("#"+Id).val(null)
+        // $("#sku_combination").append('<tr><td><input type="text" name="choice_options_'+i+'[]" class="form-control" value="'+val+'" readonly><input type="hidden" name="vari_type[]" value="'+i+'" class="form-control"></td></tr>');
+        $("#"+Id).val(null);
+        // i++;
+      update_sku(val,Id);
+      
+      
+
   } 
+//
+function update_sku(val,variation_name){
 
+          $.ajax({
+               type:"GET",
+               url:'{{ route('vendor.products.sku_combination') }}',
+               data:{option:val,variation_name:variation_name},
+               success: function(data){
+
+                 $('#combine').css('display','');
+                 $('#sku_combination').append(data);
+                 // alert(data);
+                 // if (!data) {
+                 //   $('#quantity').show();
+                 // }
+                 // else {
+                 //    $('#quantity').hide();
+                 // }
+               }
+         });
+
+      }
 // 
  function getSecondVariant(variation_id){
 
@@ -595,6 +630,20 @@ $(function () {
 
             return false;
         }
+ }
+
+ function getSecondVariant(variation_id){
+
+    $.ajax({
+                url:"/vendor/ajax-get-secondvariant-options/fetch?variation_id="+variation_id,
+                method:'GET',
+                cache:false,
+                success:function(response){
+
+                    $("#render__variations__data").append(response);
+                    // console.log(response);
+                },
+            });
  }
   </script>
 

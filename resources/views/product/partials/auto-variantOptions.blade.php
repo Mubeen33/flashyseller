@@ -14,9 +14,11 @@
                 <option>Choose Variation Type</option>
                 <optgroup label="Variation Type">
                     @foreach($variationList as $variation)
-                      <option value="{{$variation->id}}">
-                        {{$variation->variation_name}}
-                      </option>
+                        @if($variation->variation_name !== $variationName)
+		                      <option value="{{$variation->id}}">
+		                        {{$variation->variation_name}}
+		                      </option>
+    					@endif
                     @endforeach
                 </optgroup>
             </select>
@@ -30,15 +32,17 @@
                 <option>Choose Variation Type</option>
                 <optgroup label="Variation Type">
                     @foreach($variationList as $variation)
-                      <option value="{{$variation->id}}">
-                        {{$variation->variation_name}}
-                      </option>
+                    	@if($variation->variation_name !== $variationName)
+		                      <option value="{{$variation->id}}">
+		                        {{$variation->variation_name}}
+		                      </option>
+    					@endif      
                     @endforeach
                 </optgroup>
             </select>
 			</div>
-			<div class="col-lg-4" id="firstDataRow">
-				<input type="text" class="form-control" id="{{$variationName}}" class="options">
+			<div class="col-lg-3" id="firstDataRow">
+				<input type="text" value="" data-role="tagsinput" >
 			</div>
 			<div class="col-lg-2">
 				<button class="btn btn-warning" type="button" onclick="addnewDataRow()">Add</button>

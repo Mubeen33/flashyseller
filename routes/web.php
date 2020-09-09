@@ -45,7 +45,6 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::resource('deals','Deal\DealController');
 	Route::get('ajax-get-deals-product/fetch','Deal\DealController@get_products');
 	Route::get('delete-deal/{id}','Deal\DealController@delete_deal')->name('deals.deleteDeal');
-	
 
 	//products
 	Route::post('add-product-images/{product_image_id}','product\ProductController@addProductImages');
@@ -54,20 +53,23 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get('ajax-get-variant-options/fetch','product\ProductController@getVariationsOptions');
 	Route::get('ajax-get-secondvariant-options/fetch','product\ProductController@getSecondVariationsOptions');
 	Route::post('add-product','product\ProductController@addProduct');
-<<<<<<< HEAD
 	Route::post('delete-product-image','product\ProductController@removeProductImage');
-=======
-	
+	Route::get('products/sku_combination','product\ProductController@skuCombinations')->name('products.sku_combination');
+
 	//pending routes
 	Route::get('products/pending','product\ProductController@get_pending')->name('pendingProducts.get');
 	Route::get('product/detail/{id}','product\ProductController@product_details')->name('productDetails.get');
 	Route::get('ajax-get-products/fetch','product\ProductController@fetch_data')->name('products.ajaxPgination');
->>>>>>> 96b7c9594661969bc840e3e64e3211cd3a5d11a4
+
+
+	Route::get('add-new-product','product\ProductController@index');
+	Route::get("/inventory", "Inventory\InventoryController@inventory_page")->name('inventory.page.get');
+	Route::post("/inventory/update", "Inventory\InventoryController@update_inventory_data")->name('updateInventoryData.post');
+	Route::get("/inventory-ajax-paginate/fetch", "Inventory\InventoryController@ajax_fetch_data")->name('inventory.ajaxPgination');
 });
 
 
-Route::get('add-new-product','product\ProductController@index');
-Route::get("/enventory",function(){ return view("product.enventory"); });
+
 
 
 
