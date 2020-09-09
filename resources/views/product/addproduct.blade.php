@@ -392,9 +392,10 @@
           			</div>
           			<div class="row">
           					<div class="col-lg-10">
-          						<button type="button" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light">
-          							Add Variations
-          						</button>
+								  
+          							<button type="button" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light" id="addVariantButton">
+          								Add Variations
+								  	</button>
                             </div>
                             <div class="col-lg-2">
                                 <button type="submit" class="btn btn-warning">Submit</button>
@@ -402,33 +403,40 @@
           					</div>
                             
           			</div>
-          		</div>
-                <div class="card" id="variant-card" style="display: none;">
-                    <div class="card-body">
-                        <h5 class="modal-title">Add variations</h5><br>
-                    <div class="row" id="render__variations__data">
-                        <div class="col-lg-6">
-                            <select class="form-control" name="variation" onchange="getVariantOption(this.value)">
-                                <option>Choose Variation Type</option>
-                                <optgroup label="Variation Type">
-                                    @foreach($variationList as $variation)
-                                      <option value="{{$variation->id}}">
-                                        {{$variation->variation_name}}
-                                      </option>
-                                    @endforeach
-                                </optgroup>
-                            </select>
-                        </div>
-                        @include('product.partials.auto-variantOptions')
-                    </div>
-                    </div>
-                    
-                </div>
-                <div class="card">
-                  <div class="card-body" id="render__variations__data2">
-                    
-                  </div>
-                </div>
+				  </div>
+				<div style="display: none;" id="variant-card">
+					<div class="card">
+						<div class="card-body">
+							<h5 class="modal-title">Add variations</h5><br>
+
+  							<div class="row my-5" id="loadSecondVariationOptionsData"></div>
+
+							<div class="row" id="render__variations__data">
+								<div class="col-lg-6">
+									<select class="form-control" name="variation" onchange="getVariantOption(this.value)">
+										<option>Choose Variation Type</option>
+										<optgroup label="Variation Type">
+											@foreach($variationList as $variation)
+											<option value="{{$variation->id}}">
+												{{$variation->variation_name}}
+											</option>
+											@endforeach
+										</optgroup>
+									</select>
+								</div>
+								<!-- @include('product.partials.auto-variantOptions') -->
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div id="render__variations__data22">
+					<div class="card">
+						<div class="card-body" id="render__variations__data2">
+							
+						</div>
+					</div>
+				</div>
       		<!-- End Inventory and pricing  -->
         </form>    
 	    </div>
@@ -438,6 +446,7 @@
 @section('script')
   <script src="{{ asset('app-assets/vendors/js/extensions/dropzone.min.js')}}"></script>
   <script src="{{ asset('app-assets/js/scripts/extensions/custom-dropzone.js')}}"></script>
+  <script src="{{ asset('app-assets/js/scripts/extensions/variants.js')}}"></script>
   <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
   <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
   <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
@@ -456,10 +465,16 @@ $.ajaxSetup({
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
     }
 });
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 </script>
   <script type="text/javascript">
 
   $("#render__data").hide();
+  $("#render__variations__data22").hide();
+
 
         //search category
     $("#category_search").on('keyup', function(){
@@ -488,14 +503,25 @@ $.ajaxSetup({
 					}
 					//console.log(response);
                 },
-            });
+			});
+		
+
+			
         
         }else{
             return false;
         }
 
 
-    });
+	});
+	
+	// Disable Variant Button
+	$("#addVariantButton").prop('disabled', true);
+	$("#addVariantButton").attr('title', 'Please Select a Category First');
+	// $("button#addVariantButton").on('hover', function(){
+	// 	$(this).attr('data-tooltip', 'Please select Category First');
+	// })
+
     $("#render__data").on('click', "ul li", function(){
         let categoryID = $(this).attr('getCategoryId');
         let getTitle = $(this).attr('gettitle');
@@ -504,7 +530,10 @@ $.ajaxSetup({
         $("#category_search").val(getTitle);
         $("#render__data .auto-complete-wrapper").html('');
 
-        getCustomFields(categoryID);
+		getCustomFields(categoryID);
+		$("#addVariantButton").prop('disabled', false);
+		let category_id = $("#category_id").val();
+		console.log(category_id);
     });
 
     // get custom fields of selected category
@@ -530,30 +559,13 @@ $.ajaxSetup({
 
 // variant card
     function openVariant(){
-
         $('#variant-card').css('display','');
     }
 
 // getVariantOption
 
-    function getVariantOption(variation_id){
 
-        if (variation_id !== "") {
-            $.ajax({
-                url:"/vendor/ajax-get-variant-options/fetch?variation_id="+variation_id,
-                method:'GET',
-                cache:false,
-                success:function(response){
-                    $("#render__variations__data").html(response);
-                    // console.log(response);
-                },
-            });
-        
-        }else{
 
-            return false;
-        }
-    } 
 //
 
   function addnewDataRow(){
@@ -586,6 +598,6 @@ $.ajaxSetup({
  }
   </script>
 
-  
+
 @endsection
     
