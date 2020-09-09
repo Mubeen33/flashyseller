@@ -4,6 +4,7 @@ namespace App\Http\Controllers\product;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Auth;
 use App\Product;
 use App\Category;
@@ -30,6 +31,7 @@ class ProductController extends Controller
 
     	$variationList = Variation::where('active',1)->get();
     	return view('product.addproduct',compact('variationList'));
+        
     }
     // product Images
 	public function addProductImages(Request $request,$product_image_id) 
@@ -116,8 +118,48 @@ class ProductController extends Controller
     		$options       = VariationOption::where('variation_id',$variation_id)->where('active',1)->get();
 
     		$variationList = Variation::where('active',1)->get();
+            return view('product.partials.auto-variantOptions2', compact('options','variationName','variationList'))->render();
+
     }
-    // 
+    //
+
+    // sku combination 
+    public function skuCombinations(){
+
+        $firstoptions = array();
+
+        if (isset($_GET['option'])) {
+           
+           $option         =  $_GET['option'];
+           $variation_name =  $_GET['variation_name'];
+           $variation      = Variation::where('variation_name',$variation_name)->first();
+
+           // array_push($firstoptions, $option);
+
+           return view('product.partials.sku_combinations', compact('option','variation'));
+        }
+
+
+    }
+    // public function skuCombinations(Request $request){
+
+    //     $options = array();
+    //     if($request->has('vari_type')){
+    //         foreach ($request->vari_type as $key => $no) {
+    //             $name = 'choice_options_'.$no;
+    //             // echo $name;
+    //             $my_str = $request->$name;
+    //             // echo $my_str;
+    //             array_push($options, $my_str);
+    //         }
+    //     }
+    //     // print_r($options);
+    //     // return;
+
+    //     $combinations = combinations($options);
+
+    //     return view('product.partials.sku_combinations', compact('combinations'));
+    // } 
     // addProduct
 
     public function addProduct(Request $request){
@@ -191,6 +233,7 @@ class ProductController extends Controller
 
     //get pending products
     public function get_pending(){
+
         $data = Product::where([
             'vendor_id'=>Auth::guard('vendor')->user()->id,
             'approved'=>0,
