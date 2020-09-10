@@ -352,7 +352,7 @@
           			<div class="card-body">
           				<div class="mb-xs-1 strong"> Inventory and pricing
           			</div> <br />
-          			<div class="row">
+          			{{-- <div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> Price <span class="text-gray-lightest">*</span> </div>
           					<p class="text-smaller text-gray-lighter">
@@ -363,8 +363,8 @@
           					<br />
           					<input type="text" class="form-control" name="price" />
           				</div>
-          			</div>
-          			<div class="row">
+          			</div> --}}
+          			{{-- <div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> Quantity <span class="text-gray-lightest">*</span> </div>
           					<p class="text-smaller text-gray-lighter">
@@ -375,7 +375,7 @@
           					<br />
           					<input type="text" class="form-control" name="price" />
           				</div>
-          			</div>
+          			</div> --}}
           			<div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest">Optional</span> </div>
@@ -403,7 +403,7 @@
 								  	</button>
                             </div>
                             <div class="col-lg-2">
-                                {{-- <button type="submit" class="btn btn-warning">Submit</button> --}}
+                                <button type="submit" class="btn btn-warning">Submit</button>
                             </div>
           					</div>
                             
