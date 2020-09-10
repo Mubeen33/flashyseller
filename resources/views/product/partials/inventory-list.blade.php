@@ -25,7 +25,7 @@
     @endif
   </td>
   <td width="100px" align="center">
-      <input type="text" class="input-one inp-c" name="sku" value="{{$content->get_product->sku}}">
+      {{$content->get_product->sku}}
   </td>
   <td align="center" width="80px">
      <input type="number" class="input-two inp-c updateByOnChange" id="floating-label1"  value="{{$content->quantity}}" name="quantity" row-id="{{encrypt($content->id)}}">
