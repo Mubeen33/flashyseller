@@ -46,7 +46,7 @@ class ProductController extends Controller
 		if($image->move(public_path()."/product_images",$file_name)){
 			$product_image = new ProductMedia;
 			$product_image->image_id = $product_image_id;
-			$product_image->image = url('/')."/public/product_images/".$file_name;
+			$product_image->image = url('/')."/product_images/".$file_name;
 			$product_image->save();
 
 			$success_message = array('success'=>200,
