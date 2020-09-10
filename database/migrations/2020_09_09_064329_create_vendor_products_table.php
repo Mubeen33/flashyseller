@@ -21,7 +21,7 @@ class CreateVendorProductsTable extends Migration
             $table->integer('quantity');
             $table->integer('mk_price');
             $table->integer('price');
-            $table->integer('dispatched_days');
+            $table->integer('dispatched_days')->nullable();
             $table->boolean('active')->default(0);
             $table->string('comments')->nullable();
             $table->timestamps();

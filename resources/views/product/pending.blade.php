@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('page-title','Vendors')
+@section('page-title','Pending Products')
 
 @push('styles')
 <style type="text/css">

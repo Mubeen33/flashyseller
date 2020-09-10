@@ -82,42 +82,12 @@ $(document).ready(function(){
 
     //if change option of row per page
     $("#selected_row_per_page").on('change', function(){
-        let action_url = $("#hidden__action_url").val()
-        let searchKey;
-        let searchIn;
-        $(".searchKey__").each(function(){
-            if ($(".searchKey__").val() != null) {
-                searchKey = $(".searchKey__").val()
-                searchIn =$(".searchKey__").attr('search-in')
-            }
-        });
-        let pageNumber = 1;
-        let sort_by = $("#hidden__sort_by").val()
-        let sorting_order = $("#hidden__sorting_order").val()
-        let hidden__status = $("#hidden__status").val()
-        let row_per_page = $(this).val()
-        let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
+        ajax_paginate_data_without_parameter_type_2()
     })
 
     //if change hidden__status status otpion
     $("#hidden__status").on('change', function(){
-        let action_url = $("#hidden__action_url").val()
-        let searchKey;
-        let searchIn;
-        $(".searchKey__").each(function(){
-            if ($(".searchKey__").val() != null) {
-                searchKey = $(".searchKey__").val()
-                searchIn = $(".searchKey__").attr('search-in')
-            }
-        });
-        let pageNumber = 1;
-        let sort_by = $("#hidden__sort_by").val()
-        let sorting_order = $("#hidden__sorting_order").val()
-        let hidden__status = $(this).val()
-        let row_per_page = $("#selected_row_per_page").val()
-        let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
+        ajax_paginate_data_without_parameter_type_2()
     })
 })
 
@@ -148,3 +118,45 @@ function fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey,
     })
 }
 
+
+
+function ajax_paginate_data_without_parameter_type_2(){
+    let action_url = $("#hidden__action_url").val()
+    let searchKey;
+    let searchIn;
+    $(".searchKey__").each(function(){
+        if ($(".searchKey__").val() != null) {
+            searchKey = $(".searchKey__").val()
+            searchIn = $(".searchKey__").attr('search-in')
+        }
+    });
+    let pageNumber = 1;
+    let sortBy = $("#hidden__sort_by").val()
+    let sorting_order = $("#hidden__sorting_order").val()
+    let hidden__status = $("#hidden__status").val()
+    let row_per_page = $("#selected_row_per_page").val()
+    let hidden__id = $("#hidden__id").val()
+    
+
+    $.ajax({
+        url:action_url+"?page="+pageNumber+"&search_in="+searchIn+"&search_key="+searchKey+"&sort_by="+sortBy+"&sorting_order="+sorting_order+"&status="+hidden__status+"&row_per_page="+row_per_page+"&id="+hidden__id,
+        method:'GET',
+        cache:false,
+        success:function(response){
+            $("#render__data").html(response)
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            if (jqXHR.status === 422) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                //window.location.reload(true)
+            }else if (jqXHR.status === 401) {
+                alert('Sorry\n'+ jqXHR.responseText)
+                //window.location.reload(true)
+            }else{
+                alert('Sorry\n Something unknown problem')
+                //window.location.reload(true)
+            }
+
+        }
+    })
+}

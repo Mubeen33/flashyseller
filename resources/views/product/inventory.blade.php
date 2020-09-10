@@ -15,13 +15,7 @@
 @section('content')
  <!-- Basic tabs start -->
   <section id="basic-tabs-components">
-    <div id="display--actions-msg">
-
-      <div class="error--msg"></div>
-
-      <div class="success--msg"></div>
-
-    </div>
+    <div id="display--actions-msg"></div>
 
 
 
@@ -185,26 +179,27 @@
           dataType:'JSON',
           cache:false,
           success:function(response){
-            $("#display--actions-msg .success--msg").html("<div class='alert alert-success alert-dismissible fade show' role='alert'> <span>"+response+"</span> <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
+            //refresh data
+            ajax_paginate_data_without_parameter_type_2()
+            
+            $("#display--actions-msg").html("<div class='alert alert-success alert-dismissible fade show' role='alert'> <span>"+response+"</span> <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
             $('html, body').animate({
                   scrollTop: $("#display--actions-msg").offset().top
               }, 1000);
           },
           error: function (jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status === 422) {
-                alert('Sorry\n'+ jqXHR.responseText)
-                //window.location.reload(true)
-            }if (jqXHR.status === 404) {
-               $("#display--actions-msg .error--msg").html("<div class='alert alert-success alert-dismissible fade show' role='alert'> <span>"+jqXHR.responseText+"</span> <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
-               $('html, body').animate({
-                  scrollTop: $("#display--actions-msg").offset().top
-              }, 1000);
+            if (jqXHR.status === 422 || jqXHR.status === 404) {
+                $("#display--actions-msg").html("<div class='alert alert-danger alert-dismissible fade show' role='alert'> <span>"+jqXHR.responseText+"</span> <button type='button' class='close' data-dismiss='alert' aria-label='Close'> <span aria-hidden='true'>&times;</span> </button> </div>");
+                $('html, body').animate({
+                      scrollTop: $("#display--actions-msg").offset().top
+                  }, 1000);
+
             }else if (jqXHR.status === 500) {
                 alert('Sorry\n'+ jqXHR.responseText)
                 window.location.reload(true)
             }else{
                 alert('Sorry\n Something unknown problem')
-                //window.location.reload(true)
+                window.location.reload(true)
             }
 
         }
