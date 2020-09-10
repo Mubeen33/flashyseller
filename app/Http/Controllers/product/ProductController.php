@@ -57,6 +57,7 @@ class ProductController extends Controller
 	 }
 	 
 	 public function removeProductImage(Request $request) {
+        
 		ProductMedia::where('image', $request->name)->delete();
 		$image_path = public_path()."\product_images/".$request->name;
 		@unlink($image_path);
