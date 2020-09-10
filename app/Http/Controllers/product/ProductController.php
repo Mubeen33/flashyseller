@@ -43,7 +43,7 @@ class ProductController extends Controller
 		if(count($is_present) > 0){
 			return;
 		}
-		if($image->move(public_path()."\product_images",$file_name)){
+		if($image->move(public_path()."/product_images",$file_name)){
 			$product_image = new ProductMedia;
 			$product_image->image_id = $product_image_id;
 			$product_image->image = url('/')."/product_images/".$file_name;
@@ -59,7 +59,7 @@ class ProductController extends Controller
 	 public function removeProductImage(Request $request) {
         
 		ProductMedia::where('image', $request->name)->delete();
-		$image_path = public_path()."\product_images/".$request->name;
+		$image_path = public_path()."/product_images/".$request->name;
 		@unlink($image_path);
 		return "Image deleted successfully";
 	 }
