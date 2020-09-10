@@ -46,10 +46,10 @@ class ProductController extends Controller
 		if($image->move(public_path()."\product_images",$file_name)){
 			$product_image = new ProductMedia;
 			$product_image->image_id = $product_image_id;
-			$product_image->image = $file_name;
+			$product_image->image = url('/')."/product_images/".$file_name;
 			$product_image->save();
 
-			$success_message = array( 'success' => 200,
+			$success_message = array('success'=>200,
 				'filename' => $file_name,
 			);
 			return json_encode($success_message);
