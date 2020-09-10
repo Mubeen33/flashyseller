@@ -16,7 +16,7 @@
             <ul class="nav navbar-nav" id="main-menu-navigation" data-menu="menu-navigation">
                 <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="index.html" data-toggle="dropdown"><i class="feather icon-home"></i><span data-i18n="Dashboard">Product</span></a>
                     <ul class="dropdown-menu">
-                        <li data-menu=""><a class="dropdown-item" href="{{url('add-new-product')}}" data-toggle="dropdown" data-i18n="Analytics"><i class="feather icon-activity"></i>Add Product</a>
+                        <li data-menu=""><a class="dropdown-item" href="{{route('vendor.addNewProduct.get')}}" data-toggle="dropdown" data-i18n="Analytics"><i class="feather icon-activity"></i>Add Product</a>
                         </li>
                         <li data-menu=""><a class="dropdown-item" href="{{route('vendor.inventory.page.get')}}" data-toggle="dropdown" data-i18n="eCommerce"><i class="feather icon-shopping-cart"></i>Inventory</a>
                         </li>
