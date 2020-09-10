@@ -57,6 +57,7 @@ class ProductController extends Controller
 	 }
 	 
 	 public function removeProductImage(Request $request) {
+        
 		ProductMedia::where('image', $request->name)->delete();
 		$image_path = public_path()."\product_images/".$request->name;
 		@unlink($image_path);
@@ -184,6 +185,16 @@ class ProductController extends Controller
     	$product->sku          = $request->sku;
     	$product->vendor_id    = Auth::id();
     	$product->video_link   = $request->video_link;
+
+        // generating mannual Id
+
+          $today     = date('YmdHi');
+          $startDate = date('YmdHi', strtotime('2012-03-14 09:06:00'));
+          $range     = $today - $startDate;
+          $tsnid     = rand(0, $range);
+        // 
+
+        $product->tsnid = $tsnid;
 
     	$product->save();
 
