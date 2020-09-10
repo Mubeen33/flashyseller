@@ -398,7 +398,7 @@
           			<div class="row">
           					<div class="col-lg-10">
 								  
-          							<button type="button" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light" id="addVariantButton">
+          							<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light" id="addVariantButton">
           								Add Variations
 								  	    </button>
                             </div>
@@ -414,7 +414,7 @@
 						<div class="card-body">
 							<h5 class="modal-title">Add variations</h5><br>
 
-  							<div class="row my-5" id="loadSecondVariationOptionsData"></div>
+  							<div class="col-md-12 mx-0 px-0" id="loadSecondVariationOptionsData"></div>
 
 							<div class="row" id="render__variations__data">
 								<div class="col-lg-6">
@@ -570,6 +570,8 @@ $(function () {
 
 // getVariantOption
 
+ var II = 1;
+ var variantcounter = 0;
 
 
 //
