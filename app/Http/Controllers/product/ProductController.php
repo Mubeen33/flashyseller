@@ -14,6 +14,7 @@ use App\Variation;
 use App\ProductCustomField;
 use App\VariantOptionOptions;
 use App\VariationOption;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
@@ -126,7 +127,15 @@ class ProductController extends Controller
 
     		$variationList = Variation::where('active',1)->get();
             return view('product.partials.auto-variantOptions2', compact('options','variationName','variationList'))->render();
+    }
 
+
+    public function getThirdVariationsOptions(Request $request) {
+        $variation_id  = $request->variation_id;
+        $variation = DB::table('variant_options_options')->where('option_id', $variation_id)->get();
+        return response()->json(array(
+            'variation3' => $variation
+        ));
     }
     //
 

@@ -1,3 +1,5 @@
+const { has } = require("lodash");
+
 function getVariantOption(variation_id) {
 
     let li_counter = 0;
@@ -48,7 +50,9 @@ function getVariantOption(variation_id) {
                     html += "<div><ul class='variant2List sortable' id='sortable" + variation_id + "'></ul></div>";
                 }
 
-                html += "</div><div class='col-md-4'></div></div>";
+                html += "</div><div class='col-md-4'>";
+                html += "<div><ul class='variant2List sortable' id='sortable3" + variation_id + "'></ul></div>";
+                html += "</div></div>";
                 II = II + 1;
 
                 console.log("In Adding: ", variantcounter);
@@ -120,25 +124,94 @@ function getVariantOption(variation_id) {
     $(document).on('change', "#variant-select2" + variation_id , function(){
 
         let value_of_select = this.value;
-        var option_value_name;
+        var hasThirdVariation = [];
 
-        for(var m = 0; m < secondVariations.length; m++) {
-            let ourSelect2Obj = secondVariations[m];
-            if(ourSelect2Obj.id == value_of_select) {
-                option_value_name = ourSelect2Obj.option_name;
-            }
-        }
+        $.ajax({
+            url:"/vendor/ajax-get-variant-options-options/fetch?variation_id="+value_of_select,
+			method:'GET',
+			cache:false,
+			success:function(response){
+                hasThirdVariation = response.variation3;
+                
+                if(hasThirdVariation.length > 0) {
 
-        if(value_of_select>0) {
+                    let htmlvariant3 = '';
+                    htmlvariant3 += "<select class='form-control' id='variant3FinalSelect" + value_of_select + "'>";
+                    
+
+                    htmlvariant3 += "<option value='-1'>Select An Option</option>";
+                    hasThirdVariation.forEach(element => {
+                        htmlvariant3 += "<option value="; 
+                        htmlvariant3 +=  element.id + ">" + element.option_name });
+                        htmlvariant3 += "</option>";
+                        htmlvariant3+="</select>";
+                        htmlvariant3 += "<ul class='sortable' id='sortableFinalUL" + value_of_select + "'>"
+                        $("#sortable3"+variation_id).append(htmlvariant3);
+                   }
+                   else {
+                        $("#sortable3"+variation_id).append('');
+                    }
+                }
+                
+            });
+
+        $(document).on('change', '#variant3FinalSelect' + value_of_select, function(e){
+
+            e.preventDefault();
+            
             li_counter++; 
+            let value_of_last_variant = this.value;
+            let name_of_last_variant;
+
+            for(var LL = 0; LL < hasThirdVariation.length; LL++)
+            {
+                if(hasThirdVariation[LL].id == value_of_last_variant) {
+                    name_of_last_variant = hasThirdVariation[LL].option_name;
+                    console.log(name_of_last_variant);
+                    break;
+                }
+            }
+
+
+            //console.log("YES: ", value_of_last_variant);
             let htmlVariant = '';
             
-            htmlVariant += "<li class='my-1' id='variantLi" + variation_id + li_counter + "'>";
-            htmlVariant += "<div class='d-flex'><span class='px-1 py-05 border w-100'>" +  option_value_name + "</span>";
-            htmlVariant += "<button class='btn btn-sm border-rad-0 border remove-variant2'>X</button></div></li>";
+            htmlVariant += "<li class='my-1' id='variantLi" + value_of_select + li_counter + "'>";
+            htmlVariant += "<div class='d-flex'><span class='px-1 py-05 border w-100'>" +  name_of_last_variant + "</span>";
+            htmlVariant += "<button class='btn btn-sm border-rad-0 border remove-variant3'>X</button></div></li>";
+            htmlVariant += "</ul>";
+
+            $("#sortableFinalUL" + value_of_select).append(htmlVariant);
+        });
+
+        // Remove Sub Variant From the List 
+
+        $(document).on('click', '.remove-variant3', function(e){
+            e.preventDefault();
+            let deleteLiItem = $(this).parent().parent().attr('id');
+            $("#" + deleteLiItem).remove();
+
+        });
+        
+        //var option_value_name;
+
+        // for(var m = 0; m < secondVariations.length; m++) {
+        //     let ourSelect2Obj = secondVariations[m];
+        //     if(ourSelect2Obj.id == value_of_select) {
+        //         option_value_name = ourSelect2Obj.option_name;
+        //     }
+        // }
+
+        // if(value_of_select>0) {
+        //     li_counter++; 
+        //     let htmlVariant = '';
             
-            $("#sortable-select" + variation_id).append(htmlVariant);
-        }
+        //     htmlVariant += "<li class='my-1' id='variantLi" + variation_id + li_counter + "'>";
+        //     htmlVariant += "<div class='d-flex'><span class='px-1 py-05 border w-100'>" +  option_value_name + "</span>";
+        //     htmlVariant += "<button class='btn btn-sm border-rad-0 border remove-variant2'>X</button></div></li>";
+            
+        //     $("#sortable-select" + variation_id).append(htmlVariant);
+        // }
     });
     
     $( "#sortable" + variation_id ).sortable();
