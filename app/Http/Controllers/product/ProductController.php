@@ -43,7 +43,7 @@ class ProductController extends Controller
 		if(count($is_present) > 0){
 			return;
 		}
-		if($image->move(public_path()."/product_images/",$file_name)){
+		if($image->move(base_path()."/product_images/",$file_name)){
 			$product_image = new ProductMedia;
 			$product_image->image_id = $product_image_id;
 			$product_image->image = url('/')."/product_images/".$file_name;
