@@ -100,9 +100,15 @@ class ProductController extends Controller
     		$variationName = Variation::where('id',$variation_id)->value('variation_name');
     		$options       = VariationOption::where('variation_id',$variation_id)->where('active',1)->get();
 
-    		$variationList = Variation::where('active',1)->get();
+			$variationList = Variation::where('active',1)->get();
+			
+			return response()->json(array(
+				'second_variations' => $options,
+				'variationName' => $variationName,
+				'variationList' => $variationList
+			));
 
-    		return view('product.partials.auto-variantOptions', compact('options','variationName','variationList'))->render();
+    		//return view('product.partials.auto-variantOptions', compact('options','variationName','variationList'))->render();
 
     	}
 

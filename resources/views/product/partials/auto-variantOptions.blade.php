@@ -2,7 +2,8 @@
 	
 	@if(count($options) > 0)
 		<div id="first_variation" class="col-lg-6" style="min-height: 150px;">
-			<label>{{ $variationName }}</label><span><a onclick="removeFirstVariation()">Delete</a></span><br>
+			<label>{{ $variationName }}</label>
+			<span><a href="" onclick="removeFirstVariation()">Delete</a></span><br>
 			<select class="form-control" onchange="getSecondOptions(this.value)">
 				<option>Select Options</option>
 				@foreach($options as $option)
