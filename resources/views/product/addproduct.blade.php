@@ -400,7 +400,7 @@
 								  
           							<button type="button" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light" id="addVariantButton">
           								Add Variations
-								  	</button>
+								  	    </button>
                             </div>
                             <div class="col-lg-2">
                                 <button type="submit" class="btn btn-warning">Submit</button>
