@@ -68,6 +68,16 @@
       $range = $today - $startDate;
       $prod_img_id = rand(0, $range);  
 ?>
+
+  .sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
+  .border-rad-0 {
+	  border-radius: 0!important;
+  }
+  .py-05 {
+	  padding-top: 0.5rem!important;
+	  padding-bottom: 0.5rem!important;
+  }
+  
 </style>
 <div class="content-body">
 	<div class="container-fluid">
@@ -352,7 +362,7 @@
           			<div class="card-body">
           				<div class="mb-xs-1 strong"> Inventory and pricing
           			</div> <br />
-          			{{-- <div class="row">
+          			<div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> Price <span class="text-gray-lightest">*</span> </div>
           					<p class="text-smaller text-gray-lighter">
@@ -363,8 +373,8 @@
           					<br />
           					<input type="text" class="form-control" name="price" />
           				</div>
-          			</div> --}}
-          			{{-- <div class="row">
+          			</div>
+          			<div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> Quantity <span class="text-gray-lightest">*</span> </div>
           					<p class="text-smaller text-gray-lighter">
@@ -375,7 +385,7 @@
           					<br />
           					<input type="text" class="form-control" name="price" />
           				</div>
-          			</div> --}}
+          			</div>
           			<div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest">Optional</span> </div>
@@ -400,10 +410,10 @@
 								  
           							<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light" id="addVariantButton">
           								Add Variations
-								  	    </button>
+								  	</button>
                             </div>
                             <div class="col-lg-2">
-                                <button type="submit" class="btn btn-warning">Submit</button>
+                                {{-- <button type="submit" class="btn btn-warning">Submit</button> --}}
                             </div>
           					</div>
                             
@@ -455,6 +465,7 @@
   <script src="{{ asset('app-assets/js/scripts/extensions/variants.js')}}"></script>
   <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
   <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
   <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
 
   <script type="text/javascript">
