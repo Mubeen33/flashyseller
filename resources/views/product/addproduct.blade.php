@@ -52,7 +52,7 @@
 	color      : #373738 !important;
   }
   .dropzone .dz-message{
-	font-size  : 1rem !important;
+	font-size  : 0.85rem !important;
 	color      : #373738 !important;
 	position: absolute;
 	z-index: 9;
