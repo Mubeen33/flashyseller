@@ -44,7 +44,7 @@ function getVariantOption(variation_id) {
                     html += "<div><ul class='variant2List sortable' id='sortable-select" + variation_id + "'></ul></div>";
                 }
                 else {
-                    html += "<div class='d-flex'><input type='text' class='form-control variation2value" + variation_id +"' />";
+                    html += "<div class='d-flex'><input type='text' class='form-control variation2value" + variation_id +"' required />";
                     html += "<button class='btn btn-info variation-add-button border-rad-0 varation2add" + variation_id + "'>Add</button></div>";
                     html += "<div><ul class='variant2List sortable' id='sortable" + variation_id + "'></ul></div>";
                 }
