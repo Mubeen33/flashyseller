@@ -407,10 +407,9 @@
           			</div>
           			<div class="row">
           					<div class="col-lg-10">
-								  
-          							<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light" id="addVariantButton">
-          								Add Variations
-								  	</button>
+								<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light">
+									Add Variations
+								</button>
                             </div>
                             <div class="col-lg-2">
                                 <button type="submit" class="btn btn-warning">Submit</button>
@@ -427,7 +426,7 @@
   							<div class="col-md-12 mx-0 px-0" id="loadSecondVariationOptionsData"></div>
 
 							<div class="row" id="render__variations__data">
-								<div class="col-lg-6">
+								<div class="col-lg-4">
 									<select class="form-control" name="variation" onchange="getVariantOption(this.value)">
 										<option>Choose Variation Type</option>
 										<optgroup label="Variation Type">
@@ -463,6 +462,7 @@
   <script src="{{ asset('app-assets/vendors/js/extensions/dropzone.min.js')}}"></script>
   <script src="{{ asset('app-assets/js/scripts/extensions/custom-dropzone.js')}}"></script>
   <script src="{{ asset('app-assets/js/scripts/extensions/variants.js')}}"></script>
+  <script src="{{ asset('app-assets/js/scripts/extensions/getVariantOptions.js')}}"></script>
   <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
   <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -535,9 +535,6 @@ $(function () {
 	// Disable Variant Button
 	$("#addVariantButton").prop('disabled', true);
 	$("#addVariantButton").attr('title', 'Please Select a Category First');
-	// $("button#addVariantButton").on('hover', function(){
-	// 	$(this).attr('data-tooltip', 'Please select Category First');
-	// })
 
     $("#render__data").on('click', "ul li", function(){
         let categoryID = $(this).attr('getCategoryId');
@@ -550,7 +547,7 @@ $(function () {
 		getCustomFields(categoryID);
 		$("#addVariantButton").prop('disabled', false);
 		let category_id = $("#category_id").val();
-		console.log(category_id);
+		//console.log(category_id);
     });
 
     // get custom fields of selected category
