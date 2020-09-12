@@ -163,7 +163,7 @@
 						<br />      
             				<div class="row">
             					<div class="col-lg-2"></div>
-            					<div class="col-lg-8" id="linkphototext">
+            					<div class="col-lg-8">
             						<p class="strong mb-xs-2"> Link photos to variations </p>
             						<p class="text-smaller text-gray-lighter">
             							Add photos to your variations so buyers can see all their options. Try it out
@@ -199,6 +199,7 @@
           		<div class="card">
           			<div class="card-body">
           				<div class="row">
+                        <div class="row">
                             <div class="col-lg-3">
                               <div class="mb-xs-2 strong"> Type
                                 <span class="text-gray-lightest">*</span> 
@@ -220,6 +221,7 @@
                                   </p>
                               </label>
                             </div>
+                          </div>
                  					<div class="col-lg-12">
                  						<label class="mb-xs-1 strong">Listing Details</label> <br/>
                      					<p class="text-gray-lighter">
@@ -657,24 +659,6 @@ function update_sku(val,variation_name){
                 },
             });
  }
- // 
-
-
-$(document).ready(function(){
-
-  var width = $(window).width(); 
-var height = $(window).height(); 
-
-if ((width >= 1920  ) && (height >= 1000)) {
- 
-    $('div#linkphototext').addclass('ml-3');
-}
-else {
-
-$('div#linkphototext').addclass('ml-3');
-
-}
-});
   </script>
 
 
