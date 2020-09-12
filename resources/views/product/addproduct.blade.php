@@ -671,7 +671,7 @@ if ((width >= 1920  ) && (height >= 1000)) {
 }
 else {
 
-
+$('#linkphototext').addclass('ml-3');
 
 }
 });
