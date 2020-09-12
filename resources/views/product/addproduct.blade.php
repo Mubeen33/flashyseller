@@ -667,11 +667,11 @@ var height = $(window).height();
 
 if ((width >= 1920  ) && (height >= 1000)) {
  
-    $('#linkphototext').addclass('ml-3');
+    $('div#linkphototext').addclass('ml-3');
 }
 else {
 
-$('#linkphototext').addclass('ml-3');
+$('div#linkphototext').addclass('ml-3');
 
 }
 });
