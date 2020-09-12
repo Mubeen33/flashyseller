@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\product;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\FileUploader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Auth;
@@ -41,20 +42,34 @@ class ProductController extends Controller
 		
 		$file_name=$product_image_id.'_'.$image->getClientOriginalName();
 		$is_present=ProductMedia::where(['image'=>$file_name,'image_id'=>$product_image_id])->get();
-		if(count($is_present) > 0){
+		
+        if(count($is_present) > 0){
 			return;
 		}
-		if($image->move(base_path()."/product_images/",$file_name)){
-			$product_image = new ProductMedia;
-			$product_image->image_id = $product_image_id;
-			$product_image->image = url('/')."/product_images/".$file_name;
-			$product_image->save();
 
-			$success_message = array('success'=>200,
-				'filename' => $file_name,
-			);
-			return json_encode($success_message);
-		}
+
+        //insert image
+        $obj_fu = new FileUploader();
+        $image_new_name = "";
+        $location = "product_images/";
+        if($request->hasFile('fileDropzone')){
+            $fileName = uniqid().Auth::guard('vendor')->user()->id;
+            $fileName__ = $obj_fu->fileUploader($request->file('fileDropzone'), $fileName, $location);
+            $image_new_name = $fileName__;
+        }else{
+            return response()->json('Image not upload', 422);
+        }
+
+		$product_image = new ProductMedia;
+		$product_image->image_id = $product_image_id;
+		$product_image->image = url('/')."/".$location.$image_new_name;
+		$product_image->save();
+
+		$success_message = array('success'=>200,
+			'filename' => $file_name,
+		);
+		return json_encode($success_message);
+		
 	 }
 	 
 	 public function removeProductImage(Request $request) {

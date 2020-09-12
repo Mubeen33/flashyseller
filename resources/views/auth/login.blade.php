@@ -61,7 +61,7 @@
                                                     <div class="form-group d-flex justify-content-between align-items-center">
                                                         <div class="text-left">
                                                             <fieldset class="checkbox">
-                                                                <div class="vs-checkbox-con vs-checkbox-primary">
+                                                                <div class="vs-checkbox-con vs-checkbox-warning">
                                                                     <input type="checkbox">
                                                                     <span class="vs-checkbox">
                                                                         <span class="vs-checkbox--check">
@@ -72,10 +72,10 @@
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="text-right"><a href="{{ route('resetPassForm.get') }}" class="card-link">Forgot Password?</a></div>
+                                                        <div class="text-right text-warning"><a href="{{ route('resetPassForm.get') }}" class="card-link">Forgot Password?</a></div>
                                                     </div>
-                                                    <a href="auth-register.html" class="btn btn-outline-primary float-left btn-inline">Register</a>
-                                                    <button type="submit" class="btn btn-primary float-right btn-inline">Login</button>
+                                                    {{-- <a href="auth-register.html" class="btn btn-outline-primary float-left btn-inline">Register</a> --}}
+                                                    <button type="submit" class="btn btn-warning float-right btn-inline">Login</button>
                                                 </form>
                                             </div>
                                         </div>
