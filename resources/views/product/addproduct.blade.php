@@ -665,7 +665,7 @@ $(document).ready(function(){
   var width = $(window).width(); 
 var height = $(window).height(); 
 
-if ((width >= 1920  ) && (height>=1080)) {
+if ((width >= 1920  ) && (height >= 1000)) {
  
     $('#linkphototext').addclass('ml-3');
 }
