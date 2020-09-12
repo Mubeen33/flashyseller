@@ -163,7 +163,7 @@
 						<br />      
             				<div class="row">
             					<div class="col-lg-2"></div>
-            					<div class="col-lg-8">
+            					<div class="col-lg-8 ml-3">
             						<p class="strong mb-xs-2"> Link photos to variations </p>
             						<p class="text-smaller text-gray-lighter">
             							Add photos to your variations so buyers can see all their options. Try it out
