@@ -51,4 +51,13 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 	color: #7B7B7B;
 	cursor: pointer;
 	width: 0;
-  }
+}
+
+/* webkit solution */
+.placeholder-class::-webkit-input-placeholder { text-align:right; }
+/* mozilla solution */
+.placeholder-class:-moz-placeholder { text-align:right; }
+
+.variation-add-button {
+	padding-bottom: 0.7rem!important;
+}
