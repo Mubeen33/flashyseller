@@ -199,6 +199,27 @@
           		<div class="card">
           			<div class="card-body">
           				<div class="row">
+                            <div class="col-lg-3">
+                              <div class="mb-xs-2 strong"> Type
+                                <span class="text-gray-lightest">*</span> 
+                              </div>
+                            </div>
+                            <div class="col-lg-3"> <br />
+                                <label class="radio-custom">
+                                  <input type="radio" name="product_type" value="physical"> <span class="radio-label">  Physical </span>
+                                  <p class="text-smaller text-gray-lighter" style="margin-left:15px;">
+                                    A tangible item that you will deliver to buyers.
+                                  </p>
+                              </label>
+                            </div>
+                            <div class="col-lg-3"> <br />
+                              <label class="radio-custom">
+                                  <input type="radio" name="product_type" value="digital"> <span class="radio-label">  Digital </span>
+                                  <p class="text-smaller text-gray-lighter" style="margin-left:15px;">
+                                    A digital file that buyers will download.
+                                  </p>
+                              </label>
+                            </div>
                  					<div class="col-lg-12">
                  						<label class="mb-xs-1 strong">Listing Details</label> <br/>
                      					<p class="text-gray-lighter">
@@ -217,7 +238,7 @@
                  					<div class="col-lg-9"> <br />
                  						<input type="text" class="form-control" name="title" required="" />
                  					</div>
-                     			</div>
+                     			</div>{{-- 
                      			<div class="row">
                      				<div class="col-lg-3">
                  						<div class="mb-xs-2 strong"> About this listing <span class="text-gray-lightest">*</span> </div>
@@ -269,7 +290,7 @@
           						    </optgroup>
                  						</select>
                  					</div>
-                     			</div>
+                     			</div> --}}
                      			<div class="row">
                      				<div class="col-lg-3">
                  						<div class="mb-xs-2 strong"> Category 
@@ -291,7 +312,7 @@
                                 <div id="render__customfields__data">
                                     @include('product.partials.auto-customfields')
                                 </div>
-                     			<div class="row">
+                     			{{-- <div class="row">
                      				<div class="col-lg-3">
                  						<div class="mb-xs-2 strong"> Renewal options 
                  							<span class="text-gray-lightest">*</span> 
@@ -316,30 +337,8 @@
                      						</p>
                  						</label>
                  					</div>
-                     			</div>
-                     			<div class="row">
-                     				<div class="col-lg-3">
-                 						<div class="mb-xs-2 strong"> Type
-                 							<span class="text-gray-lightest">*</span> 
-                 						</div>
-                 					</div>
-                 					<div class="col-lg-3"> <br />
-                     					<label class="radio-custom">
-                     						<input type="radio" name="product_type" value="physical"> <span class="radio-label">  Physical </span>
-                     						<p class="text-smaller text-gray-lighter" style="margin-left:15px;">
-                     							A tangible item that you will deliver to buyers.
-                     						</p>
-                 						</label>
-                 					</div>
-                 					<div class="col-lg-3"> <br />
-                 						<label class="radio-custom">
-                     						<input type="radio" name="product_type" value="digital"> <span class="radio-label">  Digital </span>
-                     						<p class="text-smaller text-gray-lighter" style="margin-left:15px;">
-                     							A digital file that buyers will download.
-                     						</p>
-                 						</label>
-                 					</div>
-                     			</div>
+                     			</div> --}}
+                     			
                      			<div class="row">
                      				<div class="col-lg-3">
                  						<div class="mb-xs-2 strong"> Description
@@ -362,7 +361,7 @@
           			<div class="card-body">
           				<div class="mb-xs-1 strong"> Inventory and pricing
           			</div> <br />
-          			<div class="row">
+          			{{-- <div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> Price <span class="text-gray-lightest">*</span> </div>
           					<p class="text-smaller text-gray-lighter">
@@ -385,7 +384,7 @@
           					<br />
           					<input type="text" class="form-control" name="price" />
           				</div>
-          			</div>
+          			</div> --}}
           			<div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest">Optional</span> </div>
