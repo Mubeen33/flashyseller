@@ -23,6 +23,7 @@ class CreateSignupContentsTable extends Migration
             $table->text('text_line_one_icon')->nullable();
             $table->text('text_line_two_icon')->nullable();
             $table->text('text_line_three_icon')->nullable();
+            $table->string('banner')->nullable();
             $table->timestamps();
         });
     }
