@@ -16,6 +16,8 @@ use App\ProductCustomField;
 use App\VariantOptionOptions;
 use App\VariationOption;
 use Illuminate\Support\Facades\DB;
+use Image;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -38,31 +40,30 @@ class ProductController extends Controller
     // product Images
 	public function addProductImages(Request $request,$product_image_id) 
 	{
-		$image = $request->file('fileDropzone');
+        $validate = Validator::make($request->all(), [
+            'fileDropzone'=>'required|image|mimes:png,jpeg,jpg,gif'
+        ]);
+        if ($validate->fails()) {
+            return response()->json('Please upload valid image', 422);
+        }
 		
-		$file_name=$product_image_id.'_'.$image->getClientOriginalName();
+        $image = $request->file('fileDropzone');
+		
+		$file_name=uniqid().(Auth::guard('vendor')->user()->id).$product_image_id."_300_".$image->getClientOriginalName();
 		$is_present=ProductMedia::where(['image'=>$file_name,'image_id'=>$product_image_id])->get();
 		
         if(count($is_present) > 0){
 			return;
 		}
 
-
-        //insert image
-        $obj_fu = new FileUploader();
-        $image_new_name = "";
-        $location = "product_images/";
-        if($request->hasFile('fileDropzone')){
-            $fileName = uniqid().Auth::guard('vendor')->user()->id;
-            $fileName__ = $obj_fu->fileUploader($request->file('fileDropzone'), $fileName, $location);
-            $image_new_name = $fileName__;
-        }else{
-            return response()->json('Image not upload', 422);
-        }
+        //resize image
+        $image_resize = Image::make($image->getRealPath());              
+        $image_300 = $image_resize->resize(300, 300);
+        $image_300->save('product_images/'.$file_name);
 
 		$product_image = new ProductMedia;
 		$product_image->image_id = $product_image_id;
-		$product_image->image = url('/')."/".$location.$image_new_name;
+		$product_image->image = url('/')."/product_images/".$file_name;
 		$product_image->save();
 
 		$success_message = array('success'=>200,
