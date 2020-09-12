@@ -163,7 +163,7 @@
 						<br />      
             				<div class="row">
             					<div class="col-lg-2"></div>
-            					<div class="col-lg-8">
+            					<div class="col-lg-8" id="linkphototext">
             						<p class="strong mb-xs-2"> Link photos to variations </p>
             						<p class="text-smaller text-gray-lighter">
             							Add photos to your variations so buyers can see all their options. Try it out
@@ -657,6 +657,24 @@ function update_sku(val,variation_name){
                 },
             });
  }
+ // 
+
+
+$(document).ready(function(){
+
+  var width = $(window).width(); 
+var height = $(window).height(); 
+
+if ((width >= 1920  ) && (height>=1080)) {
+ 
+    $('#linkphototext').addclass('ml-3');
+}
+else {
+
+
+
+}
+});
   </script>
 
 
