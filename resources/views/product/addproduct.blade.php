@@ -5,8 +5,14 @@
     <li class="breadcrumb-item active">Add Product</li>
 @endsection
 @section('content')
-    
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/file-uploaders/dropzone.css')}}">
+
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css')}}">
+    <link href="{{ asset('app-assets/vendors/css/jquery.tagsinput-revisited.css')}}" rel="stylesheet" type="text/css">
+
 
 <style type="text/css">
   .p-graph {
@@ -174,7 +180,7 @@
       		</div>
     
     
-        <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data" id="choice_form">
+        <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data" id="product_form">
             @csrf
             <input type="hidden" name="image_id" value="{{$prod_img_id}}">      
           		<!-- end Photos -->
@@ -428,11 +434,11 @@
 
 							<div class="row" id="render__variations__data">
 								<div class="col-lg-4">
-									<select class="form-control" name="variation" onchange="getVariantOption(this.value)">
+									<select class="form-control select2" onchange="add_more_customer_choice_option()" id="variation" multiple="multiple" >
 										<option>Choose Variation Type</option>
 										<optgroup label="Variation Type">
 											@foreach($variationList as $variation)
-											<option value="{{$variation->id}}">
+											<option value="{{$variation->variation_name}}">
 												{{$variation->variation_name}}
 											</option>
 											@endforeach
@@ -445,25 +451,24 @@
 					</div>
 				</div>
 				
-				<div id="render__variations__data22">
+				
 					<div class="card">
-						<div class="card-body" id="render__variations__data2">
-							
+						<div class="card-body" id="customer_choice_options">
 						</div>
 					</div>
-				</div>
+			
       		<!-- End Inventory and pricing  -->
         </form>    
 	    </div>
   </div>
 </div>
-{{-- <input type="hidden"  id="nmbr" name="" value="0"> --}}
 @endsection
 @section('script')
+  <script src="{{ asset('app-assets/vendors/js/jquery.tagsinput-revisited.js')}}"></script>
   <script src="{{ asset('app-assets/vendors/js/extensions/dropzone.min.js')}}"></script>
   <script src="{{ asset('app-assets/js/scripts/extensions/custom-dropzone.js')}}"></script>
-  <script src="{{ asset('app-assets/js/scripts/extensions/variants.js')}}"></script>
-  <script src="{{ asset('app-assets/js/scripts/extensions/getVariantOptions.js')}}"></script>
+  <!-- <script src="{{ asset('app-assets/js/scripts/extensions/variants.js')}}"></script> -->
+  <!-- <script src="{{ asset('app-assets/js/scripts/extensions/getVariantOptions.js')}}"></script> -->
   <script src="{{ asset('app-assets/vendors/js/forms/select/select2.full.min.js')}}"></script>
   <script src="{{ asset('app-assets/js/scripts/forms/select/form-select2.js')}}"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
@@ -527,6 +532,7 @@ $(function () {
 			
         
         }else{
+
             return false;
         }
 
@@ -571,91 +577,35 @@ $(function () {
         }
     }
 
+// ///////////////////////////////////////////////////
+// //---- On press Enter form not submit Fuction --- //// 
 
-// variant card
+// $('#product_form').on('keyup keypress', function(e) {
+//   var keyCode = e.keyCode || e.which;
+//   if (keyCode === 13) { 
+//     e.preventDefault();
+//     return false;
+//   }
+// });
+// // variant card
     function openVariant(){
         $('#variant-card').css('display','');
     }
 
-// getVariantOption
+var i = 0;
+      function add_more_customer_choice_option(){
 
- var II = 1;
- var variantcounter = 0;
+        $('#customer_choice_options').html(null);
 
+        $("select#variation :selected").each(function() {
 
-//
-  var i=0;
-  function addnewDataRow(){
-
-
-      var Id = $('.first_variation').val();
-      var val = $("#"+Id).val();
-      alert(val+Id);
-      // $('#combine').css('display','');
-
-        // $("#sku_combination").append('<tr><td><input type="text" name="choice_options_'+i+'[]" class="form-control" value="'+val+'" readonly><input type="hidden" name="vari_type[]" value="'+i+'" class="form-control"></td></tr>');
-        $("#"+Id).val(null);
-        // i++;
-      update_sku(val,Id);
-      
-      
-
-  } 
-//
-function update_sku(val,variation_name){
-
-          $.ajax({
-               type:"GET",
-               url:'{{ route('vendor.products.sku_combination') }}',
-               data:{option:val,variation_name:variation_name},
-               success: function(data){
-
-                 $('#combine').css('display','');
-                 $('#sku_combination').append(data);
-                 // alert(data);
-                 // if (!data) {
-                 //   $('#quantity').show();
-                 // }
-                 // else {
-                 //    $('#quantity').hide();
-                 // }
-               }
-         });
-
+          vari = $(this).val();
+          alert(vari);
+            $('#customer_choice_options').append('<div class="row mb-3"><div class="col-8 col-md-3 order-1 order-md-0"><input type="hidden" name="choice_no[]" value="'+i+'"><input type="text" class="form-control" name="choice[]" value="'+vari+'" readonly=""></div><div class="col-12 col-md-7 col-xl-8 order-3 order-md-0 mt-2 mt-md-0"><input type="text" class="form-control tagsInput" name="choice_options_'+i+'[]" placeholder="Enter choice values" onchange="update_sku()"></div><div class="col-4 col-xl-1 col-md-2 order-2 order-md-0 text-right"><button type="button" onclick="delete_row(this)" class="btn btn-link btn-icon text-danger"><i class="fa fa-trash-o"></i></button></div></div>');
+             i++;
+            $('.tagsInput').tagsInput('items');
+        });    
       }
-// 
- function getSecondVariant(variation_id){
-
-      if (variation_id !== "") {
-            $.ajax({
-                url:"/vendor/ajax-get-secondvariant-options/fetch?variation_id="+variation_id,
-                method:'GET',
-                cache:false,
-                success:function(response){
-                    $("#render__variations__data2").html(response);
-                    // console.log(response);
-                },
-            });
-        
-        }else{
-
-            return false;
-        }
- }
-
- function getSecondVariant(variation_id){
-
-    $.ajax({
-                url:"/vendor/ajax-get-secondvariant-options/fetch?variation_id="+variation_id,
-                method:'GET',
-                cache:false,
-                success:function(response){
-
-                    $("#render__variations__data").append(response);
-                    // console.log(response);
-                },
-            });
- }
   </script>
 
 
