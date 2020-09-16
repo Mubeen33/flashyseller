@@ -60,6 +60,7 @@
 				var f = callbacks[id]['onChange'];
 				f.call(this, this, value);
 			}
+			update_sku();
 		});
 
 		return false;
@@ -87,6 +88,7 @@
 				var f = callbacks[id]['onRemoveTag'];
 				f.call(this, this, value);
 			}
+			update_sku();
 		});
 
 		return false;

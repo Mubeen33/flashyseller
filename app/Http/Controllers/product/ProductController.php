@@ -13,6 +13,7 @@ use App\ProductMedia;
 use App\CustomField;
 use App\Variation;
 use App\ProductCustomField;
+use App\ProductVariation;
 use App\VariantOptionOptions;
 use App\VariationOption;
 use Illuminate\Support\Facades\DB;
@@ -155,47 +156,54 @@ class ProductController extends Controller
     }
     //
 
-    // sku combination 
-    public function skuCombinations(){
+    
+    public function skuCombinations(Request $request){
 
-        $firstoptions = array();
+        $options = Array();
+        $variations = Array();
+        $variantOne;
+        $variantTwo;
+        $count;
+        if($request->has('choice_no')){
+            foreach ($request->choice_no as $key => $no) {
+                $name = 'choice_options_'.$no;
+                $my_str = implode('|', $request[$name]);
+                array_push($options, explode(',', $my_str));
+            }
+        }
+        if ($request->has('variation_name')) {
+            
+            $count        = count($request->variation_name);
+            if ($count == 1) {
+                
+                    $variantOne   = $request->variation_name[0];
+                    $variationOne = Variation::where('variation_name',$variantOne)->first();
+            }
+            else{
 
-        if (isset($_GET['option'])) {
-           
-           $option         =  $_GET['option'];
-           $variation_name =  $_GET['variation_name'];
-           $variation      = Variation::where('variation_name',$variation_name)->first();
+                $variantOne   = $request->variation_name[0];
+                $variationOne = Variation::where('variation_name',$variantOne)->first();
+                $variantTwo   = $request->variation_name[1];
+                $variationTwo = Variation::where('variation_name',$variantTwo)->first();
 
-           // array_push($firstoptions, $option);
+            }
+            
 
-           return view('product.partials.sku_combinations', compact('option','variation'));
         }
 
+        $combinations = combinations($options);
+        if ($count == 1) {
+            return view('product.partials.sku_combinations', compact('combinations','variationOne','count'));
+        }else{
 
-    }
-    // public function skuCombinations(Request $request){
-
-    //     $options = array();
-    //     if($request->has('vari_type')){
-    //         foreach ($request->vari_type as $key => $no) {
-    //             $name = 'choice_options_'.$no;
-    //             // echo $name;
-    //             $my_str = $request->$name;
-    //             // echo $my_str;
-    //             array_push($options, $my_str);
-    //         }
-    //     }
-    //     // print_r($options);
-    //     // return;
-
-    //     $combinations = combinations($options);
-
-    //     return view('product.partials.sku_combinations', compact('combinations'));
-    // } 
+            return view('product.partials.sku_combinations', compact('combinations','variationOne','variationTwo','count'));
+        }    
+    } 
     // addProduct
 
     public function addProduct(Request $request){
 
+        // dd($request);
     	$product = new Product();
 
     	$product->title        = $request->title;
@@ -210,6 +218,7 @@ class ProductController extends Controller
     	$product->sku          = $request->sku;
     	$product->vendor_id    = Auth::id();
     	$product->video_link   = $request->video_link;
+        $product->slug         = str_replace(" ","-", $request->title);
 
         // generating mannual Id
 
@@ -262,10 +271,75 @@ class ProductController extends Controller
 	        $productCustomFields->customfields = json_encode($data);
 	        $productCustomFields->save();
     	}
-    	else{
+    	if ($request->has('variation_name')) {
+            
+            $count        = count($request->variation_name);
+            if ($count == 1) {
 
+                foreach ($request->variant_combinations as $key => $value) {
+                    
+                    $productVariations = new ProductVariation();
 
-    	}
+                    $productVariations->first_variation_name  = $request->variation_name[0];
+                    $productVariations->first_variation_value = $request->variant_combinations[$key];
+                    $productVariations->sku                   = $request->variant_sku[$key];
+                    $productVariations->product_id            = $Id;
+
+                    if ($request->has('variant_image')) {
+                        
+                        $image = $request->file('variant_image')[$key];
+        
+                        $file_name=uniqid().(Auth::guard('vendor')->user()->id)."_300_".$image->getClientOriginalName();
+                        //resize image
+                        $image_resize = Image::make($image->getRealPath());              
+                        $image_300 = $image_resize->resize(300, 300);
+                        $image_300->save('product_images/'.$file_name);
+
+                        $productVariations->variant_image = url('/')."/product_images/".$file_name;
+                    }
+
+                    $productVariations->save();
+                    
+
+                }
+            }
+            if ($count == 2) {
+                
+                foreach ($request->variant_combinations as $key => $value) {
+                    
+                    $variants = $request->variant_combinations[$key];
+                    $variants = explode("-",$variants);
+                    $first_variation_value = $variants[0];
+                    $second_variation_value = $variants[1];
+
+                    $productVariations = new ProductVariation();
+
+                    $productVariations->first_variation_name   = $request->variation_name[0];
+                    $productVariations->first_variation_value  = $first_variation_value;
+                    $productVariations->second_variation_name  = $request->variation_name[1];
+                    $productVariations->second_variation_value = $second_variation_value;
+                    $productVariations->sku                    = $request->variant_sku[$key];
+                    $productVariations->product_id             = $Id;
+
+                    if ($request->has('variant_image')) {
+                        
+                        $image = $request->file('variant_image')[$key];
+        
+                        $file_name=uniqid().(Auth::guard('vendor')->user()->id)."_300_".$image->getClientOriginalName();
+                        //resize image
+                        $image_resize = Image::make($image->getRealPath());              
+                        $image_300 = $image_resize->resize(300, 300);
+                        $image_300->save('product_images/'.$file_name);
+
+                        $productVariations->variant_image = url('/')."/product_images/".$file_name;
+                    }
+
+                    $productVariations->save();
+                    
+
+                }
+            }
+        }
     	
     	return redirect()->back()->with('msg','<div class="alert alert-success" id="msg">Product added Successfully!</div>');
 

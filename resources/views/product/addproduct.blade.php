@@ -83,7 +83,16 @@
 	  padding-top: 0.5rem!important;
 	  padding-bottom: 0.5rem!important;
   }
-  
+  .select2-container--default .select2-results>.select2-results__options{
+
+    min-width: 200px !important;
+  }
+  .select2-container--default.select2-container--open.select2-container--above .select2-selection--single, .select2-container--default.select2-container--open.select2-container--above .select2-selection--multiple{
+    min-width: 200px !important;
+  }
+  span.select2.select2-container.select2-container--default {
+    min-width: 200px !important;
+}
 </style>
 <div class="content-body">
 	<div class="container-fluid">
@@ -180,7 +189,7 @@
       		</div>
     
     
-        <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data" id="product_form">
+        <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data" id="choice_form">
             @csrf
             <input type="hidden" name="image_id" value="{{$prod_img_id}}">      
           		<!-- end Photos -->
@@ -418,9 +427,7 @@
 									Add Variations
 								</button>
                             </div>
-                            <div class="col-lg-2">
-                                <button type="submit" class="btn btn-warning">Submit</button>
-                            </div>
+                            
           					</div>
                             
           			</div>
@@ -434,7 +441,7 @@
 
 							<div class="row" id="render__variations__data">
 								<div class="col-lg-4">
-									<select class="form-control select2" onchange="add_more_customer_choice_option()" id="variation" multiple="multiple" >
+									<select class="form-control select2" name="variation_name[]" onchange="add_more_customer_choice_option()" id="variation" multiple="multiple" >
 										<option>Choose Variation Type</option>
 										<optgroup label="Variation Type">
 											@foreach($variationList as $variation)
@@ -445,16 +452,20 @@
 										</optgroup>
 									</select>
 								</div>
-								<!-- @include('product.partials.auto-variantOptions') -->
 							</div>
 						</div>
 					</div>
 				</div>
 				
 				
-					<div class="card">
-						<div class="card-body" id="customer_choice_options">
+					<div class="card" id="customer_options">
+						<div class="card-body" id="customer_choices">
 						</div>
+            <div class="card-body" id="customer_choice_options">
+            </div>
+            <div class="text-right mb-3" style="position: relative;right: 45px;">
+                <button type="submit" class="btn btn-warning">Submit</button>
+            </div>
 					</div>
 			
       		<!-- End Inventory and pricing  -->
@@ -577,16 +588,7 @@ $(function () {
         }
     }
 
-// ///////////////////////////////////////////////////
-// //---- On press Enter form not submit Fuction --- //// 
 
-// $('#product_form').on('keyup keypress', function(e) {
-//   var keyCode = e.keyCode || e.which;
-//   if (keyCode === 13) { 
-//     e.preventDefault();
-//     return false;
-//   }
-// });
 // // variant card
     function openVariant(){
         $('#variant-card').css('display','');
@@ -595,17 +597,39 @@ $(function () {
 var i = 0;
       function add_more_customer_choice_option(){
 
-        $('#customer_choice_options').html(null);
+        $('#customer_options').css('display','');
+        $('#customer_choices').html(null);
 
         $("select#variation :selected").each(function() {
 
           vari = $(this).val();
-          alert(vari);
-            $('#customer_choice_options').append('<div class="row mb-3"><div class="col-8 col-md-3 order-1 order-md-0"><input type="hidden" name="choice_no[]" value="'+i+'"><input type="text" class="form-control" name="choice[]" value="'+vari+'" readonly=""></div><div class="col-12 col-md-7 col-xl-8 order-3 order-md-0 mt-2 mt-md-0"><input type="text" class="form-control tagsInput" name="choice_options_'+i+'[]" placeholder="Enter choice values" onchange="update_sku()"></div><div class="col-4 col-xl-1 col-md-2 order-2 order-md-0 text-right"><button type="button" onclick="delete_row(this)" class="btn btn-link btn-icon text-danger"><i class="fa fa-trash-o"></i></button></div></div>');
+
+            $('#customer_choices').append('<div class="row mb-3"><div class="col-8 col-md-3 order-1 order-md-0"><input type="hidden" name="choice_no[]" value="'+i+'"><input type="text" class="form-control" name="choice_no_'+i+'" value="'+vari+'" readonly=""></div><div class="col-12 col-md-7 col-xl-8 order-3 order-md-0 mt-2 mt-md-0"><input type="text" class="form-control tagsInput" data-role="tagsinput" name="choice_options_'+i+'[]" placeholder="Enter choice values"></div><div class="col-4 col-xl-1 col-md-2 order-2 order-md-0 text-right"><button type="button" onclick="delete_row(this)" class="btn btn-link btn-icon text-danger"><i class="fa fa-trash-o"></i></button></div></div>');
              i++;
             $('.tagsInput').tagsInput('items');
         });    
       }
+      function update_sku(){
+            $.ajax({
+           type:"POST",
+           url:'{{ route('vendor.products.sku_combination') }}',
+           data:$('#choice_form').serialize(),
+           success: function(data){
+
+             $('#customer_choice_options').html(data);
+             
+           }
+         });
+      }
+
+      function delete_row(em){
+        $(em).closest('.row').remove();
+        update_sku();
+      }
+      // 
+      $("#variation").select2({
+          maximumSelectionLength: 2
+      });
   </script>
 
 
