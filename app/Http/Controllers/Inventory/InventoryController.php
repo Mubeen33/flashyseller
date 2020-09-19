@@ -18,7 +18,7 @@ class InventoryController extends Controller
 
     public function inventory_page(){
     	$data = VendorProduct::where('ven_id', Auth::guard('vendor')->user()->id)
-    			->with(['get_product', 'get_variation'])
+    			->with(['get_product', 'get_product_variations'])
     			->orderBy('id', 'DESC')
     			->paginate(5);
     	return view('product.inventory', compact('data'));
@@ -108,7 +108,7 @@ class InventoryController extends Controller
 	            			['ven_id', '=', Auth::guard('vendor')->user()->id],
 	            			['active', '=', $status]
 	            		])
-	                	->with(['get_product', 'get_variation'])
+	                	->with(['get_product', 'get_product_variations'])
 		                ->whereHas('get_product', function($q) use ($searchIn, $searchKey, $sort_by, $sorting_order)
 		                {
 		                    $q->where($searchIn, 'like', '%'.$searchKey.'%');
@@ -118,7 +118,7 @@ class InventoryController extends Controller
 	                return view('product.partials.inventory-list', compact('data'))->render();
             	}
                 $data = VendorProduct::where('ven_id', Auth::guard('vendor')->user()->id)
-                	->with(['get_product', 'get_variation'])
+                	->with(['get_product', 'get_product_variations'])
 	                ->whereHas('get_product', function($q) use ($searchIn, $searchKey, $sort_by, $sorting_order)
 	                {
 	                    $q->where($searchIn, 'like', '%'.$searchKey.'%');
@@ -134,13 +134,13 @@ class InventoryController extends Controller
 	            			['ven_id', '=', Auth::guard('vendor')->user()->id],
 	            			['active', '=', $status]
 	            		])
-	            		->with(['get_product', 'get_variation'])
+	            		->with(['get_product', 'get_product_variations'])
 	            		->orderBy($sort_by, $sorting_order)
 	            		->paginate($row_per_page);
 	            return view('product.partials.inventory-list', compact('data'))->render();
             }
             $data = VendorProduct::where('ven_id', Auth::guard('vendor')->user()->id)
-            			->with(['get_product', 'get_variation'])
+            			->with(['get_product', 'get_product_variations'])
             			->orderBy($sort_by, $sorting_order)
             			->paginate($row_per_page);
             return view('product.partials.inventory-list', compact('data'))->render();

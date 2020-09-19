@@ -17,9 +17,6 @@
   <section id="basic-tabs-components">
     <div id="display--actions-msg"></div>
 
-
-
-
       <ul class="list-group list-group-horizontal-sm list-tab"  role="tablist" style="text-decoration:none; list-style:none; border-radius:5px;">
           <li>
               <a class="list-group-item order-pill active" id="home-tab" data-toggle="tab" href="#orders" aria-controls="home" role="tab" aria-selected="true">

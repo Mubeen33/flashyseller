@@ -1,196 +1,151 @@
-//search in specific field in each specific search box
+<?php
 
-$(document).ready(function(){
-    //pagination only
-    $(document).on('click', '.pagination li a', function(e){
-        e.preventDefault()
-        let action_url = $("#hidden__action_url").val()
-        let pageNumber = $(this).attr('href').split('page=')[1]
-        
-        let searchKey;
-        let searchIn;
-        $(".searchKey__").each(function(){
-            if ($(".searchKey__").val() != null) {
-                searchKey = $(".searchKey__").val()
-                searchIn = $(".searchKey__").attr('search-in')
-            }
-        });
+namespace App\Http\Controllers\Inventory;
 
-        $("#hidden__page_number").val(pageNumber)
-        let sort_by = $("#hidden__sort_by").val()
-        let sorting_order = $("#hidden__sorting_order").val()
-        let hidden__status = $("#hidden__status").val()
-        let row_per_page = $("#selected_row_per_page").val()
-        let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
-    })
-    //live search with pagination
-    $(document).on("keyup", ".searchKey__", function(){
-        let action_url = $("#hidden__action_url").val()
-        let searchKey = $(this).val()
-        let searchIn = $(this).attr('search-in')
-        let pageNumber = 1;
-        let sort_by = $("#hidden__sort_by").val()
-        let sorting_order = $("#hidden__sorting_order").val()
-        let hidden__status = $("#hidden__status").val()
-        let row_per_page = $("#selected_row_per_page").val()
-        let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
-    })
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\VendorProduct;
+use Carbon\Carbon;
+use Auth;
 
-    //dynamic sorting management is ajax
-    $(".sortAble").on("click", function(){
-        let action_url = $("#hidden__action_url").val()
-        let sortingColumn = $(this).attr('sorting-column')
-        let sort_order = $(this).attr('sorting-order')
-
-        let setSortingOrder = "";
-        let sortICON = "";
-        if (sort_order == '') {
-            setSortingOrder = 'DESC';
-            sortICON = ('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/> <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/> </svg> ')
-        }else if (sort_order == "DESC") {
-            setSortingOrder = 'ASC';
-            sortICON = ('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M4.646 9.646a.5.5 0 0 1 .708 0L8 12.293l2.646-2.647a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 0 1 0-.708z"/> <path fill-rule="evenodd" d="M8 2.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V3a.5.5 0 0 1 .5-.5z"/> </svg> ')
-        }else {
-            setSortingOrder = 'DESC';
-            sortICON = ('<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/> <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/> </svg> ') 
-        }
-        $("#hidden__sort_by").val(sortingColumn)
-        $("#hidden__sorting_order").val(setSortingOrder)
-        $('.sortAble').children("svg").remove();//remove
-        $('.sortAble').attr("sorting-order", '');
-
-        $(this).attr('sorting-order', setSortingOrder)
-        $(this).prepend(sortICON)
-
-        let searchKey;
-        let searchIn;
-        $(".searchKey__").each(function(){
-            if ($(".searchKey__").val() != null) {
-                searchKey = $(".searchKey__").val()
-                searchIn = $(".searchKey__").attr('search-in')
-            }
-        });
-
-        let pageNumber = $("#hidden__page_number").val()
-        let hidden__status = $("#hidden__status").val()
-        let row_per_page = $("#selected_row_per_page").val()
-        let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data_type_2(action_url, pageNumber, searchIn, searchKey, sortingColumn, setSortingOrder, hidden__status, row_per_page, hidden__id)
-    })
-
-    //if change option of row per page
-    $("#selected_row_per_page").on('change', function(){
-        ajax_paginate_data_without_parameter_type_2()
-    })
-
-    //if change hidden__status status otpion
-    $("#hidden__status").on('change', function(){
-        ajax_paginate_data_without_parameter_type_2()
-    })
-})
-
-
-
-//fetch data
-function fetch_paginate_data_type_2(
-    action_url=null, 
-    pageNumber=null, 
-    searchIn=null, 
-    searchKey=null, 
-    sortBy=null, 
-    sortingOrder=null, 
-    hidden__status=null, 
-    rowPerPage=null, 
-    hidden__id=null)
+class InventoryController extends Controller
 {
-    action_url = action_url;
-    pageNumber = pageNumber;
-    searchIn = searchIn;
-    searchKey = searchKey;
-    sortBy = sortBy;
-    sortingOrder = sortingOrder;
-    hidden__status = hidden__status;
-    rowPerPage = rowPerPage;
-    hidden__id = hidden__id;
-
-    if (
-        action_url === null &&
-        pageNumber === null &&
-        searchIn === null &&
-        searchKey === null &&
-        sortBy === null &&
-        sortingOrder === null &&
-        hidden__status === null &&
-        rowPerPage === null &&
-        hidden__id === null
-    ) {
-
+  public function __construct()
+    {
+        $this->middleware('auth:vendor');
     }
 
-    $.ajax({
-        url:action_url+"?page="+pageNumber+"&search_in="+searchIn+"&search_key="+searchKey+"&sort_by="+sortBy+"&sorting_order="+sortingOrder+"&status="+hidden__status+"&row_per_page="+rowPerPage+"&id="+hidden__id,
-        method:'GET',
-        cache:false,
-        success:function(response){
-            $("#render__data").html(response)
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status === 422) {
-                alert('Sorry\n'+ jqXHR.responseText)
-                //window.location.reload(true)
-            }else if (jqXHR.status === 401) {
-                alert('Sorry\n'+ jqXHR.responseText)
-                //window.location.reload(true)
-            }else{
-                alert('Sorry\n Something unknown problem')
-                //window.location.reload(true)
+
+    public function inventory_page(){
+      $data = VendorProduct::where('ven_id', Auth::guard('vendor')->user()->id)
+          ->with(['get_product', 'get_product_variations'])
+          ->orderBy('id', 'DESC')
+          ->paginate(5);
+      return view('product.inventory', compact('data'));
+    }
+
+
+    public function update_inventory_data(Request $request){
+      if ($request->ajax()) {
+        $oldData = VendorProduct::where([
+          'id'=>decrypt($request->id),
+          'ven_id'=>Auth::guard('vendor')->user()->id
+        ])->first();
+        if (!$oldData) {
+          return response()->json("Data Not Found", 404);
+        }
+
+            //if mk_price
+            if ($request->fieldName === "mk_price") {
+                if (intval($oldData->price) > intval($request->value)) {
+                    return response()->json("SORRY - Price can't be greater than RRP Price.", 422);
+                }
+            }
+            //if price
+            if ($request->fieldName === "price") {
+                if (intval($request->value) > intval($oldData->mk_price)) {
+                    return response()->json("SORRY - Price can't be greater than RRP Price.", 422);
+                }
             }
 
+        $updated = $oldData->update([
+          $request->fieldName => $request->value,
+          'updated_at'=>Carbon::now()
+        ]);
+
+        if ($updated == true) {
+                //fetch updated data again
+                $updatedData = VendorProduct::where([
+                    'id'=>decrypt($request->id),
+                    'ven_id'=>Auth::guard('vendor')->user()->id
+                ])->first();
+
+                if ($updatedData->quantity > 0 && $updatedData->mk_price > 0 && $updatedData->price > 0) {
+                    if (intval($updatedData->active) === 0) {
+                        //active row
+                        $updatedData->update([
+                            'active'=>1
+                        ]);
+                    }
+                }else{
+                   if (intval($updatedData->active) !== 0) {
+                        //inactive row
+                        $updatedData->update([
+                            'active'=>0
+                        ]);
+                    } 
+                }
+
+          $field = $request->fieldName === "mk_price" ? "RRP" : $request->fieldName;
+          return response()->json($field.' - updated successfully.', 200);
+        }else{
+          return response()->json('SORRY - Something went wrong.', 500);
         }
-    })
-}
+      }
+      return abort(404);
+    }
 
+    //ajax pagination
+    public function ajax_fetch_data(Request $request){
+        if ($request->ajax()) {
+            $searchIn = $request->search_in;
+            $searchKey = $request->search_key;
+            $sort_by = $request->sort_by;
+            $sorting_order = $request->sorting_order;
+            $row_per_page = $request->row_per_page;
+            $status = $request->status;
 
-
-function ajax_paginate_data_without_parameter_type_2(){
-    let action_url = $("#hidden__action_url").val()
-    let searchKey;
-    let searchIn;
-    $(".searchKey__").each(function(){
-        if ($(".searchKey__").val() != null) {
-            searchKey = $(".searchKey__").val()
-            searchIn = $(".searchKey__").attr('search-in')
-        }
-    });
-    let pageNumber = 1;
-    let sortBy = $("#hidden__sort_by").val()
-    let sorting_order = $("#hidden__sorting_order").val()
-    let hidden__status = $("#hidden__status").val()
-    let row_per_page = $("#selected_row_per_page").val()
-    let hidden__id = $("#hidden__id").val()
-    
-
-    $.ajax({
-        url:action_url+"?page="+pageNumber+"&search_in="+searchIn+"&search_key="+searchKey+"&sort_by="+sortBy+"&sorting_order="+sorting_order+"&status="+hidden__status+"&row_per_page="+row_per_page+"&id="+hidden__id,
-        method:'GET',
-        cache:false,
-        success:function(response){
-            $("#render__data").html(response)
-        },
-        error: function (jqXHR, textStatus, errorThrown) {
-            if (jqXHR.status === 422) {
-                alert('Sorry\n'+ jqXHR.responseText)
-                //window.location.reload(true)
-            }else if (jqXHR.status === 401) {
-                alert('Sorry\n'+ jqXHR.responseText)
-                //window.location.reload(true)
-            }else{
-                alert('Sorry\n Something unknown problem')
-                //window.location.reload(true)
+            if ($sort_by == "") {
+                $sort_by = "id";
+            }
+            if ($sorting_order == "") {
+                $sorting_order = "DESC";
             }
 
+            if (!empty($request->search_key)) {
+              if (intval($status) === 0 || intval($status) === 1) {
+                  $data = VendorProduct::where([
+                    ['ven_id', '=', Auth::guard('vendor')->user()->id],
+                    ['active', '=', $status]
+                  ])
+                    ->with(['get_product', 'get_variation'])
+                    ->whereHas('get_product', function($q) use ($searchIn, $searchKey, $sort_by, $sorting_order)
+                    {
+                        $q->where($searchIn, 'like', '%'.$searchKey.'%');
+                        $q->orderBy($sort_by, $sorting_order);
+
+                    })->paginate($row_per_page);
+                  return view('product.partials.inventory-list', compact('data'))->render();
+              }
+                $data = VendorProduct::where('ven_id', Auth::guard('vendor')->user()->id)
+                  ->with(['get_product', 'get_variation'])
+                  ->whereHas('get_product', function($q) use ($searchIn, $searchKey, $sort_by, $sorting_order)
+                  {
+                      $q->where($searchIn, 'like', '%'.$searchKey.'%');
+                      $q->orderBy($sort_by, $sorting_order);
+
+                  })->paginate($row_per_page);
+                return view('product.partials.inventory-list', compact('data'))->render();
+            }
+
+
+            if (intval($status) === 0 || intval($status) === 1) {
+              $data = VendorProduct::where([
+                    ['ven_id', '=', Auth::guard('vendor')->user()->id],
+                    ['active', '=', $status]
+                  ])
+                  ->with(['get_product', 'get_variation'])
+                  ->orderBy($sort_by, $sorting_order)
+                  ->paginate($row_per_page);
+              return view('product.partials.inventory-list', compact('data'))->render();
+            }
+            $data = VendorProduct::where('ven_id', Auth::guard('vendor')->user()->id)
+                  ->with(['get_product', 'get_variation'])
+                  ->orderBy($sort_by, $sorting_order)
+                  ->paginate($row_per_page);
+            return view('product.partials.inventory-list', compact('data'))->render();
         }
-    })
+        return abort(404);
+        
+    }
 }

@@ -4,7 +4,7 @@
     @if($content->active == 0)
       <div class="chip chip-danger">
           <div class="chip-body">
-              <div class="chip-text">on hold</div>
+              <div class="chip-text">On hold</div>
           </div>
       </div>
       @else
@@ -20,9 +20,33 @@
     @php
       $getProductImage = (\App\ProductMedia::where('image_id', $content->get_product->image_id)->first());
     @endphp
-    @if($getProductImage)
-    <img src="{{$getProductImage->image}}" width="40"  height="40" /><font size="2">  {{\Str::words($content->get_product->title, 4)}} </font>
+
+    @if(!$content->get_product_variations)
+        @if($getProductImage)
+        <img src="{{$getProductImage->image}}" width="40"  height="40" /><font size="2">  {{\Str::words($content->get_product->title, 4)}} </font>
+        @endif
+
+      
+      @else
+        @if($content->get_product_variations->variant_image !== NULL)
+          <img src="{{$content->get_product_variations->variant_image}}" width="40"  height="40" />
+          <font size="2">  
+            {{\Str::words($content->get_product->title, 4)}} {{', '.$content->get_product_variations->first_variation_value}}
+            @if($content->get_product_variations->second_variation_value !== NULL)
+              {{', '.$content->get_product_variations->second_variation_value}}
+            @endif
+          </font>
+        @else
+          <img src="{{$getProductImage->image}}" width="40"  height="40" />
+          <font size="2">  
+            {{\Str::words($content->get_product->title, 4)}} {{', '.$content->get_product_variations->first_variation_value}}
+            @if($content->get_product_variations->second_variation_value !== NULL)
+              {{', '.$content->get_product_variations->second_variation_value}}
+            @endif
+          </font>
+      @endif
     @endif
+
   </td>
   <td width="100px" align="center">
       {{$content->get_product->sku}}
