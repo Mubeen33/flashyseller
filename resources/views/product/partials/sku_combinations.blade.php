@@ -44,7 +44,7 @@
 			else{
 				
 					$str .= str_replace(' ', '', $item);
-					$sku .='-'.str_replace(' ', '', $item);
+					$sku .= str_replace(' ', '', $item);
 				
 			}
 		}
