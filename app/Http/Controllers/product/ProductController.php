@@ -216,6 +216,12 @@ class ProductController extends Controller
     	$product->renewal      = $request->renewal;
     	$product->product_type = $request->product_type;
     	$product->sku          = $request->sku;
+        $product->width          = $request->width;
+        $product->hieght          = $request->hieght;
+        $product->length          = $request->length;
+        if ($request->has('warranty')) {
+            $product->warranty          = $request->warranty;
+        }    
     	$product->vendor_id    = Auth::id();
     	$product->video_link   = $request->video_link;
         $product->slug         = str_replace(" ","-", $request->title);
