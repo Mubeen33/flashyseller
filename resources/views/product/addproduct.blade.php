@@ -376,32 +376,8 @@
           		<!-- Inventory and pricing  -->
           		<div class="card">
           			<div class="card-body">
-          				<div class="mb-xs-1 strong"> Inventory and pricing
+          				<div class="mb-xs-1 strong"> Inventory and Dimension
           			</div> <br />
-          			{{-- <div class="row">
-          				<div class="col-lg-3">
-          					<div class="mb-xs-2 strong"> Price <span class="text-gray-lightest">*</span> </div>
-          					<p class="text-smaller text-gray-lighter">
-          						Remember to factor in the costs of materials, labour, and other business expenses. If you offer free delivery, make sure to include the cost of postage so it doesn't eat into your profits.
-          					</p>
-          				</div>
-          				<div class="col-lg-3">
-          					<br />
-          					<input type="text" class="form-control" name="price" />
-          				</div>
-          			</div>
-          			<div class="row">
-          				<div class="col-lg-3">
-          					<div class="mb-xs-2 strong"> Quantity <span class="text-gray-lightest">*</span> </div>
-          					<p class="text-smaller text-gray-lighter">
-          						For quantities greater than one, this listing will renew automatically until it sells out. You’ll be charged a USD 0.20 USD listing fee each time.
-          					</p>
-          				</div>
-          				<div class="col-lg-3">
-          					<br />
-          					<input type="text" class="form-control" name="price" />
-          				</div>
-          			</div> --}}
           			<div class="row">
           				<div class="col-lg-3">
           					<div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest">Optional</span> </div>
@@ -414,6 +390,46 @@
           					<input type="text" class="form-control" name="sku" />
           				</div>
           			</div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="mb-xs-2 strong"> Width </div>
+                    
+                  </div>
+                  <div class="col-lg-3">
+                    <br />
+                    <input type="text" class="form-control" name="width" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="mb-xs-2 strong"> Hieght  </div>
+                    
+                  </div>
+                  <div class="col-lg-3">
+                    <br />
+                    <input type="text" class="form-control" name="hieght" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="mb-xs-2 strong"> Length  </div>
+                    
+                  </div>
+                  <div class="col-lg-3">
+                    <br />
+                    <input type="text" class="form-control" name="length" />
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="mb-xs-2 strong"> Warranty  </div>
+                    
+                  </div>
+                  <div class="col-lg-3">
+                    <br />
+                    <input type="text" class="form-control" name="warranty" />
+                  </div>
+                </div>
           			<hr />
           			<div class="row">
       					<div class="col-lg-9">
