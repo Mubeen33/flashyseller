@@ -58,6 +58,12 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::post('delete-product-image','product\ProductController@removeProductImage');
 	Route::post('products/sku_combination','product\ProductController@skuCombinations')->name('products.sku_combination');
 
+	//add existing product
+	Route::get('search-existing-products', 'product\ProductController@search_existing_product')->name("searchExistingProduct.get");
+	Route::get('ajax-search-existing-products/fetch', 'product\ProductController@ajax_fetch_existing_products')->name("searchExistingProduct.ajaxPgination");
+	Route::get('view-existing-product/{vendor_products_tbl_id}', 'product\ProductController@view_existing_product')->name("viewExistingProduct.get");
+	Route::post('save-existing-product/{vendor_products_tbl_id}', 'product\ProductController@save_existing_product')->name("saveExistingProduct.post");
+
 	//pending routes
 	Route::get('products/pending','product\ProductController@get_pending')->name('pendingProducts.get');
 	Route::get('product/detail/{id}','product\ProductController@product_details')->name('productDetails.get');
