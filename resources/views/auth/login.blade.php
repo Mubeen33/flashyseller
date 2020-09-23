@@ -46,8 +46,10 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                                    <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autofocus>
-
+                                                    <div class="password--wrapper">
+                                                        <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autofocus>
+                                                        <a href="{{ route('resetPassForm.get') }}" class="card-link">Forgot?</a>
+                                                    </div>
                                                         @error('passowrd')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -72,10 +74,9 @@
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="text-right text-warning"><a href="{{ route('resetPassForm.get') }}" class="card-link">Forgot Password?</a></div>
                                                     </div>
                                                     {{-- <a href="auth-register.html" class="btn btn-outline-primary float-left btn-inline">Register</a> --}}
-                                                    <button type="submit" class="btn btn-warning float-right btn-inline">Login</button>
+                                                    <button type="submit" class="btn btn-warning float-right btn-inline" style="width: 100%">Login</button>
                                                 </form>
                                             </div>
                                         </div>

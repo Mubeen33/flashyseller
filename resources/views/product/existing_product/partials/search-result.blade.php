@@ -29,4 +29,5 @@
         <td colspan="4">{!! $data->links() !!}</td>
     </tr>
     @endif
+    
 @endif
