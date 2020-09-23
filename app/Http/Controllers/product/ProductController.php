@@ -425,7 +425,7 @@ class ProductController extends Controller
 
 
 
-    /*=========== existing product search, view and save ========= */
+    /*=========== existing product search, view and add ========= */
     //search_existing_product
     public function search_existing_product(){
         return view('product.existing_product.search');
@@ -448,13 +448,32 @@ class ProductController extends Controller
 
             if (!empty($request->search_key)) {
                 $products = Product::where("title", "LIKE", "%$searchKey%")->get('id');
-                
                 //get vendor products
                 $product_id_list = [];
                 foreach ($products as $key => $value) {
                    $product_id_list[] = $value->id;
                 }
-                $data = VendorProduct::whereIn('prod_id', $product_id_list)
+                $vendors_products = VendorProduct::whereIn('prod_id', $product_id_list)
+                            ->where([
+                                ['active', '=', 1],
+                                ['ven_id', '!=', Auth::guard('vendor')->user()->id]
+                            ])
+                            ->get();
+
+
+                $get_id_list = [];
+
+                foreach ($vendors_products as $key => $value) {
+                    $result = $this->check_array_values($value);
+                    if ($result === false) {
+                        $get_id_list[] = $value->id;
+                    }
+                }
+
+
+                
+                //get vendor products
+                $data = VendorProduct::whereIn('id', $get_id_list)
                             ->where([
                                 ['active', '=', 1],
                                 ['ven_id', '!=', Auth::guard('vendor')->user()->id]
@@ -462,6 +481,7 @@ class ProductController extends Controller
                             ->with(['get_product', 'get_product_variation'])
                             ->orderBy('id', 'DESC')
                             ->paginate($row_per_page);
+
                 return view('product.existing_product.partials.search-result', compact('data'))->render();
             }else{
                 $data = [];
@@ -470,6 +490,20 @@ class ProductController extends Controller
             
         }
         return abort(404);
+    }
+
+    private function check_array_values($value){
+        $data = VendorProduct::where([
+            'ven_id'=>Auth::guard('vendor')->user()->id,
+            'prod_id'=>$value->prod_id,
+            'variation_id'=>$value->variation_id
+        ])->first();
+        if (!$data) {
+            return false;
+        }else{
+            return true;
+        }
+
     }
 
     public function view_existing_product($vendor_products_tbl_id){
@@ -494,27 +528,39 @@ class ProductController extends Controller
             'price'=>'required|numeric|min:1',
             'dispatched_days'=>'required|numeric|min:1'
         ]);
+        $authVendorID = Auth::guard('vendor')->user()->id;
 
         //the reference id is the id of vendor_products tbl
         $vendor_product_data = VendorProduct::where([
                 ['id', '=', decrypt($id)],
-                ['ven_id', '!=', Auth::guard('vendor')->user()->id],
+                ['ven_id', '!=', $authVendorID],
                 ['active', '=', 1]
             ])->first();
 
         if (!$vendor_product_data) {
-            return redirect()->back()->with('error', 'Invalid Product');
+            return redirect()->back()->withInput()->with('error', 'Invalid Product');
         }
 
         //if mk_price
         if (intval($request->price) > intval($request->market_price)) {
             return redirect()->back()->withInput()->with('error', "SORRY - Price can't be greater than Market Price.");
         }
+        
 
+        //check duplicacy
+        $checkData = VendorProduct::where([
+                ['ven_id', '=', $authVendorID], 
+                ['prod_id', '=', $vendor_product_data->prod_id],
+                ['variation_id', '=', $vendor_product_data->variation_id]
+            ])->first();
+
+        if ($checkData) {
+            return redirect()->back()->withInput()->with('error', 'Invalid Access! The product has been already added.');
+        }
 
         //insert
         $inserted = VendorProduct::insert([
-            'ven_id'=>Auth::guard('vendor')->user()->id,
+            'ven_id'=>$authVendorID,
             'prod_id'=>$vendor_product_data->prod_id,
             'variation_id'=>$vendor_product_data->variation_id,
             'quantity'=>$request->quantity,
