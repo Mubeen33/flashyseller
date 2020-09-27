@@ -49,7 +49,7 @@
     </td>
     <td>
         @if(intval($content->status) === 0)
-            <span class="badge badge-danger">Pending</span>
+            <span class="badge badge-danger">New</span>
         @endif
     </td>
     <td>
