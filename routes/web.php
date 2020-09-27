@@ -76,6 +76,7 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 
 	//orders
 	Route::resource('orders', 'order\OrderController');
+	Route::get('ajax-orders/fetch', 'order\OrderController@fetch_orders_list')->name('orders.ajaxPgination');
 });
 
 

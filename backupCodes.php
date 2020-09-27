@@ -1,74 +1,155 @@
-@foreach($data as $key=>$content)
-<tr>
-    <td>{{ $content->order_id }}</td>
-    <td>
-        {{ $content->get_customer->first_name }} {{ $content->get_customer->last_name }}
-    </td>
-    <td>
-        <?php
-            $vendor_product = (\App\VendorProduct::where('id', $content->get_vendor_product->id)->first());
-            $product = (\App\Product::where('id', $content->get_vendor_product->prod_id)->with(['get_category', 'get_images'])->first());
-            if ($product) {
-                //get product
-                echo $product->title;
+<?php
+
+namespace App\Http\Controllers\order;
+
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Order;
+use App\Product;
+use App\VendorProduct;
+use Auth;
+
+class OrderController extends Controller
+{
+    public function __construct(){
+        $this->middleware('auth:vendor');
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $data = Order::where([
+                    'status'=>0,
+                    'vendor_id'=>Auth::guard('vendor')->user()->id
+                ])
+                ->with(['get_customer', 'get_vendor_product'])
+                ->orderBy('created_at', 'DESC')
+                ->paginate(5);
+        return view('orders.index', compact('data'));
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+
+
+    //ajax fetch
+    public function fetch_orders_list(Request $request){
+        if ($request->ajax()) {
+            $searchKey = $request->search_key;
+            $sort_by = $request->sort_by;
+            $sorting_order = $request->sorting_order;
+            $status = $request->status;
+            $row_per_page = $request->row_per_page;
+
+            if ($sort_by == "") {
+                $sort_by = "created_at";
             }
-        ?>
-    </td>
-    <td>
-        @if($product)
-            {{$product->get_category->name}}
-        @endif
-    </td>
-    <td>
-        @if($vendor_product)
-            {{$vendor_product->mk_price}}
-        @endif
-    </td>
-    <td>
-        @if($vendor_product)
-            {{$vendor_product->selling_price}}
-        @endif
-    </td>
-    <td>
-        @if($product && count($product->get_images) > 0)
-            @foreach($product->get_images as $key_img=>$image)
-                <?php
-                    if ($key_img == 0) {
-                        echo "<img src='".$image->image."' width='200px' height='80px'>";
-                        break;
-                    }
-                ?>
-            @endforeach
-        @endif
-    </td>
-    <td>
-        {{$content->qty}}
-    </td>
-    <td>
-        {{$content->created_at->format(env('GENERAL_DATE_FORMAT_WITH_HI'))}}
-    </td>
-    <td>
-        @if(intval($content->status) === 0)
-            <span class="badge badge-danger">Pending</span>
-        @endif
-    </td>
-    <td>
-        <div class="btn-group">
-            <div class="dropdown">
-                <button class="btn btn-dark btn-sm dropdown-toggle mr-1" type="button" id="dropdownMenuButton7" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    Actions
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
-                    <a class="dropdown-item" href="#">Show</a>
-                    <a class="dropdown-item" href="#">Accept</a>
-                    <a class="dropdown-item" href="#">Cancel</a>
-                </div>
-            </div>
-        </div>
-        
-    </td>
-</tr>
-@endforeach
-<tr>
-    <td colspan="9">{!! $data->links() !!}</td>
-</tr>
+            if ($sorting_order == "") {
+                $sorting_order = "DESC";
+            }
+
+            if (!empty($request->search_key)) {
+                $products = Product::where('title', 'LIKE', "%$searchKey%")->get('id')->toArray();
+                $productIDList = [];
+                $products
+                $vendor_products = VendorProduct::whereIn('prod_id', $productIDList)
+                                            ->where([
+                                                'active'=>1,
+                                                'ven_id'=>Auth::guard('vendor')->user()->id
+                                            ])
+                                            ->get('id')->toArray();
+
+                $ven_product_id_list = array_values($vendor_products);
+
+                $data = Order::whereIn('vendor_product_id', $ven_product_id_list)
+                        ->where([
+                            'status'=>0,
+                            'vendor_id'=>Auth::guard('vendor')->user()->id
+                        ])
+                        ->with(['get_customer', 'get_vendor_product'])
+                        ->orderBy($sort_by, $sorting_order)
+                        ->paginate($row_per_page);
+
+                
+                return view('orders.partials.orders-list', compact('data'))->render();
+            }
+
+            $data = Order::where([
+                            'status'=>0,
+                            'vendor_id'=>Auth::guard('vendor')->user()->id
+                        ])
+                        ->with(['get_customer', 'get_vendor_product'])
+                        ->orderBy($sort_by, $sorting_order)
+                        ->paginate($row_per_page);
+            return view('orders.partials.orders-list', compact('data'))->render();
+            
+        }
+        return abort(404);
+    }
+}
