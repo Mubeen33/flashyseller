@@ -4,9 +4,13 @@ namespace App\Http\Controllers\order;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Order;
 
 class OrderController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth:vendor');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +18,11 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $data = Order::where('status', 0)
+                ->with(['get_customer', 'get_vendor_product'])
+                ->orderBy('created_at', 'DESC')
+                ->paginate(5);
+        return view('orders.index', compact('data'));
     }
 
     /**

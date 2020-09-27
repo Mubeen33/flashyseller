@@ -26,7 +26,7 @@
     </td>
     <td>
         @if($vendor_product)
-            {{$vendor_product->selling_price}}
+            {{$vendor_product->price}}
         @endif
     </td>
     <td>
@@ -34,7 +34,7 @@
             @foreach($product->get_images as $key_img=>$image)
                 <?php
                     if ($key_img == 0) {
-                        echo "<img src='".$image->image."' width='200px' height='80px'>";
+                        echo "<img src='".$image->image."' width='80px' height='50px'>";
                         break;
                     }
                 ?>

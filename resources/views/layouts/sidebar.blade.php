@@ -37,6 +37,17 @@
                     </ul>
                 </li>
 
+                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-bar-chart-2"></i><span data-i18n="Charts &amp; Maps">Orders</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown" data-i18n="Charts"><i class="feather icon-pie-chart"></i>Orders</a>
+                            <ul class="dropdown-menu">
+                                <li data-menu=""><a class="dropdown-item" href="{{ route('vendor.orders.index') }}" data-toggle="dropdown" data-i18n="Apex"><i class="feather icon-circle"></i>My Orders</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
                 {{-- <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-package"></i><span data-i18n="Apps">Apps</span></a>
                     <ul class="dropdown-menu">
                         <li data-menu=""><a class="dropdown-item" href="app-email.html" data-toggle="dropdown" data-i18n="Email"><i class="feather icon-mail"></i>Email</a>
