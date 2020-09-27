@@ -29,9 +29,6 @@ Route::get('popup-dont-show', function(){return abort(404);});
 Route::post('popup-dont-show', 'Popup\PopupController@dont_show')->name('popUpDontShow.post');
 
 
-// feeds
-Route::feeds();
-
 /*
 authenticate routes for vendors with vendor Middleware
 All authenticate routes will go here
@@ -78,7 +75,7 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get("/inventory-ajax-paginate/fetch", "Inventory\InventoryController@ajax_fetch_data")->name('inventory.ajaxPgination');
 
 	//orders
-	Route::get('order-view/{orderID}', 'order\OrderController@orders')->name('orderView.get');
+	Route::resource('orders', 'order\OrderController');
 });
 
 
