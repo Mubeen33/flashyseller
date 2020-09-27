@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 /*
 guest routes except authenticate
 */
+
 Route::get('/', function(){
 	return redirect()->route('login');
 });
@@ -28,13 +29,15 @@ Route::get('popup-dont-show', function(){return abort(404);});
 Route::post('popup-dont-show', 'Popup\PopupController@dont_show')->name('popUpDontShow.post');
 
 
-
+// feeds
+Route::feeds();
 
 /*
 authenticate routes for vendors with vendor Middleware
 All authenticate routes will go here
 */
 Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']], function(){
+
 	//vendor controller
 	Route::resource('vendors', 'Vendor\VendorController');
 	Route::get('dashboard', 'Vendor\VendorController@dashboard')->name('dashboard.get');
@@ -73,6 +76,9 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get("/inventory", "Inventory\InventoryController@inventory_page")->name('inventory.page.get');
 	Route::post("/inventory/update", "Inventory\InventoryController@update_inventory_data")->name('updateInventoryData.post');
 	Route::get("/inventory-ajax-paginate/fetch", "Inventory\InventoryController@ajax_fetch_data")->name('inventory.ajaxPgination');
+
+	//orders
+	Route::get('order-view/{orderID}', 'order\OrderController@orders')->name('orderView.get');
 });
 
 
