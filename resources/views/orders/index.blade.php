@@ -80,22 +80,5 @@
 @endsection
 
 @push('scripts')
-
-<script type="text/javascript">
-    $(document).on('change', '#hidden__id', function(e){
-        e.preventDefault()
-        let action_url = $("#hidden__action_url").val()
-        let pageNumber = 1;
-        let searchKey = $("#searchKey__").val()
-        $("#hidden__page_number").val(pageNumber)
-        let sort_by = $("#hidden__sort_by").val()
-        let sorting_order = $("#hidden__sorting_order").val()
-        let hidden__status = $("#hidden__status").val()
-        let row_per_page = $("#selected_row_per_page").val()
-        let hidden__id = $("#hidden__id").val()
-        fetch_paginate_data(action_url, pageNumber, searchKey, sort_by, sorting_order, hidden__status, row_per_page, hidden__id);
-    })
-</script>
-
 <script type="text/javascript" src="{{ asset('js/ajax-pagination.js') }}"></script>
 @endpush
