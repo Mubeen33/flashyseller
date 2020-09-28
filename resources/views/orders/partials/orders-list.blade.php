@@ -48,9 +48,7 @@
         {{$content->created_at->format(env('GENERAL_DATE_FORMAT_WITH_HI'))}}
     </td>
     <td>
-        @if(intval($content->status) === 0)
-            <span class="badge badge-danger">New</span>
-        @endif
+        <span class="badge badge-info">{{$content->status}}</span>
     </td>
     <td>
         <div class="btn-group">
