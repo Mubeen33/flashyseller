@@ -51,6 +51,8 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::post('add-product-images/{product_image_id}','product\ProductController@addProductImages');
 	Route::get('ajax-get-category/fetch','product\ProductController@getCategories');
 	Route::get('ajax-get-category-customfields/fetch','product\ProductController@getCustomFields');
+
+	Route::get('ajax-get-category-warranty/fetch','product\ProductController@getWarranty');
 	Route::get('ajax-get-variant-options/fetch','product\ProductController@getVariationsOptions');
 	Route::get('ajax-get-secondvariant-options/fetch','product\ProductController@getSecondVariationsOptions');
 	Route::get('ajax-get-variant-options-options/fetch','product\ProductController@getThirdVariationsOptions');

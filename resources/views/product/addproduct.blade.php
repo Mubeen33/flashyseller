@@ -420,15 +420,10 @@
                     <input type="text" class="form-control" name="length" />
                   </div>
                 </div>
-                <div class="row">
-                  <div class="col-lg-3">
-                    <div class="mb-xs-2 strong"> Warranty  </div>
-                    
-                  </div>
-                  <div class="col-lg-3">
-                    <br />
-                    <input type="text" class="form-control" name="warranty" />
-                  </div>
+
+               </br><div class="row" id="render_warranty">
+                  
+                  
                 </div>
           			<hr />
           			<div class="row">
@@ -579,6 +574,7 @@ $(function () {
         $("#render__data .auto-complete-wrapper").html('');
 
 		getCustomFields(categoryID);
+    getWarranty(categoryID);
 		$("#addVariantButton").prop('disabled', false);
 		let category_id = $("#category_id").val();
 		//console.log(category_id);
@@ -604,6 +600,24 @@ $(function () {
         }
     }
 
+// warranty
+function getWarranty(categoryID){
+
+        if (categoryID !== "") {
+            $.ajax({
+                url:"/vendor/ajax-get-category-warranty/fetch?categoryId="+categoryID,
+                method:'GET',
+                cache:false,
+                success:function(response){
+                    $("#render_warranty").html(response);
+                    // console.log(response);
+                },
+            });
+        
+        }else{
+            return false;
+        }
+    }
 
 // // variant card
     function openVariant(){

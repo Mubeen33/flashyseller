@@ -16,6 +16,7 @@ use App\ProductCustomField;
 use App\ProductVariation;
 use App\VariantOptionOptions;
 use App\VariationOption;
+use App\ProductWarranty;
 use Illuminate\Support\Facades\DB;
 use Image;
 use Illuminate\Support\Facades\Validator;
@@ -199,6 +200,18 @@ class ProductController extends Controller
             return view('product.partials.sku_combinations', compact('combinations','variationOne','variationTwo','count'));
         }    
     } 
+    // 
+    public function getWarranty(Request $request){
+
+        if ($request->ajax()) {
+
+            $categoryId   = $request->categoryId;
+            $productWarranty = ProductWarranty::where("category_id", $categoryId)->first();
+
+            return view('product.partials.auto-warranty', compact('productWarranty'))->render();
+        }
+    }
+    // 
     // addProduct
 
     public function addProduct(Request $request){
