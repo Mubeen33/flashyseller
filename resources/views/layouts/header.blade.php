@@ -49,6 +49,7 @@
 
     <!-- Font Awesome -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+    
     @stack('styles')
 </head>
 <!-- END: Head-->

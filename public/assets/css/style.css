@@ -65,3 +65,17 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .text-decoration-underline {
 	text-decoration: underline!important;
 }
+
+
+/*//auth page*/
+.password--wrapper{
+	position: relative;
+}
+.password--wrapper input{
+	position: relative;
+}
+.password--wrapper a{
+	position: absolute;
+    top: 9px;
+    right: 10px;
+}

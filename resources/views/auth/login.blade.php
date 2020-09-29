@@ -9,22 +9,33 @@
         <div class="content-wrapper">
             <div class="content-header row">
             </div>
+            <?php
+                $auth_page_content = (\App\AuthPage::where('type', 'VendorAuth')->first());
+            ?>
+                                
             <div class="content-body">
                 <section class="row flexbox-container">
                     <div class="col-xl-8 col-11 d-flex justify-content-center">
                         <div class="card bg-authentication rounded-0 mb-0">
                             <div class="row m-0">
                                 <div class="col-lg-6 d-lg-block d-none text-center align-self-center px-1 py-0">
-                                    <img src="../../../app-assets/images/pages/login.png" alt="branding logo">
+                                    <img src="@if($auth_page_content){{$auth_page_content->image}}@else ../../../app-assets/images/pages/login.png @endif" alt="branding logo">
                                 </div>
+                                
                                 <div class="col-lg-6 col-12 p-0">
                                     <div class="card rounded-0 mb-0 px-2">
                                         <div class="card-header pb-1">
                                             <div class="card-title">
-                                                <h4 class="mb-0">Login</h4>
+                                                <h4 class="mb-0">@if($auth_page_content) {{$auth_page_content->title}} @else Login @endif</h4>
                                             </div>
                                         </div>
-                                        <p class="px-2">Welcome back, please login to your account.</p>
+                                        <p class="px-2">
+                                        @if($auth_page_content)
+                                                {{$auth_page_content->description}}
+                                            @else 
+                                            Welcome back, please login to your account.
+                                        @endif
+                                        </p>
                                         @include('msg.msg')
                                         <div class="card-content">
                                             <div class="card-body pt-1">
@@ -46,8 +57,10 @@
                                                     </fieldset>
 
                                                     <fieldset class="form-label-group position-relative has-icon-left">
-                                                    <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autofocus>
-
+                                                    <div class="password--wrapper">
+                                                        <input id="password" type="password" placeholder="Password" class="form-control @error('password') is-invalid @enderror" name="password" required autofocus>
+                                                        <a href="{{ route('resetPassForm.get') }}" class="card-link">Forgot?</a>
+                                                    </div>
                                                         @error('passowrd')
                                                             <span class="invalid-feedback" role="alert">
                                                                 <strong>{{ $message }}</strong>
@@ -72,10 +85,9 @@
                                                                 </div>
                                                             </fieldset>
                                                         </div>
-                                                        <div class="text-right text-warning"><a href="{{ route('resetPassForm.get') }}" class="card-link">Forgot Password?</a></div>
                                                     </div>
                                                     {{-- <a href="auth-register.html" class="btn btn-outline-primary float-left btn-inline">Register</a> --}}
-                                                    <button type="submit" class="btn btn-warning float-right btn-inline">Login</button>
+                                                    <button type="submit" class="btn btn-warning float-right btn-inline" style="width: 100%">Login</button>
                                                 </form>
                                             </div>
                                         </div>

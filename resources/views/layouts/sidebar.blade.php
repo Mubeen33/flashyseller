@@ -17,6 +17,7 @@
                 <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="index.html" data-toggle="dropdown"><i class="feather icon-home"></i><span data-i18n="Dashboard">Product</span></a>
                     <ul class="dropdown-menu">
                         <li data-menu=""><a class="dropdown-item" href="{{route('vendor.addNewProduct.get')}}" data-toggle="dropdown" data-i18n="Analytics"><i class="feather icon-activity"></i>Add Product</a>
+                        <li data-menu=""><a class="dropdown-item" href="{{route('vendor.searchExistingProduct.get')}}" data-toggle="dropdown" data-i18n="Analytics"><i class="feather icon-activity"></i>Add Existing Product</a>
                         <li data-menu=""><a class="dropdown-item" href="{{route('vendor.inventory.page.get')}}" data-toggle="dropdown" data-i18n="eCommerce"><i class="feather icon-shopping-cart"></i>Inventory</a>
                         </li>
                         <li data-menu=""><a class="dropdown-item" href="{{route('vendor.pendingProducts.get')}}" data-toggle="dropdown" data-i18n="eCommerce"><i class="feather icon-x"></i>Pending</a>
@@ -30,6 +31,17 @@
                                 <li data-menu=""><a class="dropdown-item" href="{{ route('vendor.deals.create') }}" data-toggle="dropdown" data-i18n="Apex"><i class="feather icon-circle"></i>New Deals</a>
                                 </li>
                                 <li data-menu=""><a class="dropdown-item" href="{{ route('vendor.deals.index') }}" data-toggle="dropdown" data-i18n="Chartjs"><i class="feather icon-circle"></i>My Deals</a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link" href="#" data-toggle="dropdown"><i class="feather icon-bar-chart-2"></i><span data-i18n="Charts &amp; Maps">Orders</span></a>
+                    <ul class="dropdown-menu">
+                        <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu"><a class="dropdown-item dropdown-toggle" href="#" data-toggle="dropdown" data-i18n="Charts"><i class="feather icon-pie-chart"></i>Orders</a>
+                            <ul class="dropdown-menu">
+                                <li data-menu=""><a class="dropdown-item" href="{{ route('vendor.orders.index') }}" data-toggle="dropdown" data-i18n="Apex"><i class="feather icon-circle"></i>My Orders</a>
                                 </li>
                             </ul>
                         </li>

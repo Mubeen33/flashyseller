@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 /*
 guest routes except authenticate
 */
+
 Route::get('/', function(){
 	return redirect()->route('login');
 });
@@ -28,13 +29,12 @@ Route::get('popup-dont-show', function(){return abort(404);});
 Route::post('popup-dont-show', 'Popup\PopupController@dont_show')->name('popUpDontShow.post');
 
 
-
-
 /*
 authenticate routes for vendors with vendor Middleware
 All authenticate routes will go here
 */
 Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']], function(){
+
 	//vendor controller
 	Route::resource('vendors', 'Vendor\VendorController');
 	Route::get('dashboard', 'Vendor\VendorController@dashboard')->name('dashboard.get');
@@ -60,6 +60,12 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::post('delete-product-image','product\ProductController@removeProductImage');
 	Route::post('products/sku_combination','product\ProductController@skuCombinations')->name('products.sku_combination');
 
+	//add existing product
+	Route::get('search-existing-products', 'product\ProductController@search_existing_product')->name("searchExistingProduct.get");
+	Route::get('ajax-search-existing-products/fetch', 'product\ProductController@ajax_fetch_existing_products')->name("searchExistingProduct.ajaxPgination");
+	Route::get('view-existing-product/{vendor_products_tbl_id}', 'product\ProductController@view_existing_product')->name("viewExistingProduct.get");
+	Route::post('save-existing-product/{vendor_products_tbl_id}', 'product\ProductController@save_existing_product')->name("saveExistingProduct.post");
+
 	//pending routes
 	Route::get('products/pending','product\ProductController@get_pending')->name('pendingProducts.get');
 	Route::get('product/detail/{id}','product\ProductController@product_details')->name('productDetails.get');
@@ -69,6 +75,10 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get("/inventory", "Inventory\InventoryController@inventory_page")->name('inventory.page.get');
 	Route::post("/inventory/update", "Inventory\InventoryController@update_inventory_data")->name('updateInventoryData.post');
 	Route::get("/inventory-ajax-paginate/fetch", "Inventory\InventoryController@ajax_fetch_data")->name('inventory.ajaxPgination');
+
+	//orders
+	Route::resource('orders', 'order\OrderController');
+	Route::get('ajax-orders/fetch', 'order\OrderController@fetch_orders_list')->name('orders.ajaxPgination');
 });
 
 
