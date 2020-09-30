@@ -78,6 +78,7 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 
 	//orders
 	Route::resource('orders', 'order\OrderController');
+	Route::get('order-status/{orderID}/{status}', 'order\OrderController@order_status_update')->name("orderAction.post");
 	Route::get('ajax-orders/fetch', 'order\OrderController@fetch_orders_list')->name('orders.ajaxPgination');
 });
 
