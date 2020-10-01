@@ -11,6 +11,7 @@
 					<label for="" class="control-label">{{__('SKU')}}</label>
 				</td>
 			@if($count===1)	
+			{{$count}}
 				@if( $variationOne->image_approval === 1)	
 					<td class="text-center">
 						<label for="" class="control-label">{{__('Variant Image')}}</label>
