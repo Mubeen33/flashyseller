@@ -170,7 +170,7 @@ class OrderController extends Controller
                 }
 
                 $data = Order::whereIn('vendor_product_id', $ven_product_id_list)
-                        ->where('vendor_id', $authVendorID,)
+                        ->where('vendor_id', $authVendorID)
                         ->with(['get_customer', 'get_vendor_product'])
                         ->orderBy($sort_by, $sorting_order)
                         ->paginate($row_per_page);
