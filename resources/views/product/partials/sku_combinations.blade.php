@@ -60,13 +60,13 @@
 					<input type="text" name="variant_sku[]" value="{{ $sku }}" class="form-control" required>
 				</td>
 				@if($count===1)
-					@if( $variationOne->image_approval === 1)
+					@if( $variationOne->image_approval == 1)
 						<td>
 							<input type="file" name="variant_image[]" class="form-control" required>
 						</td>
 					@endif
 				@else
-					@if( $variationOne->image_approval === 1 || $variationTwo->image_approval === 1)
+					@if( $variationOne->image_approval == 1 || $variationTwo->image_approval == 1)
 						<td>
 							<input type="file" name="variant_image[]" class="form-control" required>
 						</td>
