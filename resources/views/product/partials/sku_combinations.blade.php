@@ -12,14 +12,14 @@
 				</td>
 			@if($count===1)	
 			{{$count}}
-				@if( $variationOne->image_approval === 1)	
+				@if( $variationOne->image_approval == 1)	
 					<td class="text-center">
 						<label for="" class="control-label">{{__('Variant Image')}}</label>
 					</td>
 				@endif
 			@else
 			
-				@if( $variationOne->image_approval === 1 || $variationTwo->image_approval === 1)
+				@if( $variationOne->image_approval == 1 || $variationTwo->image_approval == 1)
 
 					<td class="text-center">
 						<label for="" class="control-label">{{__('Variant Image')}}</label>
