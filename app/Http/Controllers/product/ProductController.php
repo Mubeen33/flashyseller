@@ -492,7 +492,7 @@ class ProductController extends Controller
                                 ['active', '=', 1],
                                 ['ven_id', '!=', Auth::guard('vendor')->user()->id]
                             ])
-                            ->with(['get_product', 'get_product_variation'])
+                            ->with(['get_product', 'get_product_variations'])
                             ->orderBy('id', 'DESC')
                             ->paginate($row_per_page);
 
@@ -526,7 +526,7 @@ class ProductController extends Controller
                                 ['active', '=', 1],
                                 ['ven_id', '!=', Auth::guard('vendor')->user()->id]
                             ])
-                            ->with(['get_product', 'get_product_variation'])
+                            ->with(['get_product', 'get_product_variations'])
                             ->first();
         if (!$data) {
             return abort(404);

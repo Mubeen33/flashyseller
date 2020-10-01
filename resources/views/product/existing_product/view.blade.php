@@ -28,8 +28,8 @@
                                     <div class="row">
                                         <div class="col-lg-4 col-md-5 col-sm-12 text-center">
                                             <div style="width: 90%;max-height: 250px;padding: 0px 15px 15px 15px;margin-bottom: 30px">
-                                                @if($data->get_product_variation && $data->get_product_variation->variant_image !== NULL)
-                                                    <img src="{{$data->get_product_variation->variant_image}}" width='100%' height='100%' alt="" type-of='Variant Image'>
+                                                @if($data->get_product_variations && $data->get_product_variations->variant_image !== NULL)
+                                                    <img src="{{$data->get_product_variations->variant_image}}" width='100%' height='100%' alt="" type-of='Variant Image'>
                                                     @else
                                                     
                                                     <?php
@@ -48,10 +48,10 @@
                                         <div class="col-lg-8 col-md-7 col-sm-12">
                                             <h4>
                                                 {{$data->get_product->title}}
-                                                @if($data->get_product_variation)
-                                                    {{' | '.$data->get_product_variation->first_variation_value}}
-                                                    @if($data->get_product_variation->second_variation_value !== NULL)
-                                                    {{' - '.$data->get_product_variation->second_variation_value}}
+                                                @if($data->get_product_variations)
+                                                    {{' | '.$data->get_product_variations->first_variation_value}}
+                                                    @if($data->get_product_variations->second_variation_value !== NULL)
+                                                    {{' - '.$data->get_product_variations->second_variation_value}}
                                                     @endif
                                                 @endif
                                             </h4>

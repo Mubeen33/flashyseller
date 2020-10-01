@@ -1,14 +1,14 @@
 @if(isset($data))
     
         @foreach($data as $key=>$content)
-            @if($content->get_product_variation)
+            @if($content->get_product_variations)
                 <tr>
                     <td>{{$key+1}}</td>
                     <td>
                         {{$content->get_product->title}} 
-                        {{' | '.$content->get_product_variation->first_variation_value}}
-                        @if($content->get_product_variation->second_variation_value !== NULL)
-                        {{' - '.$content->get_product_variation->second_variation_value}}
+                        {{' | '.$content->get_product_variations->first_variation_value}}
+                        @if($content->get_product_variations->second_variation_value !== NULL)
+                        {{' - '.$content->get_product_variations->second_variation_value}}
                         @endif
                     </td>
                     <td><a href="{{ route('vendor.viewExistingProduct.get', encrypt($content->id)) }}" class="btn btn-warning btn-sm">Add</a></td>
