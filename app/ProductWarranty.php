@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductWarranty extends Model
 {
-    protected $table = 'products_warranty';
+    protected $table = 'products_warranties';
 }
