@@ -98,7 +98,9 @@ class OrderController extends Controller
 
 
     //ajax fetch
+
     public function fetch_orders_list(Request $request){
+
         if ($request->ajax()) {
             $searchKey = $request->search_key;
             $sort_by = $request->sort_by;
@@ -118,7 +120,9 @@ class OrderController extends Controller
             if (!empty($searchKey)) {
                 $ven_product_id_list = [];
                 $productIDList = [];
+
                 //if search key only contain numeric
+
                 if (is_numeric($searchKey)) {
                     //search order ID
                     $order_id_list = Order::where('order_id', 'LIKE', "%$searchKey%")
@@ -134,12 +138,14 @@ class OrderController extends Controller
                 }
 
                 //products
+
                 $products = Product::where('title', 'LIKE', "%$searchKey%")->get('id');
                 foreach ($products as $key => $value) {
                     $productIDList[] = $value->id;
                 }
 
                 //vendor products
+
                 $productIDList = array_unique($productIDList);
                 $vendor_products = VendorProduct::whereIn('prod_id', $productIDList)
                                             ->where([
@@ -154,6 +160,7 @@ class OrderController extends Controller
 
 
                 //unique the array - the id list of vendor_products tbl id
+                
                 $ven_product_id_list = array_unique($ven_product_id_list);
 
                 //if have status
