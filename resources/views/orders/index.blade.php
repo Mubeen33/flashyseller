@@ -63,6 +63,7 @@
                                                         Date
                                                     </th>
                                                     <th>Status</th>
+                                                    <th>Shipped</th>
                                                     <th>Actions</th>
                                                 </tr>
                                             </thead>
