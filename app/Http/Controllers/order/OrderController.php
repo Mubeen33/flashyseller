@@ -213,10 +213,13 @@ class OrderController extends Controller
 
     //order_status_update
     public function order_status_update($orderID, $status){
-        if ($status === "Canceled") {
+
+        if ($status === "Shipped") {
+
             Order::findOrFail(decrypt($orderID));
+
             Order::where(['id'=>decrypt($orderID), 'vendor_id'=>Auth::guard('vendor')->user()->id])->update([
-                'status'=>$status
+                'shipped'=>'Yes'
             ]);
             return redirect()->back()->with('success', 'Order '.$status);
         }
