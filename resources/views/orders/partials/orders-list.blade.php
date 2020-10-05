@@ -56,6 +56,15 @@
     <td>
         <span class="badge badge-info">{{$content->status}}</span>
     </td>
+@if (!empty($content->shipped))   
+    <td>
+        <span class="badge badge-info">{{$content->shipped}}</span>
+    </td>
+@else
+    <td>
+        <span class="badge badge-info">No</span>
+    </td>
+@endif    
     <td>
         <div class="btn-group">
             <div class="dropdown">
