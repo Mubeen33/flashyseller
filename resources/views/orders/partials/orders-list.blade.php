@@ -75,7 +75,7 @@
                     <a class="dropdown-item" href="#">Accept</a>
 
                     @if($content->status !== "Canceled")
-                        <a class="dropdown-item" href="{{ route('vendor.orderAction.post', [encrypt($content->id), 'Shipped']) }}">Cancel</a>
+                        <a class="dropdown-item" href="{{ route('vendor.orderAction.post', [encrypt($content->id), 'Shipped']) }}">Shipped</a>
                     @endif
                 </div>
             </div>
