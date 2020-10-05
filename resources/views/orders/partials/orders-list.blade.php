@@ -56,6 +56,7 @@
     <td>
         <span class="badge badge-info">{{$content->status}}</span>
     </td>
+
 @if (!empty($content->shipped))   
     <td>
         <span class="badge badge-info">{{$content->shipped}}</span>
@@ -74,7 +75,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
                     <a class="dropdown-item" href="#">Accept</a>
 
-                    @if($content->status !== "Canceled")
+                    @if($content->status !== "Completed")
                         <a class="dropdown-item" href="{{ route('vendor.orderAction.post', [encrypt($content->id), 'Shipped']) }}">Shipped</a>
                     @endif
                 </div>
