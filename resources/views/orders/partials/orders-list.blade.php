@@ -75,7 +75,7 @@
                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton7">
                     <a class="dropdown-item" href="#">Accept</a>
 
-                    @if($content->status !== "Completed" && $content->shipped == "Yes" )
+                    @if($content->status !== "Completed" && $content->shipped != "Yes" )
                         <a class="dropdown-item" href="{{ route('vendor.orderAction.post', [encrypt($content->id), 'Shipped']) }}">Shipped</a>
                     @endif
                 </div>
