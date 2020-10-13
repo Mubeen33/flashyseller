@@ -140,8 +140,15 @@
                                                             </div>
                                                         </div>
                                                     </td>
-                                                @if($order->status == "Inprogress")    
-                                                    <td width="8%"><button class="btn btn-dark btn-sm"><a href="{{ Route('vendor.orders.order-cancelled',encrypt($order->id)) }}" onclick="return confirm('Are you sure to Cancel this order?')">Cancel</a></button></td> 
+                                                @if($order->status == "Inprogress" && $order->shipped !== "Yes")    
+                                                    <td width="8%"><button class="btn btn-dark btn-sm"><a href="{{ Route('vendor.orders.order-cancelled',encrypt($order->id)) }}" onclick="return confirm('Are you sure to Cancel this order?')">Cancel</a></button></td>
+                                                @elseif($order->status == "Inprogress" && $order->shipped == "Yes")
+                                                    <td width="8%"><div class="chip chip-info">
+                                                            <div class="chip-body">
+                                                                <div class="chip-text">Order Shipped</div>
+                                                            </div>
+                                                        </div>
+                                                    </td> 
                                                 @elseif($order->status == "Completed")
                                                     <td width="8%"><div class="chip chip-success">
                                                             <div class="chip-body">

@@ -216,11 +216,18 @@ class OrderController extends Controller
 
         if ($status === "Shipped") {
 
-            Order::findOrFail(decrypt($orderID));
+            $order = Order::where('order_id',decrypt($orderID))->get();
 
-            Order::where(['id'=>decrypt($orderID), 'vendor_id'=>Auth::guard('vendor')->user()->id])->update([
-                'shipped'=>'Yes'
-            ]);
+            foreach ($order as $key => $value) {
+                
+                if ($value->status !== 'Canceled') {
+                    
+                    Order::where(['id'=>$value->id, 'vendor_id'=>Auth::guard('vendor')->user()->id])->update([
+                    'shipped'=>'Yes'
+                    ]);
+                }
+            }
+          
             return redirect()->back()->with('success', 'Order '.$status);
         }
         return redirect()->back()->with('error', 'Invalid Request');
