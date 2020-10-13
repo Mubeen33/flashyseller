@@ -10,6 +10,10 @@
         padding: 2px 10px;
         outline: none;
     }
+    a{
+        color: #fff;
+        text-decoration: none;
+    }
 </style>
 @endpush
 
@@ -25,7 +29,7 @@
                         <div class="card">
                             <div class="card-header justify-content-between">
                                 <div><h4 class="card-title">Orders List</h4></div>
-                                <div>
+                                {{-- <div>
                                     <select id="hidden__status" title="Sort By Status">
                                         <option value="" selected>Status</option>
                                         <option value="Pending">Pending</option>
@@ -41,21 +45,26 @@
                                         <option value="25">Show 25</option>
                                         <option value="30">Show 30</option>
                                     </select>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="card-content">
                                 <div class="card-body">
                                     <div class="table-responsive">
-                                        <table class="table table-bordered">
+                                        <table class="table table-striped table-bordered">
                                             <thead>
                                                 <tr>
-                                                    <th>Order ID</th>
-                                                    <th>Customer</th>
-                                                    <th>Product</th>
-                                                    <th>Category</th>
-                                                    <th title="Market Price">MK Price</th>
-                                                    <th title="Selling Price">Price</th>
-                                                    <th>Image</th>
+                                                    <th width="8%">Order Token</th>
+                                                    <th width=8%>  Order ID#</th>
+                                                    <th width="8%">Product ID#</th>
+                                                    <th width="8%">Image</th>
+                                                    <th width="8%">Product</th>
+                                                    <th width="8%" title="Market Price">Price</th>
+                                                    <th width="8%" title="Selling Price">Quantity</th>
+                                                    <th width="8%">Order Price</th>
+                                                    <th width="8%">Shipped</th>
+                                                    <th width="8%">Status</th>
+                                                    <th width="8%">Action</th>
+                                                    {{-- <th>Image</th>
                                                     <th title="Order Quantity">QTY</th>
                                                     <th title="Grand Total">Total</th>
                                                     <th title="Payment Option/Method">Payment</th>
@@ -64,24 +73,99 @@
                                                     </th>
                                                     <th>Status</th>
                                                     <th>Shipped</th>
-                                                    <th>Actions</th>
+                                                    <th>Actions</th> --}}
                                                 </tr>
                                             </thead>
-
-                                            <tbody id="render__data">
-                                                @include('orders.partials.orders-list')
-                                            </tbody>
-                                            
                                         </table>
-                                        <input type="hidden" id="hidden__action_url" value="{{ route('vendor.orders.ajaxPgination') }}">
-                                        <input type="hidden" id="hidden__page_number" value="1">
-                                        <input type="hidden" id="hidden__sort_by" value="created_at">
-                                        <input type="hidden" id="hidden__sorting_order" value="DESC">
-                                        <input type="hidden" id="hidden__id" value="">
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    @foreach($data as $key=>$content)
+                        @foreach($content as $order)
+                        @endforeach   
+                        <div class="card">
+                            <div class="card-header justify-content-between">
+                                <div>
+                                    <h5>Order Date : {{ $order->created_at }}</h4>
+                                </div>
+                                <div>
+                                    <h5 class="card-title">Orders Id# {{ $key }} </h4>
+                                </div>
+                                <div>
+                                    <h5>Total Amount : R{{ $order->grand_total }}</h4>
+                                </div>
+                                <div>
+                                    @if($order->shipped !== "Yes")
+                                        <button class="btn btn-warning"><b><a href="{{ route('vendor.orderAction.post', [encrypt($key), 'Shipped']) }}">Ready To Collect</a></b></button>
+                                    @endif    
+                                </div>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-striped table-bordered">
+                                            <tbody>
+                                            @foreach($content as $order)    
+                                                <tr>
+                                                    <td width="8%">{{ $order->order_token }}</td>
+                                                    <td width="8%">{{ $order->id }}</td>
+                                                    <td width="8%">{{ $order->product_id }}</td>
+                                                    <td width="8%"><img src="{{ $order->product_image }}" width="30" height="30"></td>
+                                                    <td width="8%">{{ $order->product_name }}</td>
+                                                    <td width="8%"><strong>R{{ $order->product_price }}</strong></td>
+                                                    <td width="8%">{{ $order->qty }}</td>
+                                                    <td width="8%"><strong>R{{ $order->order_price }}</strong></td>
+                                                    @if(!empty($order->shipped))
+                                                        <td width="8%">
+                                                            <div class="chip chip-info">
+                                                                <div class="chip-body">
+                                                                    <div class="chip-text">{{ $order->shipped }}</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    @else
+                                                        <td width="8%">
+                                                            <div class="chip chip-danger">
+                                                                <div class="chip-body">
+                                                                    <div class="chip-text">No</div>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    @endif
+                                                    <td width="8%">
+                                                        <div class="chip chip-secondary">
+                                                            <div class="chip-body">
+                                                                <div class="chip-text">{{ $order->status }}</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                @if($order->status == "Inprogress")    
+                                                    <td width="8%"><button class="btn btn-dark btn-sm"><a href="{{ Route('vendor.orders.order-cancelled',encrypt($order->id)) }}" onclick="return confirm('Are you sure to Cancel this order?')">Cancel</a></button></td> 
+                                                @elseif($order->status == "Completed")
+                                                    <td width="8%"><div class="chip chip-success">
+                                                            <div class="chip-body">
+                                                                <div class="chip-text">Order Completed</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                @elseif($order->status == "Canceled")
+                                                    <td width="8%"><div class="chip chip-danger">
+                                                            <div class="chip-body">
+                                                                <div class="chip-text">Order Cancelled</div>
+                                                            </div>
+                                                        </div>
+                                                    </td>       
+                                                @endif    
+                                                </tr>
+                                            @endforeach    
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach    
                     </div>
                 </div>
             </div>

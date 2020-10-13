@@ -24,9 +24,9 @@ class OrderController extends Controller
         $data = Order::where([
                     'vendor_id'=>Auth::guard('vendor')->user()->id
                 ])
-                ->with(['get_customer', 'get_vendor_product'])
                 ->orderBy('created_at', 'DESC')
-                ->paginate(5);
+                
+                ->get()->groupby('order_id');
         return view('orders.index', compact('data'));
     }
 
@@ -224,5 +224,17 @@ class OrderController extends Controller
             return redirect()->back()->with('success', 'Order '.$status);
         }
         return redirect()->back()->with('error', 'Invalid Request');
+    }
+
+    // 
+    public function orderCancel($id){
+
+        $Id = decrypt($id);
+
+        Order::findOrFail($Id);
+        Order::where(['id'=>$Id, 'vendor_id'=>Auth::guard('vendor')->user()->id])->update([
+                'status'=>'Canceled'
+            ]);
+        return redirect()->back()->with('success', 'Order '.'Cancelled');
     }
 }
