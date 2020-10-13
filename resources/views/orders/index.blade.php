@@ -64,16 +64,6 @@
                                                     <th width="8%">Shipped</th>
                                                     <th width="8%">Status</th>
                                                     <th width="8%">Action</th>
-                                                    {{-- <th>Image</th>
-                                                    <th title="Order Quantity">QTY</th>
-                                                    <th title="Grand Total">Total</th>
-                                                    <th title="Payment Option/Method">Payment</th>
-                                                    <th title="Order Date" class="sortAble" sorting-column='created_at' sorting-order='DESC'><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/> <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/> </svg>
-                                                        Date
-                                                    </th>
-                                                    <th>Status</th>
-                                                    <th>Shipped</th>
-                                                    <th>Actions</th> --}}
                                                 </tr>
                                             </thead>
                                         </table>
@@ -81,8 +71,16 @@
                                 </div>
                             </div>
                         </div>
+                        @php
+                            $shipped = "No";
+                        @endphp
                     @foreach($data as $key=>$content)
                         @foreach($content as $order)
+                            @if($order->shipped == "Yes")
+                                @php
+                                    $shipped = "Yes";
+                                @endphp
+                            @endif
                         @endforeach   
                         <div class="card">
                             <div class="card-header justify-content-between">
@@ -96,7 +94,7 @@
                                     <h5>Total Amount : R{{ $order->grand_total }}</h4>
                                 </div>
                                 <div>
-                                    @if($order->shipped !== "Yes")
+                                    @if($shipped !== "Yes")
                                         <button class="btn btn-warning"><b><a href="{{ route('vendor.orderAction.post', [encrypt($key), 'Shipped']) }}">Ready To Collect</a></b></button>
                                     @endif    
                                 </div>
