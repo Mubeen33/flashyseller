@@ -249,7 +249,7 @@ class OrderController extends Controller
 
     public function draftShippmentsorders(){
 
-        $data   = Order::where([
+        $draftShippmentsorders   = Order::where([
                     'vendor_id'=>Auth::guard('vendor')->user()->id
                 ])
                 ->orderBy('created_at', 'DESC')
@@ -257,7 +257,7 @@ class OrderController extends Controller
                 ->where('request_waybill','No')
                 ->where('status','!=','Canceled')
                 ->get()->groupby('order_id');        
-        return view('orders.partials.draft-shippments', compact('data'));
+        return view('orders.partials.draft-shippments', compact('draftShippmentsorders'));
     }
     // 
 
@@ -274,7 +274,7 @@ class OrderController extends Controller
     // 
     public function confirmShippmentsOrders(){
 
-        $data   = Order::where([
+        $confirmShippmentsOrders   = Order::where([
                     'vendor_id'=>Auth::guard('vendor')->user()->id
                     ])
                     ->orderBy('created_at', 'DESC')
@@ -283,13 +283,13 @@ class OrderController extends Controller
                     ->where('confirm_shippment','Yes')
                     ->where('status','!=','Canceled')
                     ->get()->groupby('order_id'); 
-        return view('orders.partials.confirm-shippments', compact('data'));            
+        return view('orders.partials.confirm-shippments', compact('confirmShippmentsOrders'));            
     }
 
     // 
     public function shippedShippmentsOrders(){
 
-        $data   = Order::where([
+        $shippedShippmentsOrders   = Order::where([
                     'vendor_id'=>Auth::guard('vendor')->user()->id
                     ])
                     ->orderBy('created_at', 'DESC')
@@ -299,6 +299,6 @@ class OrderController extends Controller
                     ->where('shipped','Yes')
                     ->where('status','!=','Canceled')
                     ->get()->groupby('order_id'); 
-        return view('orders.partials.shipped-shippments', compact('data'));            
+        return view('orders.partials.shipped-shippments', compact('shippedShippmentsOrders'));            
     }
 }

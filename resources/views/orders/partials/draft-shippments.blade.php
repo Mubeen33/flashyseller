@@ -1,4 +1,4 @@
-@foreach($data as $key=>$content)
+@foreach($draftShippmentsorders as $key=>$content)
                                 @foreach($content as $order)
                                     
                                 @endforeach
