@@ -14,7 +14,7 @@
                 <a class="list-group-item order-pill" id="profile-tab" data-toggle="tab" href="#drafts" aria-controls="profile" role="tab" aria-selected="false">Draft Shipment</a>
             </li>
             <li>
-                <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#confrim" aria-controls="about" role="tab" aria-selected="false">Allocated Shipments</a>
+                <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#confrim" aria-controls="about" role="tab" aria-selected="false">Ready For Collection</a>
             </li>
             <li>
                 <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#shipped" aria-controls="about" role="tab" aria-selected="false">Orders InProgress</a>
