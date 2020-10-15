@@ -21,13 +21,14 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $data = Order::where([
+        $data   = Order::where([
                     'vendor_id'=>Auth::guard('vendor')->user()->id
                 ])
                 ->orderBy('created_at', 'DESC')
-                
-                ->get()->groupby('order_id');
-        return view('orders.index', compact('data'));
+                ->where('order_ship_draft','No')
+                ->where('status','!=','Canceled')
+                ->get()->groupby('order_id');        
+        return view('orders.vendorsOrder', compact('data'));
     }
 
     /**
@@ -214,7 +215,7 @@ class OrderController extends Controller
     //order_status_update
     public function order_status_update($orderID, $status){
 
-        if ($status === "Shipped") {
+        if ($status === "process") {
 
             $order = Order::where('order_id',decrypt($orderID))->get();
 
@@ -222,13 +223,12 @@ class OrderController extends Controller
                 
                 if ($value->status !== 'Canceled') {
                     
-                    Order::where(['id'=>$value->id, 'vendor_id'=>Auth::guard('vendor')->user()->id])->update([
-                    'shipped'=>'Yes'
+                    Order::where(['id'=>$value->id, 'vendor_id'=>Auth::guard('vendor')->user()->id])->update(['order_ship_draft'=>'Yes'
                     ]);
                 }
             }
           
-            return redirect()->back()->with('success', 'Order '.$status);
+            return redirect()->back()->with('success', 'Order  Goes To Draft');
         }
         return redirect()->back()->with('error', 'Invalid Request');
     }
@@ -243,5 +243,62 @@ class OrderController extends Controller
                 'status'=>'Canceled'
             ]);
         return redirect()->back()->with('success', 'Order '.'Cancelled');
+    }
+
+    // Draft Shippments
+
+    public function draftShippmentsorders(){
+
+        $data   = Order::where([
+                    'vendor_id'=>Auth::guard('vendor')->user()->id
+                ])
+                ->orderBy('created_at', 'DESC')
+                ->where('order_ship_draft','Yes')
+                ->where('request_waybill','No')
+                ->where('status','!=','Canceled')
+                ->get()->groupby('order_id');        
+        return view('orders.partials.draft-shippments', compact('data'));
+    }
+    // 
+
+    public function requestOrderWaybill($order_id){
+
+        $Id = decrypt($order_id);
+        Order::where(['order_id'=>$Id, 'vendor_id'=>Auth::guard('vendor')->user()->id])->update([
+                'request_waybill'=>'Yes'
+            ]);
+        return redirect()->back()->with('success', 'Order waybill request successfully post.');
+
+    }
+
+    // 
+    public function confirmShippmentsOrders(){
+
+        $data   = Order::where([
+                    'vendor_id'=>Auth::guard('vendor')->user()->id
+                    ])
+                    ->orderBy('created_at', 'DESC')
+                    ->where('order_ship_draft','Yes')
+                    ->where('request_waybill','Yes')
+                    ->where('confirm_shippment','Yes')
+                    ->where('status','!=','Canceled')
+                    ->get()->groupby('order_id'); 
+        return view('orders.partials.confirm-shippments', compact('data'));            
+    }
+
+    // 
+    public function shippedShippmentsOrders(){
+
+        $data   = Order::where([
+                    'vendor_id'=>Auth::guard('vendor')->user()->id
+                    ])
+                    ->orderBy('created_at', 'DESC')
+                    ->where('order_ship_draft','Yes')
+                    ->where('request_waybill','Yes')
+                    ->where('confirm_shippment','Yes')
+                    ->where('shipped','Yes')
+                    ->where('status','!=','Canceled')
+                    ->get()->groupby('order_id'); 
+        return view('orders.partials.shipped-shippments', compact('data'));            
     }
 }

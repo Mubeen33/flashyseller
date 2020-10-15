@@ -85,6 +85,10 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get('order-status/{orderID}/{status}', 'order\OrderController@order_status_update')->name("orderAction.post");
 	Route::get('ajax-orders/fetch', 'order\OrderController@fetch_orders_list')->name('orders.ajaxPgination');
 	Route::get('cancel-order/{id}','order\OrderController@orderCancel')->name('orders.order-cancelled');
+	Route::get('draft-shipments-orders','order\OrderController@draftShippmentsOrders')->name('orders.draft-shippments-orders');
+	Route::get('request-order-waybill/{order_id}','order\OrderController@requestOrderWaybill')->name('orderWayBill.post');
+	Route::get('confirm-shipments-orders','order\OrderController@confirmShippmentsOrders')->name('orders.confirm-shippments-orders');
+	Route::get('shipped-shipments-orders','order\OrderController@shippedShippmentsOrders')->name('orders.shipped-shippments-orders');
 
 	// Transactions
 
@@ -120,6 +124,6 @@ Route::prefix('vendor')->group(function (){
 	// Slider Routes
 	Route::get('/create-slider','CategoryController@slider_view');
 	Route::post('/create-slider','CategoryController@create_slider');
-
 });
 */
+
