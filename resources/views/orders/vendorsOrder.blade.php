@@ -14,11 +14,14 @@
                 <a class="list-group-item order-pill" id="profile-tab" data-toggle="tab" href="#drafts" aria-controls="profile" role="tab" aria-selected="false">Draft Shipment</a>
             </li>
             <li>
-                <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#confrim" aria-controls="about" role="tab" aria-selected="false">Confirm Shipments</a>
+                <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#confrim" aria-controls="about" role="tab" aria-selected="false">Allocated Shipments</a>
             </li>
             <li>
-                <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#shipped" aria-controls="about" role="tab" aria-selected="false">Shipped Shipments</a>
+                <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#shipped" aria-controls="about" role="tab" aria-selected="false">Orders InProgress</a>
             </li>
+            {{-- <li>
+                <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#shipped" aria-controls="about" role="tab" aria-selected="false">pending</a>
+            </li> --}}
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="orders" aria-labelledby="home-tab" role="tabpanel">
