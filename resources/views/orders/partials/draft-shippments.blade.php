@@ -1,3 +1,4 @@
+@if(isset($draftShippmentsorders))
 @foreach($draftShippmentsorders as $key=>$content)
                                 @foreach($content as $order)
                                     
@@ -39,3 +40,4 @@
                                     @endif
                                 @endforeach    
                             @endforeach
+@endif                            
