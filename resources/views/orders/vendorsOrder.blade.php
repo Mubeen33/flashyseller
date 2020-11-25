@@ -19,14 +19,11 @@
             <li>
                 <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#shipped" aria-controls="about" role="tab" aria-selected="false">Orders InProgress</a>
             </li>
-            {{-- <li>
-                <a class="list-group-item order-pill" id="about-tab" data-toggle="tab" href="#shipped" aria-controls="about" role="tab" aria-selected="false">pending</a>
-            </li> --}}
         </ul>
         <div class="tab-content">
             <div class="tab-pane active" id="orders" aria-labelledby="home-tab" role="tabpanel">
                   <div class="table-responsive">
-                      <table class="table mb-0 table-bg">
+                      <table class="table mb-0 table-bg" id="new-Orders">
                            <thead>
                                 <tr class="table-head">
                                     <td width="15%">
@@ -39,7 +36,7 @@
                                         <i class="fa fa-info-circle" aria-hidden="true"></i> SKU
                                     </td>
                                     <td width="10%">
-                                        <i class="fa fa-info-circle" aria-hid den="true"></i> Product ID
+                                        <i class="fa fa-info-circle" aria-hidden="true"></i> Product ID
                                     </td>
                                     <td width="10%">
                                         <i class="fa fa-info-circle" aria-hidden="true"></i> Qty Required
@@ -68,7 +65,7 @@
                                         <input type="text" class="input-one" name="">
                                     </td>
                                     <td></td>
-                                    <td></td>
+                                    <td><button class="btn btn-primary btn-sm"><a href="{{ Route('vendor.orders.print') }}" style="color: #fff">Print Orders</a></button></td>
                                 </tr>
                                 <!-- End filters -->
                                 <!-- start List -->        
@@ -346,6 +343,14 @@ function shippedShippments(){
             }
 
     });
+}
+function printData()
+{
+   var divToPrint=document.getElementById("printTable");
+   newWin= window.open("");
+   newWin.document.write(divToPrint.outerHTML);
+   newWin.print();
+   newWin.close();
 }
 </script>  
 @endsection

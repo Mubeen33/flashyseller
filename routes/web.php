@@ -89,7 +89,8 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get('request-order-waybill/{order_id}','order\OrderController@requestOrderWaybill')->name('orderWayBill.post');
 	Route::get('confirm-shipments-orders','order\OrderController@confirmShippmentsOrders')->name('orders.confirm-shippments-orders');
 	Route::get('shipped-shipments-orders','order\OrderController@shippedShippmentsOrders')->name('orders.shipped-shippments-orders');
-
+	Route::get('print-orders','order\OrderController@printOrders')->name('orders.print');
+	
 	// Transactions
 
 	Route::get('transactions','transactions\TransactionController@index')->name('transactions');

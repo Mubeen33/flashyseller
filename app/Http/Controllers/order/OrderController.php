@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers\order;
 
 use App\Http\Controllers\Controller;
@@ -8,11 +7,19 @@ use App\Order;
 use App\Product;
 use App\VendorProduct;
 use Auth;
+use PDF;
+
 
 class OrderController extends Controller
 {
+    
+
     public function __construct(){
+
         $this->middleware('auth:vendor');
+        
+         //300 seconds = 5 minutes
+        ini_set('max_execution_time', '300');
     }
     /**
      * Display a listing of the resource.
@@ -300,5 +307,19 @@ class OrderController extends Controller
                     ->where('status','!=','Canceled')
                     ->get()->groupby('order_id'); 
         return view('orders.partials.shipped-shippments', compact('shippedShippmentsOrders'));            
+    }
+    // 
+
+    public function printOrders(){
+
+         $data   = Order::where([
+                    'vendor_id'=>Auth::guard('vendor')->user()->id
+                    ])
+                    ->orderBy('created_at', 'DESC')
+                    ->where('order_ship_draft','No')
+                    ->where('status','!=','Canceled')
+                    ->get()->groupby('order_id');
+         $pdf = PDF::loadView('export.pdf.orders-export', compact('data'))->setPaper('letter', 'landscape');
+         return $pdf->download(date('d-m-Y').'-orders.pdf');             
     }
 }
