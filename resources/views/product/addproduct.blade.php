@@ -194,49 +194,13 @@
             <input type="hidden" name="image_id" value="{{$prod_img_id}}">      
           		<!-- end Photos -->
           		<!-- Card video -->
-          		<div class="card">
-          			<div class="card-body pad-video" style="padding-top:1%; !important;">
-          				    <div class="row">
-          						<div class="col-lg-2">
-          							<label class="mb-xs-1 strong">Video</label>
-          						</div>
-          						<div class="col-lg-9">
-          							<input type="text" placeholder="Paste here youtube link" class="form-control" name="video_link">
-          							<p class="text-smaller text-gray-lighter">
-          								Add photos to your variations so buyers can see all their options. Try it out
-          							</p>
-          						</div>
-          					</div>    
-          			</div>
-          		</div>
+          		
           		<!-- end card -->
           		<!--Listing Details -->        
           		<div class="card">
           			<div class="card-body">
           				<div class="row">
-                        <div class="row">
-                            <div class="col-lg-3">
-                              <div class="mb-xs-2 strong"> Type
-                                <span class="text-gray-lightest">*</span> 
-                              </div>
-                            </div>
-                            <div class="col-lg-3"> <br />
-                                <label class="radio-custom">
-                                  <input type="radio" name="product_type" value="physical"> <span class="radio-label">  Physical </span>
-                                  <p class="text-smaller text-gray-lighter" style="margin-left:15px;">
-                                    A tangible item that you will deliver to buyers.
-                                  </p>
-                              </label>
-                            </div>
-                            <div class="col-lg-3"> <br />
-                              <label class="radio-custom">
-                                  <input type="radio" name="product_type" value="digital"> <span class="radio-label">  Digital </span>
-                                  <p class="text-smaller text-gray-lighter" style="margin-left:15px;">
-                                    A digital file that buyers will download.
-                                  </p>
-                              </label>
-                            </div>
-                          </div>
+                        
                  					<div class="col-lg-12">
                  						<label class="mb-xs-1 strong">Listing Details</label> <br/>
                      					<p class="text-gray-lighter">
@@ -387,44 +351,33 @@
           				</div>
           				<div class="col-lg-3">
           					<br />
-          					<input type="text" class="form-control" name="sku" />
+          					<input type="text" class="form-control" name="sku" placeholder="SKU"/>
           				</div>
           			</div>
                 <div class="row">
                   <div class="col-lg-3">
-                    <div class="mb-xs-2 strong"> Width </div>
-                    
+					<div class="mb-xs-2 strong"> Width </div>
+					<p class="text-smaller text-gray-lighter">
+						Width description 
+					</p>
+                    <input type="text" class="form-control" name="width"  placeholder="Width"/>
                   </div>
-                  <div class="col-lg-3">
-                    <br />
-                    <input type="text" class="form-control" name="width" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3">
-                    <div class="mb-xs-2 strong"> Hieght  </div>
-                    
-                  </div>
-                  <div class="col-lg-3">
-                    <br />
-                    <input type="text" class="form-control" name="hieght" />
-                  </div>
-                </div>
-                <div class="row">
-                  <div class="col-lg-3">
-                    <div class="mb-xs-2 strong"> Length  </div>
-                    
-                  </div>
-                  <div class="col-lg-3">
-                    <br />
-                    <input type="text" class="form-control" name="length" />
+				  <div class="col-lg-3">
+					<div class="mb-xs-2 strong"> Height  </div>
+					<p class="text-smaller text-gray-lighter">
+						Height description 
+					</p>
+					<input type="text" class="form-control" name="hieght" placeholder="Height"/>
+				  </div>
+				  <div class="col-lg-3">
+					<div class="mb-xs-2 strong"> Length  </div>
+					<p class="text-smaller text-gray-lighter">
+						Length description 
+					</p>
+					<input type="text" class="form-control" name="length" placeholder="Length"/>
                   </div>
                 </div>
-
-               </br><div class="row" id="render_warranty">
-                  
-                  
-                </div>
+                
           			<hr />
           			<div class="row">
       					<div class="col-lg-9">
