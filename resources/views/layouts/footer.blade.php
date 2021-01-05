@@ -25,7 +25,7 @@
     <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/pickers/pickadate/picker.date.js')}}"></script>
     <script src="{{ asset('app-assets/vendors/js/extensions/tether.min.js')}}"></script>
-    <script src="{{ asset('app-assets/vendors/js/extensions/shepherd.min.js')}}"></script>
+    
     <!-- END: Page Vendor JS-->
 
     <!-- BEGIN: Theme JS-->
