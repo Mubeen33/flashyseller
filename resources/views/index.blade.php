@@ -10,8 +10,6 @@
 @section('content')
             
             <div class="content-body">
-
-                
                 <!-- Dashboard Ecommerce Starts -->
                 <section id="dashboard-ecommerce">
                     <div class="row">
@@ -274,100 +272,108 @@
                                 <div class="card-header">
                                     <h4 class="card-title">Chat</h4>
                                 </div>
-                                <div class="chat-app-window">
+                                <div class="card-body">
+                                    <div class="chat-app-window">
                                     <div class="user-chats">
                                         <div class="chats">
-                                            <div class="chat">
-                                                <div class="chat-avatar">
+                                            <div class="chat row">
+                                                <div class="chat-avatar col-2">
                                                     <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
-                                                        <img src="../../../app-assets/images/portrait/small/avatar-s-2.jpg" alt="avatar" height="40" width="40" />
+                                                        <img src="{{ url('app-assets/images/portrait/small/avatar-s-2.jpg')}}" alt="avatar" height="40" width="40" />
                                                     </a>
                                                 </div>
-                                                <div class="chat-body">
+                                                <div class="chat-body col-10">
                                                     <div class="chat-content">
                                                         <p>Cake sesame snaps cupcake gingerbread</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="chat chat-left">
-                                                <div class="chat-avatar mt-50">
+                                            <hr class="mt-0">
+                                            <div class="chat row chat-left">
+                                                <div class="chat-avatar col-2 mt-50">
                                                     <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">
-                                                        <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg" alt="avatar" height="40" width="40" />
+                                                        <img src="{{ url('app-assets/images/portrait/small/avatar-s-5.jpg')}}" alt="avatar" height="40" width="40" />
                                                     </a>
                                                 </div>
-                                                <div class="chat-body">
+                                                <div class="chat-body col-10">
                                                     <div class="chat-content">
                                                         <p>Apple pie pie jujubes chupa chups muffin</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="chat">
-                                                <div class="chat-avatar">
+                                            <hr class="mt-0">
+                                            <div class="chat row">
+                                                <div class="chat-avatar col-2">
                                                     <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
-                                                        <img src="../../../app-assets/images/portrait/small/avatar-s-2.jpg" alt="avatar" height="40" width="40" />
+                                                        <img src="{{ url('app-assets/images/portrait/small/avatar-s-2.jpg')}}" alt="avatar" height="40" width="40" />
                                                     </a>
                                                 </div>
-                                                <div class="chat-body">
+                                                <div class="chat-body col-10">
                                                     <div class="chat-content">
                                                         <p>Chocolate cake</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="chat chat-left">
-                                                <div class="chat-avatar mt-50">
+                                            <hr class="mt-0">
+                                            <div class="chat row chat-left">
+                                                <div class="chat-avatar col-2 mt-50">
                                                     <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">
-                                                        <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg" alt="avatar" height="40" width="40" />
+                                                        <img src="{{ url('app-assets/images/portrait/small/avatar-s-5.jpg')}}" alt="avatar" height="40" width="40" />
                                                     </a>
                                                 </div>
-                                                <div class="chat-body">
+                                                <div class="chat-body col-10">
                                                     <div class="chat-content">
                                                         <p>Donut sweet pie oat cake dragée fruitcake</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="chat">
-                                                <div class="chat-avatar mt-50">
+                                            <hr class="mt-0">
+                                            <div class="chat row">
+                                                <div class="chat-avatar col-2 mt-50">
                                                     <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
-                                                        <img src="../../../app-assets/images/portrait/small/avatar-s-2.jpg" alt="avatar" height="40" width="40" />
+                                                        <img src="{{ url('app-assets/images/portrait/small/avatar-s-2.jpg')}}" alt="avatar" height="40" width="40" />
                                                     </a>
                                                 </div>
-                                                <div class="chat-body">
+                                                <div class="chat-body col-10">
                                                     <div class="chat-content">
                                                         <p>Liquorice chocolate bar jelly beans icing</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="chat chat-left">
-                                                <div class="chat-avatar mt-50">
+                                            <hr class="mt-0">
+                                            <div class="chat row chat-left">
+                                                <div class="chat-avatar col-2 mt-50">
                                                     <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">
-                                                        <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg" alt="avatar" height="40" width="40" />
+                                                        <img src="{{ url('app-assets/images/portrait/small/avatar-s-5.jpg')}}" alt="avatar" height="40" width="40" />
                                                     </a>
                                                 </div>
-                                                <div class="chat-body">
+                                                <div class="chat-body col-10">
                                                     <div class="chat-content">
                                                         <p>Powder toffee tootsie roll macaroon cupcake.</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="chat">
-                                                <div class="chat-avatar">
+                                            <hr class="mt-0">
+                                            <div class="chat row">
+                                                <div class="chat-avatar col-2">
                                                     <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="right" title="" data-original-title="">
-                                                        <img src="../../../app-assets/images/portrait/small/avatar-s-2.jpg" alt="avatar" height="40" width="40" />
+                                                        <img src="{{ url('app-assets/images/portrait/small/avatar-s-2.jpg')}}" alt="avatar" height="40" width="40" />
                                                     </a>
                                                 </div>
-                                                <div class="chat-body">
+                                                <div class="chat-body col-10">
                                                     <div class="chat-content">
                                                         <p>Apple pie oat cake brownie cotton candy cupcake chocolate bar dessert.</p>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="chat chat-left">
-                                                <div class="chat-avatar mt-50">
+                                            <hr class="mt-0">
+                                            <div class="chat row chat-left">
+                                                <div class="chat-avatar col-2 mt-50">
                                                     <a class="avatar m-0" data-toggle="tooltip" href="#" data-placement="left" title="" data-original-title="">
-                                                        <img src="../../../app-assets/images/portrait/small/avatar-s-5.jpg" alt="avatar" height="40" width="40" />
+                                                        <img src="{{ url('app-assets/images/portrait/small/avatar-s-5.jpg')}}" alt="avatar" height="40" width="40" />
                                                     </a>
                                                 </div>
-                                                <div class="chat-body">
+                                                <div class="chat-body col-10">
                                                     <div class="chat-content">
                                                         <p>Biscuit cake jujubes carrot cake topping sweet cake.</p>
                                                     </div>
@@ -376,11 +382,12 @@
                                         </div>
                                     </div>
                                     <div class="chat-footer">
-                                        <div class="card-body d-flex justify-content-around pt-0">
+                                        <div class="d-flex justify-content-around pt-0">
                                             <input type="text" class="form-control mr-50" placeholder="Type your Message">
                                             <button type="button" class="btn btn-icon btn-primary"><i class="feather icon-navigation"></i></button>
                                         </div>
                                     </div>
+                                </div>
                                 </div>
                             </div>
                         </div>
