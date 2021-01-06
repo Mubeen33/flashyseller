@@ -70,11 +70,11 @@
                               <th >
                                   <i class="fa fa-info-circle" aria-hidden="true"></i>Sales 30 days
                               </th>
-                              <th >
+                              <th style="width: 200px">
                                   <i class="fa fa-info-circle" aria-hidden="true"></i> 
                                   Selling Price
                               </th>
-                              <th >
+                              <th style="width: 200px">
                                   <i class="fa fa-info-circle" aria-hidden="true"></i> RRP
                               </th>
                               <th >
