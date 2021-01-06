@@ -1027,7 +1027,7 @@ select.form-control:not([multiple='multiple']) {
 
 /* Number Type Input Box Scss for - Remove arrow on hover */
 input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance : none;
+  
 }
 
 /* Number Type Input Box Scss for Touchspin - Remove arrow for firefox */
