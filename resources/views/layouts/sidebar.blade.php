@@ -16,13 +16,17 @@
                 </li>
                 <li class=" navigation-header"><span>Products & Inventory</span>
                 </li>
-                <li class=" nav-item"><a href="{{route('vendor.addNewProduct.get')}}"><i class="feather icon-plus"></i><span class="menu-title" data-i18n="plus">Add Product</span></a>
-                </li>
-                <li class=" nav-item"><a href="{{route('vendor.searchExistingProduct.get')}}"><i class="feather icon-message-square"></i><span class="menu-title" data-i18n="Chat">Add Existing Product</span></a>
-                </li>
-                <li class=" nav-item"><a href="{{route('vendor.inventory.page.get')}}"><i class="feather icon-check-square"></i><span class="menu-title" data-i18n="Todo">Inventory</span></a>
-                </li>
-                <li class=" nav-item"><a href="{{route('vendor.pendingProducts.get')}}"><i class="feather icon-calendar"></i><span class="menu-title" data-i18n="Calender">Pending</span></a>
+                <li class=" nav-item"><a href="#"><i class="feather icon-list"></i><span class="menu-title" data-i18n="Products">Products</span></a>
+                    <ul class="menu-content">
+                        <li><a href="{{route('vendor.addNewProduct.get')}}"><i class="feather icon-plus"></i><span class="menu-item" data-i18n="List View">Add Product</span></a>
+                        </li>
+                        <li><a href="{{route('vendor.searchExistingProduct.get')}}"><i class="feather icon-message-square"></i><span class="menu-item" data-i18n="Thumb View">Add Existing Product</span></a>
+                        </li>
+                        <li><a href="{{route('vendor.inventory.page.get')}}"><i class="feather icon-check-square"></i><span class="menu-item" data-i18n="List View">Inventory</span></a>
+                        </li>
+                        <li><a href="{{route('vendor.pendingProducts.get')}}"><i class="feather icon-calendar"></i><span class="menu-item" data-i18n="Thumb View">Pending</span></a>
+                        </li>
+                    </ul>
                 </li>
                 {{-- Deals --}}
                 <li class=" navigation-header"><span>Deals</span>
