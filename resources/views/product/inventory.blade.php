@@ -52,41 +52,40 @@
                   <table class="table table-striped mb-0 table-bg">
                       <thead>
                           <tr class="table-head">
-                              <td width="100px" class="sortAble" sorting-column='active' sorting-order='DESC'><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/> <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/> </svg>
+                              <th width="100px" class="sortAble" sorting-column='active' sorting-order='DESC'><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-up" fill="currentColor" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" d="M8 3.5a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-1 0V4a.5.5 0 0 1 .5-.5z"/> <path fill-rule="evenodd" d="M7.646 2.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8 3.707 5.354 6.354a.5.5 0 1 1-.708-.708l3-3z"/> </svg>
                                   <i class="fa fa-info-circle" aria-hidden="true"></i> Status
-                              </td>
-                              <td width="300px">
+                              </th>
+                              <th >
                                   Product Title
-                              </td>
-                              <td width="100px">
+                              </th>
+                              <th >
                                   <i class="fa fa-info-circle" aria-hidden="true"></i> SKU
-                              </td>
-                              <td width="80px">
+                              </th>
+                              <th style="width: 200px">
                                   <i class="fa fa-info-circle" aria-hidden="true"></i> QTY
-                              </td>
-                              <td width="150px">
+                              </th>
+                              <th >
                                   <i class="fa fa-info-circle" aria-hid den="true"></i> Product ID
-                              </td>
-                              <td width="200px">
+                              </th>
+                              <th >
                                   <i class="fa fa-info-circle" aria-hidden="true"></i>Sales 30 days
-                              </td>
-                              <td width="150px">
+                              </th>
+                              <th >
                                   <i class="fa fa-info-circle" aria-hidden="true"></i> 
                                   Selling Price
-                              </td>
-                              <td width="100px">
+                              </th>
+                              <th >
                                   <i class="fa fa-info-circle" aria-hidden="true"></i> RRP
-                              </td>
-                              <td width="150px">
+                              </th>
+                              <th >
                                   Dispatch Days
-                              </td>
-                              <td width="100px">
+                              </th>
+                              <th>
                                   Action
-                              </td>
+                              </th>
                           </tr>
                       </thead>
                       <tbody class="table-body">
-                              <!-- Search -->
                               <tr>
                                   <td width="100px">
                                       <select id="hidden__status" class="input-four">
@@ -139,10 +138,13 @@
                   </table>
               </div>
           </div>
-          <div class="tab-pane" id="drafts" aria-labelledby="profile-tab" role="tabpanel">       <h2>View Bulk Result</h2>
+          <div class="tab-pane" id="drafts" aria-labelledby="profile-tab" role="tabpanel">
+          <br>       
+            <p>No Bulk Available</p>
           </div>
           <div class="tab-pane" id="confrim" aria-labelledby="about-tab" role="tabpanel">
-              <h2>Request Product Edit</h2>
+            <br>
+              <p>No Edit Request</p>
           </div>
       </div>
   </section>
