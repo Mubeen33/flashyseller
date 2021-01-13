@@ -68,6 +68,7 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get('ajax-search-existing-products/fetch', 'product\ProductController@ajax_fetch_existing_products')->name("searchExistingProduct.ajaxPgination");
 	Route::get('view-existing-product/{vendor_products_tbl_id}', 'product\ProductController@view_existing_product')->name("viewExistingProduct.get");
 	Route::post('save-existing-product/{vendor_products_tbl_id}', 'product\ProductController@save_existing_product')->name("saveExistingProduct.post");
+	Route::match(['get','post'],'ajax-category-find', 'product\ProductController@ajax_category_find')->name("ajaxCategoryFind");
 
 	//pending routes
 

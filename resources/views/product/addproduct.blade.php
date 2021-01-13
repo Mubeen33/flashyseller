@@ -12,96 +12,268 @@
 
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css')}}">
     <link href="{{ asset('app-assets/vendors/css/jquery.tagsinput-revisited.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/addproduct.css')}}" rel="stylesheet" type="text/css">
 
-
-<style type="text/css">
-  .p-graph {
-    font-size:10px !important;
-  }
-.dropzone{
-	min-height : 190px !important;
-	max-width: 180px;
-    display: flex;
-    min-width: 178px;
-    border: 1px solid grey !important;
-    color: #373738 !important;
-    justify-content: center;
-    margin: 0 auto;
-}
-
-@media only screen and (max-width: 768px) {
-	.dropzone {
-		margin-bottom: 15px;
-	}
-}
-
-@media only screen and (min-width: 769px) and (max-width: 991px) {
-	.col22 {
-		flex: 0 0 100%!important;
-        max-width: 100%!important;
-	}
-
-	.dropzone {
-		margin-bottom: 15px;
-	}
-}
-
-@media only screen and (min-width: 992px) and (max-width: 1200px) {
-	.col22 {
-		flex: 0 0 25%!important;
-        max-width: 25%!important;
-	}
-}
-  .dropzone .dz-message:before{
-	top        : 18px!important;
-	font-size  : 46px !important;
-	color      : #373738 !important;
-  }
-  .dropzone .dz-message{
-	font-size  : 0.85rem !important;
-	color      : #373738 !important;
-	position: absolute;
-	z-index: 9;
-  }
-  .dz-filename{
-    display: none !important;
-  }
-  .dz-size{
-    display: none !important;
-  }
-<?php $today = date('YmdHi');
-      $startDate = date('YmdHi', strtotime('2012-03-14 09:06:00'));
-      $range = $today - $startDate;
-      $prod_img_id = rand(0, $range);  
-?>
-
-  .sortable { list-style-type: none; margin: 0; padding: 0; width: 100%; }
-  .border-rad-0 {
-	  border-radius: 0!important;
-  }
-  .py-05 {
-	  padding-top: 0.5rem!important;
-	  padding-bottom: 0.5rem!important;
-  }
-  .select2-container--default .select2-results>.select2-results__options{
-
-    min-width: 200px !important;
-  }
-  .select2-container--default.select2-container--open.select2-container--above .select2-selection--single, .select2-container--default.select2-container--open.select2-container--above .select2-selection--multiple{
-    min-width: 200px !important;
-  }
-  span.select2.select2-container.select2-container--default {
-    min-width: 200px !important;
-}
-</style>
+	<?php $today=date('YmdHi');
+	$startDate=date('YmdHi', strtotime('2012-03-14 09:06:00'));
+	$range=$today - $startDate;
+	$prod_img_id=rand(0, $range);
+	?>
 <div class="content-body">
 	<div class="container-fluid">
             @if(session('msg'))
                   {!! session('msg') !!}
                 @endif
-      		<!-- Photos -->
+			  <!-- Photos -->
+			  
+			  <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data" id="choice_form">
+				@csrf
+				<input type="hidden" name="image_id" value="{{$prod_img_id}}">      
+					  <!-- end Photos -->
+					  <!-- Card video -->
+					  
+					  <!-- end card -->
+					  <!--Listing Details -->        
+					  <div class="card">
+						  <div class="card-body">
+							  <div class="row">
+							
+										 <div class="col-lg-12">
+											 <label class="mb-xs-1 strong">Listing Details</label> <br/>
+											 <p class="text-gray-lighter">
+												 Include keywords that buyers would use to search for your item.
+											 </p>
+										 </div>	
+									 </div>
+									 <div class="row">
+										 <div class="col-lg-3">
+											 <div class="mb-xs-2 strong"> Title <span class="text-gray-lightest">*</span> </div>
+	
+											 <p class="text-smaller text-gray-lighter">
+												 Include keywords that buyers would use to search for your item.
+											 </p>
+										 </div>
+										 <div class="col-lg-9"> <br />
+											 <input type="text" class="form-control" name="title" required="" />
+										 </div>
+									 </div>{{-- 
+									 <div class="row">
+										 <div class="col-lg-3">
+											 <div class="mb-xs-2 strong"> About this listing <span class="text-gray-lightest">*</span> </div>
+											 <p class="text-smaller text-gray-lighter">
+												 Learn more about what types of items are allowed on Etsy.
+											 </p>
+										 </div>
+										 <div class="col-lg-3">
+											 <br />
+											 <select class="form-control" name="made_by">>
+												 <option selected >Who made it?</option>
+												 <optgroup label="Select a maker"> 
+											<option value="I did">I did</option>
+											<option value="A member of my shop">A member of my shop</option>
+											<option value="Another company or person" >Another company or person</option>
+										  </optgroup>
+											 </select>
+										 </div>
+										 <div class="col-lg-3">
+											 <br />
+											 <select class="form-control" name="what_is_it">
+												 <option>What is it?</option>
+												 <optgroup label="Select a use">
+											<option value="A finished product">A finished product</option>
+											<option value="Another company or person">
+												A supply or tool to make things
+											</option>
+										  </optgroup>
+											 </select>
+										 </div>
+										 <div class="col-lg-3">
+											 <br />
+											 <select class="form-control" name="made_date">
+												 <option>Whan was it made?</option>
+												 <optgroup label="Not yet Made">
+											<option value="Made to order">Made to order</option>
+										  </optgroup>
+										  <optgroup label="Recently">
+											<option value="2020 - 2020">2020 - 2020</option>
+											<option value="2010 - 2019">2010 - 2019</option>
+											<option value="2001 - 2009">2001 - 2009</option>
+										  </optgroup>
+										  <optgroup label="Vintage">
+											<option value="Before 2001">Before 2001</option>
+											<option value="2010 - 2019">2000 - 2000</option>
+											<option value="1990s">1990s</option>
+											 <option value="1980s">1980s</option>
+											 <option value="1970s">1970s</option>
+										  </optgroup>
+											 </select>
+										 </div>
+									 </div> --}}
+									 <div class="row">
+										 <div class="col-lg-3">
+											 <div class="mb-xs-2 strong"> Category 
+												 <span class="text-gray-lightest">*</span> 
+											 </div>
+											 <p class="text-smaller text-gray-lighter">
+												 Type a two- or three-word description of your item to get category suggestions that will help more shoppers find it.
+											 </p>
+										 </div>
+										 <div class="col-lg-9"> <br />
+											 <input type="text" id="category_search" class="form-control" name="" />
+											<input type="hidden" name="category_id" id='category_id' value="">
+											<i id="filtersubmit" class="fa fa-search"></i>
+											<div id="render__data">
+												@include('product.partials.auto-category')
+											</div>
+										 </div>
+									 </div>
+									<div id="render__customfields__data">
+										@include('product.partials.auto-customfields')
+									</div>
+									 {{-- <div class="row">
+										 <div class="col-lg-3">
+											 <div class="mb-xs-2 strong"> Renewal options 
+												 <span class="text-gray-lightest">*</span> 
+											 </div>
+											 <p class="text-smaller text-gray-lighter">
+												 Each renewal lasts for four months or until the listing sells out. Get more details on auto-renewing here.
+											 </p>
+										 </div>
+										 <div class="col-lg-3"> <br />
+											 <label class="radio-custom">
+												 <input type="radio" name="renewal" value="auto"> <span class="radio-label">  Automatic </span>
+												 <p class="text-smaller text-gray-lighter" style="margin-left:15px;">
+													 This listing will renew as it expires for USD 0.20 USD each time (recommended).
+												 </p>
+											 </label>
+										 </div>
+										 <div class="col-lg-3"> <br />
+											 <label class="radio-custom">
+												 <input type="radio" name="renewal" value="mannual"> <span class="radio-label">  Mannual </span>
+												 <p class="text-smaller text-gray-lighter" style="margin-left:15px;">
+													 I'll renew expired listings myself.
+												 </p>
+											 </label>
+										 </div>
+									 </div> --}}
+									 
+									 <div class="row">
+										 <div class="col-lg-3">
+											 <div class="mb-xs-2 strong"> Description
+												 <span class="text-gray-lightest">*</span> 
+											 </div>
+											 <p class="text-smaller">
+												 Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
+										  Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
+											 </p>
+										 </div>
+										 <div class="col-lg-9">
+											 <textarea class="form-control textarea" rows="10" name="description"></textarea>
+										 </div>
+									 </div>
+						  </div>
+					  </div>
+					  <!-- End Listing Details -->
+					  <!-- Inventory and pricing  -->
+					  <div class="card">
+						  <div class="card-body">
+							  <div class="mb-xs-1 strong"> Inventory and Dimension
+						  </div> <br />
+						  <div class="row">
+							  <div class="col-lg-3">
+								  <div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest">Optional</span> </div>
+								  <p class="text-smaller text-gray-lighter">
+									  SKUs are for your use only — buyers won’t see them. 
+								  </p>
+							  </div>
+							  <div class="col-lg-3">
+								  <br />
+								  <input type="text" class="form-control" name="sku" placeholder="SKU"/>
+							  </div>
+						  </div>
+					<div class="row">
+					  <div class="col-lg-3">
+						<div class="mb-xs-2 strong"> Width </div>
+						<p class="text-smaller text-gray-lighter">
+							Width description 
+						</p>
+						<input type="text" class="form-control" name="width"  placeholder="Width"/>
+					  </div>
+					  <div class="col-lg-3">
+						<div class="mb-xs-2 strong"> Height  </div>
+						<p class="text-smaller text-gray-lighter">
+							Height description 
+						</p>
+						<input type="text" class="form-control" name="hieght" placeholder="Height"/>
+					  </div>
+					  <div class="col-lg-3">
+						<div class="mb-xs-2 strong"> Length  </div>
+						<p class="text-smaller text-gray-lighter">
+							Length description 
+						</p>
+						<input type="text" class="form-control" name="length" placeholder="Length"/>
+					  </div>
+					</div>
+					
+						  <hr />
+						  <div class="row">
+							  <div class="col-lg-9">
+								  <label class="mb-xs-2 strong">Variations</label> <br/>
+								 <p class="text-gray-lighter">Add available options like color or size. Buyers will choose from these during checkout.</p>
+							  </div>
+						  </div>
+						  <div class="row">
+								  <div class="col-lg-10">
+									<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light">
+										Add Variations
+									</button>
+								</div>
+								
+								  </div>
+								
+						  </div>
+					  </div>
+					<div style="display: none;" id="variant-card">
+						<div class="card">
+							<div class="card-body">
+								<h5 class="modal-title">Add variations</h5><br>
+	
+								  <div class="col-md-12 mx-0 px-0" id="loadSecondVariationOptionsData"></div>
+	
+								<div class="row" id="render__variations__data">
+									<div class="col-lg-4">
+										<select class="form-control select2" name="variation_name[]" onchange="add_more_customer_choice_option()" id="variation" multiple="multiple" >
+											<option>Choose Variation Type</option>
+											<optgroup label="Variation Type">
+												@foreach($variationList as $variation)
+												<option value="{{$variation->variation_name}}">
+													{{$variation->variation_name}}
+												</option>
+												@endforeach
+											</optgroup>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					
+						<div class="card" id="customer_options">
+							<div class="card-body" id="customer_choices">
+							</div>
+				<div class="card-body" id="customer_choice_options">
+				</div>
+				<div class="text-right mb-3" style="position: relative;right: 45px;">
+					<button type="submit" class="btn btn-warning">Submit</button>
+				</div>
+						</div>
+				
+				  <!-- End Inventory and pricing  -->
+			</form> 
       		<div class="card form-group">
              	<div class="card-body">
+					 
 					<div class="row">
 						<div class="col-lg-12">
 							<label class="mb-xs-1 strong">Photos</label> <br/>
@@ -188,252 +360,7 @@
       			  </div>
       		</div>
     
-    
-        <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data" id="choice_form">
-            @csrf
-            <input type="hidden" name="image_id" value="{{$prod_img_id}}">      
-          		<!-- end Photos -->
-          		<!-- Card video -->
-          		
-          		<!-- end card -->
-          		<!--Listing Details -->        
-          		<div class="card">
-          			<div class="card-body">
-          				<div class="row">
-                        
-                 					<div class="col-lg-12">
-                 						<label class="mb-xs-1 strong">Listing Details</label> <br/>
-                     					<p class="text-gray-lighter">
-                     						Include keywords that buyers would use to search for your item.
-                     					</p>
-                 					</div>	
-                     			</div>
-                     			<div class="row">
-                     				<div class="col-lg-3">
-                 						<div class="mb-xs-2 strong"> Title <span class="text-gray-lightest">*</span> </div>
-
-                 						<p class="text-smaller text-gray-lighter">
-                 							Include keywords that buyers would use to search for your item.
-                 						</p>
-                 					</div>
-                 					<div class="col-lg-9"> <br />
-                 						<input type="text" class="form-control" name="title" required="" />
-                 					</div>
-                     			</div>{{-- 
-                     			<div class="row">
-                     				<div class="col-lg-3">
-                 						<div class="mb-xs-2 strong"> About this listing <span class="text-gray-lightest">*</span> </div>
-                 						<p class="text-smaller text-gray-lighter">
-                 							Learn more about what types of items are allowed on Etsy.
-                 						</p>
-                 					</div>
-                 					<div class="col-lg-3">
-                 						<br />
-                 						<select class="form-control" name="made_by">>
-                 							<option selected >Who made it?</option>
-                 							<optgroup label="Select a maker"> 
-          						      <option value="I did">I did</option>
-          						      <option value="A member of my shop">A member of my shop</option>
-          						      <option value="Another company or person" >Another company or person</option>
-          						    </optgroup>
-                 						</select>
-                 					</div>
-                 					<div class="col-lg-3">
-                 						<br />
-                 						<select class="form-control" name="what_is_it">
-                 							<option>What is it?</option>
-                 							<optgroup label="Select a use">
-          						      <option value="A finished product">A finished product</option>
-          						      <option value="Another company or person">
-          						      	A supply or tool to make things
-          						      </option>
-          						    </optgroup>
-                 						</select>
-                 					</div>
-                 					<div class="col-lg-3">
-                 						<br />
-                 						<select class="form-control" name="made_date">
-                 							<option>Whan was it made?</option>
-                 							<optgroup label="Not yet Made">
-          						      <option value="Made to order">Made to order</option>
-          						    </optgroup>
-          						    <optgroup label="Recently">
-          						      <option value="2020 - 2020">2020 - 2020</option>
-          						      <option value="2010 - 2019">2010 - 2019</option>
-          						      <option value="2001 - 2009">2001 - 2009</option>
-          						    </optgroup>
-          						    <optgroup label="Vintage">
-          						      <option value="Before 2001">Before 2001</option>
-          						      <option value="2010 - 2019">2000 - 2000</option>
-          						      <option value="1990s">1990s</option>
-          						       <option value="1980s">1980s</option>
-          						       <option value="1970s">1970s</option>
-          						    </optgroup>
-                 						</select>
-                 					</div>
-                     			</div> --}}
-                     			<div class="row">
-                     				<div class="col-lg-3">
-                 						<div class="mb-xs-2 strong"> Category 
-                 							<span class="text-gray-lightest">*</span> 
-                 						</div>
-                 						<p class="text-smaller text-gray-lighter">
-                 							Type a two- or three-word description of your item to get category suggestions that will help more shoppers find it.
-                 						</p>
-                 					</div>
-                 					<div class="col-lg-9"> <br />
-                 						<input type="text" id="category_search" class="form-control" name="" />
-										<input type="hidden" name="category_id" id='category_id' value="">
-										<i id="filtersubmit" class="fa fa-search"></i>
-                                        <div id="render__data">
-                                            @include('product.partials.auto-category')
-                                        </div>
-                 					</div>
-                     			</div>
-                                <div id="render__customfields__data">
-                                    @include('product.partials.auto-customfields')
-                                </div>
-                     			{{-- <div class="row">
-                     				<div class="col-lg-3">
-                 						<div class="mb-xs-2 strong"> Renewal options 
-                 							<span class="text-gray-lightest">*</span> 
-                 						</div>
-                 						<p class="text-smaller text-gray-lighter">
-                 							Each renewal lasts for four months or until the listing sells out. Get more details on auto-renewing here.
-                 						</p>
-                 					</div>
-                 					<div class="col-lg-3"> <br />
-                     					<label class="radio-custom">
-                     						<input type="radio" name="renewal" value="auto"> <span class="radio-label">  Automatic </span>
-                     						<p class="text-smaller text-gray-lighter" style="margin-left:15px;">
-                     							This listing will renew as it expires for USD 0.20 USD each time (recommended).
-                     						</p>
-                 						</label>
-                 					</div>
-                 					<div class="col-lg-3"> <br />
-                 						<label class="radio-custom">
-                     						<input type="radio" name="renewal" value="mannual"> <span class="radio-label">  Mannual </span>
-                     						<p class="text-smaller text-gray-lighter" style="margin-left:15px;">
-                     							I'll renew expired listings myself.
-                     						</p>
-                 						</label>
-                 					</div>
-                     			</div> --}}
-                     			
-                     			<div class="row">
-                     				<div class="col-lg-3">
-                 						<div class="mb-xs-2 strong"> Description
-                 							<span class="text-gray-lightest">*</span> 
-                 						</div>
-                 						<p class="text-smaller">
-                 							Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
-          							Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
-                 						</p>
-                 					</div>
-                 					<div class="col-lg-9">
-                 						<textarea class="form-control textarea" rows="10" name="description"></textarea>
-                 					</div>
-                 				</div>
-          			</div>
-          		</div>
-          		<!-- End Listing Details -->
-          		<!-- Inventory and pricing  -->
-          		<div class="card">
-          			<div class="card-body">
-          				<div class="mb-xs-1 strong"> Inventory and Dimension
-          			</div> <br />
-          			<div class="row">
-          				<div class="col-lg-3">
-          					<div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest">Optional</span> </div>
-          					<p class="text-smaller text-gray-lighter">
-          						SKUs are for your use only — buyers won’t see them. 
-          					</p>
-          				</div>
-          				<div class="col-lg-3">
-          					<br />
-          					<input type="text" class="form-control" name="sku" placeholder="SKU"/>
-          				</div>
-          			</div>
-                <div class="row">
-                  <div class="col-lg-3">
-					<div class="mb-xs-2 strong"> Width </div>
-					<p class="text-smaller text-gray-lighter">
-						Width description 
-					</p>
-                    <input type="text" class="form-control" name="width"  placeholder="Width"/>
-                  </div>
-				  <div class="col-lg-3">
-					<div class="mb-xs-2 strong"> Height  </div>
-					<p class="text-smaller text-gray-lighter">
-						Height description 
-					</p>
-					<input type="text" class="form-control" name="hieght" placeholder="Height"/>
-				  </div>
-				  <div class="col-lg-3">
-					<div class="mb-xs-2 strong"> Length  </div>
-					<p class="text-smaller text-gray-lighter">
-						Length description 
-					</p>
-					<input type="text" class="form-control" name="length" placeholder="Length"/>
-                  </div>
-                </div>
-                
-          			<hr />
-          			<div class="row">
-      					<div class="col-lg-9">
-      						<label class="mb-xs-2 strong">Variations</label> <br/>
-         					<p class="text-gray-lighter">Add available options like color or size. Buyers will choose from these during checkout.</p>
-      					</div>
-          			</div>
-          			<div class="row">
-          					<div class="col-lg-10">
-								<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light">
-									Add Variations
-								</button>
-                            </div>
-                            
-          					</div>
-                            
-          			</div>
-				  </div>
-				<div style="display: none;" id="variant-card">
-					<div class="card">
-						<div class="card-body">
-							<h5 class="modal-title">Add variations</h5><br>
-
-  							<div class="col-md-12 mx-0 px-0" id="loadSecondVariationOptionsData"></div>
-
-							<div class="row" id="render__variations__data">
-								<div class="col-lg-4">
-									<select class="form-control select2" name="variation_name[]" onchange="add_more_customer_choice_option()" id="variation" multiple="multiple" >
-										<option>Choose Variation Type</option>
-										<optgroup label="Variation Type">
-											@foreach($variationList as $variation)
-											<option value="{{$variation->variation_name}}">
-												{{$variation->variation_name}}
-											</option>
-											@endforeach
-										</optgroup>
-									</select>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				
-					<div class="card" id="customer_options">
-						<div class="card-body" id="customer_choices">
-						</div>
-            <div class="card-body" id="customer_choice_options">
-            </div>
-            <div class="text-right mb-3" style="position: relative;right: 45px;">
-                <button type="submit" class="btn btn-warning">Submit</button>
-            </div>
-					</div>
-			
-      		<!-- End Inventory and pricing  -->
-        </form>    
+       
 	    </div>
   </div>
 </div>

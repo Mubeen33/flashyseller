@@ -4,14 +4,15 @@
 ==========================================================================================*/
 // Dropzone 1
 Dropzone.options.dpzSingleFileP1 = {
-  paramName: "fileDropzone", // The name that will be used to transfer the file
-  maxFiles: 1,
-  addRemoveLinks: false,
-  headers: {
-	'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-  },
-  previewTemplate: 
-	`<div class="dz-preview dz-complete dz-image-preview">
+    paramName: "fileDropzone", // The name that will be used to transfer the file
+    maxFiles: 1,
+    addRemoveLinks: false,
+    thumbnailWidth: "250",
+    thumbnailHeight: "250",
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+    },
+    previewTemplate: `<div class="dz-preview dz-complete dz-image-preview">
 		<div class="dz-image">
 			<img
 			data-dz-thumbnail
@@ -34,51 +35,53 @@ Dropzone.options.dpzSingleFileP1 = {
 			<i class="fa fa-times"></i>
 		</a>
 	</div>`,
-	init: function () {
-		this.on("maxfilesexceeded", function (file) {
-			this.removeAllFiles();
-			this.addFile(file);
-		});
-	},
-	success: function( file, response ) {
-		obj = JSON.parse(response);
-		$(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
-	},	
-	removedfile: function(file) {
-		var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
-		var name = server_file; 
-		//console.log(file);
-		
-		$.ajax({
-			type: 'POST',
-			url: 'vendor/delete-product-image',
-			data: { 
-				"token": "{{ csrf_token() }}",
-				name: name 
-			},
-			success: function(data){
-				console.log('success: ' + data);
-			}, error: function(error) {
-				console.log('Error: ', error.data);
-			}
-		});
-		var _ref;
-		return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-	}
+    init: function() {
+        this.on("maxfilesexceeded", function(file) {
+            this.removeAllFiles();
+            this.addFile(file);
+        });
+    },
+    success: function(file, response) {
+        obj = JSON.parse(response);
+        $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
+    },
+    removedfile: function(file) {
+        var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
+        var name = server_file;
+        //console.log(file);
+
+        $.ajax({
+            type: 'POST',
+            url: 'vendor/delete-product-image',
+            data: {
+                "token": "{{ csrf_token() }}",
+                name: name
+            },
+            success: function(data) {
+                console.log('success: ' + data);
+            },
+            error: function(error) {
+                console.log('Error: ', error.data);
+            }
+        });
+        var _ref;
+        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+    }
 };
 
 
 
 // Dropzone 2
 Dropzone.options.dpzSingleFileP2 = {
-	paramName: "fileDropzone", // The name that will be used to transfer the file
-	maxFiles: 1,
-	addRemoveLinks: false,
-	headers: {
-	  'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-	},
-	previewTemplate: 
-	  `<div class="dz-preview dz-complete dz-image-preview">
+    paramName: "fileDropzone", // The name that will be used to transfer the file
+    maxFiles: 1,
+    addRemoveLinks: false,
+    thumbnailWidth: "250",
+    thumbnailHeight: "250",
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+    },
+    previewTemplate: `<div class="dz-preview dz-complete dz-image-preview">
 		  <div class="dz-image">
 			  <img
 			  data-dz-thumbnail
@@ -101,51 +104,53 @@ Dropzone.options.dpzSingleFileP2 = {
 			  <i class="fa fa-times"></i>
 		  </a>
 	  </div>`,
-	  init: function () {
-		  this.on("maxfilesexceeded", function (file) {
-			  this.removeAllFiles();
-			  this.addFile(file);
-		  });
-	  },
-	  success: function( file, response ) {
-		  obj = JSON.parse(response);
-		  $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
-	  },	
-	  removedfile: function(file) {
-		  var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
-		  var name = server_file; 
-		  //console.log(file);
-		  
-		  $.ajax({
-			  type: 'POST',
-			  url: 'vendor/delete-product-image',
-			  data: { 
-				  "token": "{{ csrf_token() }}",
-				  name: name 
-			  },
-			  success: function(data){
-				  console.log('success: ' + data);
-			  }, error: function(error) {
-				  console.log('Error: ', error.data);
-			  }
-		  });
-		  var _ref;
-		  return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-	  }
-  };
+    init: function() {
+        this.on("maxfilesexceeded", function(file) {
+            this.removeAllFiles();
+            this.addFile(file);
+        });
+    },
+    success: function(file, response) {
+        obj = JSON.parse(response);
+        $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
+    },
+    removedfile: function(file) {
+        var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
+        var name = server_file;
+        //console.log(file);
+
+        $.ajax({
+            type: 'POST',
+            url: 'vendor/delete-product-image',
+            data: {
+                "token": "{{ csrf_token() }}",
+                name: name
+            },
+            success: function(data) {
+                console.log('success: ' + data);
+            },
+            error: function(error) {
+                console.log('Error: ', error.data);
+            }
+        });
+        var _ref;
+        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+    }
+};
 
 
 
 // Dropzone 3
 Dropzone.options.dpzSingleFileP3 = {
-	paramName: "fileDropzone", // The name that will be used to transfer the file
-	maxFiles: 1,
-	addRemoveLinks: false,
-	headers: {
-	  'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-	},
-	previewTemplate: 
-	  `<div class="dz-preview dz-complete dz-image-preview">
+    paramName: "fileDropzone", // The name that will be used to transfer the file
+    maxFiles: 1,
+    thumbnailWidth: "250",
+    thumbnailHeight: "250",
+    addRemoveLinks: false,
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+    },
+    previewTemplate: `<div class="dz-preview dz-complete dz-image-preview">
 		  <div class="dz-image">
 			  <img
 			  data-dz-thumbnail
@@ -168,51 +173,53 @@ Dropzone.options.dpzSingleFileP3 = {
 			  <i class="fa fa-times"></i>
 		  </a>
 	  </div>`,
-	  init: function () {
-		  this.on("maxfilesexceeded", function (file) {
-			  this.removeAllFiles();
-			  this.addFile(file);
-		  });
-	  },
-	  success: function( file, response ) {
-		  obj = JSON.parse(response);
-		  $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
-	  },	
-	  removedfile: function(file) {
-		  var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
-		  var name = server_file; 
-		  //console.log(file);
-		  
-		  $.ajax({
-			  type: 'POST',
-			  url: 'vendor/delete-product-image',
-			  data: { 
-				  "token": "{{ csrf_token() }}",
-				  name: name 
-			  },
-			  success: function(data){
-				  console.log('success: ' + data);
-			  }, error: function(error) {
-				  console.log('Error: ', error.data);
-			  }
-		  });
-		  var _ref;
-		  return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-	  }
-  };
+    init: function() {
+        this.on("maxfilesexceeded", function(file) {
+            this.removeAllFiles();
+            this.addFile(file);
+        });
+    },
+    success: function(file, response) {
+        obj = JSON.parse(response);
+        $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
+    },
+    removedfile: function(file) {
+        var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
+        var name = server_file;
+        //console.log(file);
+
+        $.ajax({
+            type: 'POST',
+            url: 'vendor/delete-product-image',
+            data: {
+                "token": "{{ csrf_token() }}",
+                name: name
+            },
+            success: function(data) {
+                console.log('success: ' + data);
+            },
+            error: function(error) {
+                console.log('Error: ', error.data);
+            }
+        });
+        var _ref;
+        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+    }
+};
 
 
 
-  // Dropzone 4
+// Dropzone 4
 Dropzone.options.dpzSingleFileP4 = {
-	paramName: "fileDropzone", // The name that will be used to transfer the file
-	maxFiles: 1,
-	addRemoveLinks: false,
-	headers: {
-	  'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-	},
-	previewTemplate: 
-	  `<div class="dz-preview dz-complete dz-image-preview">
+    paramName: "fileDropzone", // The name that will be used to transfer the file
+    maxFiles: 1,
+    thumbnailWidth: "250",
+    thumbnailHeight: "250",
+    addRemoveLinks: false,
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+    },
+    previewTemplate: `<div class="dz-preview dz-complete dz-image-preview">
 		  <div class="dz-image">
 			  <img
 			  data-dz-thumbnail
@@ -235,51 +242,53 @@ Dropzone.options.dpzSingleFileP4 = {
 			  <i class="fa fa-times"></i>
 		  </a>
 	  </div>`,
-	  init: function () {
-		  this.on("maxfilesexceeded", function (file) {
-			  this.removeAllFiles();
-			  this.addFile(file);
-		  });
-	  },
-	  success: function( file, response ) {
-		  obj = JSON.parse(response);
-		  $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
-	  },	
-	  removedfile: function(file) {
-		  var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
-		  var name = server_file; 
-		  //console.log(file);
-		  
-		  $.ajax({
-			  type: 'POST',
-			  url: 'vendor/delete-product-image',
-			  data: { 
-				  "token": "{{ csrf_token() }}",
-				  name: name 
-			  },
-			  success: function(data){
-				  console.log('success: ' + data);
-			  }, error: function(error) {
-				  console.log('Error: ', error.data);
-			  }
-		  });
-		  var _ref;
-		  return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-	  }
-  };
+    init: function() {
+        this.on("maxfilesexceeded", function(file) {
+            this.removeAllFiles();
+            this.addFile(file);
+        });
+    },
+    success: function(file, response) {
+        obj = JSON.parse(response);
+        $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
+    },
+    removedfile: function(file) {
+        var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
+        var name = server_file;
+        //console.log(file);
+
+        $.ajax({
+            type: 'POST',
+            url: 'vendor/delete-product-image',
+            data: {
+                "token": "{{ csrf_token() }}",
+                name: name
+            },
+            success: function(data) {
+                console.log('success: ' + data);
+            },
+            error: function(error) {
+                console.log('Error: ', error.data);
+            }
+        });
+        var _ref;
+        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+    }
+};
 
 
 
 // Dropzone 5
 Dropzone.options.dpzSingleFileP5 = {
-	paramName: "fileDropzone", // The name that will be used to transfer the file
-	maxFiles: 1,
-	addRemoveLinks: false,
-	headers: {
-	  'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-	},
-	previewTemplate: 
-	  `<div class="dz-preview dz-complete dz-image-preview">
+    paramName: "fileDropzone", // The name that will be used to transfer the file
+    maxFiles: 1,
+    thumbnailWidth: "250",
+    thumbnailHeight: "250",
+    addRemoveLinks: false,
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
+    },
+    previewTemplate: `<div class="dz-preview dz-complete dz-image-preview">
 		  <div class="dz-image">
 			  <img
 			  data-dz-thumbnail
@@ -302,35 +311,36 @@ Dropzone.options.dpzSingleFileP5 = {
 			  <i class="fa fa-times"></i>
 		  </a>
 	  </div>`,
-	  init: function () {
-		  this.on("maxfilesexceeded", function (file) {
-			  this.removeAllFiles();
-			  this.addFile(file);
-		  });
-	  },
-	  success: function( file, response ) {
-		  obj = JSON.parse(response);
-		  $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
-	  },	
-	  removedfile: function(file) {
-		  var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
-		  var name = server_file; 
-		  //console.log(file);
-		  
-		  $.ajax({
-			  type: 'POST',
-			  url: 'vendor/delete-product-image',
-			  data: { 
-				  "token": "{{ csrf_token() }}",
-				  name: name 
-			  },
-			  success: function(data){
-				  console.log('success: ' + data);
-			  }, error: function(error) {
-				  console.log('Error: ', error.data);
-			  }
-		  });
-		  var _ref;
-		  return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
-	  }
-  };
+    init: function() {
+        this.on("maxfilesexceeded", function(file) {
+            this.removeAllFiles();
+            this.addFile(file);
+        });
+    },
+    success: function(file, response) {
+        obj = JSON.parse(response);
+        $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
+    },
+    removedfile: function(file) {
+        var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
+        var name = server_file;
+        //console.log(file);
+
+        $.ajax({
+            type: 'POST',
+            url: 'vendor/delete-product-image',
+            data: {
+                "token": "{{ csrf_token() }}",
+                name: name
+            },
+            success: function(data) {
+                console.log('success: ' + data);
+            },
+            error: function(error) {
+                console.log('Error: ', error.data);
+            }
+        });
+        var _ref;
+        return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+    }
+};

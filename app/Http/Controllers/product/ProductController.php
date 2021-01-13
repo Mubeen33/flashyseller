@@ -442,9 +442,26 @@ class ProductController extends Controller
     /*=========== existing product search, view and add ========= */
     //search_existing_product
     public function search_existing_product(){
-        return view('product.existing_product.search');
+        $data['category']=Category::where("parent_id",0)->get();
+       
+        return view('product.existing_product.search',$data);
     }
+    public function ajax_category_find(Request $request){
+       if(!empty($_GET)){
+        $data['category'] = Category::where("parent_id", $_GET['id'])->get();
+        $data['cat_count'] = $_GET['cat_count'];
+        if(empty(count($data['category']))){
+            return null;
+        }
+        else{
+            return view('product.existing_product.partials.ajax-category-select',$data);
 
+        }
+       }else{
+           return null;
+       }
+         
+    }
     public function ajax_fetch_existing_products(Request $request){
         if ($request->ajax()) {
             $searchKey = $request->search_key;
