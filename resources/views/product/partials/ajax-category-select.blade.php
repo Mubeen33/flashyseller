@@ -14,7 +14,7 @@
     
      <ul id="category_ul_{{$cat_count}}" class="categoryUl"  style="list-style-type: none; padding-left: inherit;" >
          @foreach($category as $catRow )
-         <li   class="catlogLi"><a class="dropdown-item" href="void:javascript()" onclick="category('{{$catRow->id}}','sub_category','catdiv_{{$cat_count}}')" >{{$catRow->name}}</a></li>
+         <li   class="catlogLi"><a class="dropdown-item" href="void:javascript()" onclick="category('{{$catRow->id}}','sub_category','catdiv_{{$cat_count}}','category_ul_{{$cat_count}}')" >{{$catRow->name}}</a></li>
          @endforeach
        
      </ul>

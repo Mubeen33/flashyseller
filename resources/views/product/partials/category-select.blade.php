@@ -12,10 +12,10 @@
                   
                </fieldset>
              <fieldset class="form-group scrollerdiv" style="border: 1px solid #ccc!important;">
-              @if(!empty($category))
+              @if(!empty($categoryList))
                <ul id="maincategory"  class="categoryUl"  style="list-style-type: none; padding-left: inherit;" >
-                   @foreach($category as $catRow )
-                   <li   class="catlogLi"><a class="dropdown-item" href="void:javascript()" onclick="category('{{$catRow->id}}','category','supperParent')" >{{$catRow->name}}</a></li>
+                   @foreach($categoryList as $catRow )
+                   <li   class="catlogLi"><a class="dropdown-item"  href="void:javascript()" onclick="category('{{$catRow->id}}','category','supperParent','maincategory')" >{{$catRow->name}}</a></li>
                    @endforeach
                  
                </ul>

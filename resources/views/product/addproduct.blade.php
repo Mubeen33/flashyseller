@@ -13,19 +13,116 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css')}}">
     <link href="{{ asset('app-assets/vendors/css/jquery.tagsinput-revisited.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/addproduct.css')}}" rel="stylesheet" type="text/css">
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/product_category.css')}}">
 	<?php $today=date('YmdHi');
 	$startDate=date('YmdHi', strtotime('2012-03-14 09:06:00'));
 	$range=$today - $startDate;
 	$prod_img_id=rand(0, $range);
 	?>
+<style>
+	.catulActive{
+		border-color: #4839EB !important;
+    background-color: #7367F0 !important;
+    color: #FFFFFF;
+
+	}
+	
+</style>
+	
 <div class="content-body">
 	<div class="container-fluid">
             @if(session('msg'))
                   {!! session('msg') !!}
                 @endif
 			  <!-- Photos -->
-			  
+			  <div class="card form-group">
+				<div class="card-body">
+					
+				   <div class="row">
+					   <div class="col-lg-12">
+						   <label class="mb-xs-1 strong">Photos</label> <br/>
+						   <p class="text-gray-lighter">Add as many as you can so buyers can see every detail<small>(Use up to ten photos to show your item's most important qualities).</small> </p>	
+						   <label class="text-smaller text-gray-lighte"> Tips: </label>
+					   </div>
+				   </div>
+				   <div class="row">
+					   <div  class="col-lg-2 col-md-3">
+						   <ul class="text-smaller text-gray-lighter">
+							   <li>Use natural light and no flash. </li>
+							   <li>Include a common object for scale. </li>
+							   <li>Show the item being held, worn, or used. </li>
+							   <li>Shoot against a clean, simple background. </li>
+						   </ul>
+					   </div>
+
+					   <div class="col-lg-2 col-md-3 col22">
+						   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+							   method="POST"  
+							   enctype="multipart/form-data" 
+							   class="dropzone dropzone-area"
+							   id="dpz-single-file-p1"
+						   >
+						   @csrf
+							   <input type="hidden" name="fileDropzone" />
+						   </form>
+					   </div>
+					   <div class="col-lg-2 col-md-3 col22">
+						   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+							   method="POST"  
+							   enctype="multipart/form-data" 
+							   class="dropzone dropzone-area" 
+							   id="dpz-single-file-p2"
+						   >  
+						   @csrf
+							   <input type="hidden" name="fileDropzone" />
+						   </form>
+					   </div>
+					   <div class="col-lg-2 col-md-3 col22">
+						   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+							   method="POST"  
+							   enctype="multipart/form-data" 
+							   class="dropzone dropzone-area" 
+							   id="dpz-single-file-p3"
+						   >  
+						   @csrf
+							   <input type="hidden" name="fileDropzone" />
+						   </form>
+					   </div>  
+					   <div class="col-lg-2 col-md-3 col22">
+						   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+							   method="POST"  
+							   enctype="multipart/form-data" 
+							   class="dropzone dropzone-area" 
+							   id="dpz-single-file-p4" 
+						   >  
+						   @csrf
+							   <input type="hidden" name="fileDropzone" />
+						   </form>
+					   </div>  
+					   <div class="col-lg-2 col-md-3 col22">
+						   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+							   method="POST"  
+							   enctype="multipart/form-data" 
+							   class="dropzone dropzone-area" 
+							   id="dpz-single-file-p5"
+						   >  
+						   @csrf
+							   <input type="hidden" name="fileDropzone" />
+						   </form> 
+					   </div>
+					   </div>  
+					   <br />      
+						   <div class="row">
+							   <div class="col-lg-2"></div>
+							   <div class="col-lg-8 ml-3">
+								   <p class="strong mb-xs-2"> Link photos to variations </p>
+								   <p class="text-smaller text-gray-lighter">
+									   Add photos to your variations so buyers can see all their options. Try it out
+								   </p>
+							   </div>
+						   </div>     			
+				   </div>
+			 </div>
 			  <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data" id="choice_form">
 				@csrf
 				<input type="hidden" name="image_id" value="{{$prod_img_id}}">      
@@ -109,22 +206,32 @@
 											 </select>
 										 </div>
 									 </div> --}}
-									 <div class="row">
-										 <div class="col-lg-3">
+									 <div class="row" style="margin-bottom: 3%;">
+										 {{-- <div class="col-lg-3">
 											 <div class="mb-xs-2 strong"> Category 
 												 <span class="text-gray-lightest">*</span> 
 											 </div>
 											 <p class="text-smaller text-gray-lighter">
 												 Type a two- or three-word description of your item to get category suggestions that will help more shoppers find it.
 											 </p>
-										 </div>
-										 <div class="col-lg-9"> <br />
-											 <input type="text" id="category_search" class="form-control" name="" />
+										 </div> --}}
+										 <div class="col-lg-12"> <br />
+											 {{-- <input type="text" id="category_search" class="form-control" name="" />
 											<input type="hidden" name="category_id" id='category_id' value="">
 											<i id="filtersubmit" class="fa fa-search"></i>
 											<div id="render__data">
 												@include('product.partials.auto-category')
-											</div>
+											</div> --}}
+											<div class="row resources" >
+											<div class="container"  id="resource-slider" >
+												<button class='arrow prev btn btn-primary waves-effect waves-light'></button>
+												<button class='arrow next btn btn btn-primary waves-effect waves-light' id="nextslider"></button>
+												<div class=" resource-slider-frame" id="categoryDivs">
+													@include('product.partials.category-select')
+												   
+												</div>
+								            </div>
+								            </div>
 										 </div>
 									 </div>
 									<div id="render__customfields__data">
@@ -171,11 +278,16 @@
 											 <textarea class="form-control textarea" rows="10" name="description"></textarea>
 										 </div>
 									 </div>
+									 <div class="row" id="titleBtn">
+										<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
+											<a  href="javascript:void(0)" onclick="nextShow('inventoryDiv','titleBtn')" class="btn btn-primary waves-effect waves-light">Next</a>
+										</div>
+									</div>
 						  </div>
 					  </div>
 					  <!-- End Listing Details -->
 					  <!-- Inventory and pricing  -->
-					  <div class="card">
+					  <div class="card" id="inventoryDiv" style="display: none">
 						  <div class="card-body">
 							  <div class="mb-xs-1 strong"> Inventory and Dimension
 						  </div> <br />
@@ -191,29 +303,29 @@
 								  <input type="text" class="form-control" name="sku" placeholder="SKU"/>
 							  </div>
 						  </div>
-					<div class="row">
-					  <div class="col-lg-3">
-						<div class="mb-xs-2 strong"> Width </div>
-						<p class="text-smaller text-gray-lighter">
-							Width description 
-						</p>
-						<input type="text" class="form-control" name="width"  placeholder="Width"/>
-					  </div>
-					  <div class="col-lg-3">
-						<div class="mb-xs-2 strong"> Height  </div>
-						<p class="text-smaller text-gray-lighter">
-							Height description 
-						</p>
-						<input type="text" class="form-control" name="hieght" placeholder="Height"/>
-					  </div>
-					  <div class="col-lg-3">
-						<div class="mb-xs-2 strong"> Length  </div>
-						<p class="text-smaller text-gray-lighter">
-							Length description 
-						</p>
-						<input type="text" class="form-control" name="length" placeholder="Length"/>
-					  </div>
-					</div>
+						<div class="row">
+							<div class="col-lg-3">
+								<div class="mb-xs-2 strong"> Width </div>
+								<p class="text-smaller text-gray-lighter">
+									Width description 
+								</p>
+								<input type="text" class="form-control" name="width"  placeholder="Width"/>
+							</div>
+							<div class="col-lg-3">
+								<div class="mb-xs-2 strong"> Height  </div>
+								<p class="text-smaller text-gray-lighter">
+									Height description 
+								</p>
+								<input type="text" class="form-control" name="hieght" placeholder="Height"/>
+							</div>
+							<div class="col-lg-3">
+								<div class="mb-xs-2 strong"> Length  </div>
+								<p class="text-smaller text-gray-lighter">
+									Length description 
+								</p>
+								<input type="text" class="form-control" name="length" placeholder="Length"/>
+							</div>
+						</div>
 					
 						  <hr />
 						  <div class="row">
@@ -223,14 +335,18 @@
 							  </div>
 						  </div>
 						  <div class="row">
-								  <div class="col-lg-10">
+								 <div class="col-lg-10">
 									<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light">
 										Add Variations
 									</button>
 								</div>
 								
-								  </div>
-								
+						  </div>
+						  <div class="row" id="inventoryBtn">
+							<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
+								<a  href="javascript:void(0)" onclick="nextShow('customer_options','inventoryBtn')" class="btn btn-primary waves-effect waves-light">Next</a>
+							</div>
+						</div>	
 						  </div>
 					  </div>
 					<div style="display: none;" id="variant-card">
@@ -259,106 +375,22 @@
 					</div>
 					
 					
-						<div class="card" id="customer_options">
+					<div class="card" id="customer_options" style="display: none">
 							<div class="card-body" id="customer_choices">
+
 							</div>
-				<div class="card-body" id="customer_choice_options">
-				</div>
-				<div class="text-right mb-3" style="position: relative;right: 45px;">
-					<button type="submit" class="btn btn-warning">Submit</button>
-				</div>
-						</div>
+				         <div class="card-body" id="customer_choice_options">
+
+						 </div>
+						 
+				         <div class="text-right mb-20" >
+					         <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+				         </div>
+			       </div>
 				
 				  <!-- End Inventory and pricing  -->
 			</form> 
-      		<div class="card form-group">
-             	<div class="card-body">
-					 
-					<div class="row">
-						<div class="col-lg-12">
-							<label class="mb-xs-1 strong">Photos</label> <br/>
-							<p class="text-gray-lighter">Add as many as you can so buyers can see every detail<small>(Use up to ten photos to show your item's most important qualities).</small> </p>	
-							<label class="text-smaller text-gray-lighte"> Tips: </label>
-						</div>
-					</div>
-					<div class="row">
-						<div  class="col-lg-2 col-md-3">
-							<ul class="text-smaller text-gray-lighter">
-								<li>Use natural light and no flash. </li>
-								<li>Include a common object for scale. </li>
-								<li>Show the item being held, worn, or used. </li>
-								<li>Shoot against a clean, simple background. </li>
-							</ul>
-						</div>
-
-						<div class="col-lg-2 col-md-3 col22">
-							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-								method="POST"  
-								enctype="multipart/form-data" 
-								class="dropzone dropzone-area"
-								id="dpz-single-file-p1"
-							>
-							@csrf
-								<input type="hidden" name="fileDropzone" />
-							</form>
-						</div>
-						<div class="col-lg-2 col-md-3 col22">
-							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-								method="POST"  
-								enctype="multipart/form-data" 
-								class="dropzone dropzone-area" 
-								id="dpz-single-file-p2"
-							>  
-							@csrf
-								<input type="hidden" name="fileDropzone" />
-							</form>
-						</div>
-						<div class="col-lg-2 col-md-3 col22">
-							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-								method="POST"  
-								enctype="multipart/form-data" 
-								class="dropzone dropzone-area" 
-								id="dpz-single-file-p3"
-							>  
-							@csrf
-								<input type="hidden" name="fileDropzone" />
-							</form>
-						</div>  
-						<div class="col-lg-2 col-md-3 col22">
-							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-								method="POST"  
-								enctype="multipart/form-data" 
-								class="dropzone dropzone-area" 
-								id="dpz-single-file-p4" 
-							>  
-							@csrf
-								<input type="hidden" name="fileDropzone" />
-							</form>
-						</div>  
-						<div class="col-lg-2 col-md-3 col22">
-							<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-								method="POST"  
-								enctype="multipart/form-data" 
-								class="dropzone dropzone-area" 
-								id="dpz-single-file-p5"
-							>  
-							@csrf
-								<input type="hidden" name="fileDropzone" />
-							</form> 
-						</div>
-						</div>  
-						<br />      
-            				<div class="row">
-            					<div class="col-lg-2"></div>
-            					<div class="col-lg-8 ml-3">
-            						<p class="strong mb-xs-2"> Link photos to variations </p>
-            						<p class="text-smaller text-gray-lighter">
-            							Add photos to your variations so buyers can see all their options. Try it out
-            						</p>
-            					</div>
-            				</div>     			
-      			  </div>
-      		</div>
+      		
     
        
 	    </div>
@@ -542,6 +574,163 @@ var i = 0;
       });
   </script>
 
+<script>
+    function search(cat_input,cat_id) {
+      // Declare variables
+      var input, filter, ul, li, a, i, txtValue;
+      input = document.getElementById(cat_input);
+      filter = input.value.toUpperCase();
+      ul = document.getElementById(cat_id);
+      li = ul.getElementsByTagName('li');
+    
+      // Loop through all list items, and hide those who don't match the search query
+      for (i = 0; i < li.length; i++) {
+        a = li[i].getElementsByTagName("a")[0];
+        txtValue = a.textContent || a.innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+          li[i].style.display = "";
+        } else {
+          li[i].style.display = "none";
+        }
+      }
+    }
+    </script>
+   
+<script type="text/javascript" src="{{ asset('js/ajax-pagination.js') }}"></script>
+<script>
+    
+    var cat_count =0; 
+function category(catid,ulID,type,catulID){
+	$( 'ul#'+catulID+' li' ).on( 'click', function() {
+                $( this ).parent().find( 'li.catulActive' ).removeClass( 'catulActive' );               
+				$( this ).addClass( 'catulActive' );
+				
+			
+          });
+    var typesuper=0;
+    cat_count++;
+    $('#'+type+'').nextAll('.alldiv').remove();
+    $.ajax({
+            
+            url: "{{route('vendor.ajaxCategoryFind')}}",
+            methods: "POST",           
+            data:{id: catid,type: type,typesuper: typesuper,cat_count:cat_count},
+            success: function(data){
+               if(data==null){
+               }
+               else{
+                   
+                 $(data).appendTo("#categoryDivs");
+                 $('#resource-slider .resource-slider-item').each(function(i) {
+                 var $this = $(this),
+                 left = $this.width() * i;
+                 $this.css({
+                  left: left
+                  })
+                 }); // end each
+                 $('#nextslider').click();
+               }
+                
+            }
+        });
+        if(typesuper==0){
+        typesuper=1;
+    }
 
+}
+
+    function defer(method) {
+      if (window.jQuery)
+        method();
+      else
+        setTimeout(function() {
+          defer(method)
+        }, 50);
+    }
+    defer(function() {
+      (function($) {
+        
+        function doneResizing() {
+          var totalScroll = $('.resource-slider-frame').scrollLeft();
+          var itemWidth = $('.resource-slider-item').width();
+          var difference = totalScroll % itemWidth;
+          if ( difference !== 0 ) {
+            $('.resource-slider-frame').animate({
+              scrollLeft: '-=' + difference
+            }, 500, function() {
+              // check arrows
+              checkArrows();
+            });
+          }
+        }
+        
+        function checkArrows() {
+          var totalWidth = $('#resource-slider .resource-slider-item').length * $('.resource-slider-item').width();
+          var frameWidth = $('.resource-slider-frame').width();
+          var itemWidth = $('.resource-slider-item').width();
+          var totalScroll = $('.resource-slider-frame').scrollLeft();
+          
+          if ( ((totalWidth - frameWidth) - totalScroll) < itemWidth ) {
+            $(".next").css("visibility", "visible");
+          }
+          else {
+            $(".next").css("visibility", "visible");
+          }
+          if ( totalScroll < itemWidth ) {
+            $(".prev").css("visibility", "visible");
+          }
+          else {
+            $(".prev").css("visibility", "visible");
+          }
+        }
+        
+        $('.arrow').on('click', function() {
+          var $this = $(this),
+            width = $('.resource-slider-item').width(),
+            speed = 500;
+          if ($this.hasClass('prev')) {
+            $('.resource-slider-frame').animate({
+              scrollLeft: '-=' + width
+            }, speed, function() {
+              // check arrows
+              checkArrows();
+            });
+          } else if ($this.hasClass('next')) {
+            $('.resource-slider-frame').animate({
+              scrollLeft: '+=' + width
+            }, speed, function() {
+              // check arrows
+              checkArrows();
+            });
+          }
+        }); // end on arrow click
+        
+        $(window).on("load resize", function() {
+          checkArrows();
+          $('#resource-slider .resource-slider-item').each(function(i) {
+            var $this = $(this),
+              left = $this.width() * i;
+            $this.css({
+              left: left
+            })
+          }); // end each
+        }); // end window resize/load
+        
+        var resizeId;
+        $(window).resize(function() {
+            clearTimeout(resizeId);
+            resizeId = setTimeout(doneResizing, 500);
+        });
+        
+      })(jQuery); // end function
+    });
+   
+	</script>
+	<script>
+		function nextShow(nextDiv,prevBtn){
+			$('#'+nextDiv).css('display', 'block');
+			$('#'+prevBtn).css('display', 'none');
+		}
+	</script>
 @endsection
     

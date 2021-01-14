@@ -37,9 +37,9 @@ class ProductController extends Controller
     }
     // 
     public function index(){
-
+        $categoryList=Category::where("parent_id",0)->get();
     	$variationList = Variation::where('active',1)->get();
-    	return view('product.addproduct',compact('variationList'));
+    	return view('product.addproduct',compact('variationList','categoryList'));
         
     }
     // product Images
@@ -221,8 +221,7 @@ class ProductController extends Controller
 
         // dd($request);
     	$product = new Product();
-
-    	$product->title        = $request->title;
+        $product->title        = $request->title;
     	$product->category_id  = $request->category_id;
     	$product->description  = $request->description;
     	$product->image_id     = $request->image_id;
@@ -454,7 +453,7 @@ class ProductController extends Controller
             return null;
         }
         else{
-            return view('product.existing_product.partials.ajax-category-select',$data);
+            return view('product.partials.ajax-category-select',$data);
 
         }
        }else{
