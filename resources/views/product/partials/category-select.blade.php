@@ -11,9 +11,9 @@
                    </div>
                   
                </fieldset>
-             <fieldset class="form-group scrollerdiv" style="border: 1px solid #ccc!important;">
+             <fieldset class="form-group scrollerdiv"  style="border: 1px solid #ccc!important;">
               @if(!empty($categoryList))
-               <ul id="maincategory"  class="categoryUl"  style="list-style-type: none; padding-left: inherit;" >
+               <ul id="maincategory"   class="categoryUl"  style="list-style-type: none; padding-left: inherit;" >
                    @foreach($categoryList as $catRow )
                    <li   class="catlogLi"><a class="dropdown-item"  href="void:javascript()" onclick="category('{{$catRow->id}}','category','supperParent','maincategory')" >{{$catRow->name}}</a></li>
                    @endforeach

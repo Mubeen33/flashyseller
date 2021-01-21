@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\product;
-
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\FileUploader;
 use Illuminate\Http\Request;
@@ -215,83 +215,132 @@ class ProductController extends Controller
         }
     }
     // 
-    // addProduct
-
+    // addProduct title,categories and customfields start
+    private function addProductTitle($request){
+            $category=null;
+            $category_id=null;
+            if(!empty($request->input('cate_id'))){
+                $categoryArr=$request->input('cate_id');
+             for($i=0;$i<count($categoryArr); $i++) {
+                 if($i==0){
+                    $category=$categoryArr[$i];
+                 }else{
+                    $category.=','.$categoryArr[$i];
+                 }
+    
+                
+                  
+                
+                
+             }
+             $category_id=array_values(array_slice($request->input('cate_id'), -1))[0];
+            }
+            
+            $product = new Product();
+            if(!empty($category) && !empty($request->input('cate_id'))){
+    
+                $product->title        = $request->input('title');
+                $product->category_id  = $category;
+                $product->slug         = Str::slug($request->input('title'), '-');
+                $product->vendor_id    = Auth::id();
+                 //$product->video_link   = $request->video_link;
+               // generating mannual Id
+                $today     = date('YmdHi');
+                $startDate = date('YmdHi', strtotime('2012-03-14 09:06:00'));
+                $range     = $today - $startDate;
+                $tsnid     = rand(0, $range);
+                //generating mannual Id end  
+                $product->tsnid = $tsnid;
+                $product->save();
+                
+                $Id = $product->id;
+                
+                //custome fields start
+                 if ($request['element_0']) {
+                        
+                        $data = array();
+                        $i = 0;
+                        
+                        foreach (json_decode(CustomField::where('category_id', $category_id)->first()->options) as $key => $element) {
+                            
+                            $item = array();
+                            if ($element->type == 'text') {
+                                $item['type'] = 'text';
+                                $item['label'] = $element->label;
+                                $item['value'] = $request['element_'.$i];
+                            }
+                            elseif ($element->type == 'select' || $element->type == 'radio') {
+                                $item['type'] = 'select';
+                                $item['label'] = $element->label;
+                                $item['value'] = $request['element_'.$i];
+                            }
+                            elseif ($element->type == 'multi_select') {
+                                $item['type'] = 'multi_select';
+                                $item['label'] = $element->label;
+                                $item['value'] = json_encode($request['element_'.$i]);
+                            }
+                            elseif ($element->type == 'file') {
+                                $item['type'] = 'file';
+                                $item['label'] = $element->label;
+                                $item['value'] = $request['element_'.$i]->move('product_images/media',$request['element_'.$i]);
+                            }
+                            array_push($data, $item);
+                            $i++;
+                        }
+    
+                        $productCustomFields = new ProductCustomField();
+                        $productCustomFields->product_id = $Id;
+                        $productCustomFields->customfields = json_encode($data);
+                        $productCustomFields->save();
+                    }
+                
+            }
+            $responseData=array(
+    
+                'product_id' => encrypt($Id),
+                'msg' => 'Product Created Successfully'
+            );
+           
+            return json_encode($responseData);
+           
+            
+    }
+    // addProduct title,categories and customfields end
+    //update current product code start
+    private function updateCurrentProduct($request){
+        $responseData=array(
+    
+            'product_id' => $request->input('productId'),
+            'msg' => 'Product Already Created'
+        ); 
+        return json_encode($responseData);
+    }
+    //update current product code end
+    //main addproduct action
     public function addProduct(Request $request){
 
-        // dd($request);
-    	$product = new Product();
-        $product->title        = $request->title;
-    	$product->category_id  = $request->category_id;
-    	$product->description  = $request->description;
-    	$product->image_id     = $request->image_id;
-    	$product->what_is_it   = $request->what_is_it;
-    	$product->made_date    = $request->made_date;
-    	$product->made_by      = $request->made_by;
-    	$product->renewal      = $request->renewal;
-    	$product->product_type = $request->product_type;
+      //  title,category and custom fields form data submit
+         if(!empty($request->input('action')) && $request->input('action')=='titleForm' && empty($request->input('productId')) && $request->input('productId')=='')
+         {
+             return $this->addProductTitle($request);
+      
+         }
+        if(!empty($request->input('action')) && $request->input('action')=='titleForm' && !empty($request->input('productId')) && $request->input('productId')!='')
+        {
+            return $this->updateCurrentProduct($request);
+        }
+        exit;
+        $product->description  = $request->input('description');
+        $product->image_id     = $request->image_id;
+        $product->product_type = $request->product_type;
     	$product->sku          = $request->sku;
         $product->width          = $request->width;
         $product->hieght          = $request->hieght;
         $product->length          = $request->length;
-        if ($request->has('warranty')) {
-            $product->warranty          = $request->warranty;
-        }    
-    	$product->vendor_id    = Auth::id();
-    	$product->video_link   = $request->video_link;
-        $product->slug         = str_replace(" ","-", $request->title);
-
-        // generating mannual Id
-
-          $today     = date('YmdHi');
-          $startDate = date('YmdHi', strtotime('2012-03-14 09:06:00'));
-          $range     = $today - $startDate;
-          $tsnid     = rand(0, $range);
-        // 
-
-        $product->tsnid = $tsnid;
-
-    	$product->save();
-
-    	$Id = $product->id;
-
-    	if ($request['element_0']) {
-    		
-    		$data = array();
-	        $i = 0;
-
-	        foreach (json_decode(CustomField::where('category_id', $request->category_id)->first()->options) as $key => $element) {
-	        	
-	            $item = array();
-	            if ($element->type == 'text') {
-	                $item['type'] = 'text';
-	                $item['label'] = $element->label;
-	                $item['value'] = $request['element_'.$i];
-	            }
-	            elseif ($element->type == 'select' || $element->type == 'radio') {
-	                $item['type'] = 'select';
-	                $item['label'] = $element->label;
-	                $item['value'] = $request['element_'.$i];
-	            }
-	            elseif ($element->type == 'multi_select') {
-	                $item['type'] = 'multi_select';
-	                $item['label'] = $element->label;
-	                $item['value'] = json_encode($request['element_'.$i]);
-	            }
-	            elseif ($element->type == 'file') {
-	                $item['type'] = 'file';
-	                $item['label'] = $element->label;
-	                $item['value'] = $request['element_'.$i]->move('product_images/media',$request['element_'.$i]);
-	            }
-	            array_push($data, $item);
-	            $i++;
-	        }
-
-	        $productCustomFields = new ProductCustomField();
-	        $productCustomFields->product_id = $Id;
-	        $productCustomFields->customfields = json_encode($data);
-	        $productCustomFields->save();
-    	}
+        // if ($request->has('warranty')) {
+        //     $product->warranty = $request->warranty;
+        // }    
+    	//insert veriations in 
     	if ($request->has('variation_name')) {
             
             $count        = count($request->variation_name);
@@ -450,9 +499,10 @@ class ProductController extends Controller
         $data['category'] = Category::where("parent_id", $_GET['id'])->get();
         $data['cat_count'] = $_GET['cat_count'];
         if(empty(count($data['category']))){
-            return null;
+            return '<input class="alldiv" type="hidden" name="cate_id[]" value="'.$_GET['id'].'" >';
         }
         else{
+            $data['category_id'] = $_GET['id'];
             return view('product.partials.ajax-category-select',$data);
 
         }

@@ -4,18 +4,18 @@
                 @foreach(json_decode($customField->options) as $key =>$field)
                         @if ($field->type == 'text')
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-xs-2 strong">
                                                         {{ $field->label }} 
                                                 </div>
                                             </div>
-                                            <div class="col-lg-4">
+                                            <div class="col-lg-10">
                                                 <input type="{{ $field->type }}" class="form-control mb-3" placeholder="{{ $field->label }}" name="element_{{ $key }}" required>
                                             </div>
-                                        </div><br>
-                            @elseif($field->type == 'file')
+                                        </div>
+                                       @elseif($field->type == 'file')
                                         <div class="row">
-                                            <div class="col-lg-3">
+                                            <div class="col-lg-2">
                                                 <div class="mb-xs-2 strong">
                                                         {{ $field->label }} 
                                                 </div>
@@ -34,7 +34,7 @@
                         @elseif ($field->type == 'select' && is_array(json_decode($field->options)))
                                 
                                 <div class="row">
-                                        <div class="col-lg-3">
+                                        <div class="col-lg-2">
                                                 <div class="mb-xs-2 strong">
                                                         {{ $field->label }} 
                                                 </div>
@@ -47,7 +47,7 @@
                                                         @endforeach
                                                 </select>
                                         </div>
-                                </div><br/>
+                                </div>
                         {{-- @elseif ($field->type == 'multi_select' && is_array(json_decode($field->options))) --}}
                                 {{-- <div class="row">
                                         <div class="col-lg-3">
