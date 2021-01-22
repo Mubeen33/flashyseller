@@ -227,12 +227,7 @@ class ProductController extends Controller
                  }else{
                     $category.=','.$categoryArr[$i];
                  }
-    
-                
-                  
-                
-                
-             }
+                }
              $category_id=array_values(array_slice($request->input('cate_id'), -1))[0];
             }
             
@@ -308,17 +303,86 @@ class ProductController extends Controller
     // addProduct title,categories and customfields end
     //update current product code start
     private function updateCurrentProduct($request){
-        $responseData=array(
+        $category=null;
+            $category_id=null;
+            if(!empty($request->input('cate_id'))){
+                $categoryArr=$request->input('cate_id');
+             for($i=0;$i<count($categoryArr); $i++) {
+                 if($i==0){
+                    $category=$categoryArr[$i];
+                 }else{
+                    $category.=','.$categoryArr[$i];
+                 }
+                }
+             $category_id=array_values(array_slice($request->input('cate_id'), -1))[0];
+            }
+            
+           
+            $prodID=decrypt($request->input('productId'));
+            $product = Product::where('id',$prodID)->first();
+           
+            if(!empty($category) && !empty($request->input('cate_id'))){
     
-            'product_id' => $request->input('productId'),
-            'msg' => 'Product Already Created'
-        ); 
-        return json_encode($responseData);
+                $product->title        = $request->input('title');
+                $product->category_id  = $category;
+                $product->slug         = Str::slug($request->input('title'), '-');
+                $product->save();
+                
+                //custome fields start
+                 if ($request['element_0']) {
+                        
+                        $data = array();
+                        $i = 0;
+                        
+                        foreach (json_decode(CustomField::where('category_id', $category_id)->first()->options) as $key => $element) {
+                            
+                            $item = array();
+                            if ($element->type == 'text') {
+                                $item['type'] = 'text';
+                                $item['label'] = $element->label;
+                                $item['value'] = $request['element_'.$i];
+                            }
+                            elseif ($element->type == 'select' || $element->type == 'radio') {
+                                $item['type'] = 'select';
+                                $item['label'] = $element->label;
+                                $item['value'] = $request['element_'.$i];
+                            }
+                            elseif ($element->type == 'multi_select') {
+                                $item['type'] = 'multi_select';
+                                $item['label'] = $element->label;
+                                $item['value'] = json_encode($request['element_'.$i]);
+                            }
+                            elseif ($element->type == 'file') {
+                                $item['type'] = 'file';
+                                $item['label'] = $element->label;
+                                $item['value'] = $request['element_'.$i]->move('product_images/media',$request['element_'.$i]);
+                            }
+                            array_push($data, $item);
+                            $i++;
+                        }
+    
+                        $productCustomFields =ProductCustomField::where('product_id',$prodID)->first();;
+                        $productCustomFields->product_id = $prodID;
+                        $productCustomFields->customfields = json_encode($data);
+                        $productCustomFields->save();
+                    }
+                
+            }
+            $responseData=array(
+    
+                'product_id' => encrypt($prodID),
+                'msg' => 'Product Updated Successfully'
+            );
+           
+            return json_encode($responseData);
+           
+         
     }
     //update current product code end
     //main addproduct action
     public function addProduct(Request $request){
-
+      
+       
       //  title,category and custom fields form data submit
          if(!empty($request->input('action')) && $request->input('action')=='titleForm' && empty($request->input('productId')) && $request->input('productId')=='')
          {
@@ -327,16 +391,69 @@ class ProductController extends Controller
          }
         if(!empty($request->input('action')) && $request->input('action')=='titleForm' && !empty($request->input('productId')) && $request->input('productId')!='')
         {
+           
             return $this->updateCurrentProduct($request);
         }
+
+        if(!empty($request['action']) && $request['action']=='descriptionfrm' && !empty($request['description']) && !empty($request['productId']))
+        {
+           
+            $prodID=decrypt($request['productId']);
+            $product = Product::where('id',$prodID)->first();
+            $product->description  = $request['description'];
+            if($product->save()){
+                $responseData=array(
+    
+                    'product_id' => encrypt($prodID),
+                    'msg' => 'Product Description Updated Successfully'
+                );
+               
+                return json_encode($responseData);
+            }else{
+                $responseData=array(
+    
+                    'product_id' => encrypt($prodID),
+                    'msg' => 'Product Description Not Updated'
+                );
+               
+                return json_encode($responseData);
+            }
+        }
+
+
+
+        
+        if(!empty($request->input('action')) && $request->input('action')=='choice_form' && empty($request->input('productId')) && $request->input('productId')=='')
+         {
+            $prodID=decrypt($request->input('productId'));
+            $product = Product::where('id',$prodID)->first();
+            $product->sku= $request->sku;
+            $product->width= $request->width;
+            $product->hieght= $request->hieght;
+            $product->length= $request->length;
+            if($product->save()){
+                $responseData=array(
+    
+                    'product_id' => encrypt($prodID),
+                    'msg' => 'Product Inventory Updated Successfully'
+                );
+               
+                return json_encode($responseData);
+            }else{
+                $responseData=array(
+    
+                    'product_id' => encrypt($prodID),
+                    'msg' => 'Product Inventory Not Updated'
+                );
+               
+                return json_encode($responseData);
+            }
+         }
         exit;
-        $product->description  = $request->input('description');
+        
         $product->image_id     = $request->image_id;
         $product->product_type = $request->product_type;
-    	$product->sku          = $request->sku;
-        $product->width          = $request->width;
-        $product->hieght          = $request->hieght;
-        $product->length          = $request->length;
+    	
         // if ($request->has('warranty')) {
         //     $product->warranty = $request->warranty;
         // }    

@@ -1,7 +1,9 @@
 //divs hide on next move code start
-function nextShow(nextDiv, prevBtn) {
+function nextShow(nextDiv) {
     $('#' + nextDiv).css('display', 'block');
-    $('#' + prevBtn).css('display', 'none');
+    //$('#' + prevBtn).css('display', 'none');
+
+
 }
 //divs hide on next move code end
 
@@ -28,6 +30,7 @@ function search(cat_input, cat_id) {
     }
 }
 //search categories dynamic code end
+
 //tinny editor code start
 tinymce.init({
     selector: '#editortiny',
@@ -36,46 +39,7 @@ tinymce.init({
     toolbar1: 'formatselect | bold italic strikethrough forecolor backcolor | alignleft aligncenter alignright alignjustify  | numlist bullist outdent indent | removeformat | paste pastetext | wordcount',
     toolbar2: 'fontsizeselect | fontselect',
     font_formats: 'Arial=arial,helvetica,sans-serif;Courier New=courier new,courier,monospace;Montserrat=Montserrat;Terminal=terminal,monaco;Times New Roman=times new roman,times;Verdana=verdana,geneva;Impact=impact,chicago;',
-    init_instance_callback: function(editor) {
-        editor.on('Change', function(e) {
-            var ed = tinyMCE.get('editortiny');
-            var description = ed.getContent();
-            var product_id = 1;
-            if (description) {
-                $.ajax({
-                    url: '/product/description',
-                    type: "POST",
-                    data: { description: description, product_id: product_id },
-                    dataType: "json",
-                    success: function(data) {
 
-
-                    }
-                });
-            }
-        });
-    },
-    init_instance_callback: function(editor) {
-        editor.on('KeyUp', function(e) {
-            var ed = tinyMCE.get('editortiny');
-            var description = ed.getContent();
-            console.log(description);
-            var product_id = 1;
-            if (description) {
-                $.ajax({
-                    url: '/product/description',
-                    type: "POST",
-                    data: { description: description, product_id: product_id },
-                    dataType: "json",
-                    success: function(data) {
-
-
-                    }
-                });
-            }
-        });
-    },
-    //end ajax call
     height: "550",
     relative_urls: false,
     remove_script_host: false,

@@ -9,7 +9,7 @@
     <script src="http://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="http://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/file-uploaders/dropzone.css')}}">
-
+    {{-- <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/forms/wizard.css')}}"> --}}
     <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/forms/select/select2.min.css')}}">
     <link href="{{ asset('app-assets/vendors/css/jquery.tagsinput-revisited.css')}}" rel="stylesheet" type="text/css">
     <link href="{{ asset('css/addproduct.css')}}" rel="stylesheet" type="text/css">
@@ -85,9 +85,9 @@
 										@include('product.partials.auto-customfields')
 									</div>
 									  
-									 <div class="row" id="titleBtn">
+									 <div class="row" >
 										<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
-											<button type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
+											<button id="titleBtn" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
 										</div>
 									</div>
 						  </div>
@@ -115,9 +115,9 @@
 									    </div>
 										</div>
 										<div class="col-lg-12">
-									    <div class="row" id="descriptionBtn">
+									    <div class="row" >
 												<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
-													<a  href="javascript:void(0)" onclick="nextShow('inventoryDiv','descriptionBtn')" class="btn btn-primary waves-effect waves-light">Next</a>
+													<a id="descriptionBtn"  href="javascript:void(0)" onclick="updatedesc('descriptionBtn')"   class="btn btn-primary waves-effect waves-light">Next</a>
 												</div>
 									   </div>
 									   </div>
@@ -126,7 +126,7 @@
 					  </div>
 					  <!--end description portion -->
 					  <!-- Inventory and pricing  -->
-					  <form action="{{url('vendor/add-product')}}" method="post" enctype="multipart/form-data" id="choice_form">
+					  <form id="choice_form" action="" method="post" enctype="multipart/form-data" >
 					  <div class="card" id="inventoryDiv" style="display: none">
 						  <div class="card-body">
 							  <div class="mb-xs-1 strong"> Inventory and Dimension
@@ -182,11 +182,7 @@
 								</div>
 								
 						  </div>
-						  <div class="row" id="inventoryBtn">
-							<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
-								<a  href="javascript:void(0)" onclick="nextShow('customer_options','inventoryBtn')" class="btn btn-primary waves-effect waves-light">Next</a>
-							</div>
-						</div>	
+						  
 						  </div>
 					  </div>
 					<div style="display: none;" id="variant-card">
@@ -215,7 +211,7 @@
 					</div>
 					
 					
-					<div class="card" id="customer_options" style="display: none">
+					<div class="card" id="customer_options" >
 							<div class="card-body" id="customer_choices">
 
 							</div>
@@ -224,7 +220,7 @@
 						 </div>
 						 
 				         <div class="text-right mb-20" >
-					         <button type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+					         <button id="inventoryBtn" type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
 				         </div>
 			       </div>
 				
@@ -232,7 +228,7 @@
 			</form> 
       		
       <!-- Photos -->
-	  <div class="card form-group">
+	  <div class="card form-group" id="imageDiv" style="display: none">
 		<div class="card-body">
 			
 		   <div class="row">
@@ -320,7 +316,7 @@
 				   </div>     			
 		   </div>
 	 </div>
-       
+
 	    </div>
   </div>
 </div>
@@ -337,6 +333,10 @@
   <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/ajax-pagination.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/add-new-products-1.js') }}"></script>
+  {{-- <script src="{{ asset('app-assets/js/scripts/forms/wizard-steps.js') }}"></script>
+  <script src="{{ asset('app-assets/vendors/js/extensions/jquery.steps.min.js') }}"></script>
+  <script src="{{ asset('app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script> --}}
+  
   <script type="text/javascript">
 
 
@@ -649,7 +649,7 @@ function category(catid,ulID,type,catulID){
 $( "#titlFrm" ).on( "submit", function(e) {
 	 
          var dataString = $(this).serialize();
-		   var product_id=null;
+		 var product_id=null; 
 			   product_id= $("#currentProductID").val();
 			   
 		$.ajax({
@@ -661,10 +661,10 @@ $( "#titlFrm" ).on( "submit", function(e) {
 						success: function (json) {
 						 
 							$("#currentProductID").val(json.product_id);
-							console.log(json);
-							if(json.msg=='Product Created Successfully'){
-
-								nextShow('description-card', 'nonediv');
+							
+							if(json.msg=='Product Created Successfully' &&  json.product_id!=''){
+								$('#titleBtn').text('Update');
+								nextShow('description-card');
 
 							}
 							
@@ -676,7 +676,64 @@ $( "#titlFrm" ).on( "submit", function(e) {
 });
 
 	</script>
+	<script>
+	
+function updatedesc(btnID){
+	var ed = tinyMCE.get('editortiny');
 
+			var description = ed.getContent();
+		
+			var product_id=null; 
+			    product_id= $("#currentProductID").val();
+            if (description) {
+                $.ajax({
+                    url: "{{url('vendor/add-product')}}",
+                    type: "POST",
+                    data: { description: description, productId: product_id, action: 'descriptionfrm' },
+                    dataType: "json",
+                    success: function(json) {
+						if(json.msg=='Product Description Updated Successfully' &&  json.product_id!=''){
+							
+							$('#'+btnID).text('Update');
+						     nextShow('inventoryDiv');
+						}
+                    }
+                });
+            }
+	//nextShow('inventoryDiv','descriptionBtn');
+}
+	</script>
+<script>
+	$( "#choice_form" ).on( "submit", function(e) {
+		 
+			 var dataString = $(this).serialize();
+			 var product_id=null; 
+				 product_id= $("#currentProductID").val();
+				   
+			$.ajax({
+							
+							type: "POST",
+							url: "{{url('vendor/add-product')}}",
+							data: dataString+"&action=choice_form&productId="+product_id,
+							dataType: 'json',
+							success: function (json) {
+							 
+								$("#currentProductID").val(json.product_id);
+								
+								if(json.msg=='Product Updated Successfully' &&  json.product_id!=''){
+									$('#inventoryBtn').text('Update');
+									nextShow('imageDiv');
+	
+								}
+								
+	
+									}
+				});
+	
+		   e.preventDefault();
+	});
+	
+		</script>
 
 @endsection
     
