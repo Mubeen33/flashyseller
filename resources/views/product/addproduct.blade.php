@@ -87,7 +87,7 @@
 									  
 									 <div class="row" >
 										<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
-											<button id="titleBtn" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
+											<button id="titleBtn" style="display: none;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
 										</div>
 									</div>
 						  </div>
@@ -122,12 +122,12 @@
 									   </div>
 									   </div>
 						        </div>
-					  </div>
+					    </div>
 					  </div>
 					  <!--end description portion -->
 					  <!-- Inventory and pricing  -->
 					  <form id="choice_form" action="" method="post" enctype="multipart/form-data" >
-					  <div class="card" id="inventoryDiv" style="display: none">
+					  <div class="card" id="inventoryDiv" style="display: none;">
 						  <div class="card-body">
 							  <div class="mb-xs-1 strong"> Inventory and Dimension
 						  </div> <br />
@@ -176,7 +176,7 @@
 						  </div>
 						  <div class="row">
 								 <div class="col-lg-10">
-									<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-light mr-1 mb-1 waves-effect waves-light">
+									<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">
 										Add Variations
 									</button>
 								</div>
@@ -211,7 +211,7 @@
 					</div>
 					
 					
-					<div class="card" id="customer_options" >
+					<div class="card" id="customer_options" style="display: none;">
 							<div class="card-body" id="customer_choices">
 
 							</div>
@@ -220,7 +220,7 @@
 						 </div>
 						 
 				         <div class="text-right mb-20" >
-					         <button id="inventoryBtn" type="submit" class="btn btn-primary waves-effect waves-light">Submit</button>
+					         <button id="inventoryBtn" style="margin-right: 2% !important;     margin-bottom: 2%;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
 				         </div>
 			       </div>
 				
@@ -313,7 +313,14 @@
 							   Add photos to your variations so buyers can see all their options. Try it out
 						   </p>
 					   </div>
-				   </div>     			
+				   </div> 
+				   <div class="row">
+					<div class="col-lg-12">
+				   <div class="text-right mb-20" >
+					<a href="{{route('vendor.addNewProduct.get')}}" id="finishProduct" style="margin-right: 2% !important;     margin-bottom: 2%;"  class="btn btn-primary waves-effect waves-light">Finish Listing</a>
+				</div>  			
+				</div>  			
+				</div>  			
 		   </div>
 	 </div>
 
@@ -363,44 +370,44 @@ $(function () {
 
 
         //search category
-    $("#category_search").on('keyup', function(){
-        //get category
-        let searchCategory = $(this).val();
+    // $("#category_search").on('keyup', function(){
+    //     //get category
+    //     let searchCategory = $(this).val();
 
-        if (!$(this).val()) {
-            $("#render__data").html('')
-            return;
-        }
-        if (searchCategory !== "") {
-            $.ajax({
-                url:"/vendor/ajax-get-category/fetch?search_key="+searchCategory,
-                method:'GET',
-                cache:false,
-                success:function(response){
-					if(response) {
-						let res = response.search('<li');
-						if(res == -1) {
-							$("#render__data .auto-complete-wrapper ul").html("<p class='pt-1 px-2'>No Result Found!</p>");
-						}
-						else {
-							$("#render__data").show();
-							$("#render__data").html(response);
-						}
-					}
-					//console.log(response);
-                },
-			});
+    //     if (!$(this).val()) {
+    //         $("#render__data").html('')
+    //         return;
+    //     }
+    //     if (searchCategory !== "") {
+    //         $.ajax({
+    //             url:"/vendor/ajax-get-category/fetch?search_key="+searchCategory,
+    //             method:'GET',
+    //             cache:false,
+    //             success:function(response){
+	// 				if(response) {
+	// 					let res = response.search('<li');
+	// 					if(res == -1) {
+	// 						$("#render__data .auto-complete-wrapper ul").html("<p class='pt-1 px-2'>No Result Found!</p>");
+	// 					}
+	// 					else {
+	// 						$("#render__data").show();
+	// 						$("#render__data").html(response);
+	// 					}
+	// 				}
+	// 				//console.log(response);
+    //             },
+	// 		});
 		
 
 			
         
-        }else{
+    //     }else{
 
-            return false;
-        }
+    //         return false;
+    //     }
 
 
-	});
+	// });
 	
 	// Disable Variant Button
 	$("#addVariantButton").prop('disabled', true);
@@ -414,8 +421,8 @@ $(function () {
         $("#category_search").val(getTitle);
         $("#render__data .auto-complete-wrapper").html('');
 
-		getCustomFields(categoryID);
-    getWarranty(categoryID);
+		//getCustomFields(categoryID);
+       //getWarranty(categoryID);
 		$("#addVariantButton").prop('disabled', false);
 		let category_id = $("#category_id").val();
 		//console.log(category_id);
@@ -442,24 +449,24 @@ $(function () {
     }
 
 // warranty
-function getWarranty(categoryID){
+// function getWarranty(categoryID){
 
-        if (categoryID !== "") {
-            $.ajax({
-                url:"/vendor/ajax-get-category-warranty/fetch?categoryId="+categoryID,
-                method:'GET',
-                cache:false,
-                success:function(response){
-                    $("#render_warranty").html(response);
-                    // console.log(response);
-                },
-            });
+//         if (categoryID !== "") {
+//             $.ajax({
+//                 url:"/vendor/ajax-get-category-warranty/fetch?categoryId="+categoryID,
+//                 method:'GET',
+//                 cache:false,
+//                 success:function(response){
+//                     $("#render_warranty").html(response);
+//                     // console.log(response);
+//                 },
+//             });
         
-        }else{
-            return false;
-        }
-    }
-
+//         }else{
+//             return false;
+//         }
+//     }
+    
 // // variant card
     function openVariant(){
         $('#variant-card').css('display','');
@@ -509,9 +516,8 @@ var i = 0;
     
     var cat_count =0; 
 function category(catid,ulID,type,catulID){
-
-	
-	 
+    $("#addVariantButton").prop('disabled', true);
+	$('#titleBtn').css('display', 'none');
 	$( 'ul#'+catulID+' li' ).on( 'click', function(event) {
 		       
                 $( this ).parent().find( 'li.catulActive' ).removeClass( 'catulActive' );               
@@ -526,12 +532,22 @@ function category(catid,ulID,type,catulID){
             
             url: "{{route('vendor.ajaxCategoryFind')}}",
             methods: "POST",           
-            data:{id: catid,type: type,typesuper: typesuper,cat_count:cat_count},
-            success: function(data){
-               if(data==null){
+			data:{id: catid,type: type,typesuper: typesuper,cat_count:cat_count},
+		    success: function(data){
+			
+               if(data.catID!=null){
+				
+				   if(data.veriant!=null){
+                    $("#addVariantButton").prop('disabled', false);
+				   }
+				
+				$('#titleBtn').css('display', 'initial');
+				$(data.catID).appendTo("#categoryDivs");
+				$('#nextslider').click();
+				 getCustomFields(catid);
                }
                else{
-                   
+				
                  $(data).appendTo("#categoryDivs");
                  $('#resource-slider .resource-slider-item').each(function(i) {
                  var $this = $(this),
@@ -650,7 +666,7 @@ $( "#titlFrm" ).on( "submit", function(e) {
 	 
          var dataString = $(this).serialize();
 		 var product_id=null; 
-			   product_id= $("#currentProductID").val();
+			 product_id= $("#currentProductID").val();
 			   
 		$.ajax({
 			            
@@ -662,15 +678,25 @@ $( "#titlFrm" ).on( "submit", function(e) {
 						 
 							$("#currentProductID").val(json.product_id);
 							
-							if(json.msg=='Product Created Successfully' &&  json.product_id!=''){
+							if(json.msg=='Product Created Successfully' || json.msg=='Product Created Successfully'  &&  json.product_id!=''){
+
+								// if(window.location.href.indexOf("?") > -1) {
+								// 	addparamsurl('productId', json.product_id, '&');
+								// 	}else{
+										
+								// 		addparamsurl('productId', json.product_id, '?');
+								// 	}
+									
 								$('#titleBtn').text('Update');
 								nextShow('description-card');
+								
 
 							}
 							
 
-								}
-			});
+				}
+			}
+			);
 
        e.preventDefault();
 });
@@ -696,6 +722,8 @@ function updatedesc(btnID){
 							
 							$('#'+btnID).text('Update');
 						     nextShow('inventoryDiv');
+							 nextShow('customer_options');
+							
 						}
                     }
                 });
@@ -720,11 +748,12 @@ function updatedesc(btnID){
 							 
 								$("#currentProductID").val(json.product_id);
 								
-								if(json.msg=='Product Updated Successfully' &&  json.product_id!=''){
+								if(json.msg=='Product Inventory Updated Successfully' &&  json.product_id!=''){
 									$('#inventoryBtn').text('Update');
-									nextShow('imageDiv');
+									   nextShow('imageDiv');
+									// var sess={{session('category')}}
 	
-								}
+								      }
 								
 	
 									}
