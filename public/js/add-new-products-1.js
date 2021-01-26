@@ -1,18 +1,18 @@
-function addparamsurl(parmTitle, parmVal, parmType) {
-    // if (parmType == '&') {
-    //     var refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + '&' + parmTitle + '=' + parmVal;
-    //     window.history.pushState({ path: refresh }, '', refresh);
-    // }
-    // if (parmType == '?') {
-    //     var refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + parmTitle + '=' + parmVal;
-    //     window.history.pushState({ path: refresh }, '', refresh);
-    // }
+// function addparamsurl(parmTitle, parmVal, parmType) {
+//     // if (parmType == '&') {
+//     //     var refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + '&' + parmTitle + '=' + parmVal;
+//     //     window.history.pushState({ path: refresh }, '', refresh);
+//     // }
+//     // if (parmType == '?') {
+//     //     var refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + '?' + parmTitle + '=' + parmVal;
+//     //     window.history.pushState({ path: refresh }, '', refresh);
+//     // }
 
-}
+// }
 //divs hide on next move code start
 function nextShow(nextDiv) {
     $('#' + nextDiv).css('display', 'block');
-    //$('#' + prevBtn).css('display', 'none');
+
 
 
 }

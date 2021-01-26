@@ -15,7 +15,8 @@
     <link href="{{ asset('css/addproduct.css')}}" rel="stylesheet" type="text/css">
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/product_category.css')}}">
 	<script src="https://cdn.tiny.cloud/1/engqutrfxcqjgr0hu2tcnoxmuj8hanintsrrda7vuc8sbtup/tinymce/5/tinymce.min.js" referrerpolicy="origin"/></script>
-
+	<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/toastr.css')}}">
+    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.css')}}">
 	<?php $today=date('YmdHi');
 	$startDate=date('YmdHi', strtotime('2012-03-14 09:06:00'));
 	$range=$today - $startDate;
@@ -60,6 +61,7 @@
 										
 										 <div class="col-lg-12"> <br />
 											<div class="mb-xs-2 strong"> Title <span class="text-gray-lightest">*</span> </div>
+											 <label id="titleMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
 											 <input type="text" class="form-control" name="title" required="" />
 											 <p class="text-smaller text-gray-lighter">
 												Include keywords that buyers would use to search for your item.
@@ -68,7 +70,9 @@
 									 </div>
 									 
 									 <div class="row" style="margin-bottom: 3%;">
+										
 										 <div class="col-lg-12"> <br />
+											<label id="catMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
 										   <div class="row resources" >
 											<div class="container"  id="resource-slider" >
 												<a href="javascript:void(0)" class='arrow prev btn btn-primary waves-effect waves-light'></a>
@@ -104,7 +108,8 @@
 												
 												<div class="col-lg-12">
 													<label class="mb-xs-1 strong">Description</label> <br/>
-													<p class="text-smaller">
+													<label id="descMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+                                                    <p class="text-smaller">
 														Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
 												Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
 													</p>
@@ -149,13 +154,15 @@
 								<p class="text-smaller text-gray-lighter">
 									Width description 
 								</p>
-								<input type="text" class="form-control" name="width"  placeholder="Width"/>
+								<label id="widthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+                                <input type="text" class="form-control" name="width"  placeholder="Width"/>
 							</div>
 							<div class="col-lg-3">
 								<div class="mb-xs-2 strong"> Height  </div>
 								<p class="text-smaller text-gray-lighter">
 									Height description 
 								</p>
+								<label id="heigtMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
 								<input type="text" class="form-control" name="hieght" placeholder="Height"/>
 							</div>
 							<div class="col-lg-3">
@@ -163,7 +170,8 @@
 								<p class="text-smaller text-gray-lighter">
 									Length description 
 								</p>
-								<input type="text" class="form-control" name="length" placeholder="Length"/>
+								<label id="lengthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+                                <input type="text" class="form-control" name="length" placeholder="Length"/>
 							</div>
 						</div>
 					
@@ -340,9 +348,8 @@
   <script type="text/javascript" src="{{ asset('js/index.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/ajax-pagination.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/add-new-products-1.js') }}"></script>
-  {{-- <script src="{{ asset('app-assets/js/scripts/forms/wizard-steps.js') }}"></script>
-  <script src="{{ asset('app-assets/vendors/js/extensions/jquery.steps.min.js') }}"></script>
-  <script src="{{ asset('app-assets/vendors/js/forms/validation/jquery.validate.min.js') }}"></script> --}}
+  <script src="{{ asset('app-assets/js/scripts/extensions/toastr.js')}}"></script>
+  <script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
   
   <script type="text/javascript">
 
@@ -368,46 +375,6 @@ $(function () {
   $("#render__data").hide();
   $("#render__variations__data22").hide();
 
-
-        //search category
-    // $("#category_search").on('keyup', function(){
-    //     //get category
-    //     let searchCategory = $(this).val();
-
-    //     if (!$(this).val()) {
-    //         $("#render__data").html('')
-    //         return;
-    //     }
-    //     if (searchCategory !== "") {
-    //         $.ajax({
-    //             url:"/vendor/ajax-get-category/fetch?search_key="+searchCategory,
-    //             method:'GET',
-    //             cache:false,
-    //             success:function(response){
-	// 				if(response) {
-	// 					let res = response.search('<li');
-	// 					if(res == -1) {
-	// 						$("#render__data .auto-complete-wrapper ul").html("<p class='pt-1 px-2'>No Result Found!</p>");
-	// 					}
-	// 					else {
-	// 						$("#render__data").show();
-	// 						$("#render__data").html(response);
-	// 					}
-	// 				}
-	// 				//console.log(response);
-    //             },
-	// 		});
-		
-
-			
-        
-    //     }else{
-
-    //         return false;
-    //     }
-
-
-	// });
 	
 	// Disable Variant Button
 	$("#addVariantButton").prop('disabled', true);
@@ -448,24 +415,6 @@ $(function () {
         }
     }
 
-// warranty
-// function getWarranty(categoryID){
-
-//         if (categoryID !== "") {
-//             $.ajax({
-//                 url:"/vendor/ajax-get-category-warranty/fetch?categoryId="+categoryID,
-//                 method:'GET',
-//                 cache:false,
-//                 success:function(response){
-//                     $("#render_warranty").html(response);
-//                     // console.log(response);
-//                 },
-//             });
-        
-//         }else{
-//             return false;
-//         }
-//     }
     
 // // variant card
     function openVariant(){
@@ -560,7 +509,7 @@ function category(catid,ulID,type,catulID){
 
 				 $('#nextslider').click();
 
-				 //call custom fields and append them 
+				 //call custom fields and append theme 
 				 getCustomFields(catid);
 
                }
@@ -581,7 +530,7 @@ function category(catid,ulID,type,catulID){
           defer(method)
         }, 50);
     }
-    defer(function() {
+defer(function() {
       (function($) {
         
         function doneResizing() {
@@ -598,7 +547,7 @@ function category(catid,ulID,type,catulID){
           }
         }
         
-        function checkArrows() {
+ function checkArrows() {
           var totalWidth = $('#resource-slider .resource-slider-item').length * $('.resource-slider-item').width();
           var frameWidth = $('.resource-slider-frame').width();
           var itemWidth = $('.resource-slider-item').width();
@@ -616,9 +565,9 @@ function category(catid,ulID,type,catulID){
           else {
             $(".prev").css("visibility", "visible");
           }
-        }
+    }
         
-        $('.arrow').on('click', function() {
+    $('.arrow').on('click', function() {
           var $this = $(this),
             width = $('.resource-slider-item').width(),
             speed = 500;
@@ -657,7 +606,7 @@ function category(catid,ulID,type,catulID){
         });
         
       })(jQuery); // end function
-    });
+});
    
 	</script>
 
@@ -667,7 +616,7 @@ $( "#titlFrm" ).on( "submit", function(e) {
          var dataString = $(this).serialize();
 		 var product_id=null; 
 			 product_id= $("#currentProductID").val();
-			   
+			 $('.emptymsgs').text('');  
 		$.ajax({
 			            
 						type: "POST",
@@ -676,27 +625,41 @@ $( "#titlFrm" ).on( "submit", function(e) {
 						dataType: 'json',
 						success: function (json) {
 						 
-							$("#currentProductID").val(json.product_id);
 							
-							if(json.msg=='Product Created Successfully' || json.msg=='Product Created Successfully'  &&  json.product_id!=''){
-
-								// if(window.location.href.indexOf("?") > -1) {
-								// 	addparamsurl('productId', json.product_id, '&');
-								// 	}else{
-										
-								// 		addparamsurl('productId', json.product_id, '?');
-								// 	}
-									
+							
+							if(json.msg=='Product Created Successfully'  &&  json.product_id!=''){
+								$("#currentProductID").val(json.product_id);
+								toastr.success('', 'Product step 1 completed!');
 								$('#titleBtn').text('Update');
-								nextShow('description-card');
+								 nextShow('description-card');
+								 $('.emptymsgs').text('');
 								
-
+							}
+							if(json.msg=='Product Updated Successfully'  &&  json.product_id!=''){
+								$("#currentProductID").val(json.product_id);
+								toastr.success('', 'Product step 1 updated!');
+								$('#titleBtn').text('Update');
+								 nextShow('description-card');
+								 $('.emptymsgs').text('');
+								
+							}
+							 if(json.msg=='Product Not Updated'){
+								if(json.titleError!=''){
+									$('#titleMsg').text(json.titleError);
+									toastr.error('', json.titleError);
+								}
+								if(json.categoryError=='The cate id field is required.' && json.categoryError!=''){
+									$('#catMsg').text('Please select desired category.');
+									toastr.error('', 'Please select desired category.');
+								}
+								
 							}
 							
 
 				}
 			}
 			);
+			
 
        e.preventDefault();
 });
@@ -708,27 +671,45 @@ function updatedesc(btnID){
 	var ed = tinyMCE.get('editortiny');
 
 			var description = ed.getContent();
-		
-			var product_id=null; 
-			    product_id= $("#currentProductID").val();
-            if (description) {
+		    var product_id=null; 
+				product_id= $("#currentProductID").val();
+				$('.emptymsgs').text('');
+            if (description!=null && description!='') {
                 $.ajax({
                     url: "{{url('vendor/add-product')}}",
                     type: "POST",
                     data: { description: description, productId: product_id, action: 'descriptionfrm' },
                     dataType: "json",
                     success: function(json) {
+						
 						if(json.msg=='Product Description Updated Successfully' &&  json.product_id!=''){
+							$("#currentProductID").val(json.product_id);
+							if($('#'+btnID).text()=='Next'){
+								toastr.success('', 'Product step 2 completed!');
+							}else{
+								toastr.success('', 'Product description updated successfully!');
+							}
 							
 							$('#'+btnID).text('Update');
 						     nextShow('inventoryDiv');
 							 nextShow('customer_options');
+							 $('.emptymsgs').text('');
+						}if(json.msg=='Product Description Not Updated'){
 							
+							toastr.error('', 'Description not updated!');
 						}
+						if(json.product_id==''){
+										toastr.error('', 'Listing expire please refresh page and start new listing!');
+									}
+						
                     }
                 });
-            }
-	//nextShow('inventoryDiv','descriptionBtn');
+			}
+			else{
+				$('#descMsg').text('Description Required*');
+				toastr.error('', 'Description Required!');
+			}
+	
 }
 	</script>
 <script>
@@ -737,7 +718,7 @@ function updatedesc(btnID){
 			 var dataString = $(this).serialize();
 			 var product_id=null; 
 				 product_id= $("#currentProductID").val();
-				   
+				 $('.emptymsgs').text('');  
 			$.ajax({
 							
 							type: "POST",
@@ -746,14 +727,38 @@ function updatedesc(btnID){
 							dataType: 'json',
 							success: function (json) {
 							 
-								$("#currentProductID").val(json.product_id);
+							
 								
 								if(json.msg=='Product Inventory Updated Successfully' &&  json.product_id!=''){
+									$("#currentProductID").val(json.product_id);
+									if($('#inventoryBtn').text()=='Next'){
+								       toastr.success('', 'Product step 3 completed!');
+							         }else{
+								     toastr.success('', 'Product inventory updated successfully!');
+							        }
 									$('#inventoryBtn').text('Update');
 									   nextShow('imageDiv');
-									// var sess={{session('category')}}
-	
-								      }
+								 
+									}
+									if(json.msg=='Product Inventory Not Updated'){
+										toastr.error('', 'Product inventory not updated');
+									}
+									 if(json.width !='' && json.width!=null &&  json.product_id!=''){
+										alert(json.width);
+										$('#widthMsg').text(json.width);
+										toastr.error('', json.width);
+									}
+								    if(json.hieght !='' && json.hieght!=null &&  json.product_id!=''){
+										$('#heigtMsg').text(json.hieght);
+										toastr.error('', json.hieght);
+									}
+									if(json.length !='' && json.length!=null &&  json.product_id!=''){
+										$('#lengthMsg').text(json.length);
+										toastr.error('', json.length);
+									}
+								    if(json.product_id==''){
+										toastr.error('', 'Listing expire please refresh page and start new listing!');
+									}
 								
 	
 									}
