@@ -193,8 +193,12 @@
 						  
 						  </div>
 					  </div>
-					<div style="display: none;" id="variant-card">
-						<div class="card">
+				
+					
+					
+					<div class="card" >
+						<div style="display: none;" id="variant-card">
+						
 							<div class="card-body">
 								<h5 class="modal-title">Add variations</h5><br>
 	
@@ -215,11 +219,9 @@
 									</div>
 								</div>
 							</div>
-						</div>
+						
 					</div>
-					
-					
-					<div class="card" id="customer_options" style="display: none;">
+					<div  id="customer_options" style="display: none;">
 							<div class="card-body" id="customer_choices">
 
 							</div>
@@ -231,6 +233,7 @@
 					         <button id="inventoryBtn" style="margin-right: 2% !important;     margin-bottom: 2%;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
 				         </div>
 			       </div>
+			     </div>
 				
 				  <!-- End Inventory and pricing  -->
 			</form> 
@@ -392,7 +395,7 @@ $(function () {
        //getWarranty(categoryID);
 		$("#addVariantButton").prop('disabled', false);
 		let category_id = $("#category_id").val();
-		//console.log(category_id);
+		
     });
 
     // get custom fields of selected category
@@ -406,7 +409,7 @@ $(function () {
                 cache:false,
                 success:function(response){
                     $("#render__customfields__data").html(response);
-                    // console.log(response);
+                   
                 },
             });
         
@@ -442,7 +445,7 @@ var i = 0;
            url:'{{ route('vendor.products.sku_combination') }}',
            data:$('#choice_form').serialize(),
            success: function(data){
-
+          
              $('#customer_choice_options').html(data);
              
            }
@@ -713,59 +716,67 @@ function updatedesc(btnID){
 }
 	</script>
 <script>
-	$( "#choice_form" ).on( "submit", function(e) {
-		 
-			 var dataString = $(this).serialize();
-			 var product_id=null; 
-				 product_id= $("#currentProductID").val();
-				 $('.emptymsgs').text('');  
-			$.ajax({
-							
-							type: "POST",
-							url: "{{url('vendor/add-product')}}",
-							data: dataString+"&action=choice_form&productId="+product_id,
-							dataType: 'json',
-							success: function (json) {
-							 
-							
-								
-								if(json.msg=='Product Inventory Updated Successfully' &&  json.product_id!=''){
-									$("#currentProductID").val(json.product_id);
-									if($('#inventoryBtn').text()=='Next'){
-								       toastr.success('', 'Product step 3 completed!');
-							         }else{
-								     toastr.success('', 'Product inventory updated successfully!');
-							        }
-									$('#inventoryBtn').text('Update');
-									   nextShow('imageDiv');
+	$(document).ready(function(e){
+    // Submit form data via Ajax
+    $("#choice_form").on('submit', function(e){
+		
+		e.preventDefault();
+		var product_id=null; 
+		 var formData = new FormData(this);
+		     
+		     product_id= $("#currentProductID").val();
+		     formData.append('action','choice_form');
+             formData.append('productId',product_id);
+			 $('.emptymsgs').text('');  
+        $.ajax({
+            type: 'POST',
+			url: "{{url('vendor/add-product')}}",
+			data: formData,
+			dataType: 'json',
+            contentType: false,
+            cache: false,
+            processData:false,
+            beforeSend: function(){
+             
+            },
+            success: function (json) {
+
+				             if(json.msg=='Product Inventory Updated Successfully' &&  json.product_id!=''){
+								 $("#currentProductID").val(json.product_id);
+								 if($('#inventoryBtn').text()=='Next'){
+									toastr.success('', 'Product step 3 completed!');
+								  }else{
+								  toastr.success('', 'Product inventory updated successfully!');
+								 }
+								 $('#inventoryBtn').text('Update');
+									nextShow('imageDiv');
+							  
+								 }
+								 if(json.msg=='Product Inventory Not Updated'){
+									 toastr.error('', 'Product inventory not updated');
+								 }
+								  if(json.width !='' && json.width!=null &&  json.product_id!=''){
 								 
-									}
-									if(json.msg=='Product Inventory Not Updated'){
-										toastr.error('', 'Product inventory not updated');
-									}
-									 if(json.width !='' && json.width!=null &&  json.product_id!=''){
-										alert(json.width);
-										$('#widthMsg').text(json.width);
-										toastr.error('', json.width);
-									}
-								    if(json.hieght !='' && json.hieght!=null &&  json.product_id!=''){
-										$('#heigtMsg').text(json.hieght);
-										toastr.error('', json.hieght);
-									}
-									if(json.length !='' && json.length!=null &&  json.product_id!=''){
-										$('#lengthMsg').text(json.length);
-										toastr.error('', json.length);
-									}
-								    if(json.product_id==''){
-										toastr.error('', 'Listing expire please refresh page and start new listing!');
-									}
-								
-	
-									}
-				});
-	
-		   e.preventDefault();
-	});
+									 $('#widthMsg').text(json.width);
+									 toastr.error('', json.width);
+								 }
+								 if(json.hieght !='' && json.hieght!=null &&  json.product_id!=''){
+									 $('#heigtMsg').text(json.hieght);
+									 toastr.error('', json.hieght);
+								 }
+								 if(json.length !='' && json.length!=null &&  json.product_id!=''){
+									 $('#lengthMsg').text(json.length);
+									 toastr.error('', json.length);
+								 }
+								 if(json.product_id==''){
+									 toastr.error('', 'Listing expire please refresh page and start new listing!');
+								 }
+							 
+ 
+								 }
+        });
+    });
+});
 	
 		</script>
 

@@ -23,7 +23,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 use Image;
 use Illuminate\Support\Facades\Validator;
-
+use File;
 class ProductController extends Controller
 {
     /**
@@ -387,7 +387,8 @@ class ProductController extends Controller
     //update current product code end
     //main addproduct action
     public function addProduct(Request $request){
-        //
+       
+     
        // $product->product_type = $request->product_type;
       
       //  title,category and custom fields form data submit
@@ -517,12 +518,27 @@ class ProductController extends Controller
                                $file_name=uniqid().(Auth::guard('vendor')->user()->id)."_300_".$image->getClientOriginalName();
                                //resize image
                                $image_resize = Image::make($image->getRealPath());              
-                               $image_300 = $image_resize->resize(300, 300);
-                               $image_300->save('product_images/'.$file_name);
-       
+                               $imageSizes=array('1200','600','300');
+                               $imagePath='product_images/product_'.$prodID;
+                               $path = public_path();
+                               if(!File::isDirectory($imagePath)){
+                                  File::makeDirectory($path, 0777, true, true);
+                                  for($i=0;$i<count($imageSizes);$i++){
+                                    $file_nameRenew=$imageSizes[$i].'_'.$file_name;
+                                    $image_300 = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
+                                    $image_300->save($imagePath.'/'. $file_nameRenew);
+                                  }
+                                  
+                                }else{
+                                    for($i=0;$i<count($imageSizes);$i++){
+                                        $file_nameRenew=$imageSizes[$i].'_'.$file_name;
+                                        $image_300 = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
+                                        $image_300->save($imagePath.'/'. $file_nameRenew);
+                                      }
+                                }
                                $productVariations->variant_image = url('/')."/product_images/".$file_name;
                            }
-       
+                            
                            $productVariations->save();
                            
        
