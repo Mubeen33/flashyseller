@@ -52,16 +52,18 @@ Dropzone.options.dpzSingleFileP1 = {
 
         $.ajax({
             type: 'POST',
-            url: 'vendor/delete-product-image',
+            url: '/vendor/delete-product-image',
             data: {
                 "token": "{{ csrf_token() }}",
                 name: name
             },
             success: function(data) {
-                console.log('success: ' + data);
+
+                toastr.success('', 'Image removed successfully!');
+
             },
             error: function(error) {
-                console.log('Error: ', error.data);
+                toastr.error('', 'Image not removed successfully!');
             }
         });
         var _ref;
@@ -121,16 +123,18 @@ Dropzone.options.dpzSingleFileP2 = {
 
         $.ajax({
             type: 'POST',
-            url: 'vendor/delete-product-image',
+            url: '/vendor/delete-product-image',
             data: {
                 "token": "{{ csrf_token() }}",
                 name: name
             },
             success: function(data) {
-                console.log('success: ' + data);
+
+                toastr.success('', 'Image removed successfully!');
+
             },
             error: function(error) {
-                console.log('Error: ', error.data);
+                toastr.error('', 'Image not removed successfully!');
             }
         });
         var _ref;
@@ -190,16 +194,18 @@ Dropzone.options.dpzSingleFileP3 = {
 
         $.ajax({
             type: 'POST',
-            url: 'vendor/delete-product-image',
+            url: '/vendor/delete-product-image',
             data: {
                 "token": "{{ csrf_token() }}",
                 name: name
             },
             success: function(data) {
-                console.log('success: ' + data);
+
+                toastr.success('', 'Image removed successfully!');
+
             },
             error: function(error) {
-                console.log('Error: ', error.data);
+                toastr.error('', 'Image not removed successfully!');
             }
         });
         var _ref;
@@ -259,16 +265,18 @@ Dropzone.options.dpzSingleFileP4 = {
 
         $.ajax({
             type: 'POST',
-            url: 'vendor/delete-product-image',
+            url: '/vendor/delete-product-image',
             data: {
                 "token": "{{ csrf_token() }}",
                 name: name
             },
             success: function(data) {
-                console.log('success: ' + data);
+
+                toastr.success('', 'Image removed successfully!');
+
             },
             error: function(error) {
-                console.log('Error: ', error.data);
+                toastr.error('', 'Image not removed successfully!');
             }
         });
         var _ref;
@@ -328,16 +336,18 @@ Dropzone.options.dpzSingleFileP5 = {
 
         $.ajax({
             type: 'POST',
-            url: 'vendor/delete-product-image',
+            url: '/vendor/delete-product-image',
             data: {
                 "token": "{{ csrf_token() }}",
                 name: name
             },
             success: function(data) {
-                console.log('success: ' + data);
+
+                toastr.success('', 'Image removed successfully!');
+
             },
             error: function(error) {
-                console.log('Error: ', error.data);
+                toastr.error('', 'Image not removed successfully!');
             }
         });
         var _ref;

@@ -22,15 +22,7 @@
 	$range=$today - $startDate;
 	$prod_img_id=rand(0, $range);
 	?>
-<style>
-	.catulActive{
-		border-color: #4839EB !important;
-    background-color: #7367F0 !important;
-    color: #FFFFFF;
 
-	}
-	
-</style>
 	
 <div class="content-body">
 	<div class="container-fluid">
@@ -48,6 +40,7 @@
 					  <!--Listing Details -->        
 					  <div class="card">
 						  <div class="card-body">
+							
 							  <div class="row">
 							
 										 <div class="col-lg-12">
@@ -64,8 +57,7 @@
 											 <label id="titleMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
 											 <input type="text" class="form-control" name="title" required="" />
 											 <p class="text-smaller text-gray-lighter">
-												Include keywords that buyers would use to search for your item.
-											</p>
+												To ensure customers can find your product include the brand, product name and most important information.											</p>
 										 </div>
 									 </div>
 									 
@@ -74,9 +66,9 @@
 										 <div class="col-lg-12"> <br />
 											<label id="catMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
 										   <div class="row resources" >
-											<div class="container"  id="resource-slider" >
-												<a href="javascript:void(0)" class='arrow prev btn btn-primary waves-effect waves-light'></a>
-												<a href="javascript:void(0)" class='arrow next btn btn btn-primary waves-effect waves-light' id="nextslider"></a>
+											<div   id="resource-slider" >
+												<a href="javascript:void(0)" class='arrow prev catBtn waves-effect waves-light'></a>
+												<a href="javascript:void(0)" class='arrow next catBtn  waves-effect waves-light' id="nextslider"></a>
 												<div class=" resource-slider-frame" id="categoryDivs">
 													@include('product.partials.category-select')
 												   
@@ -92,6 +84,7 @@
 									 <div class="row" >
 										<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
 											<button id="titleBtn" style="display: none;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
+											<a href="javascript:void(0)" onclick="cancelListing()"   class="btn btn-danger waves-effect waves-light">Cancel</a>
 										</div>
 									</div>
 						  </div>
@@ -99,7 +92,7 @@
 					</form>
 					  <!-- End Listing Details -->
 					  <!--start description portion style="display: none" -->
-					       
+				<div>	       
 					  <div class="card" id="description-card" style="display: none">
 						  <div class="card-body">
 							    <div class="row">
@@ -123,6 +116,8 @@
 									    <div class="row" >
 												<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
 													<a id="descriptionBtn"  href="javascript:void(0)" onclick="updatedesc('descriptionBtn')"   class="btn btn-primary waves-effect waves-light">Next</a>
+													<a href="javascript:void(0)" onclick="cancelListing()"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+
 												</div>
 									   </div>
 									   </div>
@@ -187,6 +182,7 @@
 									<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">
 										Add Variations
 									</button>
+									
 								</div>
 								
 						  </div>
@@ -230,8 +226,10 @@
 						 </div>
 						 
 				         <div class="text-right mb-20" >
-					         <button id="inventoryBtn" style="margin-right: 2% !important;     margin-bottom: 2%;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
-				         </div>
+					         <button id="inventoryBtn" style=" margin-bottom: 2%;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
+							 <a href="javascript:void(0)" onclick="cancelListing()" style="margin-right: 1% !important;     margin-bottom: 2%;"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+
+						 </div>
 			       </div>
 			     </div>
 				
@@ -239,7 +237,7 @@
 			</form> 
       		
       <!-- Photos -->
-	  <div class="card form-group" id="imageDiv" style="display: none">
+	  <div class="card form-group" id="imageDiv" style="display: none;">
 		<div class="card-body">
 			
 		   <div class="row">
@@ -328,14 +326,17 @@
 				   <div class="row">
 					<div class="col-lg-12">
 				   <div class="text-right mb-20" >
-					<a href="{{route('vendor.addNewProduct.get')}}" id="finishProduct" style="margin-right: 2% !important;     margin-bottom: 2%;"  class="btn btn-primary waves-effect waves-light">Finish Listing</a>
+					<a href="{{route('vendor.addNewProduct.get')}}" id="finishProduct" style=" margin-bottom: 2%;"  class="btn btn-primary waves-effect waves-light">Finish Listing</a>
+					<a href="javascript:void(0)" onclick="cancelListing()" style="margin-right: 1% !important; margin-bottom: 2%;"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+
 				</div>  			
 				</div>  			
 				</div>  			
 		   </div>
-	 </div>
+	    </div>
 
 	    </div>
+     </div>
   </div>
 </div>
 @endsection
@@ -353,7 +354,7 @@
   <script type="text/javascript" src="{{ asset('js/add-new-products-1.js') }}"></script>
   <script src="{{ asset('app-assets/js/scripts/extensions/toastr.js')}}"></script>
   <script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
-  
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
   <script type="text/javascript">
 
 
@@ -728,7 +729,7 @@ function updatedesc(btnID){
 		     formData.append('action','choice_form');
              formData.append('productId',product_id);
 			 $('.emptymsgs').text('');  
-        $.ajax({
+            $.ajax({
             type: 'POST',
 			url: "{{url('vendor/add-product')}}",
 			data: formData,
@@ -779,6 +780,47 @@ function updatedesc(btnID){
 });
 	
 		</script>
+<script>
+
+	function cancelListing(){
+		product_id= $("#currentProductID").val();
+		if(product_id!=null && product_id!=''){
+			Swal.fire({
+			title: 'Are you sure to cancel this listing?',
+			text: "You won't be able to revert this!",
+			icon: 'warning',
+			showCancelButton: true,
+			cancelButtonText:'Continue Listing!',
+			confirmButtonColor: '#4839EB',
+			cancelButtonColor: '#28C76F',
+			confirmButtonText: 'Yes, delete it!'
+			}).then((result) => {
+			if (result.isConfirmed) {
+			
+				$.ajax({
+                    url: "{{url('vendor/add-product')}}",
+                    type: "POST",
+                    data: { productId: product_id , action: 'exitListing' },
+                    dataType: "json",
+                    success: function(json) {
+					  if(json.msg=='Product deleted'){
+						  window.location.href = "{{route('vendor.dashboard.get')}}";
+					   }else{
+						
+							window.location.href = "{{route('vendor.dashboard.get')}}";
+					   }
+						
+                    }
+                });
+			
+			}
+			})
+		}else{
+	         window.location.href = "{{route('vendor.dashboard.get')}}";
+		}
+	}
+
+</script>
 
 @endsection
     

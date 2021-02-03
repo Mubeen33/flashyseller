@@ -1,11 +1,34 @@
+.catulActive {
+    border-color: #F8F8F8 !important;
+    background-color: #F8F8F8 !important;
+    color: #FFFFFF;
+}
+
+.catBtn {
+    background-color: #f4f4f4f4 !important;
+}
+
+.slimScrol::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px #f4f4f4f4;
+}
+
+.slimScrol::-webkit-scrollbar {
+    width: 4px;
+    display: none;
+}
+
+.slimScrol::-webkit-scrollbar-thumb {
+    background-color: #f4f4f4f4;
+}
+
 .scrollerdiv {
-    height: 190px;
+    height: 266px;
     overflow-y: scroll;
     overflow-x: scroll;
 }
 
 .catlogLi {
-    border-top: 1px solid rgba(34, 41, 47, 0.1);
+    border-top: 1px solid rgb(34 41 47 / 4%);
 }
 
 .cateActive {
@@ -20,11 +43,10 @@
     right: 0;
     bottom: 0;
     width: 100%;
-    height: 23.2em;
+    height: 23.0em;
     margin: auto;
     border-radius: 3px;
     background: #fff;
-    border: 1px solid #DDD;
     overflow: hidden;
 }
 
@@ -64,7 +86,7 @@
 #resource-slider .prev:before {
     left: 0.25em;
     border-width: 3px 0 0 3px;
-    border-color: #fff transparent transparent #fff;
+    border-color: #7367f0 transparent transparent #7367f0;
     transform: rotate(-45deg);
 }
 
@@ -76,7 +98,7 @@
 #resource-slider .next:before {
     right: 0.25em;
     border-width: 3px 3px 0 0;
-    border-color: #fff #fff transparent transparent;
+    border-color: #7367f0 #7367f0 transparent transparent;
     transform: rotate(45deg);
 }
 
