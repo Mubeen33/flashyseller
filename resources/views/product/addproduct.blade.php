@@ -16,7 +16,8 @@
 	<link rel="stylesheet" type="text/css" href="{{ asset('css/product_category.css')}}">
 	<script src="https://cdn.tiny.cloud/1/engqutrfxcqjgr0hu2tcnoxmuj8hanintsrrda7vuc8sbtup/tinymce/5/tinymce.min.js" referrerpolicy="origin"/></script>
 	<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/css/plugins/extensions/toastr.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.css')}}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('app-assets/vendors/css/extensions/toastr.css')}}">
+	
 	<?php $today=date('YmdHi');
 	$startDate=date('YmdHi', strtotime('2012-03-14 09:06:00'));
 	$range=$today - $startDate;
@@ -28,7 +29,8 @@
 	<div class="container-fluid">
             @if(session('msg'))
                   {!! session('msg') !!}
-                @endif
+				@endif
+				
 				<input type="hidden" id="currentProductID" name="currentProductID" value="" >      
 			  <form id="titlFrm" action="" method="post" enctype="multipart/form-data" >
 				@csrf
@@ -52,13 +54,30 @@
 									 </div>
 									 <div class="row">
 										
-										 <div class="col-lg-12"> <br />
+										 <div class="col-sm-6"> 
 											<div class="mb-xs-2 strong"> Title <span class="text-gray-lightest">*</span> </div>
 											 <label id="titleMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
 											 <input type="text" class="form-control" name="title" required="" />
 											 <p class="text-smaller text-gray-lighter">
 												To ensure customers can find your product include the brand, product name and most important information.											</p>
 										 </div>
+										 <div class="col-sm-6 ">
+											<div class="mb-xs-2 strong">Brand <span class="text-gray-lightest">*</span> </div>
+											<label id="brandMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+											
+												<select class="select2 form-control" name="brand" id="brandoption" required>
+													<option value="">Select Brand</option>
+													@foreach($brandsList as $brands)
+                                                    <option value="{{encrypt($brands->id)}}">{{$brands->name}}</option>
+													@endforeach
+													
+												</select>
+												<p class="text-smaller text-gray-lighter">Select a brand that's related with your product.</p>
+											 
+											
+											
+											
+										</div>
 									 </div>
 									 
 									 <div class="row" style="margin-bottom: 3%;">
@@ -112,6 +131,22 @@
 												</div>
 									    </div>
 										</div>
+										<div class="col-lg-12 mt-5">
+							            <div class="row">
+												
+												<div class="col-lg-12">
+													<label class="mb-xs-1 strong">Whats in the box</label> <br/>
+													<label id="boxMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+                                                    <p class="text-smaller">
+														Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
+												Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
+													</p>
+													{{-- <textarea class="form-control textarea" rows="10" name="description"></textarea> --}}
+													<textarea rows="6" style="    width: 100%;"  name="whats_in_box" id="whats_in_box" placeholder="Explain whats in th box of this product"></textarea>
+
+												</div>
+									    </div>
+										</div>
 										<div class="col-lg-12">
 									    <div class="row" >
 												<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
@@ -144,6 +179,7 @@
 							  </div>
 						  </div>
 						<div class="row">
+							
 							<div class="col-lg-3">
 								<div class="mb-xs-2 strong"> Width </div>
 								<p class="text-smaller text-gray-lighter">
@@ -168,40 +204,50 @@
 								<label id="lengthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
                                 <input type="text" class="form-control" name="length" placeholder="Length"/>
 							</div>
+							<div class="col-lg-3">
+								<div class="mb-xs-2 strong"> Weight </div>
+								<p class="text-smaller text-gray-lighter">
+									Weight description 
+								</p>
+								<label id="weightMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+                                <input type="text" class="form-control" name="weight"  placeholder="Weight"/>
+							</div>
 						</div>
 					
 						  <hr />
-						  <div class="row">
-							  <div class="col-lg-9">
-								  <label class="mb-xs-2 strong">Variations</label> <br/>
-								 <p class="text-gray-lighter">Add available options like color or size. Buyers will choose from these during checkout.</p>
-							  </div>
-						  </div>
-						  <div class="row">
-								 <div class="col-lg-10">
-									<button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">
-										Add Variations
-									</button>
-									
-								</div>
-								
-						  </div>
+						 
 						  
 						  </div>
 					  </div>
 				
 					
 					
-					<div class="card" >
-						<div style="display: none;" id="variant-card">
+					<div class="card" id="addvariationsdiv" style="display: none;">
+						
 						
 							<div class="card-body">
+								<div class="row">
+									<div class="col-lg-9">
+										<label class="mb-xs-2 strong">Variations</label> <br/>
+									   <p class="text-gray-lighter">Add available options like color or size. Buyers will choose from these during checkout.</p>
+									</div>
+								</div>
+								<div class="row">
+									   <div class="col-lg-10">
+										  <button type="button" id="addVariantButton" onclick="openVariant()" class="btn btn-primary mr-1 mb-1 waves-effect waves-light">
+											  Add Variations
+										  </button>
+										  
+									  </div>
+									  
+								</div>
+								<div style="display: none;" id="variant-card">
 								<h5 class="modal-title">Add variations</h5><br>
 	
 								  <div class="col-md-12 mx-0 px-0" id="loadSecondVariationOptionsData"></div>
 	
 								<div class="row" id="render__variations__data">
-									<div class="col-lg-4">
+									<div class="col-lg-12">
 										<select class="form-control select2" name="variation_name[]" onchange="add_more_customer_choice_option()" id="variation" multiple="multiple" >
 											<option>Choose Variation Type</option>
 											<optgroup label="Variation Type">
@@ -469,6 +515,11 @@ var i = 0;
     
     var cat_count =0; 
 function category(catid,ulID,type,catulID){
+	var titleVal =$("input[name=title]").val();
+	var brandVal =$("#brandoption").val();
+	
+	$('.emptymsgs').text('');  
+    if(titleVal!=null && titleVal!='' && brandVal!=null && brandVal!=''){
     $("#addVariantButton").prop('disabled', true);
 	$('#titleBtn').css('display', 'none');
 	$( 'ul#'+catulID+' li' ).on( 'click', function(event) {
@@ -524,6 +575,18 @@ function category(catid,ulID,type,catulID){
         typesuper=1;
     }
 
+}else{
+	
+	if(brandVal==null || brandVal==''){
+	$('#brandMsg').text('The brand field is required');
+	toastr.error('', 'The brand field is required');
+	}
+	if(titleVal==null || titleVal==''){
+	$('#titleMsg').text('The title field is required');
+	toastr.error('', 'The title field is required');
+	}
+	
+}
 }
 
     function defer(method) {
@@ -652,6 +715,10 @@ $( "#titlFrm" ).on( "submit", function(e) {
 									$('#titleMsg').text(json.titleError);
 									toastr.error('', json.titleError);
 								}
+								if(json.brandError!=''){
+									$('#brandMsg').text(json.brandError);
+									toastr.error('', json.brandError);
+								}
 								if(json.categoryError=='The cate id field is required.' && json.categoryError!=''){
 									$('#catMsg').text('Please select desired category.');
 									toastr.error('', 'Please select desired category.');
@@ -675,14 +742,15 @@ function updatedesc(btnID){
 	var ed = tinyMCE.get('editortiny');
 
 			var description = ed.getContent();
+			var whatsbox = $('#whats_in_box').val();
 		    var product_id=null; 
 				product_id= $("#currentProductID").val();
 				$('.emptymsgs').text('');
-            if (description!=null && description!='') {
+            if (description!=null && description!='' && whatsbox!='' && whatsbox!=null) {
                 $.ajax({
                     url: "{{url('vendor/add-product')}}",
                     type: "POST",
-                    data: { description: description, productId: product_id, action: 'descriptionfrm' },
+                    data: { description: description,whatsbox: whatsbox, productId: product_id, action: 'descriptionfrm' },
                     dataType: "json",
                     success: function(json) {
 						
@@ -691,16 +759,17 @@ function updatedesc(btnID){
 							if($('#'+btnID).text()=='Next'){
 								toastr.success('', 'Product step 2 completed!');
 							}else{
-								toastr.success('', 'Product description updated successfully!');
+								toastr.success('', 'Product step 2 updated successfully!');
 							}
 							
 							$('#'+btnID).text('Update');
 						     nextShow('inventoryDiv');
+						     nextShow('addvariationsdiv');
 							 nextShow('customer_options');
 							 $('.emptymsgs').text('');
-						}if(json.msg=='Product Description Not Updated'){
+						}if(json.msg=='Product Description And Whats In The Box Not Updated'){
 							
-							toastr.error('', 'Description not updated!');
+							toastr.error('', 'Description And Whats In The Box not updated!');
 						}
 						if(json.product_id==''){
 										toastr.error('', 'Listing expire please refresh page and start new listing!');
@@ -710,8 +779,15 @@ function updatedesc(btnID){
                 });
 			}
 			else{
-				$('#descMsg').text('Description Required*');
-				toastr.error('', 'Description Required!');
+				if(whatsbox==null || whatsbox==''){
+					$('#boxMsg').text('Whats in the box Required!');
+				    toastr.error('', 'Whats in the box  Required!');
+				}
+				if(description==null || description==''){
+					$('#descMsg').text('Description Required');
+				    toastr.error('', 'Description Required!');
+				}
+				
 			}
 	
 }
@@ -760,6 +836,11 @@ function updatedesc(btnID){
 								 
 									 $('#widthMsg').text(json.width);
 									 toastr.error('', json.width);
+								 }
+								 if(json.weight !='' && json.weight!=null &&  json.product_id!=''){
+								 
+									 $('#weightMsg').text(json.weight);
+									 toastr.error('', json.weight);
 								 }
 								 if(json.hieght !='' && json.hieght!=null &&  json.product_id!=''){
 									 $('#heigtMsg').text(json.hieght);
@@ -819,6 +900,13 @@ function updatedesc(btnID){
 	         window.location.href = "{{route('vendor.dashboard.get')}}";
 		}
 	}
+
+</script>
+<script>
+$('.select2-search__field').on("keydown", function(e) {
+	alert( "Handler for .change() called." );
+});
+
 
 </script>
 

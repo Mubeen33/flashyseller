@@ -18,6 +18,7 @@ use App\ProductVariation;
 use App\VariantOptionOptions;
 use App\VariationOption;
 use App\ProductWarranty;
+use App\Brands;
 
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -38,8 +39,11 @@ class ProductController extends Controller
     // 
     public function index(){
         $categoryList=Category::where("parent_id",0)->get();
-    	$variationList = Variation::where('active',1)->get();
-    	return view('product.addproduct',compact('variationList','categoryList'));
+        $variationList = Variation::where('active',1)->get();
+        $brandModel=new brands();
+        $brandsList=$brandModel->brands();
+       
+    	return view('product.addproduct',compact('variationList','categoryList','brandsList'));
         
     }
     // product Images
@@ -64,7 +68,7 @@ class ProductController extends Controller
 		}
 
        
-      ///new code start 
+      ///new code start
       $image_resize = Image::make($image->getRealPath());              
       $imageSizes=array('1200','600','300');
       $imagePath='product_images/product_'.$product_image_id;
@@ -267,6 +271,7 @@ class ProductController extends Controller
                
                 $product->title        = $request->input('title');
                 $product->category_id  = $category;
+                $product->brand_id  = decrypt($request->input('brand'));
                 $product->image_id     = $request->input('image_id');
                 $product->slug         = $newSlug.'-'.$this->uniqueSlug();
                 $product->vendor_id    = Auth::id();
@@ -360,6 +365,7 @@ class ProductController extends Controller
                 $product->title        = $request->input('title');
                 $product->image_id     = $request->input('image_id');
                 $product->category_id  = $category;
+                $product->brand_id  = decrypt($request->input('brand'));
                 $product->slug         = $newSlug.'-'.$this->uniqueSlug();
                 $product->save();
                 
@@ -426,6 +432,7 @@ class ProductController extends Controller
             $validator = Validator::make($request->all(), [
                 'title' => 'required|max:80|min:10',
                 'cate_id' => 'required',
+                'brand' => 'required',
                
             ]);
             if($validator->fails()){
@@ -433,6 +440,7 @@ class ProductController extends Controller
                 $responseData=array(
                     'titleError'=>$allErorrs->first('title'),
                     'categoryError' =>$allErorrs->first('cate_id'),
+                    'brandError' =>$allErorrs->first('brand'),
                     'msg' => 'Product Not Updated'
                 );
                 return json_encode($responseData);
@@ -450,6 +458,7 @@ class ProductController extends Controller
             $validator = Validator::make($request->all(), [
                 'title' => 'required|max:80|min:10',
                 'cate_id' => 'required',
+                'brand' => 'required',
                
             ]);
             if($validator->fails()){
@@ -457,6 +466,7 @@ class ProductController extends Controller
                 $responseData=array(
                     'titleError'=>$allErorrs->first('title'),
                     'categoryError' =>$allErorrs->first('cate_id'),
+                    'brandError' =>$allErorrs->first('brand'),
                     'msg' => 'Product Not Updated'
                 );
                 return json_encode($responseData);
@@ -472,6 +482,7 @@ class ProductController extends Controller
             $prodID=decrypt($request['productId']);
             $product = Product::where('id',$prodID)->first();
             $product->description  = $request['description'];
+            $product->whats_in_box  = $request['whatsbox'];
             if($product->save()){
                 $responseData=array(
     
@@ -585,9 +596,10 @@ protected function veriationsData($request){
  
            $validator = Validator::make($request->all(), [
               
-               'width' => 'required|max:10|min:1',
-               'hieght' => 'required|max:10|min:1',
-               'length' => 'required|max:10|min:1',
+               'width' =>  'required|numeric|max:10|min:1',
+               'hieght' => 'required|numeric|max:10|min:1',
+               'length' => 'required|numeric|max:10|min:1',
+               'weight' => 'required|numeric|max:10|min:1',
               
            ]);
            if($validator->fails()){
@@ -597,6 +609,7 @@ protected function veriationsData($request){
                    'width' =>$allErorrs->first('width'),
                    'hieght' => $allErorrs->first('hieght'),
                    'length' => $allErorrs->first('length'),
+                   'weight' => $allErorrs->first('weight'),
                   
                );
                return json_encode($responseData);
@@ -608,6 +621,7 @@ protected function veriationsData($request){
            $product->width= $request->width;
            $product->hieght= $request->hieght;
            $product->length= $request->length;
+           $product->weight= $request->weight;
            if($product->save()){
                if ($request->has('variation_name')) {
                  

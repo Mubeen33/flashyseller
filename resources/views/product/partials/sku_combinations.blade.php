@@ -66,7 +66,9 @@ $countBTN=0;
 						<td style="max-width: 2px;">
 							
 							<div class="form-group">
-                                
+								<div >
+									<img style="max-width: 37%; margin-bottom: 3%;" class="cardimg" id='img-upload{{$countBTN}}'/>
+									</div>
                                 <div id="input-group{{$countBTN}}" >
                                     <span class="input-group-btn">
                                         <span id="btn-file{{$countBTN}}" class="btn btn-warning  waves-effect waves-light btn-file">
@@ -75,9 +77,7 @@ $countBTN=0;
                                     </span>
                                     <input type="text"  class="form-control hidden"  readonly>
                                 </div>
-                                <div >
-                                 <img style="max-width: 37%; " class="cardimg" id='img-upload{{$countBTN}}'/>
-                                 </div>
+                               
 							</div>
 
 <script type="text/javascript">
@@ -125,7 +125,9 @@ $countBTN=0;
 					@if( $variationOne->image_approval == 1 || $variationTwo->image_approval == 1)
 						<td style="max-width: 2px;">
 							<div class="form-group">
-                                
+								<div >
+									<img style="max-width: 37%; margin-bottom: 3%;" class="cardimg" id='img-upload{{$countBTN}}'/>
+								</div>
                                 <div id="input-group{{$countBTN}}" >
                                     <span class="input-group-btn">
                                         <span id="btn-file{{$countBTN}}" class="btn btn-warning  waves-effect waves-light btn-file">
@@ -134,9 +136,7 @@ $countBTN=0;
                                     </span>
                                     <input type="text" class="form-control hidden"  readonly>
                                 </div>
-                                <div >
-                                 <img style="max-width: 37%; " class="cardimg" id='img-upload{{$countBTN}}'/>
-                                 </div>
+                               
 							</div>
 						
 <script type="text/javascript">
