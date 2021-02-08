@@ -26,7 +26,7 @@
 
 	
 <div class="content-body">
-	<div class="container-fluid">
+	<div class="container-fluid" style="width: 74% !important;">
             @if(session('msg'))
                   {!! session('msg') !!}
 				@endif
@@ -41,26 +41,46 @@
 					  <!-- end card -->
 					  <!--Listing Details -->        
 					  <div class="card">
+						<div class="card-header" style="background-color: #e7e7e7;">
+                            <h4 class="card-title" style="padding-bottom: 1.5rem;">Listing Details</h4>
+                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a id="titleCollap" data-toggle="collapse" href="#collapsetitle" role="button" aria-expanded="false" aria-controls="collapsetitle"><i class="feather icon-chevron-down"></i></a></li>
+                                    
+                                </ul>
+                            </div>
+							
+                        </div>
+						  <div class="card-content collapse show" id="collapsetitle" style="">
+						
 						  <div class="card-body">
 							
-							  <div class="row">
-							
-										 <div class="col-lg-12">
-											 <label class="mb-xs-1 strong">Listing Details</label> <br/>
-											 <p class="text-gray-lighter">
-												 Include keywords that buyers would use to search for your item.
-											 </p>
-										 </div>	
-									 </div>
+							        
 									 <div class="row">
 										
-										 <div class="col-sm-6"> 
-											<div class="mb-xs-2 strong"> Title <span class="text-gray-lightest">*</span> </div>
-											 <label id="titleMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-											 <input type="text" class="form-control" name="title" required="" />
+										 <div class="col-sm-12"> 
+											<div class="mb-xs-2 strong"> Title <span class="text-gray-lightest">*</span> <span> <label id="titleMsg" class="emptymsgs" style="color: rgb(228, 88, 88); "></label></span> </div>
+											
+											 <input type="text" class="form-control" name="title" />
 											 <p class="text-smaller text-gray-lighter">
 												To ensure customers can find your product include the brand, product name and most important information.											</p>
 										 </div>
+									
+									 </div>
+									 
+									 <div class="row">
+										
+										 <div class="col-sm-6"> 
+											<div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest" style="font-size: x-small;">( Optional )</span> </div>
+											<label id="skuMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+                                            <input type="text" class="form-control" name="sku" placeholder="SKU"/>
+											 <p class="text-smaller text-gray-lighter">
+												SKUs are for your use only — buyers won’t see them. 
+											</p>
+											
+
+										</div>
 										 <div class="col-sm-6 ">
 											<div class="mb-xs-2 strong">Brand <span class="text-gray-lightest">*</span> </div>
 											<label id="brandMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
@@ -79,6 +99,41 @@
 											
 										</div>
 									 </div>
+									 <div class="row" >
+										
+											<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
+												<button id="titleBtn"  type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
+												<a href="javascript:void(0)" onclick="cancelListing()"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+											</div>
+										
+									</div>
+									
+						  </div>
+						  </div>
+					  </div>
+					</form>
+					  <div class="card" style="display: none;" id="category-div">
+						<div class="card-header" style="padding-bottom: 1.5rem;">
+                            <h4 class="card-title">Category And Custom Fields</h4>
+                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a id="catCollap" data-toggle="collapse" href="#collapsecat" role="button" aria-expanded="false" aria-controls="collapsecat"><i class="feather icon-chevron-down"></i></a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+						<form id="categoryFrm" action="" method="post" enctype="multipart/form-data" >
+							@csrf
+						<div class="card-content collapse show" id="collapsecat" style="">
+						  <div class="card-body">
+									<div class="row">
+										<div class="col-lg-12">
+											<p class="text-gray-lighter">
+												Select a category that related with your project.
+											</p>
+										</div>	
+									</div>
 									 
 									 <div class="row" style="margin-bottom: 3%;">
 										
@@ -102,82 +157,145 @@
 									  
 									 <div class="row" >
 										<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
-											<button id="titleBtn" style="display: none;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
+											<button id="categoryBtn" type="submit" style="display: none;"  class="btn btn-primary waves-effect waves-light">Next</button>
 											<a href="javascript:void(0)" onclick="cancelListing()"   class="btn btn-danger waves-effect waves-light">Cancel</a>
 										</div>
 									</div>
 						  </div>
+						  </div>
+						</form>
 					  </div>
-					</form>
+					
 					  <!-- End Listing Details -->
-					  <!--start description portion style="display: none" -->
-				<div>	       
-					  <div class="card" id="description-card" style="display: none">
-						  <div class="card-body">
-							    <div class="row">
+
+					  <div class="card form-group" id="imageDiv" style="display: none;">
+						<div class="card-header" style="padding-bottom: 1.5rem;">
+                            <h4 class="card-title mb-xs-1 strong">Photos</h4>
+                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a id="imgCollap" data-toggle="collapse" href="#collapseimg" role="button" aria-expanded="false" aria-controls="collapseimg"><i class="feather icon-chevron-down"></i></a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+						<div class="card-content collapse show" id="collapseimg" style="">
+						<div class="card-body">
+							
+						   <div class="row">
+							   <div class="col-lg-12">
+								   
+								   <p class="text-gray-lighter">Add as many as you can so buyers can see every detail<small>(Use up to ten photos to show your item's most important qualities).</small> </p>	
+								   <label class="text-smaller text-gray-lighte"> Tips: </label>
+							   </div>
+						   </div>
+						   <div class="row">
+							   <div  class="col-lg-3 col-md-3">
+								   <ul class="text-smaller text-gray-lighter">
+									   <li>Use natural light and no flash. </li>
+									   <li>Include a common object for scale. </li>
+									   <li>Show the item being held, worn, or used. </li>
+									   <li>Shoot against a clean, simple background. </li>
+								   </ul>
+							   </div>
+				                 
+							   <div class="col-lg-9  ">
+							   <div class="row">
+							   <div class="col-lg-4 ">
+								   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+									   method="POST"  
+									   enctype="multipart/form-data" 
+									   class="dropzone dropzone-area"
+									   id="dpz-single-file-p1"
+								   >
+								   @csrf
+									   <input type="hidden" name="fileDropzone" />
+								   </form>
+							   </div>
+							   <div class="col-lg-4 ">
+								<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+									method="POST"  
+									enctype="multipart/form-data" 
+									class="dropzone dropzone-area" 
+									id="dpz-single-file-p2"
+								>  
+								@csrf
+									<input type="hidden" name="fileDropzone" />
+								</form>
+							   </div>
+							   <div class="col-lg-4">
+								<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+									method="POST"  
+									enctype="multipart/form-data" 
+									class="dropzone dropzone-area" 
+									id="dpz-single-file-p3"
+								>  
+								@csrf
+									<input type="hidden" name="fileDropzone" />
+								</form>
+						    	</div>  
+								<div class="col-lg-4 mt-2">
+									<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+										method="POST"  
+										enctype="multipart/form-data" 
+										class="dropzone dropzone-area" 
+										id="dpz-single-file-p4" 
+									>  
+									@csrf
+										<input type="hidden" name="fileDropzone" />
+									</form>
+								</div>  
+								<div class="col-lg-4 mt-2">
+									<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+										method="POST"  
+										enctype="multipart/form-data" 
+										class="dropzone dropzone-area" 
+										id="dpz-single-file-p5"
+									>  
+									@csrf
+										<input type="hidden" name="fileDropzone" />
+									</form> 
+								</div>
+							   </div>
+							   </div>
+							   
+							   
+							   
+							   
+							   </div>  
+							 
+								   <div class="row mt-3">
 									<div class="col-lg-12">
-							            <div class="row">
-												
-												<div class="col-lg-12">
-													<label class="mb-xs-1 strong">Description</label> <br/>
-													<label id="descMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-                                                    <p class="text-smaller">
-														Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
-												Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
-													</p>
-													{{-- <textarea class="form-control textarea" rows="10" name="description"></textarea> --}}
-													<textarea  name="description" id="editortiny"></textarea>
-
-												</div>
-									    </div>
-										</div>
-										<div class="col-lg-12 mt-5">
-							            <div class="row">
-												
-												<div class="col-lg-12">
-													<label class="mb-xs-1 strong">Whats in the box</label> <br/>
-													<label id="boxMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-                                                    <p class="text-smaller">
-														Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
-												Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
-													</p>
-													{{-- <textarea class="form-control textarea" rows="10" name="description"></textarea> --}}
-													<textarea rows="6" style="    width: 100%;"  name="whats_in_box" id="whats_in_box" placeholder="Explain whats in th box of this product"></textarea>
-
-												</div>
-									    </div>
-										</div>
-										<div class="col-lg-12">
-									    <div class="row" >
-												<div class="col-lg-12" style="text-align: right; margin-top: 2%;">
-													<a id="descriptionBtn"  href="javascript:void(0)" onclick="updatedesc('descriptionBtn')"   class="btn btn-primary waves-effect waves-light">Next</a>
-													<a href="javascript:void(0)" onclick="cancelListing()"   class="btn btn-danger waves-effect waves-light">Cancel</a>
-
-												</div>
-									   </div>
-									   </div>
-						        </div>
-					    </div>
-					  </div>
-					  <!--end description portion -->
+								   <div class="text-right mb-20" >
+									<a href="javascript:void(0)" onclick="afterimg()" id="finishProduct" style=" margin-bottom: 2%;"  class="btn btn-primary waves-effect waves-light">Next</a>
+									<a href="javascript:void(0)" onclick="cancelListing()" style="margin-right: 1% !important; margin-bottom: 2%;"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+				
+								</div>  			
+								</div>  			
+								</div>  			
+						   </div>
+						   </div>
+						</div>
+					 
+				<div>	       
+				
 					  <!-- Inventory and pricing  -->
 					  <form id="choice_form" action="" method="post" enctype="multipart/form-data" >
 					  <div class="card" id="inventoryDiv" style="display: none;">
+						<div class="card-header" style="padding-bottom: 1.5rem;">
+                            <h4 class="card-title">Inventory and Dimension</h4>
+                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a id="invCollap" data-toggle="collapse" href="#collapseinv" role="button" aria-expanded="false" aria-controls="collapseinv"><i class="feather icon-chevron-down"></i></a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+						<div class="card-content collapse show" id="collapseinv" style="">
 						  <div class="card-body">
-							  <div class="mb-xs-1 strong"> Inventory and Dimension
-						  </div> <br />
-						  <div class="row">
-							  <div class="col-lg-3">
-								  <div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest">Optional</span> </div>
-								  <p class="text-smaller text-gray-lighter">
-									  SKUs are for your use only — buyers won’t see them. 
-								  </p>
-							  </div>
-							  <div class="col-lg-3">
-								  <br />
-								  <input type="text" class="form-control" name="sku" placeholder="SKU"/>
-							  </div>
-						  </div>
+							
+						  
 						<div class="row">
 							
 							<div class="col-lg-3">
@@ -186,7 +304,7 @@
 									Width description 
 								</p>
 								<label id="widthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-                                <input type="text" class="form-control" name="width"  placeholder="Width"/>
+                                <input type="text" id="width" class="form-control" name="width"  placeholder="Width"/>
 							</div>
 							<div class="col-lg-3">
 								<div class="mb-xs-2 strong"> Height  </div>
@@ -194,7 +312,7 @@
 									Height description 
 								</p>
 								<label id="heigtMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-								<input type="text" class="form-control" name="hieght" placeholder="Height"/>
+								<input type="text" id="hieght" class="form-control" name="hieght" placeholder="Height"/>
 							</div>
 							<div class="col-lg-3">
 								<div class="mb-xs-2 strong"> Length  </div>
@@ -202,15 +320,15 @@
 									Length description 
 								</p>
 								<label id="lengthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-                                <input type="text" class="form-control" name="length" placeholder="Length"/>
+                                <input type="text" class="form-control" id="length" name="length" placeholder="Length"/>
 							</div>
 							<div class="col-lg-3">
 								<div class="mb-xs-2 strong"> Weight </div>
 								<p class="text-smaller text-gray-lighter">
 									Weight description 
 								</p>
-								<label id="weightMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-                                <input type="text" class="form-control" name="weight"  placeholder="Weight"/>
+								<label id="weightMsg"   class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+                                <input type="text" class="form-control" id="weight" name="weight"  placeholder="Weight"/>
 							</div>
 						</div>
 					
@@ -218,17 +336,27 @@
 						 
 						  
 						  </div>
+						  </div>
 					  </div>
 				
 					
 					
 					<div class="card" id="addvariationsdiv" style="display: none;">
-						
-						
+						<div class="card-header" style="padding-bottom: 1.5rem;">
+                            <h4 class="card-title">Variations</h4>
+                            <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+                            <div class="heading-elements">
+                                <ul class="list-inline mb-0">
+                                    <li><a id="verCollap" data-toggle="collapse" href="#collapsever" role="button" aria-expanded="false" aria-controls="collapsever"><i class="feather icon-chevron-down"></i></a></li>
+                                    
+                                </ul>
+                            </div>
+                        </div>
+						<div class="card-content collapse show" id="collapsever" style="">
 							<div class="card-body">
 								<div class="row">
 									<div class="col-lg-9">
-										<label class="mb-xs-2 strong">Variations</label> <br/>
+										
 									   <p class="text-gray-lighter">Add available options like color or size. Buyers will choose from these during checkout.</p>
 									</div>
 								</div>
@@ -278,108 +406,73 @@
 						 </div>
 			       </div>
 			     </div>
+			     </div>
 				
 				  <!-- End Inventory and pricing  -->
 			</form> 
       		
       <!-- Photos -->
-	  <div class="card form-group" id="imageDiv" style="display: none;">
+	  <div class="card" id="description-card" style="display: none">
+		<div class="card-header" style="padding-bottom: 1.5rem;">
+			<h4 class="card-title">Description</h4>
+			<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
+			<div class="heading-elements">
+				<ul class="list-inline mb-0">
+					<li><a id="desCollap" data-toggle="collapse" href="#collapsedes" role="button" aria-expanded="false" aria-controls="collapsedes"><i class="feather icon-chevron-down"></i></a></li>
+					
+				</ul>
+			</div>
+		</div>
+		<div class="card-content collapse show" id="collapsedes" style="">
+
 		<div class="card-body">
-			
-		   <div class="row">
-			   <div class="col-lg-12">
-				   <label class="mb-xs-1 strong">Photos</label> <br/>
-				   <p class="text-gray-lighter">Add as many as you can so buyers can see every detail<small>(Use up to ten photos to show your item's most important qualities).</small> </p>	
-				   <label class="text-smaller text-gray-lighte"> Tips: </label>
-			   </div>
-		   </div>
-		   <div class="row">
-			   <div  class="col-lg-2 col-md-3">
-				   <ul class="text-smaller text-gray-lighter">
-					   <li>Use natural light and no flash. </li>
-					   <li>Include a common object for scale. </li>
-					   <li>Show the item being held, worn, or used. </li>
-					   <li>Shoot against a clean, simple background. </li>
-				   </ul>
-			   </div>
+			  <div class="row">
+				  <div class="col-lg-12">
+					  <div class="row">
+							  
+							  <div class="col-lg-12">
+								
+								  <label id="descMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+								  <p class="text-smaller">
+									  Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
+							  Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
+								  </p>
+								  {{-- <textarea class="form-control textarea" rows="10" name="description"></textarea> --}}
+								  <textarea  name="description" id="editortiny"></textarea>
 
-			   <div class="col-lg-2 col-md-3 col22">
-				   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-					   method="POST"  
-					   enctype="multipart/form-data" 
-					   class="dropzone dropzone-area"
-					   id="dpz-single-file-p1"
-				   >
-				   @csrf
-					   <input type="hidden" name="fileDropzone" />
-				   </form>
-			   </div>
-			   <div class="col-lg-2 col-md-3 col22">
-				   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-					   method="POST"  
-					   enctype="multipart/form-data" 
-					   class="dropzone dropzone-area" 
-					   id="dpz-single-file-p2"
-				   >  
-				   @csrf
-					   <input type="hidden" name="fileDropzone" />
-				   </form>
-			   </div>
-			   <div class="col-lg-2 col-md-3 col22">
-				   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-					   method="POST"  
-					   enctype="multipart/form-data" 
-					   class="dropzone dropzone-area" 
-					   id="dpz-single-file-p3"
-				   >  
-				   @csrf
-					   <input type="hidden" name="fileDropzone" />
-				   </form>
-			   </div>  
-			   <div class="col-lg-2 col-md-3 col22">
-				   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-					   method="POST"  
-					   enctype="multipart/form-data" 
-					   class="dropzone dropzone-area" 
-					   id="dpz-single-file-p4" 
-				   >  
-				   @csrf
-					   <input type="hidden" name="fileDropzone" />
-				   </form>
-			   </div>  
-			   <div class="col-lg-2 col-md-3 col22">
-				   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
-					   method="POST"  
-					   enctype="multipart/form-data" 
-					   class="dropzone dropzone-area" 
-					   id="dpz-single-file-p5"
-				   >  
-				   @csrf
-					   <input type="hidden" name="fileDropzone" />
-				   </form> 
-			   </div>
-			   </div>  
-			   <br />      
-				   <div class="row">
-					   <div class="col-lg-2"></div>
-					   <div class="col-lg-8 ml-3">
-						   <p class="strong mb-xs-2"> Link photos to variations </p>
-						   <p class="text-smaller text-gray-lighter">
-							   Add photos to your variations so buyers can see all their options. Try it out
-						   </p>
-					   </div>
-				   </div> 
-				   <div class="row">
-					<div class="col-lg-12">
-				   <div class="text-right mb-20" >
-					<a href="{{route('vendor.addNewProduct.get')}}" id="finishProduct" style=" margin-bottom: 2%;"  class="btn btn-primary waves-effect waves-light">Finish Listing</a>
-					<a href="javascript:void(0)" onclick="cancelListing()" style="margin-right: 1% !important; margin-bottom: 2%;"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+							  </div>
+					  </div>
+					  </div>
+					  <div class="col-lg-12 mt-5">
+					  <div class="row">
+							  
+							  <div class="col-lg-12">
+								  <label class="mb-xs-1 strong">Whats in the box</label> <br/>
+								  <label id="boxMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+								  <p class="text-smaller">
+									  Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
+							  Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
+								  </p>
+								  {{-- <textarea class="form-control textarea" rows="10" name="description"></textarea> --}}
+								  <textarea rows="6" style="    width: 100%;"  name="whats_in_box" id="whats_in_box" placeholder="Explain whats in th box of this product"></textarea>
 
-				</div>  			
-				</div>  			
-				</div>  			
-		   </div>
-	    </div>
+							  </div>
+					  </div>
+					  </div>
+					  <div class="col-lg-12">
+					  <div class="row" >
+							  <div class="col-lg-12" style="text-align: right; margin-top: 2%;">
+								  <a id="descriptionBtn"  href="javascript:void(0)" onclick="updatedesc('descriptionBtn')"   class="btn btn-primary waves-effect waves-light">Next</a>
+								  <a href="javascript:void(0)" onclick="cancelListing()"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+
+							  </div>
+					 </div>
+					 </div>
+			  </div>
+	  </div>
+	  </div>
+	</div>
+	<!--end description portion -->
 
 	    </div>
      </div>
@@ -515,13 +608,14 @@ var i = 0;
     
     var cat_count =0; 
 function category(catid,ulID,type,catulID){
+	
 	var titleVal =$("input[name=title]").val();
 	var brandVal =$("#brandoption").val();
-	
+    $(".b-red").removeClass("b-red");
 	$('.emptymsgs').text('');  
     if(titleVal!=null && titleVal!='' && brandVal!=null && brandVal!=''){
     $("#addVariantButton").prop('disabled', true);
-	$('#titleBtn').css('display', 'none');
+	$('#categoryBtn').css('display', 'none');
 	$( 'ul#'+catulID+' li' ).on( 'click', function(event) {
 		       
                 $( this ).parent().find( 'li.catulActive' ).removeClass( 'catulActive' );               
@@ -545,7 +639,7 @@ function category(catid,ulID,type,catulID){
                     $("#addVariantButton").prop('disabled', false);
 				   }
 				
-				$('#titleBtn').css('display', 'initial');
+				$('#categoryBtn').css('display', 'initial');
 				$(data.catID).appendTo("#categoryDivs");
 				$('#nextslider').click();
 				 getCustomFields(catid);
@@ -576,16 +670,18 @@ function category(catid,ulID,type,catulID){
     }
 
 }else{
-	
-	if(brandVal==null || brandVal==''){
-	$('#brandMsg').text('The brand field is required');
-	toastr.error('', 'The brand field is required');
-	}
 	if(titleVal==null || titleVal==''){
 	$('#titleMsg').text('The title field is required');
 	toastr.error('', 'The title field is required');
+	bordercolor('title');
+	}
+	if(brandVal==null || brandVal==''){
+	$('#brandMsg').text('The brand field is required');
+	toastr.error('', 'The brand field is required');
+     bordercolor('brand');
 	}
 	
+
 }
 }
 
@@ -680,6 +776,11 @@ defer(function() {
 	<script>
 $( "#titlFrm" ).on( "submit", function(e) {
 	 
+	var titleVal =$("input[name=title]").val();
+	var brandVal =$("#brandoption").val();
+    $(".b-red").removeClass("b-red");
+	$('.emptymsgs').text('');  
+    if(titleVal!=null && titleVal!='' && brandVal!=null && brandVal!=''){
          var dataString = $(this).serialize();
 		 var product_id=null; 
 			 product_id= $("#currentProductID").val();
@@ -698,31 +799,30 @@ $( "#titlFrm" ).on( "submit", function(e) {
 								$("#currentProductID").val(json.product_id);
 								toastr.success('', 'Product step 1 completed!');
 								$('#titleBtn').text('Update');
-								 nextShow('description-card');
+								 nextShow('category-div');
 								 $('.emptymsgs').text('');
+								 $('#titleCollap').click();
 								
 							}
 							if(json.msg=='Product Updated Successfully'  &&  json.product_id!=''){
 								$("#currentProductID").val(json.product_id);
 								toastr.success('', 'Product step 1 updated!');
 								$('#titleBtn').text('Update');
-								 nextShow('description-card');
+								 nextShow('imageDiv');
 								 $('.emptymsgs').text('');
+								 $('#titleCollap').click();
 								
 							}
 							 if(json.msg=='Product Not Updated'){
 								if(json.titleError!=''){
 									$('#titleMsg').text(json.titleError);
-									toastr.error('', json.titleError);
+									 toastr.error('', json.titleError);
 								}
 								if(json.brandError!=''){
 									$('#brandMsg').text(json.brandError);
 									toastr.error('', json.brandError);
 								}
-								if(json.categoryError=='The cate id field is required.' && json.categoryError!=''){
-									$('#catMsg').text('Please select desired category.');
-									toastr.error('', 'Please select desired category.');
-								}
+								
 								
 							}
 							
@@ -730,11 +830,57 @@ $( "#titlFrm" ).on( "submit", function(e) {
 				}
 			}
 			);
-			
+				}else{
+			if(titleVal==null || titleVal==''){
+	$('#titleMsg').text('The title field is required');
+	toastr.error('', 'The title field is required');
+	bordercolor('title');
+	}
+	if(brandVal==null || brandVal==''){
+	$('#brandMsg').text('The brand field is required');
+	toastr.error('', 'The brand field is required');
+     bordercolor('brand');
+	}
+		}
 
        e.preventDefault();
 });
 
+$( "#categoryFrm" ).on( "submit", function(e) {
+	
+		  var dataString = $(this).serialize();
+		  var product_id=null; 
+			  product_id= $("#currentProductID").val();
+			  $('.emptymsgs').text('');  
+		 $.ajax({
+						 
+						 type: "POST",
+						 url: "{{url('vendor/add-product')}}",
+						 data: dataString+"&action=categoryForm&productId="+product_id,
+						 dataType: 'json',
+						 success: function (json) {
+							cattxt=$('#categoryBtn').text();
+							if(cattxt=='Update'){
+
+								toastr.success('', 'Product step 2 Updated!');
+							}else{
+								toastr.success('', 'Product step 2 Completed!');
+								
+							}
+							
+							    $('#catCollap').click();
+							    $('#categoryBtn').text('Update');
+								 nextShow('imageDiv');
+								 $('.emptymsgs').text('');
+							 
+							
+				         }
+			 }
+			 );
+				 
+ 
+		e.preventDefault();
+ });
 	</script>
 	<script>
 	
@@ -757,15 +903,15 @@ function updatedesc(btnID){
 						if(json.msg=='Product Description Updated Successfully' &&  json.product_id!=''){
 							$("#currentProductID").val(json.product_id);
 							if($('#'+btnID).text()=='Next'){
-								toastr.success('', 'Product step 2 completed!');
+								toastr.success('', 'Product step 5 completed!');
+								$('#desCollap').click();
 							}else{
-								toastr.success('', 'Product step 2 updated successfully!');
+								toastr.success('', 'Product step 5 updated successfully!');
+								$('#desCollap').click();
 							}
 							
 							$('#'+btnID).text('Update');
-						     nextShow('inventoryDiv');
-						     nextShow('addvariationsdiv');
-							 nextShow('customer_options');
+						   
 							 $('.emptymsgs').text('');
 						}if(json.msg=='Product Description And Whats In The Box Not Updated'){
 							
@@ -821,13 +967,17 @@ function updatedesc(btnID){
 				             if(json.msg=='Product Inventory Updated Successfully' &&  json.product_id!=''){
 								 $("#currentProductID").val(json.product_id);
 								 if($('#inventoryBtn').text()=='Next'){
-									toastr.success('', 'Product step 3 completed!');
+									toastr.success('', 'Product step 4 completed!');
+								
 								  }else{
-								  toastr.success('', 'Product inventory updated successfully!');
+								  toastr.success('', 'Product step 4 updated!');
+								
 								 }
 								 $('#inventoryBtn').text('Update');
-									nextShow('imageDiv');
-							  
+									nextShow('description-card');
+									$('#invCollap').click();
+									$('#verCollap').click();
+									
 								 }
 								 if(json.msg=='Product Inventory Not Updated'){
 									 toastr.error('', 'Product inventory not updated');
@@ -903,12 +1053,24 @@ function updatedesc(btnID){
 
 </script>
 <script>
-$('.select2-search__field').on("keydown", function(e) {
-	alert( "Handler for .change() called." );
-});
+function afterimg(){
+	nextShow('inventoryDiv');
+	nextShow('addvariationsdiv');
+	nextShow('customer_options');
+	imgtxt=$('#finishProduct').text();
+	if(imgtxt=='Update'){
+		toastr.success('', 'Product step 3 Updated!');
+	}else{
+		toastr.success('', 'Product step 3 completed!');
+	}
+	 $('#finishProduct').text('Update');
+     $('#imgCollap').click();
+    
+}
 
 
 </script>
+
 
 @endsection
     

@@ -52,7 +52,7 @@ class ProductController extends Controller
         $product_image_id=$request->session()->get('add_pro_img_id');
         
         $validate = Validator::make($request->all(), [
-            'fileDropzone'=>'required|image|mimes:png,jpeg,jpg,gif'
+            'fileDropzone'=>'required|image|mimes:png,jpeg,jpg,gif,webp'
         ]);
         if ($validate->fails()) {
             return response()->json('Please upload valid image', 422);
@@ -250,9 +250,46 @@ class ProductController extends Controller
     // 
     // addProduct title,categories and customfields start
     private function addProductTitle($request){
+           
+            
+            $product               = new Product();
+            $newSlug               = Str::slug($request->input('title'), '-');
+            $product->title        = $request->input('title');
+            $product->sku          = $request->sku;
+            $product->brand_id     = decrypt($request->input('brand'));
+            $product->image_id     = $request->input('image_id');
+            $product->slug         = $newSlug.'-'.$this->uniqueSlug();
+            $product->vendor_id    = Auth::id();
+                
+                if($product->save()){
+                    $Id=$product->id;
+                 $responseData=array( 
+                        'product_id' => encrypt($Id),
+                        'msg' => 'Product Created Successfully'
+                    );
+                }else{
+                    $responseData=array(
+                        'product_id' => '',
+                        'msg' => 'Product Not Created Successfully'
+                    );
+                }
+                
+           
+           
+           
+            return json_encode($responseData);
+           
+            
+    }
+    // addProduct title,categories and customfields end 
+
+
+    // addProduct title,categories and customfields start
+    private function addProductCategory($request){
+      
             $category=null;
             $category_id=null;
-            if(!empty($request->input('cate_id'))){
+            if(!empty($request['cate_id'])){
                 $categoryArr=$request->input('cate_id');
              for($i=0;$i<count($categoryArr); $i++) {
                  if($i==0){
@@ -265,28 +302,9 @@ class ProductController extends Controller
             // $request->session()->put('add_pro_category_id', $category_id);
             }
             
-            $product = new Product();
-            if(!empty($category) && !empty($request->input('cate_id'))){
-                $newSlug=Str::slug($request->input('title'), '-');
-               
-                $product->title        = $request->input('title');
-                $product->category_id  = $category;
-                $product->brand_id  = decrypt($request->input('brand'));
-                $product->image_id     = $request->input('image_id');
-                $product->slug         = $newSlug.'-'.$this->uniqueSlug();
-                $product->vendor_id    = Auth::id();
-                 //$product->video_link   = $request->video_link;
-               // generating mannual Id
-                $today     = date('YmdHi');
-                $startDate = date('YmdHi', strtotime('2012-03-14 09:06:00'));
-                $range     = $today - $startDate;
-                $tsnid     = rand(0, $range);
-                //generating mannual Id end  
-                $product->tsnid = $tsnid;
-                $product->save();
-                
-                $Id = $product->id;
-                
+          
+                $Id = decrypt($request['productId']);
+                $request->session()->put('add_pro_img_id', $Id);
                 //custome fields start
                  if ($request['element_0']) {
                         
@@ -325,13 +343,16 @@ class ProductController extends Controller
                         $productCustomFields->customfields = json_encode($data);
                         $productCustomFields->save();
                     }
-                
-            }
-            $responseData=array(
+
+                    $responseData=array(
     
-                'product_id' => encrypt($Id),
-                'msg' => 'Product Created Successfully'
-            );
+                        'product_id' => encrypt($Id),
+                        'msg' => 'Category Created Successfully'
+                    );
+               
+                
+        
+           
            
             return json_encode($responseData);
            
@@ -340,75 +361,19 @@ class ProductController extends Controller
     // addProduct title,categories and customfields end
     //update current product code start
     private function updateCurrentProduct($request){
-        $category=null;
-            $category_id=null;
-            if(!empty($request->input('cate_id'))){
-                $categoryArr=$request->input('cate_id');
-             for($i=0;$i<count($categoryArr); $i++) {
-                 if($i==0){
-                    $category=$categoryArr[$i];
-                 }else{
-                    $category.=','.$categoryArr[$i];
-                 }
-                }
-             $category_id=array_values(array_slice($request->input('cate_id'), -1))[0];
-            // $request->session()->put('add_pro_category_id', $category_id);
-            }
-            
+     
            
             $prodID=decrypt($request->input('productId'));
             $product = Product::where('id',$prodID)->first();
+            $newSlug=Str::slug($request->input('title'), '-');
             
-            if(!empty($category) && !empty($request->input('cate_id'))){
-                $newSlug=Str::slug($request->input('title'), '-');
-                
-                $product->title        = $request->input('title');
-                $product->image_id     = $request->input('image_id');
-                $product->category_id  = $category;
-                $product->brand_id  = decrypt($request->input('brand'));
-                $product->slug         = $newSlug.'-'.$this->uniqueSlug();
-                $product->save();
-                
-                //custome fields start
-                 if ($request['element_0']) {
-                        
-                        $data = array();
-                        $i = 0;
-                        
-                        foreach (json_decode(CustomField::where('category_id', $category_id)->first()->options) as $key => $element) {
-                            
-                            $item = array();
-                            if ($element->type == 'text') {
-                                $item['type'] = 'text';
-                                $item['label'] = $element->label;
-                                $item['value'] = $request['element_'.$i];
-                            }
-                            elseif ($element->type == 'select' || $element->type == 'radio') {
-                                $item['type'] = 'select';
-                                $item['label'] = $element->label;
-                                $item['value'] = $request['element_'.$i];
-                            }
-                            elseif ($element->type == 'multi_select') {
-                                $item['type'] = 'multi_select';
-                                $item['label'] = $element->label;
-                                $item['value'] = json_encode($request['element_'.$i]);
-                            }
-                            elseif ($element->type == 'file') {
-                                $item['type'] = 'file';
-                                $item['label'] = $element->label;
-                                $item['value'] = $request['element_'.$i]->move('product_images/media',$request['element_'.$i]);
-                            }
-                            array_push($data, $item);
-                            $i++;
-                        }
-    
-                        $productCustomFields =ProductCustomField::where('product_id',$prodID)->first();;
-                        $productCustomFields->product_id = $prodID;
-                        $productCustomFields->customfields = json_encode($data);
-                        $productCustomFields->save();
-                    }
-                
-            }
+            $product->title        = $request->input('title');
+            $product->image_id     = $request->input('image_id');
+            $product->sku= $request->sku;
+            $product->category_id  = $category;
+            $product->brand_id  = decrypt($request->input('brand'));
+            $product->slug         = $newSlug.'-'.$this->uniqueSlug();
+            $product->save();
             $responseData=array(
     
                 'product_id' => encrypt($prodID),
@@ -418,20 +383,19 @@ class ProductController extends Controller
             return json_encode($responseData);
            
          
-    }
+    }  
     //update current product code end
     //main addproduct action
     public function addProduct(Request $request){
        
-     
+       
        // $product->product_type = $request->product_type;
       
       //  title,category and custom fields form data submit
          if(!empty($request->input('action')) && $request->input('action')=='titleForm' && empty($request->input('productId')) && $request->input('productId')=='')
          {
             $validator = Validator::make($request->all(), [
-                'title' => 'required|max:80|min:10',
-                'cate_id' => 'required',
+                'title' => 'required|max:40|min:10',
                 'brand' => 'required',
                
             ]);
@@ -439,7 +403,6 @@ class ProductController extends Controller
                 $allErorrs=$validator->errors();
                 $responseData=array(
                     'titleError'=>$allErorrs->first('title'),
-                    'categoryError' =>$allErorrs->first('cate_id'),
                     'brandError' =>$allErorrs->first('brand'),
                     'msg' => 'Product Not Updated'
                 );
@@ -456,8 +419,7 @@ class ProductController extends Controller
         if(!empty($request->input('action')) && $request->input('action')=='titleForm' && !empty($request->input('productId')) && $request->input('productId')!='')
         {
             $validator = Validator::make($request->all(), [
-                'title' => 'required|max:80|min:10',
-                'cate_id' => 'required',
+                'title' => 'required|max:40|min:10',
                 'brand' => 'required',
                
             ]);
@@ -465,7 +427,6 @@ class ProductController extends Controller
                 $allErorrs=$validator->errors();
                 $responseData=array(
                     'titleError'=>$allErorrs->first('title'),
-                    'categoryError' =>$allErorrs->first('cate_id'),
                     'brandError' =>$allErorrs->first('brand'),
                     'msg' => 'Product Not Updated'
                 );
@@ -475,7 +436,14 @@ class ProductController extends Controller
             }   
         }
        
+        //product category start
+        if(!empty($request['action']) && $request['action']=='categoryForm' && !empty($request['cate_id']) && !empty($request['productId']))
+        {
+            return $this->addProductCategory($request);
+        }
+       //product category
         //Description add or update here
+        
         if(!empty($request['action']) && $request['action']=='descriptionfrm' && !empty($request['description']) && !empty($request['productId']))
         {
             
@@ -596,10 +564,10 @@ protected function veriationsData($request){
  
            $validator = Validator::make($request->all(), [
               
-               'width' =>  'required|numeric|max:10|min:1',
-               'hieght' => 'required|numeric|max:10|min:1',
-               'length' => 'required|numeric|max:10|min:1',
-               'weight' => 'required|numeric|max:10|min:1',
+               'width' =>  'required|numeric|max:100000|min:1',
+               'hieght' => 'required|numeric|max:100000|min:1',
+               'length' => 'required|numeric|max:100000|min:1',
+               'weight' => 'required|numeric|max:100000|min:1',
               
            ]);
            if($validator->fails()){
@@ -617,7 +585,7 @@ protected function veriationsData($request){
          
            $product = Product::where('id',$prodID)->first();
           
-           $product->sku= $request->sku;
+          
            $product->width= $request->width;
            $product->hieght= $request->hieght;
            $product->length= $request->length;

@@ -1,3 +1,23 @@
+//validate numaric on keypress
+$(document).ready(function() {
+    $("#width,#hieght,#length,#weight").on("keypress keyup blur", function(event) {
+
+        $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
+        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+            event.preventDefault();
+        }
+    });
+});
+
+//end validate numaric on keypress
+
+//border color set for required fields 
+function bordercolor(name) {
+
+    $("input[name=" + name + "]").addClass("b-red");
+
+}
+
 // function addparamsurl(parmTitle, parmVal, parmType) {
 //     // if (parmType == '&') {
 //     //     var refresh = window.location.protocol + "//" + window.location.host + window.location.pathname + '&' + parmTitle + '=' + parmVal;
@@ -12,9 +32,6 @@
 //divs hide on next move code start
 function nextShow(nextDiv) {
     $('#' + nextDiv).css('display', 'block');
-
-
-
 }
 //divs hide on next move code end
 

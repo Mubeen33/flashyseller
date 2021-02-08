@@ -1,3 +1,7 @@
+.b-red {
+    border-color: rgb(228, 88, 88);
+}
+
 .btn-file {
     position: relative;
     overflow: hidden;
