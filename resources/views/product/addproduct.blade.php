@@ -23,7 +23,20 @@
 	$range=$today - $startDate;
 	$prod_img_id=rand(0, $range);
 	?>
-
+<style>
+	.card-radiouse {
+		border-top-left-radius: 50px 20px;
+        border-top-right-radius: 50px 20px;
+	}
+	.card-body{
+		padding-top: 0.2rem;
+	}
+	.card-header{
+		background-color: #e7e7e7 !important;
+		padding-bottom: 1.5rem !important;
+	}
+	
+</style>
 	
 <div class="content-body">
 	<div class="container-fluid" style="width: 74% !important;">
@@ -40,9 +53,9 @@
 					  
 					  <!-- end card -->
 					  <!--Listing Details -->        
-					  <div class="card">
-						<div class="card-header" style="background-color: #e7e7e7;">
-                            <h4 class="card-title" style="padding-bottom: 1.5rem;">Listing Details</h4>
+					  <div class="card card-radiouse">
+						<div class="card-header">
+                            <h4 class="card-title" >Listing Details</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -55,26 +68,32 @@
 						  <div class="card-content collapse show" id="collapsetitle" style="">
 						
 						  <div class="card-body">
-							
+							<div class="row">
+								<div class="col-lg-12">
+									<p class="text-gray-lighter">
+										Include keywords that buyers would use to search for your item.
+									</p>
+								</div>	
+							</div>
 							        
 									 <div class="row">
 										
 										 <div class="col-sm-12"> 
-											<div class="mb-xs-2 strong"> Title <span class="text-gray-lightest">*</span> <span> <label id="titleMsg" class="emptymsgs" style="color: rgb(228, 88, 88); "></label></span> </div>
-											
-											 <input type="text" class="form-control" name="title" />
+											<div class="mb-xs-2 strong"> Title <span class="text-gray-lightest">*</span> <span> </span> </div>
+											<div id="titleMsg" class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
+											 <input type="text" class="form-control" name="title" autocomplete="off" required/>
 											 <p class="text-smaller text-gray-lighter">
 												To ensure customers can find your product include the brand, product name and most important information.											</p>
 										 </div>
 									
 									 </div>
 									 
-									 <div class="row">
+									 <div class="row mt-1">
 										
 										 <div class="col-sm-6"> 
 											<div class="mb-xs-2 strong"> SKU <span class="text-gray-lightest" style="font-size: x-small;">( Optional )</span> </div>
-											<label id="skuMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-                                            <input type="text" class="form-control" name="sku" placeholder="SKU"/>
+											<div id="skuMsg" class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
+											<input type="text" class="form-control" name="sku" placeholder="SKU" autocomplete="off"/>
 											 <p class="text-smaller text-gray-lighter">
 												SKUs are for your use only — buyers won’t see them. 
 											</p>
@@ -83,9 +102,9 @@
 										</div>
 										 <div class="col-sm-6 ">
 											<div class="mb-xs-2 strong">Brand <span class="text-gray-lightest">*</span> </div>
-											<label id="brandMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+											<div id="brandMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
 											
-												<select class="select2 form-control" name="brand" id="brandoption" required>
+												<select class="select2 form-control" name="brand" id="brandoption" autocomplete="off" required>
 													<option value="">Select Brand</option>
 													@foreach($brandsList as $brands)
                                                     <option value="{{encrypt($brands->id)}}">{{$brands->name}}</option>
@@ -112,8 +131,8 @@
 						  </div>
 					  </div>
 					</form>
-					  <div class="card" style="display: none;" id="category-div">
-						<div class="card-header" style="padding-bottom: 1.5rem;">
+					  <div class="card card-radiouse" style="display: none;" id="category-div">
+						<div class="card-header" >
                             <h4 class="card-title">Category And Custom Fields</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
@@ -138,7 +157,7 @@
 									 <div class="row" style="margin-bottom: 3%;">
 										
 										 <div class="col-lg-12"> <br />
-											<label id="catMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+											<div id="catMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
 										   <div class="row resources" >
 											<div   id="resource-slider" >
 												<a href="javascript:void(0)" class='arrow prev catBtn waves-effect waves-light'></a>
@@ -151,6 +170,20 @@
 								            </div>
 										 </div>
 									 </div>
+									 
+									 <div class="row breadcrumbs-top mb-2" id="breadcurmsdiv" style="display: none;">
+										<div class="col-12">
+										 
+											<div class="breadcrumb-wrapper col-12" style="    border: 1px solid #D9D9D9;">
+												<h6 class="content-header-title float-left " style="margin-top: 0.6rem !important;">Current Selection: </h6>
+												<ol class="breadcrumb nextbrad" style="    border-left: 0px solid #D6DCE1;" >
+													
+													
+												</ol>
+											</div>
+										</div>
+									</div>
+									
 									<div id="render__customfields__data">
 										@include('product.partials.auto-customfields')
 									</div>
@@ -168,8 +201,8 @@
 					
 					  <!-- End Listing Details -->
 
-					  <div class="card form-group" id="imageDiv" style="display: none;">
-						<div class="card-header" style="padding-bottom: 1.5rem;">
+					  <div class="card form-group card-radiouse" id="imageDiv" style="display: none;">
+						<div class="card-header" >
                             <h4 class="card-title mb-xs-1 strong">Photos</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
@@ -281,8 +314,8 @@
 				
 					  <!-- Inventory and pricing  -->
 					  <form id="choice_form" action="" method="post" enctype="multipart/form-data" >
-					  <div class="card" id="inventoryDiv" style="display: none;">
-						<div class="card-header" style="padding-bottom: 1.5rem;">
+					  <div class="card card-radiouse" id="inventoryDiv" style="display: none;">
+						<div class="card-header" >
                             <h4 class="card-title">Inventory and Dimension</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
@@ -303,32 +336,32 @@
 								<p class="text-smaller text-gray-lighter">
 									Width description 
 								</p>
-								<label id="widthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-                                <input type="text" id="width" class="form-control" name="width"  placeholder="Width"/>
+								<div id="widthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+                                <input type="text" id="width" class="form-control" name="width"  placeholder="Width" autocomplete="off" required/>
 							</div>
 							<div class="col-lg-3">
 								<div class="mb-xs-2 strong"> Height  </div>
 								<p class="text-smaller text-gray-lighter">
 									Height description 
 								</p>
-								<label id="heigtMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-								<input type="text" id="hieght" class="form-control" name="hieght" placeholder="Height"/>
+								<div id="heigtMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+								<input type="text" id="hieght" class="form-control" name="hieght" placeholder="Height" autocomplete="off" required/>
 							</div>
 							<div class="col-lg-3">
 								<div class="mb-xs-2 strong"> Length  </div>
 								<p class="text-smaller text-gray-lighter">
 									Length description 
 								</p>
-								<label id="lengthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-                                <input type="text" class="form-control" id="length" name="length" placeholder="Length"/>
+								<div id="lengthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+                                <input type="text" class="form-control" id="length" name="length" placeholder="Length" autocomplete="off" required/>
 							</div>
 							<div class="col-lg-3">
 								<div class="mb-xs-2 strong"> Weight </div>
 								<p class="text-smaller text-gray-lighter">
 									Weight description 
 								</p>
-								<label id="weightMsg"   class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
-                                <input type="text" class="form-control" id="weight" name="weight"  placeholder="Weight"/>
+								<div id="weightMsg"   class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+                                <input type="text" class="form-control" id="weight" name="weight"  placeholder="Weight" autocomplete="off" required/>
 							</div>
 						</div>
 					
@@ -341,8 +374,8 @@
 				
 					
 					
-					<div class="card" id="addvariationsdiv" style="display: none;">
-						<div class="card-header" style="padding-bottom: 1.5rem;">
+					<div class="card card-radiouse" id="addvariationsdiv" style="display: none;">
+						<div class="card-header" >
                             <h4 class="card-title">Variations</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
@@ -412,8 +445,8 @@
 			</form> 
       		
       <!-- Photos -->
-	  <div class="card" id="description-card" style="display: none">
-		<div class="card-header" style="padding-bottom: 1.5rem;">
+	  <div class="card card-radiouse" id="description-card" style="display: none">
+		<div class="card-header">
 			<h4 class="card-title">Description</h4>
 			<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
 			<div class="heading-elements">
@@ -432,13 +465,13 @@
 							  
 							  <div class="col-lg-12">
 								
-								  <label id="descMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+								  <div id="descMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
 								  <p class="text-smaller">
 									  Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
 							  Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
 								  </p>
 								  {{-- <textarea class="form-control textarea" rows="10" name="description"></textarea> --}}
-								  <textarea  name="description" id="editortiny"></textarea>
+								  <textarea  name="description" id="editortiny" autocomplete="off" required></textarea>
 
 							  </div>
 					  </div>
@@ -448,13 +481,13 @@
 							  
 							  <div class="col-lg-12">
 								  <label class="mb-xs-1 strong">Whats in the box</label> <br/>
-								  <label id="boxMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></label>
+								  <div id="boxMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
 								  <p class="text-smaller">
 									  Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
 							  Not sure what else to say? Shoppers also like hearing about your process, and the story behind this item.
 								  </p>
 								  {{-- <textarea class="form-control textarea" rows="10" name="description"></textarea> --}}
-								  <textarea rows="6" style="    width: 100%;"  name="whats_in_box" id="whats_in_box" placeholder="Explain whats in th box of this product"></textarea>
+								  <textarea rows="6" style="width: 100%;"  name="whats_in_box" id="whats_in_box" placeholder="Explain whats in th box of this product" autocomplete="off" required></textarea>
 
 							  </div>
 					  </div>
@@ -605,10 +638,24 @@ var i = 0;
    
 
 <script>
-    
-    var cat_count =0; 
-function category(catid,ulID,type,catulID){
+    function breadcrums(type,catname){
 	
+		nextShow('breadcurmsdiv');
+		if (document.getElementById('brad_'+type)) {
+			    
+					$('#brad_'+type+'').nextAll('.bredcrumnext').remove();
+					$('#brad_'+type+'').remove();
+					$('<li class="breadcrumb-item bredcrumnext" id="brad_'+type+'" ><a href="javascript:void(0)">'+catname+'</a></li>').appendTo(".nextbrad");
+
+       } else {
+	          
+				$('#brad_'+type+'').nextAll('.bredcrumnext').remove();
+				$('<li class="breadcrumb-item bredcrumnext" id="brad_'+type+'" ><a href="javascript:void(0)">'+catname+'</a></li>').appendTo(".nextbrad");
+			}    
+	}
+    var cat_count =0; 
+function category(catid,ulID,type,catulID,catname){
+	breadcrums(type,catname);
 	var titleVal =$("input[name=title]").val();
 	var brandVal =$("#brandoption").val();
     $(".b-red").removeClass("b-red");
@@ -625,6 +672,7 @@ function category(catid,ulID,type,catulID){
           });
     var typesuper=0;
     cat_count++;
+	
     $('#'+type+'').nextAll('.alldiv').remove();
     $.ajax({
             
@@ -632,7 +680,7 @@ function category(catid,ulID,type,catulID){
             methods: "POST",           
 			data:{id: catid,type: type,typesuper: typesuper,cat_count:cat_count},
 		    success: function(data){
-			
+				
                if(data.catID!=null){
 				
 				   if(data.veriant!=null){
@@ -643,10 +691,10 @@ function category(catid,ulID,type,catulID){
 				$(data.catID).appendTo("#categoryDivs");
 				$('#nextslider').click();
 				 getCustomFields(catid);
+				//  $('#brad_'+type+'').remove();
                }
                else{
-				
-                 $(data).appendTo("#categoryDivs");
+				  $(data).appendTo("#categoryDivs");
                  $('#resource-slider .resource-slider-item').each(function(i) {
                  var $this = $(this),
                  left = $this.width() * i;

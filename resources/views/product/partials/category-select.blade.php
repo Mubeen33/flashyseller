@@ -23,7 +23,7 @@
                         $title_sub=$catRow->name;
                     }
                    @endphp
-                   <li   class="catlogLi"><a class="dropdown-item"  style="padding: 0.4rem 0.4rem;"  href="javascript:void(0)" onclick="category('{{$catRow->id}}','category','supperParent','maincategory')" title="{{$catRow->name}}">{{$title_sub}}</a></li>
+                   <li   class="catlogLi"><a class="dropdown-item"  style="padding: 0.4rem 0.4rem;"  href="javascript:void(0)" onclick="category('{{$catRow->id}}','category','supperParent','maincategory','{{$catRow->name}}')" title="{{$catRow->name}}">{{$title_sub}}</a></li>
                    @endforeach
                  
                </ul>
