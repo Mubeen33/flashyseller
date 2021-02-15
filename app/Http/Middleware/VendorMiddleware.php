@@ -15,6 +15,7 @@ class VendorMiddleware
      */
     public function handle($request, Closure $next)
     {
+         
         if (Auth::check() && Auth::user()->identity == 'Vendor') {
           return $next($request);
         }else{

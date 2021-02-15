@@ -247,7 +247,7 @@ class ProductController extends Controller
             return view('product.partials.auto-warranty', compact('productWarranty'))->render();
         }
     }
-    // 
+    //  
     // addProduct title,categories and customfields start
     private function addProductTitle($request){
            
@@ -275,7 +275,7 @@ class ProductController extends Controller
                 }
                 
            
-           
+              
            
             return json_encode($responseData);
            
@@ -334,7 +334,7 @@ class ProductController extends Controller
                                 $item['label'] = $element->label;
                                 $item['value'] = $request['element_'.$i]->move('product_images/media',$request['element_'.$i]);
                             }
-                            array_push($data, $item);
+                            array_push($data, $item);      
                             $i++;
                         }
     
@@ -472,8 +472,14 @@ class ProductController extends Controller
 
 
        
-        //veriations submit or update here
+        //inventory submit or update here
         if(!empty($request->input('action')) && $request->input('action')=='choice_form' && !empty($request->input('productId')) && $request->input('productId')!='')
+        {
+            return $this->inventorysData($request);
+        } 
+        
+        //veriations submit or update here
+        if(!empty($request->input('action')) && $request->input('action')=='variations_form' && !empty($request->input('productId')) && $request->input('productId')!='')
         {
             return $this->veriationsData($request);
         }
@@ -558,7 +564,7 @@ class ProductController extends Controller
     return json_encode($responseData);
    }
 //veriations data
-protected function veriationsData($request){
+protected function inventorysData($request){
     $prodID=decrypt($request->input('productId'));
     $request->session()->put('add_pro_img_id', $prodID);
  
@@ -591,103 +597,28 @@ protected function veriationsData($request){
            $product->length= $request->length;
            $product->weight= $request->weight;
            if($product->save()){
-               if ($request->has('variation_name')) {
+            if ($request->has('variation_name')) {
                  
-                   $count= count($request->variation_name);
-                   if ($count == 1) {
-                       //check veratrine available or not
-                       $productVeriant = ProductVariation::where('product_id',$prodID)->first();
-                      
-                       if(!empty($productVeriant->product_id)){
-                           ProductVariation:: where('product_id',$prodID)->delete();
-                       }
-                           
-                       foreach ($request->variant_combinations as $key => $value) {
-                           
-                           $productVariations = new ProductVariation();
-       
-                           $productVariations->first_variation_name  = $request->variation_name[0];
-                           $productVariations->first_variation_value = $request->variant_combinations[$key];
-                           $productVariations->sku                   = $request->variant_sku[$key];
-                           $productVariations->product_id            = $prodID;
-       
-                           if ($request->has('variant_image')) {
-                               
-                               $image = $request->file('variant_image')[$key];
-               
-                               $file_name=uniqid().(Auth::guard('vendor')->user()->id).$image->getClientOriginalName();
-                               //resize image
-                               $image_resize = Image::make($image->getRealPath());              
-                               $imageSizes=array('1200','600','300');
-                               $imagePath='product_images/product_'.$prodID;
-                               $path = public_path($imagePath);
-                               if(!File::isDirectory($imagePath)){
-                                  File::makeDirectory($path, 0777, true, true);
-                                  if(!File::isDirectory($imagePath.'/variant_image')){
-                                    File::makeDirectory($path.'/variant_image', 0777, true, true);
-                                    for($i=0;$i<count($imageSizes);$i++){
-                                        $file_nameRenew=$imageSizes[$i].'_'.$file_name;
-                                        $image = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
-                                        $image->save($imagePath.'/variant_image/'. $file_nameRenew);
-                                      }
-                                      $image->save($imagePath.'/variant_image/'. $file_name);
-                                  }else{
-                                    for($i=0;$i<count($imageSizes);$i++){
-                                        $file_nameRenew=$imageSizes[$i].'_'.$file_name;
-                                        $image = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
-                                        $image->save($imagePath.'/variant_image/'. $file_nameRenew);
-                                      }
-                                  }
-                                 
-                                  
-                                }else{
-                                    if(!File::isDirectory($imagePath.'/variant_image')){
-                                        File::makeDirectory($path.'/variant_image', 0777, true, true);
-                                        for($i=0;$i<count($imageSizes);$i++){
-                                            $file_nameRenew=$imageSizes[$i].'_'.$file_name;
-                                            $image = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
-                                            $image->save($imagePath.'/variant_image/'. $file_nameRenew);
-                                          }
-                                      }else{
-                                        for($i=0;$i<count($imageSizes);$i++){
-                                            $file_nameRenew=$imageSizes[$i].'_'.$file_name;
-                                            $image = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
-                                            $image->save($imagePath.'/variant_image/'. $file_nameRenew);
-                                          }
-                                      }
-                                }
-                               $productVariations->variant_image = url('/').$imagePath.'/variant_image/'.$file_name;
-                           }
+                $count= count($request->variation_name);
+                if ($count == 1) {
+                    //check veratrine available or not
+                    $productVeriant = ProductVariation::where('product_id',$prodID)->first();
+                   
+                    if(!empty($productVeriant->product_id)){
+                        ProductVariation:: where('product_id',$prodID)->delete();
+                    }
+                        
+                    foreach ($request->variant_combinations as $key => $value) {
+                        
+                        $productVariations = new ProductVariation();
+    
+                        $productVariations->first_variation_name  = $request->variation_name[0];
+                        $productVariations->first_variation_value = $request->variant_combinations[$key];
+                        $productVariations->sku                   = $request->variant_sku[$key];
+                        $productVariations->product_id            = $prodID;
+    
+                        if ($request->has('variant_image')) {
                             
-                           $productVariations->save();
-                           
-       
-                       }
-                   }
-                   if ($count == 2) {
-                       $productVeriant = ProductVariation::where('product_id',$prodID)->first();
-                      
-                       if(!empty($productVeriant->product_id)){
-                           ProductVariation:: where('product_id',$prodID)->delete();
-                       }
-                       foreach ($request->variant_combinations as $key => $value) {
-                           
-                           $variants = $request->variant_combinations[$key];
-                           $variants = explode("-",$variants);
-                           $first_variation_value = $variants[0];
-                           $second_variation_value = $variants[1];
-       
-                           $productVariations = new ProductVariation();
-       
-                           $productVariations->first_variation_name   = $request->variation_name[0];
-                           $productVariations->first_variation_value  = $first_variation_value;
-                           $productVariations->second_variation_name  = $request->variation_name[1];
-                           $productVariations->second_variation_value = $second_variation_value;
-                           $productVariations->sku                    = $request->variant_sku[$key];
-                           $productVariations->product_id             = $prodID;
-       
-                           if ($request->has('variant_image')) {
-                               
                             $image = $request->file('variant_image')[$key];
             
                             $file_name=uniqid().(Auth::guard('vendor')->user()->id).$image->getClientOriginalName();
@@ -733,13 +664,88 @@ protected function veriationsData($request){
                              }
                             $productVariations->variant_image = url('/').$imagePath.'/variant_image/'.$file_name;
                         }
-       
-                           $productVariations->save();
+                         
+                        $productVariations->save();
+                        
+    
+                    }
+                }
+                if ($count == 2) {
+                    $productVeriant = ProductVariation::where('product_id',$prodID)->first();
+                   
+                    if(!empty($productVeriant->product_id)){
+                        ProductVariation:: where('product_id',$prodID)->delete();
+                    }
+                    foreach ($request->variant_combinations as $key => $value) {
+                        
+                        $variants = $request->variant_combinations[$key];
+                        $variants = explode("-",$variants);
+                        $first_variation_value = $variants[0];
+                        $second_variation_value = $variants[1];
+    
+                        $productVariations = new ProductVariation();
+    
+                        $productVariations->first_variation_name   = $request->variation_name[0];
+                        $productVariations->first_variation_value  = $first_variation_value;
+                        $productVariations->second_variation_name  = $request->variation_name[1];
+                        $productVariations->second_variation_value = $second_variation_value;
+                        $productVariations->sku                    = $request->variant_sku[$key];
+                        $productVariations->product_id             = $prodID;
+    
+                        if ($request->has('variant_image')) {
+                            
+                         $image = $request->file('variant_image')[$key];
+         
+                         $file_name=uniqid().(Auth::guard('vendor')->user()->id).$image->getClientOriginalName();
+                         //resize image
+                         $image_resize = Image::make($image->getRealPath());              
+                         $imageSizes=array('1200','600','300');
+                         $imagePath='product_images/product_'.$prodID;
+                         $path = public_path($imagePath);
+                         if(!File::isDirectory($imagePath)){
+                            File::makeDirectory($path, 0777, true, true);
+                            if(!File::isDirectory($imagePath.'/variant_image')){
+                              File::makeDirectory($path.'/variant_image', 0777, true, true);
+                              for($i=0;$i<count($imageSizes);$i++){
+                                  $file_nameRenew=$imageSizes[$i].'_'.$file_name;
+                                  $image = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
+                                  $image->save($imagePath.'/variant_image/'. $file_nameRenew);
+                                }
+                                $image->save($imagePath.'/variant_image/'. $file_name);
+                            }else{
+                              for($i=0;$i<count($imageSizes);$i++){
+                                  $file_nameRenew=$imageSizes[$i].'_'.$file_name;
+                                  $image = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
+                                  $image->save($imagePath.'/variant_image/'. $file_nameRenew);
+                                }
+                            }
                            
-       
-                       }
-                   }
-               }
+                            
+                          }else{
+                              if(!File::isDirectory($imagePath.'/variant_image')){
+                                  File::makeDirectory($path.'/variant_image', 0777, true, true);
+                                  for($i=0;$i<count($imageSizes);$i++){
+                                      $file_nameRenew=$imageSizes[$i].'_'.$file_name;
+                                      $image = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
+                                      $image->save($imagePath.'/variant_image/'. $file_nameRenew);
+                                    }
+                                }else{
+                                  for($i=0;$i<count($imageSizes);$i++){
+                                      $file_nameRenew=$imageSizes[$i].'_'.$file_name;
+                                      $image = $image_resize->resize($imageSizes[$i], $imageSizes[$i]);
+                                      $image->save($imagePath.'/variant_image/'. $file_nameRenew);
+                                    }
+                                }
+                          }
+                         $productVariations->variant_image = url('/').$imagePath.'/variant_image/'.$file_name;
+                     }
+    
+                        $productVariations->save();
+                        
+    
+                    }
+                }
+            }
                    $responseData=array(
    
                        'product_id' => encrypt($prodID),
@@ -747,10 +753,7 @@ protected function veriationsData($request){
                    );
                    return json_encode($responseData);
                
-              
-              
-           
-           }else{
+               }else{
                $responseData=array(
    
                    'product_id' => encrypt($prodID),
@@ -761,6 +764,33 @@ protected function veriationsData($request){
            }
           }
 }
+
+// //veriations data
+// protected function veriationsData($request){
+//     $prodID=decrypt($request->input('productId'));
+//     $request->session()->put('add_pro_img_id', $prodID);
+ 
+           
+         
+         
+         
+          
+          
+        
+               
+//                    $responseData=array(
+   
+//                        'product_id' => encrypt($prodID),
+//                        'msg' => 'Product Inventory Updated Successfully'
+//                    );
+//                    return json_encode($responseData);
+               
+              
+              
+           
+           
+       
+// }
     //get pending products
     public function get_pending(){
 

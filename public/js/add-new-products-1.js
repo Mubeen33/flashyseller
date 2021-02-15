@@ -1,11 +1,34 @@
+//
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
+
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
+$(function() {
+    $("div.dz-preview").parent().children('div.dz-message').css('display', 'none');
+ });
+
+// variant card
+function openVariant(){
+    $('#variant-card').css('display','');
+}
 //validate numaric on keypress
 $(document).ready(function() {
     $("#width,#hieght,#length,#weight").on("keypress keyup blur", function(event) {
 
         $(this).val($(this).val().replace(/[^0-9\.]/g, ''));
-        if ((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) {
+         if($(this).val().length>6){
+            
             event.preventDefault();
         }
+        if (((event.which != 46 || $(this).val().indexOf('.') != -1) && (event.which < 48 || event.which > 57)) ) {
+            event.preventDefault();
+        }
+
     });
 });
 

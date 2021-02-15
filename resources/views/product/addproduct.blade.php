@@ -24,18 +24,11 @@
 	$prod_img_id=rand(0, $range);
 	?>
 <style>
-	.card-radiouse {
-		border-top-left-radius: 50px 20px;
-        border-top-right-radius: 50px 20px;
-	}
-	.card-body{
-		padding-top: 0.2rem;
-	}
-	.card-header{
-		background-color: #e7e7e7 !important;
-		padding-bottom: 1.5rem !important;
-	}
 	
+	span.select2.select2-container.select2-container--default {
+    min-width: 100% !important;         
+   
+}
 </style>
 	
 <div class="content-body">
@@ -102,7 +95,7 @@
 										</div>
 										 <div class="col-sm-6 ">
 											<div class="mb-xs-2 strong">Brand <span class="text-gray-lightest">*</span> </div>
-											<div id="brandMsg" class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+											<div id="brandMsg" class="emptymsgs" style="color: rgb(228, 88, 88);"></div>
 											
 												<select class="select2 form-control" name="brand" id="brandoption" autocomplete="off" required>
 													<option value="">Select Brand</option>
@@ -131,7 +124,7 @@
 						  </div>
 					  </div>
 					</form>
-					  <div class="card card-radiouse" style="display: none;" id="category-div">
+					  <div class="card card-radiouse"  id="category-div" style="display: none;">
 						<div class="card-header" >
                             <h4 class="card-title">Category And Custom Fields</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
@@ -144,7 +137,8 @@
                         </div>
 						<form id="categoryFrm" action="" method="post" enctype="multipart/form-data" >
 							@csrf
-						<div class="card-content collapse show" id="collapsecat" style="">
+						<div class="card-content collapse show" id="collapsecat" >       
+						
 						  <div class="card-body">
 									<div class="row">
 										<div class="col-lg-12">
@@ -157,7 +151,7 @@
 									 <div class="row" style="margin-bottom: 3%;">
 										
 										 <div class="col-lg-12"> <br />
-											<div id="catMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+											<div id="catMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
 										   <div class="row resources" >
 											<div   id="resource-slider" >
 												<a href="javascript:void(0)" class='arrow prev catBtn waves-effect waves-light'></a>
@@ -235,6 +229,9 @@
 							   <div class="col-lg-9  ">
 							   <div class="row">
 							   <div class="col-lg-4 ">
+								
+								<div id="dropzon_file_1"  class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
+
 								   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
 									   method="POST"  
 									   enctype="multipart/form-data" 
@@ -289,6 +286,17 @@
 										<input type="hidden" name="fileDropzone" />
 									</form> 
 								</div>
+								<div class="col-lg-4 mt-2">
+									<form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
+										method="POST"  
+										enctype="multipart/form-data" 
+										class="dropzone dropzone-area" 
+										id="dpz-single-file-p6"
+									>  
+									@csrf
+										<input type="hidden" name="fileDropzone" />
+									</form> 
+								</div>
 							   </div>
 							   </div>
 							   
@@ -326,7 +334,7 @@
                             </div>
                         </div>
 						<div class="card-content collapse show" id="collapseinv" style="">
-						  <div class="card-body">
+						  <div class="card-body" style="padding-top: 1.3rem !important;">
 							
 						  
 						<div class="row">
@@ -336,7 +344,7 @@
 								<p class="text-smaller text-gray-lighter">
 									Width description 
 								</p>
-								<div id="widthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+								<div id="widthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
                                 <input type="text" id="width" class="form-control" name="width"  placeholder="Width" autocomplete="off" required/>
 							</div>
 							<div class="col-lg-3">
@@ -344,7 +352,7 @@
 								<p class="text-smaller text-gray-lighter">
 									Height description 
 								</p>
-								<div id="heigtMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+								<div id="heigtMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
 								<input type="text" id="hieght" class="form-control" name="hieght" placeholder="Height" autocomplete="off" required/>
 							</div>
 							<div class="col-lg-3">
@@ -352,28 +360,35 @@
 								<p class="text-smaller text-gray-lighter">
 									Length description 
 								</p>
-								<div id="lengthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+								<div id="lengthMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
                                 <input type="text" class="form-control" id="length" name="length" placeholder="Length" autocomplete="off" required/>
 							</div>
 							<div class="col-lg-3">
-								<div class="mb-xs-2 strong"> Weight </div>
+								<div class="mb-xs-2 strong">Product Weight </div>
 								<p class="text-smaller text-gray-lighter">
-									Weight description 
+									Product Weight description 
 								</p>
-								<div id="weightMsg"   class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
+								<div id="weightMsg"   class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
                                 <input type="text" class="form-control" id="weight" name="weight"  placeholder="Weight" autocomplete="off" required/>
 							</div>
 						</div>
 					
-						  <hr />
+					
+						   <div class="text-right mb-20" style="margin-top: 2.5rem;">
+					         <a id="varientBtn" style=" margin-bottom: 2%; color: white;"  class="btn btn-primary waves-effect waves-light">Next</a>
+							 <a href="javascript:void(0)" onclick="cancelListing()" style="margin-right: 1% !important;     margin-bottom: 2%;"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+
+						    </div>
 						 
 						  
 						  </div>
 						  </div>
 					  </div>
 				
+					{{-- </form> 
 					
-					
+					<form id="variations_form " action="" method="post"   enctype="multipart/form-data" > --}}
+
 					<div class="card card-radiouse" id="addvariationsdiv" style="display: none;">
 						<div class="card-header" >
                             <h4 class="card-title">Variations</h4>
@@ -403,7 +418,7 @@
 									  
 								</div>
 								<div style="display: none;" id="variant-card">
-								<h5 class="modal-title">Add variations</h5><br>
+								<h5 class="modal-title">Add variations</h5>
 	
 								  <div class="col-md-12 mx-0 px-0" id="loadSecondVariationOptionsData"></div>
 	
@@ -422,7 +437,7 @@
 									</div>
 								</div>
 							</div>
-						
+						 
 					</div>
 					<div  id="customer_options" style="display: none;">
 							<div class="card-body" id="customer_choices">
@@ -432,17 +447,18 @@
 
 						 </div>
 						 
-				         <div class="text-right mb-20" >
-					         <button id="inventoryBtn" style=" margin-bottom: 2%;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
-							 <a href="javascript:void(0)" onclick="cancelListing()" style="margin-right: 1% !important;     margin-bottom: 2%;"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+				        
+						 	<div class="text-right mb-20" style="margin-top: 2.5rem;">
+							<button id="inventoryBtn" style=" margin-bottom: 2%;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
+							<a href="javascript:void(0)" onclick="cancelListing()" style="margin-right: 1% !important;     margin-bottom: 2%;"   class="btn btn-danger waves-effect waves-light">Cancel</a>
 
-						 </div>
+						</div>
 			       </div>
 			     </div>
 			     </div>
 				
 				  <!-- End Inventory and pricing  -->
-			</form> 
+				</form> 
       		
       <!-- Photos -->
 	  <div class="card card-radiouse" id="description-card" style="display: none">
@@ -527,24 +543,10 @@
   <script src="{{ asset('app-assets/js/scripts/extensions/toastr.js')}}"></script>
   <script src="{{ asset('app-assets/vendors/js/extensions/toastr.min.js')}}"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
-  <script type="text/javascript">
-
-
-  $(function() {
-     $("div.dz-preview").parent().children('div.dz-message').css('display', 'none');
-  });
-</script>
+  
 
 <script type="text/javascript">
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
 
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
 </script>
   <script type="text/javascript">
 
@@ -592,10 +594,7 @@ $(function () {
     }
 
     
-// // variant card
-    function openVariant(){
-        $('#variant-card').css('display','');
-    }
+
 
 var i = 0;
       function add_more_customer_choice_option(){
@@ -610,9 +609,13 @@ var i = 0;
             $('#customer_choices').append('<div class="row mb-3"><div class="col-8 col-md-3 order-1 order-md-0"><input type="hidden" name="choice_no[]" value="'+i+'"><input type="text" class="form-control" name="choice_no_'+i+'" value="'+vari+'" readonly=""></div><div class="col-12 col-md-7 col-xl-8 order-3 order-md-0 mt-2 mt-md-0"><input type="text" class="form-control tagsInput" data-role="tagsinput" name="choice_options_'+i+'[]" placeholder="Enter choice values"></div><div class="col-4 col-xl-1 col-md-2 order-2 order-md-0 text-right"><button type="button" onclick="delete_row(this)" class="btn btn-link btn-icon text-danger"><i class="fa fa-trash-o"></i></button></div></div>');
              i++;
             $('.tagsInput').tagsInput('items');
+			update_sku('remove');
         });    
       }
-      function update_sku(){
+      function update_sku(check=null){
+		  if(check=='remove'){
+			$('#customer_choice_options').html('');
+		  }else{
             $.ajax({
            type:"POST",
            url:'{{ route('vendor.products.sku_combination') }}',
@@ -623,6 +626,7 @@ var i = 0;
              
            }
          });
+		  }
       }
 
       function delete_row(em){
@@ -900,6 +904,8 @@ $( "#categoryFrm" ).on( "submit", function(e) {
 		  var product_id=null; 
 			  product_id= $("#currentProductID").val();
 			  $('.emptymsgs').text('');  
+			  var catIDCheck=$("input[name='cate_id[]']").val();
+		    if(catIDCheck!=null && catIDCheck!='' && catIDCheck!='undefine'){
 		 $.ajax({
 						 
 						 type: "POST",
@@ -925,6 +931,11 @@ $( "#categoryFrm" ).on( "submit", function(e) {
 				         }
 			 }
 			 );
+			}else{
+				
+				$('#catMsg').text('Category Required!');
+				toastr.error('', 'Category Required!');
+			}
 				 
  
 		e.preventDefault();
@@ -951,10 +962,10 @@ function updatedesc(btnID){
 						if(json.msg=='Product Description Updated Successfully' &&  json.product_id!=''){
 							$("#currentProductID").val(json.product_id);
 							if($('#'+btnID).text()=='Next'){
-								toastr.success('', 'Product step 5 completed!');
+								toastr.success('', 'Product step 6 completed!');
 								$('#desCollap').click();
 							}else{
-								toastr.success('', 'Product step 5 updated successfully!');
+								toastr.success('', 'Product step 6 updated successfully!');
 								$('#desCollap').click();
 							}
 							
@@ -991,14 +1002,14 @@ function updatedesc(btnID){
     // Submit form data via Ajax
     $("#choice_form").on('submit', function(e){
 		
-		e.preventDefault();
-		var product_id=null; 
-		 var formData = new FormData(this);
+			e.preventDefault();
+			var product_id=null; 
+			var formData = new FormData(this);
 		     
-		     product_id= $("#currentProductID").val();
-		     formData.append('action','choice_form');
-             formData.append('productId',product_id);
-			 $('.emptymsgs').text('');  
+			product_id= $("#currentProductID").val();
+			formData.append('action','choice_form');
+			formData.append('productId',product_id);
+			$('.emptymsgs').text('');  
             $.ajax({
             type: 'POST',
 			url: "{{url('vendor/add-product')}}",
@@ -1022,9 +1033,14 @@ function updatedesc(btnID){
 								
 								 }
 								 $('#inventoryBtn').text('Update');
-									nextShow('description-card');
-									$('#invCollap').click();
+									
+									
+									
 									$('#verCollap').click();
+									
+									nextShow('description-card');
+									// nextShow('addvariationsdiv');
+	                                // nextShow('customer_options');
 									
 								 }
 								 if(json.msg=='Product Inventory Not Updated'){
@@ -1056,9 +1072,9 @@ function updatedesc(btnID){
 								 }
         });
     });
-});
-	
-		</script>
+});	
+</script>
+
 <script>
 
 	function cancelListing(){
@@ -1102,22 +1118,69 @@ function updatedesc(btnID){
 </script>
 <script>
 function afterimg(){
-	nextShow('inventoryDiv');
-	nextShow('addvariationsdiv');
-	nextShow('customer_options');
-	imgtxt=$('#finishProduct').text();
-	if(imgtxt=='Update'){
+	if (dropzon_file_1==true) {
+		$('.emptymsgs').text('');
+       nextShow('inventoryDiv');
+	   imgtxt=$('#finishProduct').text();
+	   if(imgtxt=='Update'){
 		toastr.success('', 'Product step 3 Updated!');
-	}else{
+	    }else{
 		toastr.success('', 'Product step 3 completed!');
-	}
-	 $('#finishProduct').text('Update');
-     $('#imgCollap').click();
-    
+	   }
+	  $('#finishProduct').text('Update');
+      $('#imgCollap').click();
+	
+   }else{
+	$('#dropzon_file_1').text('This picture is required.');
+	toastr.error('', 'Please Upload Thumbnail!');
+   } 
 }
 
 
 </script>
+<script>
+$("#varientBtn").click(function(){
+    var width=$('#width').val();
+	var height=$('#weight').val();
+	var length=$('#length').val();
+	var weight=$('#hieght').val();
+	if( width !='' && height !='' && length !='' && weight !=''){
+		
+		btnText=$('#varientBtn').text();
+		if(btnText=='Update'){
+			$('#inventoryBtn').click();
+		}else{
+
+		 $("#varientBtn").text('Update');
+		 $('#invCollap').click();
+	     nextShow('addvariationsdiv');
+         nextShow('customer_options');
+
+		
+		}
+		requiredcheck();
+		
+	}else{
+		
+		requiredcheck();
+	}
+	
+
+});
+
+
+function requiredcheck(){
+	var required = document.querySelectorAll("input[required]");
+           required.forEach(function(element) {
+           if(element.value.trim() == "") {
+           element.style.borderColor  = "rgb(228, 88, 88)";
+           } else {
+             element.style.borderColor  = "";
+           }
+          });
+}
+</script>
+
 
 
 @endsection

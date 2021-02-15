@@ -1,3 +1,39 @@
+.strong {
+    font-weight: 400 !important;
+}
+.card-radiouse {
+    border-top-left-radius: 50px 20px;
+    border-top-right-radius: 50px 20px;
+}
+.card-body{
+    padding-top: 0.2rem;
+}
+.card-header{
+    background-color: #e7e7e7 !important;
+    padding-bottom: 1.5rem !important;
+}
+.emptymsgs{
+    font-weight: 400 !important;
+}
+.imgicon { 
+
+    position: relative;
+
+}
+.imgicon .imgdivtrash {
+    
+    display: block;
+
+     }
+.imgicon .imageTrashTag {
+    
+     position: absolute; 
+     top:5px; 
+     right:5px; 
+    
+    }
+
+
 .b-red {
     border-color: rgb(228, 88, 88);
 }
