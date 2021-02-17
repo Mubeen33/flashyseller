@@ -1,4 +1,71 @@
-//
+
+
+//check required fields 
+$("#varientBtn").click(function(){
+    var width=$('#width').val();
+	var height=$('#weight').val();
+	var length=$('#length').val();
+	var weight=$('#hieght').val();
+	if( width !='' && height !='' && length !='' && weight !=''){
+		
+		btnText=$('#varientBtn').text();
+		if(btnText=='Update'){
+			$('#inventoryBtn').click();
+		}else{
+
+		 $("#varientBtn").text('Update');
+		 $('#invCollap').click();
+	     nextShow('addvariationsdiv');
+         nextShow('customer_options');
+
+		
+		}
+		requiredcheck();
+		
+	}else{
+		
+		requiredcheck();
+	}
+	
+
+});
+
+//required fields check border-color change
+function requiredcheck(){
+	var required = document.querySelectorAll("input[required]");
+           required.forEach(function(element) {
+           if(element.value.trim() == "") {
+           element.style.borderColor  = "rgb(228, 88, 88)";
+           } else {
+             element.style.borderColor  = "";
+           }
+          });
+}
+//picture step
+function afterimg(){
+	if (dropzon_file_1==true) {
+		dropzon_file_1=false;
+		$('.emptymsgs').text('');
+       nextShow('inventoryDiv');
+	   imgtxt=$('#finishProduct').text();
+	   if(imgtxt=='Update'){
+		toastr.success('', 'Product step 3 Updated!');
+	    }else{
+		toastr.success('', 'Product step 3 completed!');
+	   }
+	  $('#finishProduct').text('Update');
+      $('#imgCollap').click();
+	
+   }else{
+	$('#dropzon_file_1').text('Thumbnail is required.');
+	toastr.error('', 'Please Upload Thumbnail!');
+   } 
+}
+//changing text of dropzone	
+$( document ).ready(function() {
+    $("#dpz-single-file-p1 .dz-default").children("span").text("Drop Thumbnail");
+	//   $("#dpz-single-file-p1 .dz-default").children("span").addClass('strong')
+});
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')

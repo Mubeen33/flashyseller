@@ -227,10 +227,12 @@
 							   </div>
 				                 
 							   <div class="col-lg-9  ">
+								<div id="dropzon_file_1"  class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
 							   <div class="row">
+								
 							   <div class="col-lg-4 ">
 								
-								<div id="dropzon_file_1"  class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
+							
 
 								   <form action="{{url('vendor/add-product-images')}}/{{$prod_img_id}}" 
 									   method="POST"  
@@ -450,7 +452,7 @@
 				        
 						 	<div class="text-right mb-20" style="margin-top: 2.5rem;">
 							<button id="inventoryBtn" style=" margin-bottom: 2%;" type="submit" class="btn btn-primary waves-effect waves-light">Next</button>
-							<a href="javascript:void(0)" onclick="cancelListing()" style="margin-right: 1% !important;     margin-bottom: 2%;"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+                            <a href="javascript:void(0)" onclick="cancelListing()" style="margin-right: 1% !important;     margin-bottom: 2%;"   class="btn btn-danger waves-effect waves-light">Cancel</a>
 
 						</div>
 			       </div>
@@ -512,7 +514,8 @@
 					  <div class="row" >
 							  <div class="col-lg-12" style="text-align: right; margin-top: 2%;">
 								  <a id="descriptionBtn"  href="javascript:void(0)" onclick="updatedesc('descriptionBtn')"   class="btn btn-primary waves-effect waves-light">Next</a>
-								  <a href="javascript:void(0)" onclick="cancelListing()"   class="btn btn-danger waves-effect waves-light">Cancel</a>
+								  <a id="completeProduct" href="javascript:void(0)" onclick="completeListing()" style=" display:none !important;"   class="btn btn-success waves-effect waves-light">Complete</a>
+                                  <a href="javascript:void(0)" onclick="cancelListing()"   class="btn btn-danger waves-effect waves-light">Cancel</a>
 
 							  </div>
 					 </div>
@@ -964,14 +967,15 @@ function updatedesc(btnID){
 							if($('#'+btnID).text()=='Next'){
 								toastr.success('', 'Product step 6 completed!');
 								$('#desCollap').click();
+							
 							}else{
 								toastr.success('', 'Product step 6 updated successfully!');
 								$('#desCollap').click();
 							}
 							
 							$('#'+btnID).text('Update');
-						   
-							 $('.emptymsgs').text('');
+						     $('.emptymsgs').text('');
+							   completeListing();
 						}if(json.msg=='Product Description And Whats In The Box Not Updated'){
 							
 							toastr.error('', 'Description And Whats In The Box not updated!');
@@ -1037,10 +1041,14 @@ function updatedesc(btnID){
 									
 									
 									$('#verCollap').click();
-									
-									nextShow('description-card');
-									// nextShow('addvariationsdiv');
-	                                // nextShow('customer_options');
+									 nextShow('description-card');
+
+                                   
+
+
+
+
+
 									
 								 }
 								 if(json.msg=='Product Inventory Not Updated'){
@@ -1117,69 +1125,31 @@ function updatedesc(btnID){
 
 </script>
 <script>
-function afterimg(){
-	if (dropzon_file_1==true) {
-		$('.emptymsgs').text('');
-       nextShow('inventoryDiv');
-	   imgtxt=$('#finishProduct').text();
-	   if(imgtxt=='Update'){
-		toastr.success('', 'Product step 3 Updated!');
-	    }else{
-		toastr.success('', 'Product step 3 completed!');
-	   }
-	  $('#finishProduct').text('Update');
-      $('#imgCollap').click();
-	
-   }else{
-	$('#dropzon_file_1').text('This picture is required.');
-	toastr.error('', 'Please Upload Thumbnail!');
-   } 
-}
+	function completeListing(){
+    // completion product listing
+      $('#completeProduct').css('display','');
+     Swal.fire({
+        title: 'Do you want to send it for approval?',
+        text: "After click on it listing will be submitted for review!",
+        icon: 'success',
+        showCancelButton: true,
+        cancelButtonText:'Continue Listing!',
+        confirmButtonColor: '#4839EB',
+        cancelButtonColor: '#28C76F',
+        confirmButtonText: 'Yes, do it!'
+        }).then((result) => {
+        if (result.isConfirmed) {
+           
+            window.location.href = "{{route('vendor.dashboard.get')}}";
+        }
+        })
 
-
-</script>
-<script>
-$("#varientBtn").click(function(){
-    var width=$('#width').val();
-	var height=$('#weight').val();
-	var length=$('#length').val();
-	var weight=$('#hieght').val();
-	if( width !='' && height !='' && length !='' && weight !=''){
-		
-		btnText=$('#varientBtn').text();
-		if(btnText=='Update'){
-			$('#inventoryBtn').click();
-		}else{
-
-		 $("#varientBtn").text('Update');
-		 $('#invCollap').click();
-	     nextShow('addvariationsdiv');
-         nextShow('customer_options');
-
-		
-		}
-		requiredcheck();
-		
-	}else{
-		
-		requiredcheck();
-	}
-	
-
-});
-
-
-function requiredcheck(){
-	var required = document.querySelectorAll("input[required]");
-           required.forEach(function(element) {
-           if(element.value.trim() == "") {
-           element.style.borderColor  = "rgb(228, 88, 88)";
-           } else {
-             element.style.borderColor  = "";
-           }
-          });
+       //end code
 }
 </script>
+
+
+
 
 
 
