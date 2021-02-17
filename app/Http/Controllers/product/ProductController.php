@@ -286,10 +286,12 @@ class ProductController extends Controller
 
     // addProduct title,categories and customfields start
     private function addProductCategory($request){
-      
-            $category=null;
+        //  echo '<pre>';
+        //  print_r($request->all());
+        //  exit;
+            $category=null;    
             $category_id=null;
-            if(!empty($request['cate_id'])){
+            if(!empty($request->input('cate_id'))){
                 $categoryArr=$request->input('cate_id');
              for($i=0;$i<count($categoryArr); $i++) {
                  if($i==0){
@@ -303,7 +305,7 @@ class ProductController extends Controller
             }
             
           
-                $Id = decrypt($request['productId']);
+                $Id = decrypt($request->input('productId'));
                 $request->session()->put('add_pro_img_id', $Id);
                 //custome fields start
                  if ($request['element_0']) {
@@ -437,8 +439,9 @@ class ProductController extends Controller
         }
        
         //product category start
-        if(!empty($request['action']) && $request['action']=='categoryForm' && !empty($request['cate_id']) && !empty($request['productId']))
-        {
+        if(!empty($request->input('action')) && $request->input('action')=='categoryForm' && !empty($request->input('cate_id')) && !empty($request->input('productId')))
+        { 
+           
             return $this->addProductCategory($request);
         }
        //product category

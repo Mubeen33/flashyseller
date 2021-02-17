@@ -1,5 +1,20 @@
-
-
+//refresh 
+$("#catCollap").click(function(){
+$('#resource-slider .resource-slider-item').each(function(i) {
+    var $this = $(this),
+    left = $this.width() * i;
+    $this.css({
+     left: left
+     })
+    });
+});
+//remove image button
+function removeImgVer(img,inputfile,trashIcon,imgAddress){
+			var urll=imgAddress;
+			$('#'+img).attr("src",urll);
+		    $('#'+inputfile).val(''); 
+			$('#' + trashIcon).css('display', 'none');
+		}
 //check required fields 
 $("#varientBtn").click(function(){
     var width=$('#width').val();

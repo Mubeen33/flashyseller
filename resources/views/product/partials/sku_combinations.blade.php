@@ -71,7 +71,7 @@
 										<div class="imgdivtrash" id="imgicon-upload{{$countBTN}}">
 										<img src="{{ asset('images/upld.png') }}" style="max-width: 100%; " class="cardimg " id='img-upload{{$countBTN}}'/>
 									    </div>
-										<a href="javascript:void(0)" style="display: none;" id="trashicon{{$countBTN}}" onclick="removeImgVer('img-upload{{$countBTN}}','imgInp{{$countBTN}}','trashicon{{$countBTN}}')" class="btn btn-link btn-icon text-danger"><i class="fa fa-trash-o imageTrashTag"></i></a>	
+										<a href="javascript:void(0)" style="display: none;" id="trashicon{{$countBTN}}" onclick="removeImgVer('img-upload{{$countBTN}}','imgInp{{$countBTN}}','trashicon{{$countBTN}}','{{ asset('images/upld.png') }}')" class="btn btn-link btn-icon text-danger"><i class="fa fa-trash-o imageTrashTag"></i></a>	
 									
 									</div>
 									<div id="input-group{{$countBTN}}" style="margin-top: -38%;">
@@ -117,7 +117,7 @@
 									<div class="imgicon" >
 										<div id="imgicon-upload{{$countBTN}}">
 											<img src="{{ asset('images/upld.png') }}" style="width: 100%;" class="cardimg imgdivtrash" id='img-upload{{$countBTN}}'/>
-											<a href="javascript:void(0)" style="display: none;" id="trashicon{{$countBTN}}" onclick="removeImgVer('img-upload{{$countBTN}}','imgInp{{$countBTN}}','trashicon{{$countBTN}}')" class="btn btn-link btn-icon text-danger"><i class="fa fa-trash-o imageTrashTag"></i></a>	
+											<a href="javascript:void(0)" style="display: none;" id="trashicon{{$countBTN}}" onclick="removeImgVer('img-upload{{$countBTN}}','imgInp{{$countBTN}}','trashicon{{$countBTN}}','{{ asset('images/upld.png') }}')" class="btn btn-link btn-icon text-danger"><i class="fa fa-trash-o imageTrashTag"></i></a>	
 										
 										</div>
 									</div>
@@ -166,12 +166,12 @@
 		</tbody>
 	</table>
 	@endif
-	<script>
+	{{-- <script>
 		function removeImgVer(img,inputfile,trashIcon){
 			var urll="{{ asset('images/upld.png') }}";
 			$('#'+img).attr("src",urll);
 		    $('#'+inputfile).val(''); 
 			$('#' + trashIcon).css('display', 'none');
 		}
-	</script>
+	</script> --}}
 	

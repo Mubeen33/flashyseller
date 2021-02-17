@@ -524,7 +524,7 @@
 	  </div>
 	  </div>
 	</div>
-	<!--end description portion -->
+	<!--end description portion -->   
 
 	    </div>
      </div>
@@ -903,18 +903,24 @@ $( "#titlFrm" ).on( "submit", function(e) {
 
 $( "#categoryFrm" ).on( "submit", function(e) {
 	
-		  var dataString = $(this).serialize();
+		  var dataString = new FormData(this);
+		//   var dataString = $(this).serialize();
 		  var product_id=null; 
 			  product_id= $("#currentProductID").val();
+			  dataString.append('action','categoryForm');
+			  dataString.append('productId',product_id);
 			  $('.emptymsgs').text('');  
 			  var catIDCheck=$("input[name='cate_id[]']").val();
 		    if(catIDCheck!=null && catIDCheck!='' && catIDCheck!='undefine'){
-		 $.ajax({
+		 $.ajax({       
 						 
 						 type: "POST",
 						 url: "{{url('vendor/add-product')}}",
-						 data: dataString+"&action=categoryForm&productId="+product_id,
+						 data: dataString,
 						 dataType: 'json',
+						 contentType: false,
+						 cache: false,
+						 processData:false,
 						 success: function (json) {
 							cattxt=$('#categoryBtn').text();
 							if(cattxt=='Update'){
