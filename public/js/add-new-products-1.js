@@ -1,5 +1,5 @@
-//refresh 
-$("#catCollap").click(function(){
+//refresh category div
+$("#collapsecat,.prev,.next,.show").click(function(){
 $('#resource-slider .resource-slider-item').each(function(i) {
     var $this = $(this),
     left = $this.width() * i;
@@ -8,6 +8,7 @@ $('#resource-slider .resource-slider-item').each(function(i) {
      })
     });
 });
+
 //remove image button
 function removeImgVer(img,inputfile,trashIcon,imgAddress){
 			var urll=imgAddress;
@@ -15,8 +16,9 @@ function removeImgVer(img,inputfile,trashIcon,imgAddress){
 		    $('#'+inputfile).val(''); 
 			$('#' + trashIcon).css('display', 'none');
 		}
-//check required fields 
+//check required fields   
 $("#varientBtn").click(function(){
+          
     var width=$('#width').val();
 	var height=$('#weight').val();
 	var length=$('#length').val();

@@ -250,13 +250,15 @@ class ProductController extends Controller
     //  
     // addProduct title,categories and customfields start
     private function addProductTitle($request){
-           
-            
+           $brand=null;
+            if(!empty($request->input('brand'))){
+                $brand=decrypt($request->input('brand'));
+            }
             $product               = new Product();
             $newSlug               = Str::slug($request->input('title'), '-');
             $product->title        = $request->input('title');
             $product->sku          = $request->sku;
-            $product->brand_id     = decrypt($request->input('brand'));
+            $product->brand_id     = $brand;
             $product->image_id     = $request->input('image_id');
             $product->slug         = $newSlug.'-'.$this->uniqueSlug();
             $product->vendor_id    = Auth::id();
@@ -364,7 +366,10 @@ class ProductController extends Controller
     //update current product code start
     private function updateCurrentProduct($request){
      
-           
+        $brand=null;
+        if(!empty($request->input('brand'))){
+            $brand=decrypt($request->input('brand'));
+        }
             $prodID=decrypt($request->input('productId'));
             $product = Product::where('id',$prodID)->first();
             $newSlug=Str::slug($request->input('title'), '-');
@@ -373,7 +378,7 @@ class ProductController extends Controller
             $product->image_id     = $request->input('image_id');
             $product->sku= $request->sku;
             $product->category_id  = $category;
-            $product->brand_id  = decrypt($request->input('brand'));
+            $product->brand_id  = $brand;
             $product->slug         = $newSlug.'-'.$this->uniqueSlug();
             $product->save();
             $responseData=array(
@@ -397,15 +402,12 @@ class ProductController extends Controller
          if(!empty($request->input('action')) && $request->input('action')=='titleForm' && empty($request->input('productId')) && $request->input('productId')=='')
          {
             $validator = Validator::make($request->all(), [
-                'title' => 'required|max:40|min:10',
-                'brand' => 'required',
-               
-            ]);
+                'title' => 'required|max:80|min:10',
+                ]);
             if($validator->fails()){
                 $allErorrs=$validator->errors();
                 $responseData=array(
                     'titleError'=>$allErorrs->first('title'),
-                    'brandError' =>$allErorrs->first('brand'),
                     'msg' => 'Product Not Updated'
                 );
                 return json_encode($responseData);
@@ -421,15 +423,12 @@ class ProductController extends Controller
         if(!empty($request->input('action')) && $request->input('action')=='titleForm' && !empty($request->input('productId')) && $request->input('productId')!='')
         {
             $validator = Validator::make($request->all(), [
-                'title' => 'required|max:40|min:10',
-                'brand' => 'required',
-               
+                'title' => 'required|max:80|min:10',   
             ]);
             if($validator->fails()){
                 $allErorrs=$validator->errors();
                 $responseData=array(
                     'titleError'=>$allErorrs->first('title'),
-                    'brandError' =>$allErorrs->first('brand'),
                     'msg' => 'Product Not Updated'
                 );
                 return json_encode($responseData);

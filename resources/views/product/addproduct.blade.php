@@ -26,9 +26,10 @@
 <style>
 	
 	span.select2.select2-container.select2-container--default {
+
     min-width: 100% !important;         
-   
-}
+
+    }
 </style>
 	
 <div class="content-body">
@@ -72,7 +73,7 @@
 									 <div class="row">
 										
 										 <div class="col-sm-12"> 
-											<div class="mb-xs-2 strong"> Title <span class="text-gray-lightest">*</span> <span> </span> </div>
+											<div class="mb-xs-2 strong">Product Title <span class="text-gray-lightest label-red">*</span> <span> </span> </div>
 											<div id="titleMsg" class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
 											 <input type="text" class="form-control" name="title" autocomplete="off" required/>
 											 <p class="text-smaller text-gray-lighter">
@@ -94,10 +95,10 @@
 
 										</div>
 										 <div class="col-sm-6 ">
-											<div class="mb-xs-2 strong">Brand <span class="text-gray-lightest">*</span> </div>
+											<div class="mb-xs-2 strong">Brand <span class="text-gray-lightest"></span> </div>
 											<div id="brandMsg" class="emptymsgs" style="color: rgb(228, 88, 88);"></div>
 											
-												<select class="select2 form-control" name="brand" id="brandoption" autocomplete="off" required>
+												<select class="select2 form-control" name="brand" id="brandoption" autocomplete="off" >
 													<option value="">Select Brand</option>
 													@foreach($brandsList as $brands)
                                                     <option value="{{encrypt($brands->id)}}">{{$brands->name}}</option>
@@ -143,7 +144,7 @@
 									<div class="row">
 										<div class="col-lg-12">
 											<p class="text-gray-lighter">
-												Select a category that related with your project.
+												Select Product Related Category.
 											</p>
 										</div>	
 									</div>
@@ -197,7 +198,7 @@
 
 					  <div class="card form-group card-radiouse" id="imageDiv" style="display: none;">
 						<div class="card-header" >
-                            <h4 class="card-title mb-xs-1 strong">Photos</h4>
+                            <h4 class="card-title">Photos</h4>
                             <a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
                             <div class="heading-elements">
                                 <ul class="list-inline mb-0">
@@ -342,7 +343,7 @@
 						<div class="row">
 							
 							<div class="col-lg-3">
-								<div class="mb-xs-2 strong"> Width </div>
+								<div class="mb-xs-2 strong"> Width<span class="text-gray-lightest label-red">*</span></div>
 								<p class="text-smaller text-gray-lighter">
 									Width description 
 								</p>
@@ -350,7 +351,7 @@
                                 <input type="text" id="width" class="form-control" name="width"  placeholder="Width" autocomplete="off" required/>
 							</div>
 							<div class="col-lg-3">
-								<div class="mb-xs-2 strong"> Height  </div>
+								<div class="mb-xs-2 strong"> Height<span class="text-gray-lightest label-red">*</span>  </div>
 								<p class="text-smaller text-gray-lighter">
 									Height description 
 								</p>
@@ -358,7 +359,7 @@
 								<input type="text" id="hieght" class="form-control" name="hieght" placeholder="Height" autocomplete="off" required/>
 							</div>
 							<div class="col-lg-3">
-								<div class="mb-xs-2 strong"> Length  </div>
+								<div class="mb-xs-2 strong"> Length<span class="text-gray-lightest label-red">*</span>  </div>
 								<p class="text-smaller text-gray-lighter">
 									Length description 
 								</p>
@@ -366,7 +367,7 @@
                                 <input type="text" class="form-control" id="length" name="length" placeholder="Length" autocomplete="off" required/>
 							</div>
 							<div class="col-lg-3">
-								<div class="mb-xs-2 strong">Product Weight </div>
+								<div class="mb-xs-2 strong">Product Weight<span class="text-gray-lightest label-red">*</span> </div>
 								<p class="text-smaller text-gray-lighter">
 									Product Weight description 
 								</p>
@@ -465,7 +466,7 @@
       <!-- Photos -->
 	  <div class="card card-radiouse" id="description-card" style="display: none">
 		<div class="card-header">
-			<h4 class="card-title">Description</h4>
+			<h4 class="card-title">Description<span class="text-gray-lightest label-red">*</span></h4>
 			<a class="heading-elements-toggle"><i class="fa fa-ellipsis-v font-medium-3"></i></a>
 			<div class="heading-elements">
 				<ul class="list-inline mb-0">
@@ -498,7 +499,7 @@
 					  <div class="row">
 							  
 							  <div class="col-lg-12">
-								  <label class="mb-xs-1 strong">Whats in the box</label> <br/>
+								  <label class="mb-xs-1 strong">Whats in the box<span class="text-gray-lightest label-red">*</span></label> <br/>
 								  <div id="boxMsg"  class="emptymsgs" style="color: rgb(228, 88, 88); font-size: medium;"></div>
 								  <p class="text-smaller">
 									  Start with a brief overview that describes your item’s finest features. Shoppers will only see the first few lines of your description at first, so make it count!
@@ -664,10 +665,10 @@ var i = 0;
 function category(catid,ulID,type,catulID,catname){
 	breadcrums(type,catname);
 	var titleVal =$("input[name=title]").val();
-	var brandVal =$("#brandoption").val();
+	//var brandVal =$("#brandoption").val();
     $(".b-red").removeClass("b-red");
 	$('.emptymsgs').text('');  
-    if(titleVal!=null && titleVal!='' && brandVal!=null && brandVal!=''){
+    if(titleVal!=null && titleVal!=''){
     $("#addVariantButton").prop('disabled', true);
 	$('#categoryBtn').css('display', 'none');
 	$( 'ul#'+catulID+' li' ).on( 'click', function(event) {
@@ -726,15 +727,15 @@ function category(catid,ulID,type,catulID,catname){
 
 }else{
 	if(titleVal==null || titleVal==''){
-	$('#titleMsg').text('The title field is required');
-	toastr.error('', 'The title field is required');
+	$('#titleMsg').text('The title field is required!');
+	toastr.error('', 'The title field is required!');
 	bordercolor('title');
 	}
-	if(brandVal==null || brandVal==''){
-	$('#brandMsg').text('The brand field is required');
-	toastr.error('', 'The brand field is required');
-     bordercolor('brand');
-	}
+	// if(brandVal==null || brandVal==''){
+	// $('#brandMsg').text('The brand field is required');
+	// toastr.error('', 'The brand field is required');
+    //  bordercolor('brand');
+	// }
 	
 
 }
@@ -832,10 +833,10 @@ defer(function() {
 $( "#titlFrm" ).on( "submit", function(e) {
 	 
 	var titleVal =$("input[name=title]").val();
-	var brandVal =$("#brandoption").val();
+	// var brandVal =$("#brandoption").val();
     $(".b-red").removeClass("b-red");
 	$('.emptymsgs').text('');  
-    if(titleVal!=null && titleVal!='' && brandVal!=null && brandVal!=''){
+    if(titleVal!=null && titleVal!=''){
          var dataString = $(this).serialize();
 		 var product_id=null; 
 			 product_id= $("#currentProductID").val();
@@ -887,15 +888,15 @@ $( "#titlFrm" ).on( "submit", function(e) {
 			);
 				}else{
 			if(titleVal==null || titleVal==''){
-	$('#titleMsg').text('The title field is required');
-	toastr.error('', 'The title field is required');
+	$('#titleMsg').text('The title field is required!');
+	toastr.error('', 'The title field is required!');
 	bordercolor('title');
 	}
-	if(brandVal==null || brandVal==''){
-	$('#brandMsg').text('The brand field is required');
-	toastr.error('', 'The brand field is required');
-     bordercolor('brand');
-	}
+	// if(brandVal==null || brandVal==''){
+	// $('#brandMsg').text('The brand field is required');
+	// toastr.error('', 'The brand field is required');
+    //  bordercolor('brand');
+	// }
 		}
 
        e.preventDefault();
@@ -999,7 +1000,7 @@ function updatedesc(btnID){
 				    toastr.error('', 'Whats in the box  Required!');
 				}
 				if(description==null || description==''){
-					$('#descMsg').text('Description Required');
+					$('#descMsg').text('Description Required!');
 				    toastr.error('', 'Description Required!');
 				}
 				

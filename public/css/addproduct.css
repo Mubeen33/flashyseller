@@ -37,8 +37,9 @@
      right:5px; 
     
     }
-
-
+.label-red {
+    color: rgb(228, 88, 88) !important;
+}
 .b-red {
     border-color: rgb(228, 88, 88);
 }

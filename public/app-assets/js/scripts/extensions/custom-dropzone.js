@@ -51,6 +51,7 @@ Dropzone.options.dpzSingleFileP1 = {
         $(file.previewTemplate).append("<span class='filenameofdropzone'>" + obj.filename + "</span>");
     },
     removedfile: function(file) {
+        dropzon_file_1=false;
         var server_file = $(file.previewTemplate).children('.filenameofdropzone').text();
         var name = server_file;
         //console.log(file);
