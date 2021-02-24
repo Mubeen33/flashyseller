@@ -1120,7 +1120,7 @@ function updatedesc(btnID){
 								 }
 							 
 								 btnDisabled('inventoryBtn',false); 
-								 }
+								 }   
         });
     });
 });	
@@ -1193,6 +1193,12 @@ function updatedesc(btnID){
        //end code
 }
 </script>
+{{-- <script>
+	 window.onbeforeunload = function(event)
+    {
+        return confirm("Confirm refresh");
+    };          
+</script> --}}
 
 
 

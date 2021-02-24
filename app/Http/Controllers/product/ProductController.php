@@ -42,14 +42,14 @@ class ProductController extends Controller
         $variationList = Variation::where('active',1)->get();
         $brandModel=new brands();
         $brandsList=$brandModel->brands();
-       
-        if(isset($request->productID)){
-            session()->put('add_pro_img_id',decrypt($request->productID));
-        }else{
-            if(!empty(session()->get('add_pro_img_id'))){
-                session()->forget('add_pro_img_id');
-            }
+        if(!empty(session()->get('add_pro_img_id'))){
+            session()->forget('add_pro_img_id');
         }
+        if(isset($request->productID)){
+            return redirect('/vendor/add-new-product');
+        }
+       
+        
         
     	return view('product.addproduct',compact('variationList','categoryList','brandsList'));
         
@@ -270,7 +270,7 @@ class ProductController extends Controller
             $product->image_id     = $request->input('image_id');
             $product->slug         = $newSlug.'-'.$this->uniqueSlug();
             $product->vendor_id    = Auth::id();
-                
+            $product->submission_id    =  $this->randomid();     
                 if($product->save()){
                     $Id=$product->id;
                     $request->session()->put('add_pro_img_id', $Id);
@@ -1068,5 +1068,12 @@ protected function inventorysData($request){
             $Id = decrypt($productID);
         }
         return $Id;
+    }
+    public function randomid(){
+        date_default_timezone_set('Africa/Johannesburg');
+        $today = date("dmY");
+        $rand = strtoupper(substr(uniqid(sha1(time())),0,4));
+        $submissionID = $rand.$today ;
+        return $submissionID;
     }
 }
