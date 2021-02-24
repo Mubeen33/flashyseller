@@ -49,6 +49,7 @@ class ProductController extends Controller
             if(!empty(session()->get('add_pro_img_id'))){
                 session()->forget('add_pro_img_id');
             }
+        }
         
     	return view('product.addproduct',compact('variationList','categoryList','brandsList'));
         
