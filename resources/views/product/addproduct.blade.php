@@ -75,7 +75,7 @@
 										 <div class="col-sm-12"> 
 											<div class="mb-xs-2 strong">Product Title <span class="text-gray-lightest label-red">*</span> <span> </span> </div>
 											<div id="titleMsg" class="emptymsgs" style="color: rgb(228, 88, 88); "></div>
-											 <input type="text" class="form-control" name="title" autocomplete="off" required/>
+											 <input id="titleID" type="text" class="form-control" name="title" autocomplete="off" required/>
 											 <p class="text-smaller text-gray-lighter">
 												To ensure customers can find your product include the brand, product name and most important information.											</p>
 										 </div>
@@ -550,7 +550,8 @@
   
 
 <script type="text/javascript">
-
+	 var urlCheck = new URL(window.location.href);
+	 var product_id=''; 
 </script>
   <script type="text/javascript">
 
@@ -662,7 +663,7 @@ var i = 0;
 			}    
 	}
     var cat_count =0; 
-function category(catid,ulID,type,catulID,catname){
+   function category(catid,ulID,type,catulID,catname){
 	breadcrums(type,catname);
 	var titleVal =$("input[name=title]").val();
 	//var brandVal =$("#brandoption").val();
@@ -836,10 +837,21 @@ $( "#titlFrm" ).on( "submit", function(e) {
 	// var brandVal =$("#brandoption").val();
     $(".b-red").removeClass("b-red");
 	$('.emptymsgs').text('');  
+
     if(titleVal!=null && titleVal!=''){
+		btnDisabled('titleBtn',true);
+	
          var dataString = $(this).serialize();
-		 var product_id=null; 
-			 product_id= $("#currentProductID").val();
+	
+	
+
+			// if (urlCheck.searchParams.get('productID')) {
+			// 	product_id=urlCheck.searchParams.get('productID'); // getUrlParameter('productID'); //$("#currentProductID").val();
+			// }
+			var urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.get('productID')) {
+				product_id=urlParams.get('productID') // getUrlParameter('productID'); //$("#currentProductID").val();
+			}
 			 $('.emptymsgs').text('');  
 		$.ajax({
 			            
@@ -852,7 +864,9 @@ $( "#titlFrm" ).on( "submit", function(e) {
 							
 							
 							if(json.msg=='Product Created Successfully'  &&  json.product_id!=''){
-								$("#currentProductID").val(json.product_id);
+							//	$("#currentProductID").val(json.product_id);
+								setProductID(json.product_id);
+								
 								toastr.success('', 'Product step 1 completed!');
 								$('#titleBtn').text('Update');
 								 nextShow('category-div');
@@ -861,7 +875,8 @@ $( "#titlFrm" ).on( "submit", function(e) {
 								
 							}
 							if(json.msg=='Product Updated Successfully'  &&  json.product_id!=''){
-								$("#currentProductID").val(json.product_id);
+								//$("#currentProductID").val(json.product_id);
+								setProductID(json.product_id);
 								toastr.success('', 'Product step 1 updated!');
 								$('#titleBtn').text('Update');
 								 nextShow('imageDiv');
@@ -882,7 +897,7 @@ $( "#titlFrm" ).on( "submit", function(e) {
 								
 							}
 							
-
+							btnDisabled('titleBtn',false);
 				}
 			}
 			);
@@ -906,14 +921,20 @@ $( "#categoryFrm" ).on( "submit", function(e) {
 	
 		  var dataString = new FormData(this);
 		//   var dataString = $(this).serialize();
-		  var product_id=null; 
-			  product_id= $("#currentProductID").val();
+	
+		
+		var urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.get('productID')) {
+				product_id=urlParams.get('productID') // getUrlParameter('productID'); //$("#currentProductID").val();
+			    }
+			if(product_id!=null && product_id!=''){
 			  dataString.append('action','categoryForm');
 			  dataString.append('productId',product_id);
 			  $('.emptymsgs').text('');  
 			  var catIDCheck=$("input[name='cate_id[]']").val();
-		    if(catIDCheck!=null && catIDCheck!='' && catIDCheck!='undefine'){
-		 $.ajax({       
+		      if(catIDCheck!=null && catIDCheck!='' && catIDCheck!='undefine'){
+				btnDisabled('categoryBtn',true);
+		      $.ajax({       
 						 
 						 type: "POST",
 						 url: "{{url('vendor/add-product')}}",
@@ -924,6 +945,7 @@ $( "#categoryFrm" ).on( "submit", function(e) {
 						 processData:false,
 						 success: function (json) {
 							cattxt=$('#categoryBtn').text();
+							setProductID(json.product_id);
 							if(cattxt=='Update'){
 
 								toastr.success('', 'Product step 2 Updated!');
@@ -936,7 +958,8 @@ $( "#categoryFrm" ).on( "submit", function(e) {
 							    $('#categoryBtn').text('Update');
 								 nextShow('imageDiv');
 								 $('.emptymsgs').text('');
-							 
+								 btnDisabled('categoryBtn',false); 
+							
 							
 				         }
 			 }
@@ -947,7 +970,9 @@ $( "#categoryFrm" ).on( "submit", function(e) {
 				toastr.error('', 'Category Required!');
 			}
 				 
- 
+		}else{
+			toastr.error('', 'Listing Expired!');
+		}
 		e.preventDefault();
  });
 	</script>
@@ -958,10 +983,15 @@ function updatedesc(btnID){
 
 			var description = ed.getContent();
 			var whatsbox = $('#whats_in_box').val();
-		    var product_id=null; 
-				product_id= $("#currentProductID").val();
+		    
+			
+			var urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.get('productID')) {
+				product_id=urlParams.get('productID') // getUrlParameter('productID'); //$("#currentProductID").val();
+			}
 				$('.emptymsgs').text('');
             if (description!=null && description!='' && whatsbox!='' && whatsbox!=null) {
+				btnDisabled('descriptionBtn',true); 
                 $.ajax({
                     url: "{{url('vendor/add-product')}}",
                     type: "POST",
@@ -970,7 +1000,8 @@ function updatedesc(btnID){
                     success: function(json) {
 						
 						if(json.msg=='Product Description Updated Successfully' &&  json.product_id!=''){
-							$("#currentProductID").val(json.product_id);
+							//$("#currentProductID").val(json.product_id);
+							setProductID(json.product_id);
 							if($('#'+btnID).text()=='Next'){
 								toastr.success('', 'Product step 6 completed!');
 								$('#desCollap').click();
@@ -990,7 +1021,7 @@ function updatedesc(btnID){
 						if(json.product_id==''){
 										toastr.error('', 'Listing expire please refresh page and start new listing!');
 									}
-						
+									btnDisabled('descriptionBtn',false); 
                     }
                 });
 			}
@@ -1014,10 +1045,14 @@ function updatedesc(btnID){
     $("#choice_form").on('submit', function(e){
 		
 			e.preventDefault();
-			var product_id=null; 
+			
 			var formData = new FormData(this);
-		     
-			product_id= $("#currentProductID").val();
+			btnDisabled('inventoryBtn',true); 
+		
+			var urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.get('productID')) {
+				product_id=urlParams.get('productID') // getUrlParameter('productID'); //$("#currentProductID").val();
+			}
 			formData.append('action','choice_form');
 			formData.append('productId',product_id);
 			$('.emptymsgs').text('');  
@@ -1035,7 +1070,8 @@ function updatedesc(btnID){
             success: function (json) {
 
 				             if(json.msg=='Product Inventory Updated Successfully' &&  json.product_id!=''){
-								 $("#currentProductID").val(json.product_id);
+								 //$("#currentProductID").val(json.product_id);
+								 setProductID(json.product_id);
 								 if($('#inventoryBtn').text()=='Next'){
 									toastr.success('', 'Product step 4 completed!');
 								
@@ -1083,7 +1119,7 @@ function updatedesc(btnID){
 									 toastr.error('', 'Listing expire please refresh page and start new listing!');
 								 }
 							 
- 
+								 btnDisabled('inventoryBtn',false); 
 								 }
         });
     });
@@ -1093,8 +1129,11 @@ function updatedesc(btnID){
 <script>
 
 	function cancelListing(){
-		product_id= $("#currentProductID").val();
-		if(product_id!=null && product_id!=''){
+		var urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.get('productID')) {
+				product_id=urlParams.get('productID') // getUrlParameter('productID'); //$("#currentProductID").val();
+			}
+		 if(product_id!=null && product_id!=''){
 			Swal.fire({
 			title: 'Are you sure to cancel this listing?',
 			text: "You won't be able to revert this!",
@@ -1154,6 +1193,7 @@ function updatedesc(btnID){
        //end code
 }
 </script>
+
 
 
 

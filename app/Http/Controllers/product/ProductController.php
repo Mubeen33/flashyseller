@@ -37,12 +37,19 @@ class ProductController extends Controller
         $this->middleware('auth:vendor');
     }
     // 
-    public function index(){
+    public function index(Request $request){
         $categoryList=Category::where("parent_id",0)->get();
         $variationList = Variation::where('active',1)->get();
         $brandModel=new brands();
         $brandsList=$brandModel->brands();
        
+        if(isset($request->productID)){
+            session()->put('add_pro_img_id',decrypt($request->productID));
+        }else{
+            if(!empty(session()->get('add_pro_img_id'))){
+                session()->forget('add_pro_img_id');
+            }
+        
     	return view('product.addproduct',compact('variationList','categoryList','brandsList'));
         
     }
@@ -265,6 +272,7 @@ class ProductController extends Controller
                 
                 if($product->save()){
                     $Id=$product->id;
+                    $request->session()->put('add_pro_img_id', $Id);
                  $responseData=array( 
                         'product_id' => encrypt($Id),
                         'msg' => 'Product Created Successfully'
@@ -291,24 +299,20 @@ class ProductController extends Controller
         //  echo '<pre>';
         //  print_r($request->all());
         //  exit;
-            $category=null;    
+            $category=array();    
             $category_id=null;
             if(!empty($request->input('cate_id'))){
-                $categoryArr=$request->input('cate_id');
-             for($i=0;$i<count($categoryArr); $i++) {
-                 if($i==0){
-                    $category=$categoryArr[$i];
-                 }else{
-                    $category.=','.$categoryArr[$i];
-                 }
-                }
-             $category_id=array_values(array_slice($request->input('cate_id'), -1))[0];
-            // $request->session()->put('add_pro_category_id', $category_id);
+                $category=$request->input('cate_id');
+                $category_id=array_values(array_slice($request->input('cate_id'), -1))[0];
+           
             }
             
-          
-                $Id = decrypt($request->input('productId'));
-                $request->session()->put('add_pro_img_id', $Id);
+                
+                $Id=$this->getProductID($request->input('productId'));
+                $product = Product::where('id',$Id)->first();
+                $product->category_id        = json_encode($category);
+                if($product->save()){
+               
                 //custome fields start
                  if ($request['element_0']) {
                         
@@ -353,7 +357,12 @@ class ProductController extends Controller
                         'product_id' => encrypt($Id),
                         'msg' => 'Category Created Successfully'
                     );
-               
+                }else{
+                    $responseData=array(
+                        'product_id' => encrypt($Id),
+                        'msg' => 'Category Not Created Successfully'
+                    ); 
+                }
                 
         
            
@@ -370,14 +379,15 @@ class ProductController extends Controller
         if(!empty($request->input('brand'))){
             $brand=decrypt($request->input('brand'));
         }
-            $prodID=decrypt($request->input('productId'));
+       
+            $prodID=$this->getProductID($request->input('productId'));
             $product = Product::where('id',$prodID)->first();
             $newSlug=Str::slug($request->input('title'), '-');
             
             $product->title        = $request->input('title');
             $product->image_id     = $request->input('image_id');
             $product->sku= $request->sku;
-            $product->category_id  = $category;
+           // $product->category_id  = $category;
             $product->brand_id  = $brand;
             $product->slug         = $newSlug.'-'.$this->uniqueSlug();
             $product->save();
@@ -449,7 +459,7 @@ class ProductController extends Controller
         if(!empty($request['action']) && $request['action']=='descriptionfrm' && !empty($request['description']) && !empty($request['productId']))
         {
             
-            $prodID=decrypt($request['productId']);
+            $prodID=$this->getProductID($request['productId']);
             $product = Product::where('id',$prodID)->first();
             $product->description  = $request['description'];
             $product->whats_in_box  = $request['whatsbox'];
@@ -500,7 +510,7 @@ class ProductController extends Controller
     }
 
    protected function exitListing($request){
-            $prodID=decrypt($request->input('productId'));
+            $prodID=$this->getProductID($request->input('productId'));
             $productStatus=false;
             $customFieldsStatus=false;
             $variationStatus=false;
@@ -567,9 +577,9 @@ class ProductController extends Controller
    }
 //veriations data
 protected function inventorysData($request){
-    $prodID=decrypt($request->input('productId'));
-    $request->session()->put('add_pro_img_id', $prodID);
- 
+    
+    $prodID=$this->getProductID($request->input('productId'));
+   
            $validator = Validator::make($request->all(), [
               
                'width' =>  'required|numeric|max:100000|min:1',
@@ -1048,5 +1058,14 @@ protected function inventorysData($request){
         $rand = strtoupper(substr(uniqid(sha1(time())),0,4));
         $Slugid = $rand.$today ;
         return $Slugid;
+    }
+    public function getProductID($productID = null){
+        $id=null;
+        if(!empty(session()->get('add_pro_img_id'))){
+            $Id =  session()->get('add_pro_img_id');
+        }else{
+            $Id = decrypt($productID);
+        }
+        return $Id;
     }
 }
