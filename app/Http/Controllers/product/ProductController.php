@@ -308,10 +308,12 @@ class ProductController extends Controller
            
             }
             
-                
+               
                 $Id=$this->getProductID($request->input('productId'));
                 $product = Product::where('id',$Id)->first();
                 $product->category_id        = json_encode($category);
+               
+
                 if($product->save()){
                
                 //custome fields start

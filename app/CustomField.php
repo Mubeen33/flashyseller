@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Customfield extends Model
 {
-    protected $table = 'customfields';
+    protected $table = 'custom_fields';
 }
 
 
