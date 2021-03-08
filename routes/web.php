@@ -59,6 +59,7 @@ Route::group(['as'=>'vendor.', 'prefix'=>'vendor', 'middleware' => ['vendorMW']]
 	Route::get('ajax-get-secondvariant-options/fetch','product\ProductController@getSecondVariationsOptions');
 	Route::get('ajax-get-variant-options-options/fetch','product\ProductController@getThirdVariationsOptions');
 	Route::match(['get','post'],'add-product','product\ProductController@addProduct');
+	Route::match(['get','post'],'complete-add-product','product\ProductController@completeAddProduct');
 	Route::post('delete-product-image','product\ProductController@removeProductImage');
 	Route::post('products/sku_combination','product\ProductController@skuCombinations')->name('products.sku_combination');
 

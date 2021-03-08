@@ -1185,8 +1185,25 @@ function updatedesc(btnID){
         confirmButtonText: 'Yes, do it!'
         }).then((result) => {
         if (result.isConfirmed) {
-           
-            window.location.href = "{{route('vendor.dashboard.get')}}";
+			var urlParams = new URLSearchParams(window.location.search);
+			if (urlParams.get('productID')) {
+				product_id=urlParams.get('productID') 
+			}
+			$.ajax({       
+						 
+						 type: "POST",
+						 url: "{{url('vendor/complete-add-product')}}",
+						 data: {product_id:product_id},
+						 dataType: 'json',
+						 success: function (json) {
+						   if(json.msg=='completed'){
+							 
+							window.location.href = "{{route('vendor.dashboard.get')}}";
+						   }
+						}
+			 }
+			 );
+           // 
         }
         })
 

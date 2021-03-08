@@ -36,6 +36,11 @@ class ProductController extends Controller
     {
         $this->middleware('auth:vendor');
     }
+    //check vendor and allow auto approved product 
+    public function completeAddProduct(Request $request){
+        $responseData=array('msg' => 'completed');
+        return  $responseData;
+    }
     // 
     public function index(Request $request){
         $categoryList=Category::where("parent_id",0)->get();
