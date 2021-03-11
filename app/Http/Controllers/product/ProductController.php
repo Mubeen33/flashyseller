@@ -31,7 +31,7 @@ class ProductController extends Controller
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
-     */
+     */ 
     public function __construct()
     {
         $this->middleware('auth:vendor');
@@ -53,7 +53,7 @@ class ProductController extends Controller
         if(isset($request->productID)){
             return redirect('/vendor/add-new-product');
         }
-       
+          
         
         
     	return view('product.addproduct',compact('variationList','categoryList','brandsList'));
@@ -122,7 +122,7 @@ class ProductController extends Controller
         ProductMedia::where('image', $request->name)->delete();
         $imageSizes=array('1200','600','300');
        
-        
+         
         for($i=0;$i<count($imageSizes);$i++){
             $image_path = public_path()."/product_images/product_".$product_image_id.'/'.$imageSizes[$i].'_'.$request->name;
             @unlink($image_path);
@@ -304,9 +304,9 @@ class ProductController extends Controller
     private function addProductCategory($request){
         //  echo '<pre>';
         //  print_r($request->all());
-        //  exit;
-            $category=array();    
-            $category_id=null;
+        //  exit;    
+            $category=array();       
+            $category_id=null; 
             if(!empty($request->input('cate_id'))){
                 $category=$request->input('cate_id');
                 $category_id=array_values(array_slice($request->input('cate_id'), -1))[0];
@@ -334,21 +334,25 @@ class ProductController extends Controller
                                 $item['type'] = 'text';
                                 $item['label'] = $element->label;
                                 $item['value'] = $request['element_'.$i];
+                                $item['name'] = 'element_'.$i;
                             }
                             elseif ($element->type == 'select' || $element->type == 'radio') {
                                 $item['type'] = 'select';
                                 $item['label'] = $element->label;
                                 $item['value'] = $request['element_'.$i];
+                                $item['name'] = 'element_'.$i;
                             }
                             elseif ($element->type == 'multi_select') {
                                 $item['type'] = 'multi_select';
                                 $item['label'] = $element->label;
                                 $item['value'] = json_encode($request['element_'.$i]);
+                                $item['name'] = 'element_'.$i;
                             }
                             elseif ($element->type == 'file') {
                                 $item['type'] = 'file';
                                 $item['label'] = $element->label;
                                 $item['value'] = $request['element_'.$i]->move('product_images/media',$request['element_'.$i]);
+                                $item['name'] = 'element_'.$i;
                             }
                             array_push($data, $item);      
                             $i++;
